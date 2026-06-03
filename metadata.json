@@ -1,0 +1,6 @@
+{
+  "name": "Personal Japanese Learning Assistant",
+  "description": "Japanese learning application focusing on N5. Learn Hiragana, Katakana, Starter Kanji, weekly vocabulary & grammar with dynamic daily updates through advanced Gemini integrations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

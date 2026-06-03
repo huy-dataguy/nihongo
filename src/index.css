@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", ui-serif, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Overriding colors with highly-curated "Natural Tones" organic slate, warm terracotta & sand values */
+  
+  /* Amber is transformed into high-concept Warm Ochre & Earth Terracotta */
+  --color-amber-50: #fdfaf7;
+  --color-amber-100: #faf1e5;
+  --color-amber-200: #f3dfc1;
+  --color-amber-300: #e8c493;
+  --color-amber-400: #da9f5d;
+  --color-amber-500: #c67c33;
+  --color-amber-600: #b46124; /* Primary brand button coloring */
+  --color-amber-700: #934c1b;
+  --color-amber-800: #743a16;
+  --color-amber-900: #552a11;
+  
+  /* Slate & Gray overridden with exquisite warm limestone/clay/linen values */
+  --color-gray-50: #fcfbfa;
+  --color-gray-100: #f6f3ed;
+  --color-gray-200: #eae4d7;
+  --color-gray-300: #ded5c2;
+  --color-gray-400: #bfa68a;
+  --color-gray-500: #a1876b;
+  --color-gray-600: #886d52;
+  --color-gray-700: #6e553c;
+  --color-gray-800: #513e2b;
+  --color-gray-900: #2d2217;
+
+  /* Stone reflects physical cream clay and warm sands to set our overall room ambiance background */
+  --color-stone-50: #fcfaf6;
+  --color-stone-100: #f5efe4;
+  --color-stone-200: #e8ded1;
+  --color-stone-300: #d8c9bc;
+  --color-stone-400: #bdab9c;
+  --color-stone-500: #a28d7d;
+  --color-stone-600: #887464;
+  --color-stone-700: #6f5d4f;
+  --color-stone-800: #56473c;
+  --color-stone-900: #2c211a;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-stone-50);
+    color: var(--color-gray-800);
+    font-family: var(--font-sans);
+  }
+  
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.015em;
+  }
+}
