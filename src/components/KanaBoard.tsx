@@ -283,7 +283,7 @@ export default function KanaBoard({ kanjiList = [] }: KanaBoardProps) {
                 </div>
               ) : (
                 <div className="h-full flex flex-col items-center justify-center p-4 text-center min-h-[220px]">
-                  <BookOpen className="h-8 w-8 text-gray-350 mb-2" />
+                  <BookOpen className="h-8 w-8 text-gray-300 mb-2" />
                   <p className="text-xs text-gray-500 font-semibold">Chạm vào một Chữ Hán</p>
                   <p className="text-[10px] text-gray-400 mt-1">Để xem định nghĩa On, Kun và từ ghép ví dụ trực tiếp dạng nhanh.</p>
                 </div>

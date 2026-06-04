@@ -153,7 +153,7 @@ Chữ Hán:
 
           <textarea
             rows={10}
-            placeholder="Ví dụ dán:&#10;Hôm nay học được từ : 傘 (かさ) - nghĩa là ô che mưa.&#10;Ngữ pháp học chủ đề rủ rê : ～ましょう (Cùng làm gì đó nhé). Ví dụ: 買いましょう (Cùng mua đi)..."
+            placeholder={"Ví dụ dán:\nHôm nay học được từ : 傘 (かさ) - nghĩa là ô che mưa.\nNgữ pháp học chủ đề rủ rê : ～ましょう (Cùng làm gì đó nhé). Ví dụ: 買いましょう (Cùng mua đi)..."}
             value={rawText}
             onChange={(e) => setRawText(e.target.value)}
             disabled={isLoading}
@@ -204,7 +204,7 @@ Chữ Hán:
         </div>
 
         {/* Study logging & History */}
-        <div className="bg-gray-50/50 border border-gray-150 rounded-2xl p-5 shadow-inner flex flex-col min-h-[300px]">
+        <div className="bg-gray-50/50 border border-gray-200 rounded-2xl p-5 shadow-inner flex flex-col min-h-[300px]">
           <span className="text-xs font-bold text-gray-400 uppercase tracking-widest font-mono block mb-3">Lịch sử cập nhật của bạn</span>
           
           <div className="flex-1 overflow-y-auto space-y-3.5 max-h-[340px] pr-1">
@@ -218,7 +218,7 @@ Chữ Hán:
               importLogs.map((log) => (
                 <div
                   key={log.id}
-                  className="bg-white p-3 rounded-xl border border-gray-150 space-y-2 text-xs"
+                  className="bg-white p-3 rounded-xl border border-gray-200 space-y-2 text-xs"
                 >
                   <div className="flex justify-between items-center border-b border-gray-100 pb-1.5">
                     <span className="font-bold text-gray-800 font-mono text-[10px]">{log.date}</span>
