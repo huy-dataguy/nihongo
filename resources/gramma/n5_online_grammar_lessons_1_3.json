@@ -1,0 +1,448 @@
+{
+    "khoa_hoc": "N5 ONLINE - Nhật ngữ SAKAE",
+    "danh_muc": "TỔNG HỢP NGỮ PHÁP CHI TIẾT BÀI 1 - BÀI 3",
+    "bai_hoc": {
+        "bai_1": {
+            "ten_bai": "NGỮ PHÁP BÀI 1",
+            "cau_truc": [
+                {
+                    "id": 1,
+                    "bieu_thuc": "わたしは [Tên] です。",
+                    "y_nghia": "Tôi là ~.",
+                    "vi_du": [
+                        {
+                            "cau_hoi": "しつれいですが、おなまえは。",
+                            "dich_cau_hoi": "Xin lỗi, bạn tên là gì vậy?",
+                            "cau_tra_loi": "(わたしは)～なまえです。",
+                            "dich_cau_tra_loi": "Tôi là ~."
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "bieu_thuc": "N1 は N2 です",
+                    "y_nghia": "N1 (người) là N2 (nghề nghiệp)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "わたしは せんせいです。",
+                            "tieng_viet": "Tôi là giáo viên."
+                        },
+                        {
+                            "tieng_nhat": "Lanさんはいしゃです。",
+                            "tieng_viet": "Bạn Lan là bác sĩ."
+                        },
+                        {
+                            "tieng_nhat": "Minh さんはエンジニアです。",
+                            "tieng_viet": "Bạn Minh là kỹ sư."
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "bieu_thuc": "N1 は N2 じゃありません",
+                    "y_nghia": "N1 (người) không phải là N2 (nghề nghiệp)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "わたしはけんきゅうしゃじゃありません。",
+                            "tieng_viet": "Tôi không phải là nhà nghiên cứu."
+                        },
+                        {
+                            "tieng_nhat": "Hoaさんはいしゃじゃありません。",
+                            "tieng_viet": "Bạn Hoa không phải là bác sĩ."
+                        },
+                        {
+                            "tieng_nhat": "Quang さんは エンジニア じゃありません。",
+                            "tieng_viet": "Bạn Quang không phải là kỹ sư."
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "bieu_thuc": "Q: N1 は N2 ですか。",
+                    "y_nghia": "Câu hỏi xác nhận thông tin: N1 là N2 phải không?",
+                    "vi_du": [
+                        {
+                            "cau_hoi": "あなたはかいしゃいんですか。",
+                            "dich_cau_hoi": "Bạn là nhân viên công ty phải không?",
+                            "tra_loi_khang_dinh": "はい、かいしゃいんです。",
+                            "dich_khang_dinh": "Vâng, tôi là nhân viên công ty.",
+                            "tra_loi_phu_dinh": "いいえ、かいしゃいんじゃありません。ぎんこういんです。",
+                            "dich_phu_dinh": "Không, tôi không phải là nhân viên công ty. Tôi là nhân viên ngân hàng."
+                        }
+                    ],
+                    "tom_tat": {
+                        "khang_dinh": "N1 は N2 です。 (N1 là N2.)",
+                        "phu_dinh": "N1 は N2 じゃありません。 (N1 không phải N2.)",
+                        "cau_hoi": "N1 は N2 ですか。 (N1 là N2 phải không?)",
+                        "tra_loi_hai": "はい、N2 です。 (Vâng, là N2.)",
+                        "tra_loi_iie": "いいえ、N2 じゃありません。N3 です。 (Không, không phải là N2. Là N3.)"
+                    }
+                },
+                {
+                    "id": 5,
+                    "bieu_thuc": "Cách nói tuổi: [Số tuổi] + さい です。",
+                    "y_nghia": "Diễn tả số tuổi của một người",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "わたしはさんじゅういっさいです。",
+                            "tieng_viet": "Tôi thì 31 tuổi."
+                        },
+                        {
+                            "tieng_nhat": "Hoaさんはにじゅうよんさいです。",
+                            "tieng_viet": "Bạn Hoa thì 24 tuổi."
+                        },
+                        {
+                            "tieng_nhat": "Quang さんhははたちです。",
+                            "tieng_viet": "Bạn Quang thì 20 tuổi."
+                        },
+                        {
+                            "cau_hoi": "なんさいですか。",
+                            "dich_cau_hoi": "Bạn bao nhiêu tuổi?",
+                            "cau_tra_loi": "じゅうごさいです。",
+                            "dich_cau_tra_loi": "Tôi 15 tuổi."
+                        },
+                        {
+                            "cau_hoi": "おいくつですか。",
+                            "dich_cau_hoi": "Bạn bao nhiêu tuổi? (cách hỏi lịch sự, sử dụng với người trên, người lớn tuổi)",
+                            "cau_tra_loi": "ななじゅっさいです。",
+                            "dich_cau_tra_loi": "Tôi 70 tuổi."
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "bieu_thuc": "(くに) からきました",
+                    "y_nghia": "(Tôi) đến từ ~ [Tên quốc gia]",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "ミラーさんはアメリカからきました。",
+                            "tieng_viet": "Anh Mira đã đến từ Mỹ."
+                        },
+                        {
+                            "tieng_nhat": "イーさんはかんこくからきました。",
+                            "tieng_viet": "Chị Lee đã đến từ Hàn Quốc."
+                        },
+                        {
+                            "tieng_nhat": "ワンさんはちゅうごくからきました。",
+                            "tieng_viet": "Anh Wang đã đến từ Trung Quốc."
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "bieu_thuc": "N1 は [Tên quốc gia] + じん です。",
+                    "y_nghia": "N1 là người nước ~",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "わたしはベトナムじんです。",
+                            "tieng_viet": "Tôi là người Việt Nam."
+                        },
+                        {
+                            "tieng_nhat": "やまださんはにほんじんです。",
+                            "tieng_viet": "Anh Yamada là người Nhật Bản."
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "bieu_thuc": "~ も ~",
+                    "y_nghia": "Cũng là ~ (Trợ từ も thay thế cho は khi thông tin giống câu trước)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "A: わたしはベトナムじんです。 B: わたしもベトナムじんです。",
+                            "tieng_viet": "A: Tôi là người Việt Nam. B: Tôi cũng là người Việt Nam."
+                        }
+                    ]
+                }
+            ]
+        },
+        "bai_2": {
+            "ten_bai": "NGỮ PHÁP BÀI 2",
+            "cau_truc": [
+                {
+                    "id": 1,
+                    "bieu_thuc": "これ / それ / あれ は N です",
+                    "y_nghia": "Cái này / cái đó / cái kia là N",
+                    "ghi_chu": "これ: vật ở gần người nói; それ: vật ở gần người nghe; あれ: vật ở xa cả hai.",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "これはとけいです。",
+                            "tieng_viet": "Cái này đồng hồ."
+                        },
+                        {
+                            "tieng_nhat": "それはほんです。",
+                            "tieng_viet": "Cái đó là sách."
+                        },
+                        {
+                            "tieng_nhat": "あれはいすです。",
+                            "tieng_viet": "Cái kia là ghế."
+                        },
+                        {
+                            "cau_hoi": "base: これはノートですか。",
+                            "dich_cau_hoi": "Cái này là vở phải không?",
+                            "cau_tra_loi": "はい、そうです。ノートです。",
+                            "dich_cau_tra_loi": "Vâng, đúng vậy. là vở."
+                        },
+                        {
+                            "cau_hoi": "それは ボールペンですか。",
+                            "dich_cau_hoi": "Cái đó là bút bi phải không?",
+                            "cau_tra_loi": "いいえ、そうじゃありません。えんぴつです。",
+                            "dich_cau_tra_loi": "Không, không phải vậy. là bút chì cây."
+                        },
+                        {
+                            "cau_hoi": "これはなんですか。",
+                            "dich_cau_hoi": "Cái này là cái gì?",
+                            "cau_tra_loi": "それはしんぶんです。",
+                            "dich_cau_tra_loi": "Cái đó là báo."
+                        },
+                        {
+                            "cau_hoi": "あれはなんですか。",
+                            "dich_cau_hoi": "Cái kia là cái gì?",
+                            "cau_tra_loi": "あれはつくえです。",
+                            "dich_cau_tra_loi": "Cái kia là cái bàn."
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "bieu_thuc": "A ですか。B ですか",
+                    "y_nghia": "Câu hỏi lựa chọn: A hay là B?",
+                    "vi_du": [
+                        {
+                            "cau_hoi": "これは「シ」ですか、「ツ」ですか。",
+                            "dich_cau_hoi": "Cái này là chữ 「シ」 hay chữ 「ツ」?",
+                            "cau_tra_loi": "「シ」です。",
+                            "dich_cau_tra_loi": "Là chữ 「シ」."
+                        },
+                        {
+                            "cau_hoi": "base: それは ボールペンですか、シャープペンシルですか。",
+                            "dich_cau_hoi": "Đó là bút bi hay bút chì bấm?",
+                            "cau_tra_loi": "ボールペンです。",
+                            "dich_cau_tra_loi": "Là bút bi."
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "bieu_thuc": "base: これ / それ / あれ は N1 の N2 です",
+                    "y_nghia": "Cái này / cái đó / cái kia là N2 về/thuộc về N1",
+                    "ghi_chu": "Trợ từ の: nối hai danh từ, thứ tự ngược với tiếng Việt, mang tính sở thuộc hoặc tính nội dung.",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "これは コンピューターのほんです。",
+                            "tieng_viet": "Cái này là sách về máy vi tính."
+                        },
+                        {
+                            "cau_hoi": "これはなんのほんですか。",
+                            "dich_cau_hoi": "Cái này là sách về cái gì vậy?",
+                            "cau_tra_loi": "それはにほんごのほんです。",
+                            "dich_cau_tra_loi": "Đó là sách tiếng Nhật."
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "bieu_thuc": "~ は N の かいしゃ / がっこう です",
+                    "y_nghia": "... là công ty hoặc trường học về mảng/ngành N",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "ホンダは バイクのかいしゃです。",
+                            "vi_tri": "Honda là công ty về xe máy.",
+                            "tieng_viet": "Honda là công ty về xe máy."
+                        },
+                        {
+                            "tieng_nhat": "さかえセンターはにほんごのがっこうです。",
+                            "tieng_viet": "Trung tâm Sakae là trường dạy tiếng Nhật."
+                        },
+                        {
+                            "cau_hoi": "トヨタはなんのかいしゃですか。",
+                            "dich_cau_hoi": "Toyota là công ty về cái gì (lĩnh vực gì)?",
+                            "cau_tra_loi": "くるまの かいしゃです。",
+                            "dich_cau_tra_loi": "Là công ty về ô tô."
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "bieu_thuc": "これ / それ / あれ は ひとの N です",
+                    "y_nghia": "Cái này / cái đó / cái kia là N (đồ vật) của [Người]",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "これはわたしのノートです。",
+                            "tieng_viet": "Cái này là vở của tôi."
+                        },
+                        {
+                            "tieng_nhat": "それは やまださんのかぎです。",
+                            "tieng_viet": "Cái đó là chìa khóa của anh Yamada."
+                        },
+                        {
+                            "tieng_nhat": "あれは サントスさんの かばんです。",
+                            "tieng_viet": "Cái kia là cặp của Santos."
+                        },
+                        {
+                            "cau_hoi": "これはだれのカメラですか。",
+                            "dich_cau_hoi": "Cái này là máy ảnh của ai?",
+                            "cau_tra_loi": "それはミラーさんのカメラです。",
+                            "dich_cau_tra_loi": "Đó là máy ảnh của anh Mira."
+                        },
+                        {
+                            "cau_hoi": "あれはだれのバイクですか。",
+                            "dich_cau_hoi": "Kia là xe máy của ai?",
+                            "cau_tra_loi": "あれは せんせいのバイクです。",
+                            "dich_cau_tra_loi": "Kia là xe máy của thầy."
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "bieu_thuc": "ひとは ~ の N です",
+                    "y_nghia": "[Người] là nhân viên/thành viên thuộc về N (tổ chức, công ty)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "ミラーさんは IMCのしゃいんです。",
+                            "tieng_viet": "Anh Mira là nhân viên của Công ty IMC."
+                        },
+                        {
+                            "tieng_nhat": "シュミットさんはパワーでんきのエンジニアです。",
+                            "tieng_viet": "Anh Schmidt là kỹ kỹ sư của công ty điện Pawa."
+                        },
+                        {
+                            "tieng_nhat": "カリナさんはさくらだいがくのがくせいです。",
+                            "tieng_viet": "Karina là sinh viên trường Đại học Sakura."
+                        }
+                    ]
+                }
+            ]
+        },
+        "bai_3": {
+            "ten_bai": "NGỮ PHÁP BÀI 3",
+            "cau_truc": [
+                {
+                    "id": 1,
+                    "bieu_thuc": "ここ / そこ / あそこ は ばしょ です。",
+                    "y_nghia": "Chỗ này / Chỗ đó / Chỗ kia là [Địa điểm].",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "ここはきょうしつです。",
+                            "tieng_viet": "Chỗ này là phòng học."
+                        },
+                        {
+                            "tieng_nhat": "そこはかいだんです。",
+                            "tieng_viet": "Chỗ đó là cầu thang."
+                        },
+                        {
+                            "tieng_nhat": "あそこはトイレです。",
+                            "tieng_viet": "Chỗ kia là nhà vệ sinh."
+                        },
+                        {
+                            "cau_hoi": "ここはきょうしつですか。",
+                            "dich_cau_hoi": "Chỗ này là phòng học phải không?",
+                            "cau_tra_loi": "はい、そうです。きょうしつです。",
+                            "dich_cau_tra_loi": "Vâng, đúng vậy. Là phòng học."
+                        },
+                        {
+                            "cau_hoi": "あそこはエレベーターですか。",
+                            "dich_cau_hoi": "Chỗ kia là thang máy phải không?",
+                            "cau_tra_loi": "いいえ、そうじゃありません。トイレです。",
+                            "dich_cau_tra_loi": "Không, không phải vậy. Là nhà vệ sinh."
+                        },
+                        {
+                            "cau_hoi": "かいぎしつはどこですか。",
+                            "dich_cau_hoi": "Phòng họp thì ở đâu?",
+                            "cau_tra_loi": "あそこです。",
+                            "dich_cau_tra_loi": "Ở chỗ kia."
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "bieu_thuc": "こちら / そちら / あちら / どちら",
+                    "y_nghia": "Hướng này, hướng đó, hướng kia, hướng nào / đâu? (Lịch sự của ここ/そこ/あそこ/どこ)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "こちらはうけつけです。",
+                            "tieng_viet": "Chỗ này là quầy lễ tân."
+                        },
+                        {
+                            "tieng_nhat": "そちらはロビーです。",
+                            "tieng_viet": "Chỗ đó là sảnh."
+                        },
+                        {
+                            "tieng_nhat": "あちらはじむしょです。",
+                            "tieng_viet": "Chỗ kia là văn phòng."
+                        },
+                        {
+                            "cau_hoi": "しょくどうはどちらですか。",
+                            "dich_cau_hoi": "Nhà ăn thì ở đâu ạ?",
+                            "cau_tra_loi": "あちらです。",
+                            "dich_cau_tra_loi": "Ở chỗ kia ạ."
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "bieu_thuc": "ひと は ばしょ です / もの は ばしょ です",
+                    "y_nghia": "Người thì ở [Địa điểm] / Đồ vật thì ở [Địa điểm]",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "わたしはきょうしつです。",
+                            "tieng_viet": "Tôi ở phòng học."
+                        },
+                        {
+                            "tieng_nhat": "ざっしはロビーです。",
+                            "tieng_viet": "Tạp chí thì ở sảnh đợi."
+                        },
+                        {
+                            "cau_hoi": "さとうさんはどこですか。",
+                            "dich_cau_hoi": "Chị Sato thì ở đâu?",
+                            "cau_tra_loi": "しょくどうです。",
+                            "dich_cau_tra_loi": "Ở nhà ăn."
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "bieu_thuc": "N は えん です",
+                    "y_nghia": "N có giá là số tiền Yên",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "このかばんはさんぜんはっぴゃくえんです。",
+                            "tieng_viet": "Cái cặp này thì có giá là 3.800 yên."
+                        },
+                        {
+                            "tieng_nhat": "あのとけいはいちまんはっせんえんです。",
+                            "tieng_viet": "Đồng hồ kia có giá là 18.000 yên."
+                        },
+                        {
+                            "cau_hoi": "このくつはいくらですか。",
+                            "dich_cau_hoi": "Đôi giày này bao nhiêu tiền ạ?",
+                            "cau_tra_loi": "きゅうせんごひゃくえんです。",
+                            "dich_cau_tra_loi": "9.500 yên ạ."
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "bieu_thuc": "これ / それ / あれ は くに の N です",
+                    "y_nghia": "Cái này / cái đó / cái kia là N xuất xứ từ nước [Tên quốc gia]",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "これはフランスのワインです。",
+                            "tieng_viet": "Cái này là rượu vang xuất xứ từ Pháp."
+                        },
+                        {
+                            "tieng_nhat": "あれはにほんのくるまです。",
+                            "tieng_viet": "Cái kia là xe hơi xuất xứ từ Nhật Bản."
+                        },
+                        {
+                            "cau_hoi": "それはどこのくつですか。",
+                            "dich_cau_hoi": "Cái đó là giày xuất xứ từ đâu (nước nào)?",
+                            "cau_tra_loi": "イタリアのくつです。",
+                            "dich_cau_tra_loi": "Giày xuất xứ từ Ý."
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

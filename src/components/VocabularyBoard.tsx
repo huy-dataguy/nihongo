@@ -1,7 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { VocabularyItem } from "../types";
 import { speakJapanese } from "../utils/audio";
-import { Search, Volume2, Star, Grid, List as ListIcon, BookOpen, Layers } from "lucide-react";
+import { supabase } from "../lib/supabase";
+import { Search, Volume2, Star, Grid, List as ListIcon, BookOpen, Layers, Brain, Check, X, RotateCcw, BarChart3 } from "lucide-react";
+import { getRomaji, kanaToRomaji } from "../utils/kanaToRomaji";
 
 interface VocabularyBoardProps {
   vocabularyList: VocabularyItem[];
@@ -16,8 +18,74 @@ export default function VocabularyBoard({
 }: VocabularyBoardProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [viewMode, setViewMode] = useState<"list" | "flashcards">("list");
+  const [viewMode, setViewMode] = useState<"list" | "flashcards" | "study">("list");
   const [showReadings, setShowReadings] = useState(true);
+
+  // Study mode states
+  const [studyFilter, setStudyFilter] = useState<"all" | "due" | "new" | "lesson">("all");
+  const [studyLesson, setStudyLesson] = useState<number>(0);
+  const [studyCards, setStudyCards] = useState<VocabularyItem[]>([]);
+  const [studyIndex, setStudyIndex] = useState(0);
+  const [studyFlipped, setStudyFlipped] = useState(false);
+  const [studyStats, setStudyStats] = useState({ known: 0, unknown: 0, total: 0 });
+  const [vocabProgress, setVocabProgress] = useState<Record<string, any>>({});
+
+  // Load vocab study progress from Supabase
+  const loadProgress = useCallback(async () => {
+    const { data } = await supabase.from("vocab_study").select("*");
+    if (data) {
+      const map: Record<string, any> = {};
+      for (const row of data) map[row.vocab_id] = row;
+      setVocabProgress(map);
+    }
+  }, []);
+
+  useEffect(() => { loadProgress(); }, [loadProgress]);
+
+  // Spaced repetition: intervals per box level (days)
+  const BOX_INTERVALS = [0, 1, 3, 7, 14, 30];
+
+  const updateWordProgress = async (vocabId: string, knew: boolean) => {
+    const existing = vocabProgress[vocabId];
+    let newBox: number, newStreak: number, newCorrect: number, newTotal: number;
+
+    if (existing) {
+      newTotal = (existing.total_reviews || 0) + 1;
+      newCorrect = (existing.total_correct || 0) + (knew ? 1 : 0);
+      newStreak = knew ? (existing.correct_streak || 0) + 1 : 0;
+      // Promote or demote box
+      if (knew) {
+        newBox = Math.min((existing.box || 0) + 1, 5);
+      } else {
+        newBox = Math.max((existing.box || 0) - 1, 0);
+      }
+    } else {
+      newTotal = 1;
+      newCorrect = knew ? 1 : 0;
+      newStreak = knew ? 1 : 0;
+      newBox = knew ? 1 : 0;
+    }
+
+    const nextReview = new Date();
+    nextReview.setDate(nextReview.getDate() + BOX_INTERVALS[newBox]);
+
+    await supabase.from("vocab_study").upsert({
+      vocab_id: vocabId,
+      box: newBox,
+      next_review: nextReview.toISOString().split("T")[0],
+      last_reviewed: new Date().toISOString(),
+      correct_streak: newStreak,
+      total_reviews: newTotal,
+      total_correct: newCorrect,
+      updated_at: new Date().toISOString(),
+    });
+
+    // Update local state
+    setVocabProgress(prev => ({
+      ...prev,
+      [vocabId]: { box: newBox, next_review: nextReview, correct_streak: newStreak, total_reviews: newTotal, total_correct: newCorrect },
+    }));
+  };
   
   // Flashcard states
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -33,12 +101,15 @@ export default function VocabularyBoard({
   const filteredVocabulary = useMemo(() => {
     return vocabularyList.filter((item) => {
       const matchesCategory = selectedCategory === "all" || item.category === selectedCategory;
+      const term = searchTerm.toLowerCase();
+      const romajiConverted = kanaToRomaji(item.reading);
       const matchesSearch =
-        searchTerm === "" ||
-        item.word.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.reading.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.romaji.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.meaning.toLowerCase().includes(searchTerm.toLowerCase());
+        term === "" ||
+        item.word.toLowerCase().includes(term) ||           // kanji / hiragana
+        item.reading.toLowerCase().includes(term) ||        // hiragana reading
+        romajiConverted.toLowerCase().includes(term) ||     // romaji (auto-converted)
+        (item.romaji && item.romaji.toLowerCase().includes(term)) || // romaji (stored)
+        item.meaning.toLowerCase().includes(term);          // nghĩa tiếng Việt
       return matchesCategory && matchesSearch;
     });
   }, [vocabularyList, selectedCategory, searchTerm]);
@@ -106,6 +177,17 @@ export default function VocabularyBoard({
               <Grid size={14} />
               Flashcards
             </button>
+            <button
+              onClick={() => { setViewMode("study"); startStudySession(); }}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                viewMode === "study"
+                  ? "bg-amber-600 text-white shadow-xs"
+                  : "text-gray-500 hover:text-gray-900"
+              }`}
+            >
+              <Brain size={14} />
+              Ôn tập
+            </button>
           </div>
         </div>
       </div>
@@ -117,7 +199,7 @@ export default function VocabularyBoard({
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
           <input
             type="text"
-            placeholder="Tra cứu bằng Kanji, Hiragana, Romaji hoặc Tiếng Việt..."
+            placeholder="Tìm theo từ vựng, cách đọc (romaji), hoặc nghĩa tiếng Việt..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-9 pr-4 py-2 text-sm bg-gray-50 hover:bg-gray-100/50 focus:bg-white rounded-xl border border-gray-200 focus:border-amber-300 focus:outline-none transition-all"
@@ -157,7 +239,7 @@ export default function VocabularyBoard({
                   <tr className="bg-gray-100/40 border-b border-gray-100 text-gray-600 font-medium text-xs uppercase tracking-wider">
                     <th className="py-3.5 px-4 w-12"></th>
                     <th className="py-3.5 px-4">Từ vựng</th>
-                    {showReadings && <th className="py-3.5 px-4">Cách đọc / Phụ âm</th>}
+                    {showReadings && <th className="py-3.5 px-4">Cách đọc (Romaji)</th>}
                     <th className="py-3.5 px-4">Nghĩa tiếng Việt</th>
                     <th className="py-3.5 px-4 w-14"></th>
                   </tr>
@@ -200,8 +282,12 @@ export default function VocabularyBoard({
                       {showReadings && (
                         <td className="py-3.5 px-4">
                           <div className="flex flex-col">
-                            <span className="text-gray-800 font-medium">{item.reading}</span>
-                            <span className="text-xs text-gray-400 font-mono tracking-wider">{item.romaji}</span>
+                            {item.reading !== item.word && (
+                              <span className="text-gray-800 font-medium">{item.reading}</span>
+                            )}
+                            <span className="text-xs text-gray-400 font-mono tracking-wider">
+                              {getRomaji(item.reading, item.romaji)}
+                            </span>
                           </div>
                         </td>
                       )}
@@ -294,7 +380,7 @@ export default function VocabularyBoard({
                         {filteredVocabulary[currentCardIndex].reading}
                       </div>
                       <div className="text-xs text-gray-400 font-mono tracking-wider">
-                        {filteredVocabulary[currentCardIndex].romaji}
+                        {getRomaji(filteredVocabulary[currentCardIndex].reading, filteredVocabulary[currentCardIndex].romaji)}
                       </div>
                       <div className="text-lg font-semibold text-gray-800 border-t border-amber-100/60 pt-3 inline-block px-6">
                         {filteredVocabulary[currentCardIndex].meaning}
@@ -345,6 +431,240 @@ export default function VocabularyBoard({
           )}
         </div>
       )}
+
+      {/* ==================== Study Mode (Spaced Repetition) ==================== */}
+      {viewMode === "study" && (
+        <div className="space-y-6">
+          {/* Study Filter Controls */}
+          <div className="flex flex-wrap gap-2 items-center">
+            {([
+              { key: "all", label: "🎯 Tất cả" },
+              { key: "due", label: "⏰ Cần ôn hôm nay" },
+              { key: "new", label: "🆕 Từ mới" },
+            ] as const).map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => { setStudyFilter(key as any); }}
+                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                  studyFilter === key ? "bg-amber-600 text-white" : "bg-gray-100 text-gray-500 hover:text-gray-900"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+
+            {/* Lesson filter */}
+            {(() => {
+              const lessons = [...new Set(vocabularyList.map(v => v.lesson || 0).filter(l => l > 0))].sort((a, b) => a - b);
+              return lessons.map(l => (
+                <button
+                  key={l}
+                  onClick={() => { setStudyFilter("lesson"); setStudyLesson(l); }}
+                  className={`px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                    studyFilter === "lesson" && studyLesson === l ? "bg-stone-900 text-white" : "bg-gray-100 text-gray-500 hover:text-gray-900"
+                  }`}
+                >
+                  Bài {l}
+                </button>
+              ));
+            })()}
+
+            <button
+              onClick={() => startStudySession()}
+              className="ml-auto px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 transition-all flex items-center gap-1"
+            >
+              <RotateCcw size={12} />
+              Xáo trộn lại
+            </button>
+          </div>
+
+          {/* Progress Stats Bar */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            {[
+              { label: "Từ mới", count: vocabularyList.filter(v => !vocabProgress[v.id]).length, color: "text-blue-600 bg-blue-50" },
+              { label: "Hộp 1 (1 ngày)", count: Object.values(vocabProgress).filter((v: any) => v.box === 1).length, color: "text-amber-600 bg-amber-50" },
+              { label: "Hộp 2 (3 ngày)", count: Object.values(vocabProgress).filter((v: any) => v.box === 2).length, color: "text-orange-600 bg-orange-50" },
+              { label: "Hộp 3-4 (1-2 tuần)", count: Object.values(vocabProgress).filter((v: any) => v.box === 3 || v.box === 4).length, color: "text-emerald-600 bg-emerald-50" },
+              { label: "Đã thuộc (Box 5)", count: Object.values(vocabProgress).filter((v: any) => v.box === 5).length, color: "text-green-600 bg-green-50" },
+            ].map(s => (
+              <div key={s.label} className={`p-3 rounded-xl border border-gray-100 ${s.color}`}>
+                <span className="text-[10px] font-bold block opacity-70">{s.label}</span>
+                <span className="text-xl font-black">{s.count}</span>
+              </div>
+            ))}
+          </div>
+
+          {studyCards.length === 0 ? (
+            <div className="text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+              <Brain className="mx-auto h-12 w-12 text-gray-300 mb-3" />
+              <p className="text-gray-500 font-medium">Không có từ nào cần ôn cho bộ lọc này.</p>
+              <p className="text-xs text-gray-400 mt-1">Thử đổi filter hoặc click "Tất cả" để ôn toàn bộ.</p>
+            </div>
+          ) : studyIndex >= studyCards.length ? (
+            /* Study Complete */
+            <div className="max-w-md mx-auto text-center py-8 space-y-6 animate-fade">
+              <div className="inline-flex p-4 rounded-full bg-emerald-50 text-emerald-500">
+                <BarChart3 size={48} />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900">Hoàn thành phiên ôn tập!</h3>
+              <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 inline-block px-12">
+                <span className="text-xs text-gray-400 font-bold block uppercase tracking-wider font-mono">Kết quả</span>
+                <div className="flex items-center justify-center gap-4 mt-2">
+                  <span className="text-emerald-600 text-3xl font-black">✓ {studyStats.known}</span>
+                  <span className="text-rose-600 text-3xl font-black">✗ {studyStats.unknown}</span>
+                </div>
+                <span className="text-xs text-gray-500 mt-1 block">
+                  {studyStats.total} từ • {Math.round((studyStats.known / studyStats.total) * 100)}% nhớ được
+                </span>
+              </div>
+              <button
+                onClick={() => startStudySession()}
+                className="flex items-center gap-2 px-5 py-2.5 mx-auto text-sm font-semibold text-white bg-amber-600 hover:bg-amber-700 rounded-xl transition-all shadow-md"
+              >
+                <RotateCcw size={16} />
+                Ôn lại
+              </button>
+            </div>
+          ) : (
+            /* Study Card */
+            <div className="max-w-md mx-auto space-y-4">
+              <div className="flex justify-between items-center text-xs text-gray-400 font-mono">
+                <span>
+                  {studyFilter === "lesson" ? `Bài ${studyLesson}` : studyFilter === "due" ? "Cần ôn hôm nay" : studyFilter === "new" ? "Từ mới" : "Tất cả"}
+                </span>
+                <span>Câu {studyIndex + 1} / {studyCards.length}</span>
+              </div>
+
+              {/* Progress bar */}
+              <div className="w-full bg-gray-100 rounded-full h-1.5">
+                <div className="bg-amber-500 h-1.5 rounded-full transition-all duration-300"
+                  style={{ width: `${((studyIndex) / studyCards.length) * 100}%` }} />
+              </div>
+
+              {/* Card */}
+              <div
+                onClick={() => { setStudyFlipped(!studyFlipped); if (!studyFlipped) speakJapanese(studyCards[studyIndex].word); }}
+                className={`relative h-64 w-full rounded-2xl border cursor-pointer shadow-md flex flex-col justify-between p-6 transition-all duration-300 select-none ${
+                  studyFlipped ? "bg-amber-50/40 border-amber-300/80 ring-1 ring-amber-200" : "bg-white border-gray-200/80 hover:shadow-lg"
+                }`}
+              >
+                {/* Box level badge */}
+                <div className="flex justify-between items-start">
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    getBoxStyle(vocabProgress[studyCards[studyIndex]?.id]?.box || 0)
+                  }`}>
+                    {getBoxLabel(vocabProgress[studyCards[studyIndex]?.id]?.box || 0)}
+                  </span>
+                  <span className="text-[10px] text-gray-300">{studyCards[studyIndex]?.category}</span>
+                </div>
+
+                {/* Content */}
+                <div className="text-center flex-1 flex flex-col justify-center">
+                  {!studyFlipped ? (
+                    <div className="space-y-2">
+                      <h3 className="text-4xl font-bold text-gray-900 tracking-tight">{studyCards[studyIndex]?.word}</h3>
+                      <p className="text-xs text-gray-400 animate-pulse mt-4">Chạm để xem nghĩa ✨</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-3 animate-fade">
+                      <div className="text-xl font-bold text-amber-700">{studyCards[studyIndex]?.reading}</div>
+                      <div className="text-xs text-gray-400 font-mono">{getRomaji(studyCards[studyIndex]?.reading || "", studyCards[studyIndex]?.romaji)}</div>
+                      <div className="text-lg font-semibold text-gray-800 border-t border-amber-100/60 pt-3">{studyCards[studyIndex]?.meaning}</div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex justify-center">
+                  <button onClick={(e) => { e.stopPropagation(); speakJapanese(studyCards[studyIndex]?.word); }}
+                    className="p-2 text-gray-400 hover:text-amber-700 hover:bg-gray-100 rounded-full transition-colors">
+                    <Volume2 size={16} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Know / Don't Know buttons */}
+              <div className="flex gap-3">
+                <button
+                  onClick={() => handleStudyAnswer(false)}
+                  className="flex-1 py-3 rounded-xl border-2 border-rose-200 bg-rose-50 text-rose-700 font-bold text-sm hover:bg-rose-100 transition-all flex items-center justify-center gap-2"
+                >
+                  <X size={16} />
+                  Chưa nhớ
+                </button>
+                <button
+                  onClick={() => handleStudyAnswer(true)}
+                  className="flex-1 py-3 rounded-xl border-2 border-emerald-200 bg-emerald-50 text-emerald-700 font-bold text-sm hover:bg-emerald-100 transition-all flex items-center justify-center gap-2"
+                >
+                  <Check size={16} />
+                  Đã nhớ ✓
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
+
+  // ============================================
+  // Study Mode helpers
+  // ============================================
+
+  function startStudySession() {
+    let cards = [...vocabularyList];
+    const today = new Date().toISOString().split("T")[0];
+
+    if (studyFilter === "lesson" && studyLesson > 0) {
+      cards = cards.filter(v => (v.lesson || 0) === studyLesson);
+    } else if (studyFilter === "due") {
+      cards = cards.filter(v => {
+        const p = vocabProgress[v.id];
+        if (!p) return false; // not due if never studied
+        return p.next_review <= today;
+      });
+    } else if (studyFilter === "new") {
+      cards = cards.filter(v => !vocabProgress[v.id]);
+    }
+
+    // Shuffle
+    cards = cards.sort(() => Math.random() - 0.5).slice(0, 30); // max 30 per session
+
+    setStudyCards(cards);
+    setStudyIndex(0);
+    setStudyFlipped(false);
+    setStudyStats({ known: 0, unknown: 0, total: cards.length });
+  }
+
+  function handleStudyAnswer(knew: boolean) {
+    const card = studyCards[studyIndex];
+    if (!card) return;
+
+    updateWordProgress(card.id, knew);
+
+    setStudyStats(prev => ({
+      ...prev,
+      known: prev.known + (knew ? 1 : 0),
+      unknown: prev.unknown + (knew ? 0 : 1),
+    }));
+
+    setStudyFlipped(false);
+    setStudyIndex(prev => prev + 1);
+  }
+
+  function getBoxLabel(box: number): string {
+    const labels = ["🆕 Mới", "📦 Box 1", "📦 Box 2", "📦 Box 3", "📦 Box 4", "🏆 Đã thuộc"];
+    return labels[box] || "🆕 Mới";
+  }
+
+  function getBoxStyle(box: number): string {
+    const styles = [
+      "bg-blue-50 text-blue-600 border border-blue-200",
+      "bg-amber-50 text-amber-600 border border-amber-200",
+      "bg-orange-50 text-orange-600 border border-orange-200",
+      "bg-yellow-50 text-yellow-700 border border-yellow-200",
+      "bg-emerald-50 text-emerald-600 border border-emerald-200",
+      "bg-green-50 text-green-700 border border-green-200",
+    ];
+    return styles[box] || styles[0];
+  }
 }

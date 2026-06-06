@@ -1,0 +1,529 @@
+{
+  "bai": 8,
+  "danh_muc": {
+    "meishi": {
+      "loai": "Danh từ",
+      "tu_vung": [
+        {
+          "stt": 1,
+          "hiragana": "やま",
+          "y_nghia": "Núi"
+        },
+        {
+          "stt": 2,
+          "hiragana": "かわ",
+          "y_nghia": "Sông"
+        },
+        {
+          "stt": 3,
+          "hiragana": "うみ",
+          "y_nghia": "Biển"
+        },
+        {
+          "stt": 4,
+          "hiragana": "まち",
+          "y_nghia": "Thành phố, thị trấn"
+        },
+        {
+          "stt": 5,
+          "hiragana": "ふじさん",
+          "y_nghia": "Núi Phú Sĩ"
+        },
+        {
+          "stt": 6,
+          "hiragana": "さくら",
+          "y_nghia": "Hoa anh đào"
+        },
+        {
+          "stt": 7,
+          "hiragana": "りょう",
+          "y_nghia": "Ký túc xá"
+        },
+        {
+          "stt": 8,
+          "hiragana": "しごと",
+          "y_nghia": "Công việc"
+        },
+        {
+          "stt": 9,
+          "hiragana": "せいかつ",
+          "y_nghia": "Cuộc sống"
+        },
+        {
+          "stt": 10,
+          "hiragana": "りょうり",
+          "y_nghia": "Món ăn"
+        },
+        {
+          "stt": 11,
+          "hiragana": "ところ",
+          "y_nghia": "Nơi, chỗ"
+        },
+        {
+          "stt": 12,
+          "hiragana": "パーティー",
+          "y_nghia": "Buổi tiệc"
+        },
+        {
+          "stt": 13,
+          "hiragana": "シャンハイ",
+          "y_nghia": "Thượng Hải"
+        },
+        {
+          "stt": 14,
+          "hiragana": "ケータイ",
+          "y_nghia": "Điện thoại"
+        },
+        {
+          "stt": 15,
+          "hiragana": "いろ",
+          "y_nghia": "Màu sắc"
+        }
+      ]
+    },
+    "keiyoushi_i": {
+      "loai": "Tính từ đuôi i",
+      "tu_vung": [
+        {
+          "stt": 16,
+          "hiragana": "あつい",
+          "y_nghia": "Nóng (thời tiết)"
+        },
+        {
+          "stt": 17,
+          "hiragana": "さむい",
+          "y_nghia": "Lạnh (thời tiết)"
+        },
+        {
+          "stt": 18,
+          "hiragana": "あつい",
+          "y_nghia": "Nóng (đồ uống)"
+        },
+        {
+          "stt": 19,
+          "hiragana": "つめたい",
+          "y_nghia": "Lạnh (đồ uống)"
+        },
+        {
+          "stt": 20,
+          "hiragana": "たかい",
+          "y_nghia": "Cao"
+        },
+        {
+          "stt": 21,
+          "hiragana": "ひくい",
+          "y_nghia": "Thấp"
+        },
+        {
+          "stt": 22,
+          "hiragana": "たかい",
+          "y_nghia": "Đắt"
+        },
+        {
+          "stt": 23,
+          "hiragana": "やすい",
+          "y_nghia": "Rẻ"
+        },
+        {
+          "stt": 24,
+          "hiragana": "おおきい",
+          "y_nghia": "To, lớn"
+        },
+        {
+          "stt": 25,
+          "hiragana": "ちいさい",
+          "y_nghia": "Nhỏ"
+        },
+        {
+          "stt": 26,
+          "hiragana": "いい",
+          "y_nghia": "Tốt"
+        },
+        {
+          "stt": 27,
+          "hiragana": "わるい",
+          "y_nghia": "Xấu"
+        },
+        {
+          "stt": 28,
+          "hiragana": "あたらしい",
+          "y_nghia": "Mới, tươi"
+        },
+        {
+          "stt": 29,
+          "hiragana": "ふるい",
+          "y_nghia": "Cũ, cổ"
+        },
+        {
+          "stt": 30,
+          "hiragana": "おもしろい",
+          "y_nghia": "Thú vị, hay"
+        },
+        {
+          "stt": 31,
+          "hiragana": "つまらない",
+          "y_nghia": "Chán"
+        },
+        {
+          "stt": 32,
+          "hiragana": "やさしい",
+          "y_nghia": "Dễ"
+        },
+        {
+          "stt": 33,
+          "hiragana": "むずかしい",
+          "y_nghia": "Khó"
+        },
+        {
+          "stt": 34,
+          "hiragana": "おいしい",
+          "y_nghia": "Ngon"
+        },
+        {
+          "stt": 35,
+          "hiragana": "まずい",
+          "y_nghia": "Dở"
+        },
+        {
+          "stt": 36,
+          "hiragana": "いそがしい",
+          "y_nghia": "Bận"
+        },
+        {
+          "stt": 37,
+          "hiragana": "たのしい",
+          "y_nghia": "Vui vẻ"
+        },
+        {
+          "stt": 38,
+          "hiragana": "しろい",
+          "y_nghia": "Màu trắng"
+        },
+        {
+          "stt": 39,
+          "hiragana": "くろい",
+          "y_nghia": "Màu đen"
+        },
+        {
+          "stt": 40,
+          "hiragana": "あかい",
+          "y_nghia": "Màu đỏ"
+        },
+        {
+          "stt": 41,
+          "hiragana": "あおい",
+          "y_nghia": "Màu xanh"
+        },
+        {
+          "stt": 42,
+          "hiragana": "きいろい",
+          "y_nghia": "Màu vàng"
+        },
+        {
+          "stt": 43,
+          "hiragana": "ちゃいろい",
+          "y_nghia": "Màu nâu"
+        }
+      ]
+    },
+    "keiyoushi_na": {
+      "loai": "Tính từ đuôi na",
+      "tu_vung": [
+        {
+          "stt": 44,
+          "hiragana": "げんき(な)",
+          "y_nghia": "Khỏe"
+        },
+        {
+          "stt": 45,
+          "hiragana": "しんせつ(な)",
+          "y_nghia": "Tử tế"
+        },
+        {
+          "stt": 46,
+          "hiragana": "きれい(な)",
+          "y_nghia": "Đẹp, sạch"
+        },
+        {
+          "stt": 47,
+          "hiragana": "ハンサム(な)",
+          "y_nghia": "Đẹp trai"
+        },
+        {
+          "stt": 48,
+          "hiragana": "ゆうめい(な)",
+          "y_nghia": "Nổi tiếng"
+        },
+        {
+          "stt": 49,
+          "hiragana": "ひま(な)",
+          "y_nghia": "Rảnh"
+        },
+        {
+          "stt": 50,
+          "hiragana": "にぎやか(な)",
+          "y_nghia": "Náo nhiệt"
+        },
+        {
+          "stt": 51,
+          "hiragana": "しずか(な)",
+          "y_nghia": "Yên tĩnh"
+        },
+        {
+          "stt": 52,
+          "hiragana": "べんり(な)",
+          "y_nghia": "Tiện lợi"
+        },
+        {
+          "stt": 53,
+          "hiragana": "ふべん(な)",
+          "y_nghia": "Bất tiện"
+        },
+        {
+          "stt": 54,
+          "hiragana": "たいへん(な)",
+          "y_nghia": "Vất vả"
+        },
+        {
+          "stt": 55,
+          "hiragana": "すてき(な)",
+          "y_nghia": "Tuyệt đẹp"
+        },
+        {
+          "stt": 56,
+          "hiragana": "ざんねん(な)",
+          "y_nghia": "Đáng tiếc"
+        }
+      ]
+    },
+    "kanji": {
+      "loai": "Chữ Hán tự",
+      "tu_vung": [
+        {
+          "stt": 1,
+          "hiragana": "ついたち",
+          "kanji": "一日",
+          "y_nghia": "Ngày 1",
+          "romaji": "tsuitachi"
+        },
+        {
+          "stt": 2,
+          "hiragana": "いちにち",
+          "kanji": "一日",
+          "y_nghia": "1 ngày",
+          "romaji": "ichinichi"
+        },
+        {
+          "stt": 3,
+          "hiragana": "いちがつ",
+          "kanji": "一月",
+          "y_nghia": "Tháng 1",
+          "romaji": "ichigatsu"
+        },
+        {
+          "stt": 4,
+          "hiragana": "ふつか",
+          "kanji": "二日",
+          "y_nghia": "Ngày 2, 2 ngày",
+          "romaji": "futsuka"
+        },
+        {
+          "stt": 5,
+          "hiragana": "にがつ",
+          "kanji": "二月",
+          "y_nghia": "Tháng 2",
+          "romaji": "nigatsu"
+        },
+        {
+          "stt": 6,
+          "hiragana": "みっか",
+          "kanji": "三日",
+          "y_nghia": "Ngày 3, 3 ngày",
+          "romaji": "mikka"
+        },
+        {
+          "stt": 7,
+          "hiragana": "さんがつ",
+          "kanji": "三月",
+          "y_nghia": "Tháng 3",
+          "romaji": "sangatsu"
+        },
+        {
+          "stt": 8,
+          "hiragana": "よっか",
+          "kanji": "四日",
+          "y_nghia": "Ngày 4, 4 ngày",
+          "romaji": "yokka"
+        },
+        {
+          "stt": 9,
+          "hiragana": "しがつ",
+          "kanji": "四月",
+          "y_nghia": "Tháng 4",
+          "romaji": "shigatsu"
+        },
+        {
+          "stt": 10,
+          "hiragana": "いつか",
+          "kanji": "五日",
+          "y_nghia": "Ngày 5, 5 ngày",
+          "romaji": "itsuka"
+        },
+        {
+          "stt": 11,
+          "hiragana": "ごがつ",
+          "kanji": "五月",
+          "y_nghia": "Tháng 5",
+          "romaji": "gogatsu"
+        },
+        {
+          "stt": 12,
+          "hiragana": "むいか",
+          "kanji": "六日",
+          "y_nghia": "Ngày 6, 6 ngày",
+          "romaji": "muika"
+        },
+        {
+          "stt": 13,
+          "hiragana": "ろくがつ",
+          "kanji": "六月",
+          "y_nghia": "Tháng 6",
+          "romaji": "rokugatsu"
+        },
+        {
+          "stt": 14,
+          "hiragana": "なのか",
+          "kanji": "七日",
+          "y_nghia": "Ngày 7, 7 ngày",
+          "romaji": "nanoka"
+        },
+        {
+          "stt": 15,
+          "hiragana": "しちがつ",
+          "kanji": "七月",
+          "y_nghia": "Tháng 7",
+          "romaji": "shichigatsu"
+        },
+        {
+          "stt": 16,
+          "hiragana": "ようか",
+          "kanji": "八日",
+          "y_nghia": "Ngày 8, 8 ngày",
+          "romaji": "youka"
+        },
+        {
+          "stt": 17,
+          "hiragana": "はちがつ",
+          "kanji": "八月",
+          "y_nghia": "Tháng 8",
+          "romaji": "hachigatsu"
+        },
+        {
+          "stt": 18,
+          "hiragana": "ここのか",
+          "kanji": "九日",
+          "y_nghia": "Ngày 9, 9 ngày",
+          "romaji": "kokonoka"
+        },
+        {
+          "stt": 19,
+          "hiragana": "くがつ",
+          "kanji": "九月",
+          "y_nghia": "Tháng 9",
+          "romaji": "kugatsu"
+        },
+        {
+          "stt": 20,
+          "hiragana": "とおか",
+          "kanji": "十日",
+          "y_nghia": "Ngày 10, 10 ngày",
+          "romaji": "tooka"
+        },
+        {
+          "stt": 21,
+          "hiragana": "じゅうがつ",
+          "kanji": "十月",
+          "y_nghia": "Tháng 10",
+          "romaji": "juugatsu"
+        },
+        {
+          "stt": 22,
+          "hiragana": "ひゃく",
+          "kanji": "百",
+          "y_nghia": "100",
+          "romaji": "hyaku"
+        },
+        {
+          "stt": 23,
+          "hiragana": "せん",
+          "kanji": "千",
+          "y_nghia": "1000",
+          "romaji": "sen"
+        },
+        {
+          "stt": 24,
+          "hiragana": "さんぜん",
+          "kanji": "三千",
+          "y_nghia": "3000",
+          "romaji": "sanzen"
+        },
+        {
+          "stt": 25,
+          "hiragana": "はっせん",
+          "kanji": "八千",
+          "y_nghia": "8000",
+          "romaji": "hassen"
+        },
+        {
+          "stt": 26,
+          "hiragana": "まん",
+          "kanji": "万",
+          "y_nghia": "10.000",
+          "romaji": "man"
+        },
+        {
+          "stt": 27,
+          "hiragana": "ごまん",
+          "kanji": "五万",
+          "y_nghia": "50.000",
+          "romaji": "goman"
+        },
+        {
+          "stt": 28,
+          "hiragana": "じゅうまん",
+          "kanji": "十万",
+          "y_nghia": "100.000",
+          "romaji": "juuman"
+        },
+        {
+          "stt": 29,
+          "hiragana": "えん",
+          "kanji": "円",
+          "y_nghia": "Tiền Yên",
+          "romaji": "en"
+        },
+        {
+          "stt": 30,
+          "hiragana": "ひゃくえん",
+          "kanji": "百円",
+          "y_nghia": "100 Yên",
+          "romaji": "hyakuen"
+        },
+        {
+          "stt": 31,
+          "hiragana": "せんえん",
+          "kanji": "千円",
+          "y_nghia": "1000 Yên",
+          "romaji": "sen'en"
+        },
+        {
+          "stt": 32,
+          "hiragana": "いちまんえん",
+          "kanji": "一万円",
+          "y_nghia": "10.000 Yên",
+          "romaji": "ichiman'en"
+        }
+      ]
+    }
+  }
+}

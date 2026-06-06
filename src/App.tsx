@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { supabase } from "./lib/supabase";
 import {
   starterVocabulary,
   starterGrammar,
@@ -11,18 +12,18 @@ import VocabularyBoard from "./components/VocabularyBoard";
 import GrammarBoard from "./components/GrammarBoard";
 import QuizBoard from "./components/QuizBoard";
 import DailyImporter from "./components/DailyImporter";
-import { BookOpen, HelpCircle, GraduationCap, Settings, Sparkles, MessageCircle, BookCheck, Star, Award, Layers } from "lucide-react";
+import { BookOpen, HelpCircle, GraduationCap, Sparkles, BookCheck } from "lucide-react";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<"kana" | "vocabulary" | "grammar" | "quiz" | "import">("vocabulary");
 
-  // Main lists loaded from local storage or defaults
+  // Main lists loaded from Supabase
   const [vocabularyList, setVocabularyList] = useState<VocabularyItem[]>([]);
   const [grammarList, setGrammarList] = useState<GrammarItem[]>([]);
   const [kanjiList, setKanjiList] = useState<KanjiItem[]>([]);
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
-  
-  // Favorites and Study analytics
+
+  // Session state
   const [favorites, setFavorites] = useState<string[]>([]);
   const [importLogs, setImportLogs] = useState<DailyImportLog[]>([]);
   const [studyProgress, setStudyProgress] = useState<StudyProgress>({
@@ -31,40 +32,148 @@ export default function App() {
     favorites: [],
   });
 
-  // Load state on mount
-  useEffect(() => {
-    const localVocab = localStorage.getItem("n5_vocabulary");
-    const localGrammar = localStorage.getItem("n5_grammar");
-    const localKanji = localStorage.getItem("n5_kanji");
-    const localQuizzes = localStorage.getItem("n5_quizzes");
-    const localFavs = localStorage.getItem("n5_favorites");
-    const localLogs = localStorage.getItem("n5_import_logs");
-    const localProgress = localStorage.getItem("n5_progress");
+  // Loading state
+  const [isLoading, setIsLoading] = useState(true);
 
-    setVocabularyList(localVocab ? JSON.parse(localVocab) : starterVocabulary);
-    setGrammarList(localGrammar ? JSON.parse(localGrammar) : starterGrammar);
-    setKanjiList(localKanji ? JSON.parse(localKanji) : starterKanji);
-    setQuizQuestions(localQuizzes ? JSON.parse(localQuizzes) : starterQuizzes);
-    setFavorites(localFavs ? JSON.parse(localFavs) : []);
-    setImportLogs(localLogs ? JSON.parse(localLogs) : []);
-    setStudyProgress(localProgress ? JSON.parse(localProgress) : {
-      viewedKana: [],
-      quizScores: {},
-      favorites: [],
-    });
+  // Load all data from Supabase on mount
+  useEffect(() => {
+    loadData();
   }, []);
 
-  // Sync favorites
-  const toggleFavorite = (id: string) => {
+  async function loadData() {
+    setIsLoading(true);
+    try {
+      const [vocabRes, grammarRes, kanjiRes, quizzesRes, logsRes, progressRes] = await Promise.all([
+        supabase.from("vocabulary").select("*").order("created_at", { ascending: true }),
+        supabase.from("grammar").select("*").order("created_at", { ascending: true }),
+        supabase.from("kanji").select("*").order("created_at", { ascending: true }),
+        supabase.from("quizzes").select("*").order("created_at", { ascending: true }),
+        supabase.from("import_logs").select("*").order("created_at", { ascending: false }),
+        supabase.from("study_progress").select("*").eq("id", 1).single(),
+      ]);
+
+      // Map DB rows (snake_case) → TypeScript interfaces (camelCase)
+      setVocabularyList(
+        (vocabRes.data || []).map(mapVocabRow)
+      );
+      setGrammarList(
+        (grammarRes.data || []).map(mapGrammarRow)
+      );
+      setKanjiList(
+        (kanjiRes.data || []).map(mapKanjiRow)
+      );
+      setQuizQuestions(
+        (quizzesRes.data || []).map(mapQuizRow)
+      );
+      setImportLogs(
+        (logsRes.data || []).map(mapLogRow)
+      );
+
+      if (progressRes.data) {
+        const p = progressRes.data;
+        setFavorites((p.favorites as string[]) || []);
+        setStudyProgress({
+          viewedKana: (p.viewed_kana as string[]) || [],
+          quizScores: (p.quiz_scores as Record<string, any>) || {},
+          favorites: (p.favorites as string[]) || [],
+        });
+      }
+    } catch (err) {
+      console.error("Failed to load data from Supabase, using starter data:", err);
+      setVocabularyList(starterVocabulary);
+      setGrammarList(starterGrammar);
+      setKanjiList(starterKanji);
+      setQuizQuestions(starterQuizzes);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  // Row mappers: snake_case DB → camelCase TS
+  function mapVocabRow(row: any): VocabularyItem {
+    return {
+      id: row.id,
+      word: row.word,
+      reading: row.reading,
+      romaji: row.romaji || "",
+      meaning: row.meaning,
+      category: row.category || "",
+      lesson: row.lesson || 0,
+      examples: row.examples || [],
+      isCustom: row.is_custom,
+      createdAt: row.created_at,
+    };
+  }
+
+  function mapGrammarRow(row: any): GrammarItem {
+    return {
+      id: row.id,
+      structure: row.structure,
+      meaning: row.meaning,
+      explanation: row.explanation || "",
+      notes: row.notes || "",
+      category: row.category || "",
+      lesson: row.lesson || 0,
+      examples: row.examples || [],
+      summary: row.summary || {},
+      conjugationTables: row.conjugation_tables || {},
+      isCustom: row.is_custom,
+    };
+  }
+
+  function mapKanjiRow(row: any): KanjiItem {
+    return {
+      id: row.id,
+      character: row.character,
+      onyomi: row.onyomi || "",
+      kunyomi: row.kunyomi || "",
+      meaning: row.meaning,
+      lesson: row.lesson || 0,
+      examples: row.examples || [],
+      isCustom: row.is_custom,
+    };
+  }
+
+  function mapQuizRow(row: any): QuizQuestion {
+    return {
+      id: row.id,
+      question: row.question,
+      options: row.options || [],
+      answerIndex: row.answer_index,
+      explanation: row.explanation || "",
+      type: row.type,
+      lesson: row.lesson || 0,
+      isCustom: row.is_custom,
+    };
+  }
+
+  function mapLogRow(row: any): DailyImportLog {
+    return {
+      id: row.id,
+      date: row.date,
+      rawText: row.raw_text || "",
+      parsedItemCount: row.parsed_item_count,
+    };
+  }
+
+  // Toggle favorite — update Supabase
+  const toggleFavorite = useCallback(async (id: string) => {
     const updated = favorites.includes(id)
       ? favorites.filter((fid) => fid !== id)
       : [...favorites, id];
     setFavorites(updated);
-    localStorage.setItem("n5_favorites", JSON.stringify(updated));
-  };
 
-  // Sync quiz completions
-  const handleQuizComplete = (score: number, total: number) => {
+    await supabase.from("study_progress").upsert({
+      id: 1,
+      favorites: updated,
+      quiz_scores: studyProgress.quizScores,
+      viewed_kana: studyProgress.viewedKana,
+      updated_at: new Date().toISOString(),
+    });
+  }, [favorites, studyProgress]);
+
+  // Quiz complete — update Supabase
+  const handleQuizComplete = useCallback(async (score: number, total: number) => {
     const quizId = `score-${Date.now()}`;
     const updatedProgress = {
       ...studyProgress,
@@ -78,97 +187,121 @@ export default function App() {
       },
     };
     setStudyProgress(updatedProgress);
-    localStorage.setItem("n5_progress", JSON.stringify(updatedProgress));
-  };
 
-  // Dynamically nạp/import user parsed items
-  const handleDataImported = (parsedData: any) => {
-    const newVocab: VocabularyItem[] = (parsedData.vocabulary || []).map((v: any, index: number) => ({
-      ...v,
-      id: `custom-v-${Date.now()}-${index}`,
-      isCustom: true,
+    await supabase.from("study_progress").upsert({
+      id: 1,
+      favorites,
+      quiz_scores: updatedProgress.quizScores,
+      viewed_kana: updatedProgress.viewedKana,
+      updated_at: new Date().toISOString(),
+    });
+  }, [studyProgress, favorites]);
+
+  // AI Import — insert new data into Supabase
+  const handleDataImported = useCallback(async (parsedData: any) => {
+    const timestamp = Date.now();
+
+    const newVocab = (parsedData.vocabulary || []).map((v: any, index: number) => ({
+      id: `custom-v-${timestamp}-${index}`,
+      word: v.word,
+      reading: v.reading,
+      romaji: v.romaji || "",
+      meaning: v.meaning,
       category: v.category || `Nạp ngày ${new Date().toLocaleDateString("vi-VN")}`,
       examples: v.examples || [],
+      is_custom: true,
     }));
 
-    const newGrammar: GrammarItem[] = (parsedData.grammar || []).map((g: any, index: number) => ({
-      ...g,
-      id: `custom-g-${Date.now()}-${index}`,
-      isCustom: true,
+    const newGrammar = (parsedData.grammar || []).map((g: any, index: number) => ({
+      id: `custom-g-${timestamp}-${index}`,
+      structure: g.structure,
+      meaning: g.meaning,
+      explanation: g.explanation || "",
       category: g.category || `Nạp ngày ${new Date().toLocaleDateString("vi-VN")}`,
       examples: g.examples || [],
+      is_custom: true,
     }));
 
-    const newKanji: KanjiItem[] = (parsedData.kanjiList || []).map((k: any, index: number) => ({
-      ...k,
-      id: `custom-k-${Date.now()}-${index}`,
-      isCustom: true,
+    const newKanji = (parsedData.kanjiList || []).map((k: any, index: number) => ({
+      id: `custom-k-${timestamp}-${index}`,
+      character: k.character,
+      onyomi: k.onyomi || "",
+      kunyomi: k.kunyomi || "",
+      meaning: k.meaning,
       examples: k.examples || [],
+      is_custom: true,
     }));
 
-    const newQuizzes: QuizQuestion[] = (parsedData.quizzes || []).map((q: any, index: number) => ({
-      ...q,
-      id: `custom-q-${Date.now()}-${index}`,
-      isCustom: true,
+    const newQuizzes = (parsedData.quizzes || []).map((q: any, index: number) => ({
+      id: `custom-q-${timestamp}-${index}`,
+      question: q.question,
+      options: q.options,
+      answer_index: q.answerIndex,
+      explanation: q.explanation || "",
+      type: q.type,
+      is_custom: true,
     }));
 
-    const updatedVocab = [...newVocab, ...vocabularyList];
-    const updatedGrammar = [...newGrammar, ...grammarList];
-    const updatedKanji = [...newKanji, ...kanjiList];
-    const updatedQuizzes = [...newQuizzes, ...quizQuestions];
+    // Insert into Supabase
+    const [vocabRes, grammarRes, kanjiRes, quizRes] = await Promise.all([
+      newVocab.length > 0 ? supabase.from("vocabulary").insert(newVocab) : Promise.resolve({ error: null }),
+      newGrammar.length > 0 ? supabase.from("grammar").insert(newGrammar) : Promise.resolve({ error: null }),
+      newKanji.length > 0 ? supabase.from("kanji").insert(newKanji) : Promise.resolve({ error: null }),
+      newQuizzes.length > 0 ? supabase.from("quizzes").insert(newQuizzes) : Promise.resolve({ error: null }),
+    ]);
 
-    setVocabularyList(updatedVocab);
-    setGrammarList(updatedGrammar);
-    setKanjiList(updatedKanji);
-    setQuizQuestions(updatedQuizzes);
+    if (vocabRes.error || grammarRes.error || kanjiRes.error || quizRes.error) {
+      console.error("Insert errors:", { vocabRes, grammarRes, kanjiRes, quizRes });
+      throw new Error("Lỗi khi lưu dữ liệu vào database.");
+    }
 
-    localStorage.setItem("n5_vocabulary", JSON.stringify(updatedVocab));
-    localStorage.setItem("n5_grammar", JSON.stringify(updatedGrammar));
-    localStorage.setItem("n5_kanji", JSON.stringify(updatedKanji));
-    localStorage.setItem("n5_quizzes", JSON.stringify(updatedQuizzes));
+    // Update local state
+    setVocabularyList((prev) => [...newVocab.map(mapVocabRow), ...prev]);
+    setGrammarList((prev) => [...newGrammar.map(mapGrammarRow), ...prev]);
+    setKanjiList((prev) => [...newKanji.map(mapKanjiRow), ...prev]);
+    setQuizQuestions((prev) => [...newQuizzes.map(mapQuizRow), ...prev]);
 
-    // Save Daily Import logs
-    const newLog: DailyImportLog = {
-      id: `log-${Date.now()}`,
+    // Save import log
+    const newLog = {
+      id: `log-${timestamp}`,
       date: new Date().toLocaleString("vi-VN"),
-      rawText: parsedData.rawText || "",
-      parsedItemCount: {
+      raw_text: parsedData.rawText || "",
+      parsed_item_count: {
         vocabulary: newVocab.length,
         grammar: newGrammar.length,
         kanji: newKanji.length,
         quizzes: newQuizzes.length,
       },
     };
-    const updatedLogs = [newLog, ...importLogs];
-    setImportLogs(updatedLogs);
-    localStorage.setItem("n5_import_logs", JSON.stringify(updatedLogs));
-  };
 
-  // Clear all custom-imported user study cards
-  const clearAllCustomData = () => {
-    localStorage.removeItem("n5_vocabulary");
-    localStorage.removeItem("n5_grammar");
-    localStorage.removeItem("n5_kanji");
-    localStorage.removeItem("n5_quizzes");
-    localStorage.removeItem("n5_favorites");
-    localStorage.removeItem("n5_import_logs");
-    localStorage.removeItem("n5_progress");
+    await supabase.from("import_logs").insert(newLog);
+    setImportLogs((prev) => [mapLogRow(newLog), ...prev]);
+  }, []);
 
-    setVocabularyList(starterVocabulary);
-    setGrammarList(starterGrammar);
-    setKanjiList(starterKanji);
-    setQuizQuestions(starterQuizzes);
-    setFavorites([]);
-    setImportLogs([]);
-    setStudyProgress({
-      viewedKana: [],
-      quizScores: {},
+  // Clear all custom data — delete from Supabase, reload
+  const clearAllCustomData = useCallback(async () => {
+    await Promise.all([
+      supabase.from("vocabulary").delete().eq("is_custom", true),
+      supabase.from("grammar").delete().eq("is_custom", true),
+      supabase.from("kanji").delete().eq("is_custom", true),
+      supabase.from("quizzes").delete().eq("is_custom", true),
+      supabase.from("import_logs").delete().neq("id", ""),
+    ]);
+
+    await supabase.from("study_progress").upsert({
+      id: 1,
       favorites: [],
+      quiz_scores: {},
+      viewed_kana: [],
+      updated_at: new Date().toISOString(),
     });
-  };
 
-  // Export JSON system study cards as backup file
-  const exportBackup = () => {
+    // Reload fresh data
+    await loadData();
+  }, []);
+
+  // Export backup as JSON
+  const exportBackup = useCallback(() => {
     const backupData = {
       vocabularyList,
       grammarList,
@@ -185,40 +318,58 @@ export default function App() {
     link.download = `japanese_n5_assistant_backup_${Date.now()}.json`;
     link.click();
     URL.revokeObjectURL(url);
-  };
+  }, [vocabularyList, grammarList, kanjiList, quizQuestions, favorites, studyProgress, importLogs]);
 
-  // Import JSON backup file
-  const importBackup = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Import backup — upsert into Supabase
+  const importBackup = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       try {
         const parsed = JSON.parse(e.target?.result as string);
-        if (parsed.vocabularyList) setVocabularyList(parsed.vocabularyList);
-        if (parsed.grammarList) setGrammarList(parsed.grammarList);
-        if (parsed.kanjiList) setKanjiList(parsed.kanjiList);
-        if (parsed.quizQuestions) setQuizQuestions(parsed.quizQuestions);
-        if (parsed.favorites) setFavorites(parsed.favorites);
-        if (parsed.studyProgress) setStudyProgress(parsed.studyProgress);
-        if (parsed.importLogs) setImportLogs(parsed.importLogs);
 
-        localStorage.setItem("n5_vocabulary", JSON.stringify(parsed.vocabularyList || []));
-        localStorage.setItem("n5_grammar", JSON.stringify(parsed.grammarList || []));
-        localStorage.setItem("n5_kanji", JSON.stringify(parsed.kanjiList || []));
-        localStorage.setItem("n5_quizzes", JSON.stringify(parsed.quizQuestions || []));
-        localStorage.setItem("n5_favorites", JSON.stringify(parsed.favorites || []));
-        localStorage.setItem("n5_progress", JSON.stringify(parsed.studyProgress || {}));
-        localStorage.setItem("n5_import_logs", JSON.stringify(parsed.importLogs || []));
+        // Upsert all data into Supabase
+        if (parsed.vocabularyList?.length) {
+          const rows = parsed.vocabularyList.map((v: VocabularyItem) => ({
+            id: v.id, word: v.word, reading: v.reading, romaji: v.romaji || "",
+            meaning: v.meaning, category: v.category || "", examples: v.examples || [],
+            is_custom: v.isCustom || false,
+          }));
+          await supabase.from("vocabulary").upsert(rows);
+        }
+        if (parsed.grammarList?.length) {
+          const rows = parsed.grammarList.map((g: GrammarItem) => ({
+            id: g.id, structure: g.structure, meaning: g.meaning, explanation: g.explanation || "",
+            category: g.category || "", examples: g.examples || [], is_custom: g.isCustom || false,
+          }));
+          await supabase.from("grammar").upsert(rows);
+        }
+        if (parsed.kanjiList?.length) {
+          const rows = parsed.kanjiList.map((k: KanjiItem) => ({
+            id: k.id, character: k.character, onyomi: k.onyomi || "", kunyomi: k.kunyomi || "",
+            meaning: k.meaning, examples: k.examples || [], is_custom: k.isCustom || false,
+          }));
+          await supabase.from("kanji").upsert(rows);
+        }
+        if (parsed.quizQuestions?.length) {
+          const rows = parsed.quizQuestions.map((q: QuizQuestion) => ({
+            id: q.id, question: q.question, options: q.options, answer_index: q.answerIndex,
+            explanation: q.explanation || "", type: q.type, is_custom: q.isCustom || false,
+          }));
+          await supabase.from("quizzes").upsert(rows);
+        }
 
+        // Reload to get fresh data from DB
+        await loadData();
         alert("Đã khôi phục dữ liệu từ tệp sao lưu thành công!");
       } catch (err) {
         alert("Có lỗi xảy ra: Tệp tin sao lưu không chính xác.");
       }
     };
     reader.readAsText(file);
-  };
+  }, []);
 
   // Calculate statistics
   const totalCompletedQuizzes = Object.keys(studyProgress.quizScores).length;
@@ -229,9 +380,20 @@ export default function App() {
     return Math.round((sum / scores.length) * 100);
   }, [studyProgress]);
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-stone-50/50 flex items-center justify-center">
+        <div className="text-center space-y-3">
+          <div className="w-8 h-8 border-2 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm text-gray-500 font-medium">Đang tải dữ liệu...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-stone-50/50 flex flex-col font-sans text-gray-800 antialiased selection:bg-amber-100 selection:text-amber-900">
-      
+
       {/* Upper Navigation/Header Bar */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
@@ -258,7 +420,7 @@ export default function App() {
 
       {/* Main Application Grid */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-        
+
         {/* N5 Progress Overview Dashboard Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-xs space-y-1">
@@ -332,7 +494,6 @@ export default function App() {
             Ngữ pháp
           </button>
 
-
           <button
             onClick={() => setActiveTab("quiz")}
             className={`px-4 py-3 text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 ${
@@ -361,7 +522,7 @@ export default function App() {
         {/* Tab Boards Dynamic Render */}
         <div className="animate-fade">
           {activeTab === "kana" && <KanaBoard kanjiList={kanjiList} />}
-          
+
           {activeTab === "vocabulary" && (
             <VocabularyBoard
               vocabularyList={vocabularyList}
@@ -393,7 +554,7 @@ export default function App() {
         </div>
       </main>
 
-      {/* Humble Study Motivation Quote Footer */}
+      {/* Footer */}
       <footer className="bg-white border-t border-gray-100 py-6 mt-12 text-center text-xs text-gray-400 font-medium">
         <p>Học ngoại ngữ là một quá trình kiên trì hằng ngày. Bạn đang tiến bộ hơn mỗi ngày cùng nihonGO!</p>
         <p className="mt-1 font-mono text-[10px] text-gray-300">© 2026 nihonGO! • Crafted elegantly with Gemini Intelligence</p>
@@ -401,4 +562,3 @@ export default function App() {
     </div>
   );
 }
-

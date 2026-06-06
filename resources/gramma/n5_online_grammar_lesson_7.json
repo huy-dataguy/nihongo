@@ -1,0 +1,98 @@
+{
+    "bai": 7,
+    "chu_de": "NGỮ PHÁP BÀI 7",
+    "cau_truc_ngu_phap": [
+        {
+            "stt": 1,
+            "mau_cau": "N (どうぐ) で Vます",
+            "y_nghia": "Làm việc gì đó bằng công cụ, phương tiện hay cách thức gì (Trợ từ で)",
+            "giai_thich": "Trợ từ “で” biểu thị phương tiện, công cụ hay cách thức tiến hành một hành động.",
+            "vi_du": [
+                {
+                    "tieng_nhat": "にほんじんははしでごはんをたべます。",
+                    "tieng_viet": "Người Nhật ăn cơm bằng đũa."
+                },
+                {
+                    "tieng_nhat": "Q: ベトナムじんはなんでフォーをたべますか。\nA: はしと スプーンでたべます。",
+                    "tieng_viet": "Q: Người Việt ăn phở bằng cái gì?\nA: Ăn bằng đũa và muỗng."
+                },
+                {
+                    "tieng_nhat": "いいえ、インドじんははしでたべません。てでたべます。",
+                    "tieng_viet": "Không, người Ấn Độ thì không ăn bằng đũa mà ăn bằng tay."
+                }
+            ]
+        },
+        {
+            "stt": 2,
+            "mau_cau": "～ご で Vます",
+            "y_nghia": "Làm cái gì đó bằng ngôn ngữ gì",
+            "giai_thich": "Sử dụng trợ từ で để chỉ việc thực hiện một hành động (đọc, viết, nói...) bằng một ngôn ngữ cụ thể.",
+            "vi_du": [
+                {
+                    "tieng_nhat": "えいごでしんぶんをよみます。",
+                    "tieng_viet": "Tôi đọc báo bằng tiếng Anh."
+                },
+                {
+                    "tieng_nhat": "Q: きのうのばん何をしましたか。\nA: にほんごでレポートをかきました。",
+                    "tieng_viet": "Q: Tối hôm qua bạn đã làm gì vậy?\nA: Tôi đã viết báo cáo bằng tiếng Nhật."
+                }
+            ]
+        },
+        {
+            "stt": 3,
+            "mau_cau": "これ / それ / あれ は ～ご で N です",
+            "y_nghia": "Cái này / cái đó / cái kia trong tiếng ~ gọi là N",
+            "giai_thich": "Dùng để hỏi hoặc giải thích một từ, cụm từ hoặc đồ vật được gọi như thế nào trong ngôn ngữ khác.",
+            "vi_du": [
+                {
+                    "tieng_nhat": "これはにほんごでホッチキスです。",
+                    "tieng_viet": "Cái này tiếng Nhật gọi là Hocchikisu."
+                },
+                {
+                    "tieng_nhat": "Q: それは にほんごでなんですか。\nA: セロテープです。",
+                    "tieng_viet": "Q: Cái đó tiếng Nhật gọi là gì vậy?\nA: Là Serotepu."
+                },
+                {
+                    "tieng_nhat": "「こんにちは」はえいごで「Hello」です。",
+                    "tieng_viet": "“Konnichiwa” tiếng Anh gọi là “Hello”."
+                }
+            ]
+        },
+        {
+            "stt": 4,
+            "mau_cau": "ひと1 は ひと2 に N を Vます",
+            "y_nghia": "Chủ ngữ 1 làm hành động V hướng tới / cho người đối phương 2",
+            "giai_thich": "Áp dụng cho các động từ chuyển giao hành động như おしえます (dạy), かします (cho mượn), あげます (tặng). Đối tượng nhận hành động đi với trợ từ に.",
+            "vi_du": [
+                {
+                    "tieng_nhat": "(わたしは) ベトナムじんに にほんごをおしえます。",
+                    "tieng_viet": "Tôi dạy tiếng Nhật cho người Việt Nam."
+                },
+                {
+                    "tieng_nhat": "クリスマスにりょうしんはこどもにプレゼントをあげます。",
+                    "tieng_viet": "Vào Giáng Sinh bố mẹ tặng quà cho con."
+                }
+            ]
+        },
+        {
+            "stt": 5,
+            "mau_cau": "ひと1 は ひと2 に N を Vます (Động từ nhận/học)",
+            "y_nghia": "Chủ ngữ 1 nhận / học / mượn cái gì từ đối phương 2",
+            "giai_thich": "Áp dụng cho các động từ thu nhận như ならいます (học), かります (mượn), もらいます (nhận). Đối tượng nguồn cung cấp đi với trợ từ に (hoặc から).",
+            "vi_du": [
+                {
+                    "tieng_nhat": "きのう(わたしは) アメリカじんにえいごをならいました。",
+                    "tieng_viet": "Hôm qua tôi đã học tiếng Anh từ người Mỹ."
+                },
+                {
+                    "tieng_nhat": "Q: だれにかさをかりましたか。\nA: カリナさんにかりました。",
+                    "tieng_viet": "Q: Bạn đã mượn dù từ ai vậy?\nA: Tôi đã mượn từ chị Carina."
+                },
+                {
+                    "tieng_nhat": "バレンタインにおんなのひとは こいびとにチョコレートをもらいます。",
+                    "tieng_viet": "Vào ngày lễ tình nhân phụ nữ nhận được sô-cô-la từ người yêu."
+                }
+            ]
+        }
+    ]
+}

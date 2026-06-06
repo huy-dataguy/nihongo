@@ -1,0 +1,362 @@
+/**
+ * Import all resource JSON files into Supabase
+ * Usage: npx tsx scripts/import-to-supabase.ts
+ *
+ * Requires .env with:
+ *   SUPABASE_URL=...
+ *   SUPABASE_ANON_KEY=...
+ */
+import { createClient } from "@supabase/supabase-js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load .env manually
+const envPath = path.resolve(__dirname, "../.env");
+const envContent = fs.readFileSync(envPath, "utf-8");
+const envVars: Record<string, string> = {};
+for (const line of envContent.split("\n")) {
+  const match = line.match(/^\s*([A-Z_]+)\s*=\s*"?(.*?)"?\s*$/);
+  if (match) envVars[match[1]] = match[2];
+}
+
+const supabaseUrl = envVars.SUPABASE_URL || envVars.VITE_SUPABASE_URL;
+const supabaseKey = envVars.SUPABASE_ANON_KEY || envVars.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error("❌ Missing SUPABASE_URL or SUPABASE_ANON_KEY in .env");
+  process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+const resourcesDir = path.resolve(__dirname, "../resources");
+
+// ============================================
+// Normalize & Import
+// ============================================
+
+async function main() {
+  console.log("🚀 Starting import...\n");
+
+  // --- VOCABULARY ---
+  const vocabRows: any[] = [];
+
+  // Bài 1-3
+  const file13 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "vocab/n5_online_vocab_lessons_1_3.json"), "utf-8"));
+  for (const [baiKey, baiData] of Object.entries(file13.bai_hoc)) {
+    const lessonNum = parseInt(baiKey.replace("bai_", ""));
+    const tuVung = baiData.tu_vựng || baiData.tu_vung || [];
+    for (const item of tuVung) {
+      vocabRows.push({
+        id: `vocab-b${lessonNum}-${item.id}`,
+        word: item.japanese || item.hiragana || "",
+        reading: item.japanese || item.hiragana || "",
+        romaji: item.romaji || "",
+        meaning: item.vietnamese || item.tieng_viet || "",
+        category: extractCategory(baiData.ten_bai || ""),
+        lesson: lessonNum,
+        examples: [],
+        is_custom: false,
+      });
+    }
+    // Handle bo_sung (supplementary: numbers, ages)
+    const boSung = baiData.bo_sung;
+    if (boSung) {
+      for (const [cat, items] of Object.entries(boSung)) {
+        if (Array.isArray(items)) {
+          for (const item of items as string[]) {
+            const parts = item.split(" (");
+            const japanese = parts[0].trim();
+            const meaning = parts[1] ? parts[1].replace(")", "").trim() : "";
+            vocabRows.push({
+              id: `vocab-b${lessonNum}-sup-${cat}-${vocabRows.length}`,
+              word: japanese,
+              reading: japanese,
+              romaji: "",
+              meaning: meaning || japanese,
+              category: `Bài ${lessonNum} - Bổ sung (${cat})`,
+              lesson: lessonNum,
+              examples: [],
+              is_custom: false,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  // Bài 4-6
+  const file46 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "vocab/n5_online_vocab_lessons_4_6.json"), "utf-8"));
+  for (const [baiKey, baiData] of Object.entries(file46.bai_hoc)) {
+    const lessonNum = parseInt(baiKey.replace("bai_", ""));
+
+    // Standard vocab
+    const tuVung = baiData.tu_vung || baiData.tu_vựng || [];
+    for (const item of tuVung) {
+      vocabRows.push({
+        id: `vocab-b${lessonNum}-${item.id}`,
+        word: item.japanese || item.hiragana || "",
+        reading: item.japanese || item.hiragana || "",
+        romaji: item.romaji || "",
+        meaning: item.vietnamese || item.tieng_viet || "",
+        category: extractCategory(baiData.ten_bai || ""),
+        lesson: lessonNum,
+        examples: item.vi_du ? [item.vi_du] : [],
+        is_custom: false,
+      });
+    }
+
+    // Bài 5 special keys
+    const b5keys: Record<string, string> = {
+      tu_vung_chung_va_gia_dinh: "Từ vựng chung & Gia đình",
+      danh_sach_thang: "Danh sách tháng",
+      danh_sach_ngay: "Danh sách ngày",
+    };
+    for (const [cat, label] of Object.entries(b5keys)) {
+      const items = baiData[cat];
+      if (!Array.isArray(items)) continue;
+      for (const item of items) {
+        vocabRows.push({
+          id: `vocab-b${lessonNum}-${cat}-${item.id}`,
+          word: item.japanese || item.hiragana || "",
+          reading: item.japanese || item.hiragana || "",
+          romaji: item.romaji || "",
+          meaning: item.vietnamese || item.tieng_viet || "",
+          category: `Bài ${lessonNum} - ${label}`,
+          lesson: lessonNum,
+          examples: [],
+          is_custom: false,
+        });
+      }
+    }
+  }
+
+  // Bài 7
+  const file7 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "vocab/n5_online_vocab_lesson_7.json"), "utf-8"));
+  const noiDung7 = file7.noi_dung;
+  const lesson7Categories = ["danh_tu", "dong_tu", "cach_dien_dat_va_lien_tu", "tu_vung_chung_va_gia_dinh", "bo_sung"];
+  for (const cat of lesson7Categories) {
+    const items = noiDung7[cat];
+    if (!Array.isArray(items)) continue;
+    for (const item of items) {
+      vocabRows.push({
+        id: `vocab-b7-${cat}-${item.stt || item.id || vocabRows.length}`,
+        word: item.hiragana || item.japanese || "",
+        reading: item.hiragana || item.japanese || "",
+        romaji: item.romaji || "",
+        meaning: item.tieng_viet || item.vietnamese || "",
+        category: `Bài 7 - ${formatCategory(cat)}`,
+        lesson: 7,
+        examples: item.vi_du || [],
+        is_custom: false,
+      });
+    }
+  }
+
+  // Bài 8 — new danh_muc structure (meishi, keiyoushi_i, keiyoushi_na, kanji)
+  const file8 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "vocab/n5_online_vocab_lesson_8.json"), "utf-8"));
+  const lesson8 = file8.bai || 8;
+  const danhMuc8 = file8.danh_muc || {};
+  for (const [catKey, catData] of Object.entries(danhMuc8)) {
+    const catObj = catData as any;
+    if (!Array.isArray(catObj.tu_vung)) continue;
+    // Skip kanji category here — handle separately below
+    if (catKey === "kanji") continue;
+    for (const item of catObj.tu_vung) {
+      vocabRows.push({
+        id: `vocab-b${lesson8}-${catKey}-${item.stt || vocabRows.length}`,
+        word: item.hiragana || item.japanese || "",
+        reading: item.hiragana || item.japanese || "",
+        romaji: item.romaji || "",
+        meaning: item.y_nghia || item.tieng_viet || "",
+        category: `Bài ${lesson8} - ${catObj.loai || formatCategory(catKey)}`,
+        lesson: lesson8,
+        examples: [],
+        is_custom: false,
+      });
+    }
+  }
+
+  console.log(`📖 Vocabulary: ${vocabRows.length} items`);
+
+  // --- KANJI from Bài 7 ---
+  const kanjiRows: any[] = [];
+  const kanji7 = noiDung7.kanji;
+  if (Array.isArray(kanji7)) {
+    for (const item of kanji7) {
+      kanjiRows.push({
+        id: `kanji-b7-${item.stt || kanjiRows.length}`,
+        character: item.chu_han || item.character || "",
+        onyomi: (item.onyomi_kunyomi || "").split("/")[0]?.trim() || item.onyomi || "",
+        kunyomi: (item.onyomi_kunyomi || "").split("/")[1]?.trim() || item.kunyomi || "",
+        meaning: item.tieng_viet || item.meaning || "",
+        lesson: 7,
+        examples: item.vi_du || [],
+        is_custom: false,
+      });
+    }
+  }
+  // --- KANJI from Bài 8 ---
+  const kanjiCat8 = danhMuc8.kanji;
+  if (kanjiCat8 && Array.isArray(kanjiCat8.tu_vung)) {
+    for (const item of kanjiCat8.tu_vung) {
+      kanjiRows.push({
+        id: `kanji-b8-${item.stt || kanjiRows.length}`,
+        character: item.kanji || item.chu_han || "",
+        onyomi: "",
+        kunyomi: item.hiragana || "",
+        meaning: item.y_nghia || item.tieng_viet || "",
+        lesson: 8,
+        examples: [],
+        is_custom: false,
+      });
+    }
+  }
+
+  console.log(`KANJI: ${kanjiRows.length} items`);
+
+  // --- GRAMMAR ---
+  const grammarRows: any[] = [];
+
+  // Bài 1-3
+  const gram13 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "gramma/n5_online_grammar_lessons_1_3.json"), "utf-8"));
+  for (const [baiKey, baiData] of Object.entries(gram13.bai_hoc)) {
+    const lessonNum = parseInt(baiKey.replace("bai_", ""));
+    const cauTruc = baiData.cau_truc || [];
+    for (const item of cauTruc) {
+      grammarRows.push({
+        id: `grammar-b${lessonNum}-${item.id}`,
+        structure: item.bieu_thuc || "",
+        meaning: item.y_nghia || "",
+        explanation: "",
+        notes: item.ghi_chu || "",
+        category: baiData.ten_bai || "",
+        lesson: lessonNum,
+        examples: normalizeGrammarExamples(item.vi_du || []),
+        summary: item.tom_tat || {},
+        conjugation_tables: {
+          ...item.bang_chia_thoi,
+          ...item.bang_chia_dong_tu,
+        },
+        is_custom: false,
+      });
+    }
+  }
+
+  // Bài 4-6
+  const gram46 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "gramma/n5_online_grammar_lessons_4_6.json"), "utf-8"));
+  for (const [baiKey, baiData] of Object.entries(gram46.bai_hoc)) {
+    const lessonNum = parseInt(baiKey.replace("bai_", ""));
+    const cauTruc = baiData.cau_truc || [];
+    for (const item of cauTruc) {
+      grammarRows.push({
+        id: `grammar-b${lessonNum}-${item.id}`,
+        structure: item.bieu_thuc || "",
+        meaning: item.y_nghia || "",
+        explanation: "",
+        notes: item.ghi_chu || "",
+        category: baiData.ten_bai || "",
+        lesson: lessonNum,
+        examples: normalizeGrammarExamples(item.vi_du || []),
+        summary: item.tom_tat || {},
+        conjugation_tables: {
+          ...item.bang_chia_thoi,
+          ...item.bang_chia_dong_tu,
+        },
+        is_custom: false,
+      });
+    }
+  }
+  // Bài 7 — new structure: cau_truc_ngu_phap with mau_cau/giai_thich
+  const gram7 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "gramma/n5_online_grammar_lesson_7.json"), "utf-8"));
+  const lesson7Num = gram7.bai || 7;
+  const cauTruc7 = gram7.cau_truc_ngu_phap || [];
+  for (const item of cauTruc7) {
+    grammarRows.push({
+      id: `grammar-b${lesson7Num}-${item.stt || item.id || grammarRows.length}`,
+      structure: item.mau_cau || "",
+      meaning: item.y_nghia || "",
+      explanation: item.giai_thich || "",
+      notes: "",
+      category: gram7.chu_de || `Bài ${lesson7Num}`,
+      lesson: lesson7Num,
+      examples: normalizeGrammarExamples(item.vi_du || []),
+      summary: {},
+      conjugation_tables: {},
+      is_custom: false,
+    });
+  }
+
+  console.log(`📝 Grammar: ${grammarRows.length} items`);
+
+  // --- INSERT INTO SUPABASE ---
+  console.log("\n📤 Inserting into Supabase...\n");
+
+  // Insert vocabulary in batches of 50
+  for (let i = 0; i < vocabRows.length; i += 50) {
+    const batch = vocabRows.slice(i, i + 50);
+    const { error } = await supabase.from("vocabulary").upsert(batch);
+    if (error) {
+      console.error(`  ❌ Vocab batch ${i / 50 + 1} error:`, error.message);
+    } else {
+      console.log(`  ✅ Vocab batch ${i / 50 + 1} (${batch.length} items)`);
+    }
+  }
+
+  // Insert kanji
+  if (kanjiRows.length > 0) {
+    const { error } = await supabase.from("kanji").upsert(kanjiRows);
+    if (error) console.error("  ❌ Kanji error:", error.message);
+    else console.log(`  ✅ Kanji (${kanjiRows.length} items)`);
+  }
+
+  // Insert grammar
+  for (let i = 0; i < grammarRows.length; i += 20) {
+    const batch = grammarRows.slice(i, i + 20);
+    const { error } = await supabase.from("grammar").upsert(batch);
+    if (error) {
+      console.error(`  ❌ Grammar batch ${i / 20 + 1} error:`, error.message);
+    } else {
+      console.log(`  ✅ Grammar batch ${i / 20 + 1} (${batch.length} items)`);
+    }
+  }
+
+  console.log("\n🎉 Import complete!");
+  console.log(`   Vocabulary: ${vocabRows.length}`);
+  console.log(`   Kanji: ${kanjiRows.length}`);
+  console.log(`   Grammar: ${grammarRows.length}`);
+}
+
+// ============================================
+// Helpers
+// ============================================
+
+function extractCategory(tenBai: string): string {
+  const match = tenBai.match(/Bài\s*(\d+)/i);
+  if (match) return `Bài ${match[1]}`;
+  return tenBai;
+}
+
+function formatCategory(cat: string): string {
+  const map: Record<string, string> = {
+    danh_tu: "Danh từ",
+    dong_tu: "Động từ",
+    cach_dien_dat_va_lien_tu: "Cách diễn đạt & Liên từ",
+    tu_vung_chung_va_gia_dinh: "Từ vựng chung & Gia đình",
+    bo_sung: "Bổ sung",
+  };
+  return map[cat] || cat;
+}
+
+function normalizeGrammarExamples(examples: any[]): any[] {
+  return examples.map((ex) => {
+    // Already has normalized fields or Q&A format — keep as-is
+    if (ex.cau_hoi || ex.tieng_nhat || ex.japanese) return ex;
+    return ex;
+  });
+}
+
+main().catch(console.error);

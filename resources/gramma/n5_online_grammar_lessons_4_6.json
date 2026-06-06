@@ -1,0 +1,505 @@
+{
+    "khoa_hoc": "N5 ONLINE - Nhật ngữ SAKAE",
+    "danh_muc": "TỔNG HỢP NGỮ PHÁP CHI TIẾT BÀI 4 - BÀI 6",
+    "bai_hoc": {
+        "bai_4": {
+            "ten_bai": "NGỮ PHÁP BÀI 4",
+            "cau_truc": [
+                {
+                    "id": 1,
+                    "bieu_thuc": "N は ~ ようびです ・ でした",
+                    "y_nghia": "N là / đã là thứ...",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "きょうはげつようびです。",
+                            "tieng_viet": "Hôm nay là thứ hai."
+                        },
+                        {
+                            "tieng_nhat": "きのうはにちようびでした。",
+                            "tieng_viet": "Hôm qua đã là chủ nhật."
+                        },
+                        {
+                            "cau_hoi": "あしたはなんようびですか。",
+                            "dich_cau_hoi": "Ngày mai là thứ mấy?",
+                            "cau_tra_loi": "かようびです。",
+                            "dich_cau_tra_loi": "Là thứ 3."
+                        },
+                        {
+                            "cau_hoi": "おとといはなんようびでしたか。",
+                            "dich_cau_hoi": "Hôm kia đã là thứ mấy?",
+                            "cau_tra_loi": "どようびでした。",
+                            "dich_cau_tra_loi": "Đã là thứ 7."
+                        }
+                    ],
+                    "bang_chia_thoi": {
+                        "danh_tu": {
+                            "hien_tai_tuong_lai": {
+                                "khang_dinh": "N です",
+                                "phu_dinh": "N じゃありません"
+                            },
+                            "qua_khu": {
+                                "khang_dinh": "N でした",
+                                "phu_dinh": "N じゃありません でした"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": 2,
+                    "bieu_thuc": "じかん (ひとは) Vます ・ ました",
+                    "y_nghia": "Thời gian (người) làm gì / đã làm gì (Động từ chia theo thời thể)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "あした べんきょうします。",
+                            "tieng_viet": "Ngày mai tôi học."
+                        },
+                        {
+                            "tieng_nhat": "あしたはたらきません。",
+                            "tieng_viet": "Ngày mai tôi không làm việc."
+                        },
+                        {
+                            "tieng_nhat": "きのうべんきょう しました。",
+                            "tieng_viet": "Hôm qua tôi đã học."
+                        },
+                        {
+                            "tieng_nhat": "きのうはたらきませんでした。",
+                            "tieng_viet": "Hôm qua tôi đã không làm việc."
+                        },
+                        {
+                            "tieng_nhat": "まいにち べんきょうします。",
+                            "tieng_viet": "Tôi học mỗi ngày."
+                        }
+                    ],
+                    "bang_chia_dong_tu": {
+                        "hien_tai_tuong_lai": {
+                            "khang_dinh": "Vます",
+                            "phu_dinh": "Vません"
+                        },
+                        "qua_khu": {
+                            "khang_dinh": "Vました",
+                            "phu_dinh": "Vませんでした"
+                        }
+                    }
+                },
+                {
+                    "id": 3,
+                    "bieu_thuc": "ばしょはいま ~ じ ~ ふんです",
+                    "y_nghia": "Bây giờ ở [Địa điểm] là mấy giờ mấy phút",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "ベトナムはいま ごぜんじゅうじじゅうぷんです。",
+                            "tieng_viet": "Việt Nam bây giờ là 10 giờ 10 phút sáng."
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "bieu_thuc": "じかんに Vます ・ ました",
+                    "y_nghia": "Làm gì vào lúc mấy giờ (Trợ từ に chỉ mốc thời gian có số cụ thể)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "けさしちじにおきました。 ",
+                            "tieng_viet": "Sáng nay tôi đã thức dậy lúc 7 giờ."
+                        },
+                        {
+                            "cau_hoi": "まいばん なんじに ねますか。",
+                            "dich_cau_hoi": "Mỗi tối bạn ngủ lúc mấy giờ?",
+                            "cau_tra_loi": "じゅういちじはんにおきます (ねます)。",
+                            "dich_cau_tra_loi": "Tôi ngủ lúc 11 giờ rưỡi."
+                        },
+                        {
+                            "cau_hoi": "なんじにおわりますか。",
+                            "dich_cau_hoi": "Kết thúc lúc mấy giờ?",
+                            "cau_tra_loi": "ごごよじはんにおわります。",
+                            "dich_cau_tra_loi": "Kết thúc lúc 4 giờ rưỡi chiều."
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "bieu_thuc": "~ じから ~ じまで Vます ・ ました",
+                    "y_nghia": "Làm gì từ mấy giờ đến mấy giờ",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "ひる じゅうにじから いちじまで やすみます。",
+                            "tieng_viet": "Buổi trưa tôi nghỉ ngơi từ 12 giờ đến 1 giờ."
+                        },
+                        {
+                            "cau_hoi": "まいあさ なんじから はたらきますか。",
+                            "dich_cau_hoi": "Mỗi sáng bạn làm việc từ mấy giờ?",
+                            "cau_tra_loi": "ごぜん はちじからはたらきます。",
+                            "dich_cau_tra_loi": "Tôi làm việc từ 8 giờ sáng."
+                        },
+                        {
+                            "cau_hoi": "きのう なんじまではたらきましたか。",
+                            "dich_cau_hoi": "Hôm qua bạn đã làm việc đến mấy giờ?",
+                            "cau_tra_loi": "ごごろくじはんまではたらきました。",
+                            "dich_cau_tra_loi": "Tôi đã làm việc đến 6 giờ rưỡi chiều."
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "bieu_thuc": "~ しゅうの ~ ようび ます ・ ました",
+                    "y_nghia": "Thứ... tuần... làm gì / đã làm gì",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "らいしゅうのげつようび べんきょうします。",
+                            "tieng_viet": "Thứ 2 tuần sau tôi học."
+                        },
+                        {
+                            "tieng_nhat": "らいしゅうのかようび べんきょうしません。",
+                            "tieng_viet": "Thứ 3 tuần sau tôi không học."
+                        },
+                        {
+                            "tieng_nhat": "せんしゅうのすいようび はたらきました。",
+                            "tieng_viet": "Thứ 4 tuần trước tôi đã làm việc."
+                        },
+                        {
+                            "tieng_nhat": "せんしゅうのもくようび はたらきませんでした。",
+                            "tieng_viet": "Thứ 5 tuần trước tôi đã không làm việc."
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "bieu_thuc": "N は ~ じから ~ じまでです",
+                    "y_nghia": "N (địa điểm, tổ chức) thì mở cửa/làm việc từ mấy giờ đến mấy giờ",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "ぎんこうはごぜんくじからごごごじまでです。",
+                            "tieng_viet": "Ngân hàng mở cửa từ 9 giờ sáng đến 5 giờ chiều."
+                        },
+                        {
+                            "cau_hoi": "としょかんはなんじからなんじまでですか。",
+                            "dich_cau_hoi": "Thư viện mở cửa từ mấy giờ đến mấy giờ?",
+                            "cau_tra_loi": "はちじから ごご ごじまでです。",
+                            "dich_cau_tra_loi": "Từ 8 giờ đến 5 giờ chiều."
+                        }
+                    ]
+                }
+            ]
+        },
+        "bai_5": {
+            "ten_bai": "NGỮ PHÁP BÀI 5",
+            "cau_truc": [
+                {
+                    "id": 1,
+                    "bieu_thuc": "~ げつは ~ がつです ・ でした",
+                    "y_nghia": "Tháng... là / đã là tháng...",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "こんげつはさんがつです。",
+                            "tieng_viet": "Tháng này là tháng 3."
+                        },
+                        {
+                            "tieng_nhat": "せんげつはにがつでした。",
+                            "vi_tri": "Tháng trước đã là tháng 2."
+                        },
+                        {
+                            "cau_hoi": "らいげつはなんながつですか (なんがつですか)。",
+                            "dich_cau_hoi": "Tháng sau là tháng mấy?",
+                            "cau_tra_loi": "しがつです。",
+                            "dich_cau_tra_loi": "Là tháng 4."
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "bieu_thuc": "N は ~ か ・ にちです ・ でした",
+                    "y_nghia": "N là / đã là ngày...",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "きょうはみっかです。",
+                            "tieng_viet": "Hôm nay là ngày 3."
+                        },
+                        {
+                            "tieng_nhat": "きのうはふつかでした。",
+                            "tieng_viet": "Hôm qua đã là ngày 2."
+                        },
+                        {
+                            "tieng_nhat": "らいしゅうのげつようびはじゅうごにちです (らいしゅうの)。",
+                            "tieng_viet": "Thứ 2 tuần sau là ngày 15."
+                        },
+                        {
+                            "tieng_nhat": "せんしゅうのすいようびはにじゅうしちにちでした。",
+                            "tieng_viet": "Thứ 4 tuần trước đã là ngày 27."
+                        },
+                        {
+                            "cau_hoi": "あしたはなんにちですか。",
+                            "dich_cau_hoi": "Ngày mai là ngày mấy?",
+                            "cau_tra_loi": "よっかです。",
+                            "dich_cau_tra_loi": "Là ngày 4."
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "bieu_thuc": "たんじょうびは ~ がつ ~ か ・ にちです。",
+                    "y_nghia": "Sinh nhật là ngày... tháng...",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "わたしのたんじょうびはごがつじゅうくにちです。",
+                            "tieng_viet": "Ngày sinh nhật của tôi là ngày 19 tháng 5."
+                        },
+                        {
+                            "cau_hoi": "たんじょうびはなんがつなんにちですか。",
+                            "dich_cau_hoi": "Ngày sinh nhật của bạn là ngày mấy tháng mấy?",
+                            "cau_tra_loi": "ろくがつはつかです。",
+                            "dich_cau_tra_loi": "Là ngày 20 tháng 6."
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "bieu_thuc": "ばしょへ いきます ・ きます ・ かえります",
+                    "y_nghia": "Đi / Đến / Về một địa điểm nào đó (Trợ từ へ chỉ hướng di chuyển)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "あした がっこうへ いきます。",
+                            "tieng_viet": "Ngày mai tôi sẽ đi đến trường."
+                        },
+                        {
+                            "tieng_nhat": "きのうとしょかんへいきました。",
+                            "tieng_viet": "Hôm qua tôi đã đi thư viện."
+                        },
+                        {
+                            "cau_hoi": "こんばん どこへいきますか。",
+                            "dich_cau_hoi": "Tối nay bạn sẽ đi đâu?",
+                            "cau_tra_loi_1": "きっさてんへいきます。",
+                            "dich_tra_loi_1": "Tôi sẽ đi quán cà phê.",
+                            "cau_tra_loi_2": "どこへもいきません (どこもいきません)。",
+                            "dich_tra_loi_2": "Tôi không đi đâu cả."
+                        },
+                        {
+                            "cau_hoi": "いつびょういんへいきますか。",
+                            "dich_cau_hoi": "Khi nào bạn đi bệnh viện?",
+                            "cau_tra_loi_1": "あしたいきます。",
+                            "dich_tra_loi_1": "Ngày mai tôi đi.",
+                            "cau_tra_loi_2": "らいげつのいつかにいきます。",
+                            "dich_tra_loi_2": "Vào ngày 5 tháng sau tôi sẽ đi."
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "bieu_thuc": "わたしのかぞくは ~ にんです。N1 と N2 と... わたしです。",
+                    "y_nghia": "Gia đình tôi có... người. Gồm có N1, N2... và tôi.",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "かぞくはよにんです。りょうしんとあにとわたしです。",
+                            "tieng_viet": "Gia đình tôi có 4 người. Bố mẹ tôi, anh trai tôi và tôi."
+                        },
+                        {
+                            "cau_hoi": "ごかぞくはなんにんですか。",
+                            "dich_cau_hoi": "Gia đình bạn có bao nhiêu người?",
+                            "cau_tra_loi": "ごにんです。りょうしんとあにがふたりとわたしです (あにが)。",
+                            "dich_cau_tra_loi": "5 người. Bố mẹ tôi, 2 anh trai và tôi."
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "bieu_thuc": "じかん ひとと ばしょへ V (いきます・きます・かえります)",
+                    "y_nghia": "Đi, đến, về địa điểm nào đó cùng với ai vào thời gian nào",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "あした ははと スーパーへいきます。",
+                            "tieng_viet": "Ngày mai tôi đi siêu thị với mẹ."
+                        },
+                        {
+                            "tieng_nhat": "まいにちひとりでがっこうへいきます。",
+                            "tieng_viet": "Mỗi ngày tôi đi đến trường một mình."
+                        },
+                        {
+                            "tieng_nhat": "らいしゅうのどようびともだちとうちへきます。",
+                            "tieng_viet": "Thứ 7 tuần sau tôi sẽ đến nhà cùng bạn bè."
+                        },
+                        {
+                            "tieng_nhat": "きのうのよるじゅうじにひとりでうちへかえりました。",
+                            "tieng_viet": "Tối hôm qua lúc 10 giờ tôi đã về nhà một mình."
+                        },
+                        {
+                            "cau_hoi": "だれとベトナムへきましたか。",
+                            "dich_cau_hoi": "Bạn đã đến Việt Nam cùng với ai?",
+                            "cau_tra_loi_1": "かぞくと きました。",
+                            "dich_tra_loi_1": "Tôi đã đến cùng gia đình.",
+                            "cau_tra_loi_2": "ひとりで きました。",
+                            "dich_tra_loi_2": "Tôi đã đến một mình."
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "bieu_thuc": "どうぐ・しゅだんで ばしょへ V",
+                    "y_nghia": "Đi, đến, về địa điểm bằng phương tiện/công cụ gì (Trợ từ で)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "くるまで がっこうへいきます。",
+                            "tieng_viet": "Tôi đi đến trường bằng xe hơi."
+                        },
+                        {
+                            "tieng_nhat": "あるいて うちへかえります。",
+                            "tieng_viet": "Tôi đi bộ về nhà (Không dùng trợ từ で với あるいて)."
+                        },
+                        {
+                            "cau_hoi": "なんでがっこうへいきますか。",
+                            "dich_cau_hoi": "Bạn đi đến trường bằng phương tiện gì?",
+                            "cau_tra_loi": "じてんしゃでいきます。",
+                            "dich_cau_tra_loi": "Tôi đi bằng xe đạp."
+                        }
+                    ]
+                }
+            ]
+        },
+        "bai_6": {
+            "ten_bai": "NGỮ PHÁP BÀI 6",
+            "cau_truc": [
+                {
+                    "id": 1,
+                    "bieu_thuc": "N を たべます ・ ました / のみます ・ ました",
+                    "y_nghia": "Ăn N / Uống N (Trợ từ を tác động lên tân ngữ)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "まいあさパンをたべます。",
+                            "tieng_viet": "Mỗi sáng tôi ăn bánh mì."
+                        },
+                        {
+                            "tieng_nhat": "けさ バナナをたべました。",
+                            "tieng_viet": "Sáng nay tôi đã ăn chuối."
+                        },
+                        {
+                            "tieng_nhat": "きのう ビールをのみました。",
+                            "tieng_viet": "Hôm qua tôi đã uống bia."
+                        },
+                        {
+                            "cau_hoi": "こんばんなにをたべますか。",
+                            "dich_cau_hoi": "Tối nay bạn sẽ ăn cái gì?",
+                            "cau_tra_loi_1": "ごはんとさかなとやさいをたべます (ごはんと)。",
+                            "dich_tra_loi_1": "Tôi sẽ ăn cơm, cá và rau.",
+                            "cau_tra_loi_2": "なにもたべません。",
+                            "dich_tra_loi_2": "Tôi sẽ không ăn cái gì cả."
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "bieu_thuc": "ばしょで N を Vます ・ ました",
+                    "y_nghia": "Làm hành động V tác động lên N tại một địa điểm nào đó (Trợ từ で chỉ vị trí hành động)",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "きのう レストランでばんごはんをたべました。",
+                            "tieng_viet": "Hôm qua tôi đã ăn tối ở nhà hàng."
+                        },
+                        {
+                            "cau_hoi": "まいあさ どこでやさいをかいますか。",
+                            "dich_cau_hoi": "Mỗi sáng bạn mua rau củ ở đâu?",
+                            "cau_tra_loi": "いちばでかいます。",
+                            "dich_cau_tra_loi": "Tôi mua ở chợ."
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "bieu_thuc": "なにをしますか ・ しましたか",
+                    "y_nghia": "Hỏi xem làm cái gì / đã làm cái gì",
+                    "vi_du": [
+                        {
+                            "cau_hoi": "あしたうちでなにをしますか。",
+                            "dich_cau_hoi": "Ngày mai bạn sẽ làm gì ở nhà?",
+                            "cau_tra_loi_1": "ほんをよみます。",
+                            "dich_tra_loi_1": "Tôi sẽ đọc sách.",
+                            "cau_tra_loi_2": "なにもしません。",
+                            "dich_tra_loi_2": "Tôi sẽ không làm gì cả."
+                        },
+                        {
+                            "cau_hoi": "きのう うちでなにをしましたか。",
+                            "dich_cau_hoi": "Hôm qua bạn đã làm gì ở nhà?",
+                            "cau_tra_loi_1": "おんがくをききました。",
+                            "dich_tra_loi_1": "Tôi đã nghe nhạc.",
+                            "cau_tra_loi_2": "なにもしませんでした。",
+                            "dich_tra_loi_2": "Tôi đã không làm gì cả."
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "bieu_thuc": "N1 の N2 を Vます ・ ました",
+                    "y_nghia": "Thực hiện hành động V lên đối tượng N2 thuộc tính chất/nội dung của N1",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "にちようびこうえんではなのえをかきます (にちようび)。",
+                            "tieng_viet": "Chủ nhật tôi sẽ vẽ tranh về hoa ở công viên."
+                        },
+                        {
+                            "tieng_nhat": "きのうみせでかぞくのしゃしんをとりました。",
+                            "tieng_viet": "Hôm qua tôi đã chụp ảnh về gia đình ở tiệm chụp hình."
+                        },
+                        {
+                            "cau_hoi": "せんしゅう デパートでなにをかいましたか。",
+                            "dich_cau_hoi": "Tuần trước bạn đã mua cái gì ở trung tâm thương mại?",
+                            "cau_tra_loi": "スイスのとけいをかいました。",
+                            "dich_cau_tra_loi": "Tôi đã mua đồng hồ Thụy Sỹ."
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "bieu_thuc": "V1 ます それから V2 ます ・ ました",
+                    "y_nghia": "Làm V1, sau đó / rồi thì làm V2",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "がっこうへいきます。それからよじまでべんきょうします。",
+                            "tieng_viet": "Tôi đi đến trường rồi sau đó học đến 4 giờ."
+                        },
+                        {
+                            "tieng_nhat": "きのうろくじまではたらきました。それからうちへかえりました。",
+                            "tieng_viet": "Hôm qua tôi đã làm việc đến 6 giờ, sau đó tôi đã về nhà."
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "bieu_thuc": "Adv + Vます ・ ません",
+                    "y_nghia": "Sử dụng các trạng từ chỉ tần suất kết hợp cùng động từ",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "いつもごぜんしちじにおきます。",
+                            "tieng_viet": "Tôi luôn luôn thức dậy vào lúc 7 giờ sáng."
+                        },
+                        {
+                            "tieng_nhat": "ときどきとしょかんでほんをよみます。",
+                            "tieng_viet": "Thỉnh thoảng tôi đọc sách ở thư viện."
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "bieu_thuc": "いっしょに Vませんか",
+                    "y_nghia": "Mẫu câu rủ rê, mời mọc: Cùng nhau làm V nhé?",
+                    "vi_du": [
+                        {
+                            "cau_hoi": "いっしょにひるごはんをたべませんか。",
+                            "dich_cau_hoi": "Cùng ăn trưa với tôi nhé?",
+                            "cau_tra_loi_dong_y": "ええ、いいですね。たべましょう。",
+                            "dich_dong_y": "Ừm, hay quá nhỉ. Cùng ăn nào.",
+                            "cau_tra_loi_tu_choi": "すみません、ちょっと･･･。",
+                            "dich_tu_choi": "Xin lỗi, tôi có chút việc mất rồi... (Cách từ chối khéo léo trong tiếng Nhật)."
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "bieu_thuc": "Vましょう",
+                    "y_nghia": "Mẫu câu hô hào, chủ động rủ hoặc đồng ý lời mời: Hãy cùng làm V nào!",
+                    "vi_du": [
+                        {
+                            "tieng_nhat": "ちょっとやすみましょう。",
+                            "tieng_viet": "Hãy cùng nghỉ ngơi một lát nào."
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,1040 @@
+{
+    "truong_hoc": "SAKAE Japanese School",
+    "khoa_hoc": "N5 ONLINE",
+    "bai_hoc": {
+        "bai_4": {
+            "ten_bai": "Bài 4 - ことば (Từ vựng)",
+            "tu_vung": [
+                {
+                    "id": 1,
+                    "japanese": "にちようび",
+                    "vietnamese": "Chủ Nhật"
+                },
+                {
+                    "id": 2,
+                    "japanese": "げつようび",
+                    "vietnamese": "Thứ 2"
+                },
+                {
+                    "id": 3,
+                    "japanese": "かようび",
+                    "vietnamese": "Thứ 3"
+                },
+                {
+                    "id": 4,
+                    "japanese": "すいようび",
+                    "vietnamese": "Thứ 4"
+                },
+                {
+                    "id": 5,
+                    "japanese": "もくようび",
+                    "vietnamese": "Thứ 5"
+                },
+                {
+                    "id": 6,
+                    "japanese": "きんようび",
+                    "vietnamese": "Thứ 6"
+                },
+                {
+                    "id": 7,
+                    "japanese": "どようび",
+                    "vietnamese": "Thứ 7"
+                },
+                {
+                    "id": 8,
+                    "japanese": "きょう",
+                    "vietnamese": "Hôm nay"
+                },
+                {
+                    "id": 9,
+                    "japanese": "あした",
+                    "vietnamese": "Ngày mai"
+                },
+                {
+                    "id": 10,
+                    "japanese": "あさって",
+                    "vietnamese": "Ngày mốt"
+                },
+                {
+                    "id": 11,
+                    "japanese": "きのう",
+                    "vietnamese": "Hôm qua"
+                },
+                {
+                    "id": 12,
+                    "japanese": "おととい",
+                    "vietnamese": "Hôm kia"
+                },
+                {
+                    "id": 13,
+                    "japanese": "けさ",
+                    "vietnamese": "Sáng nay"
+                },
+                {
+                    "id": 14,
+                    "japanese": "こんばん",
+                    "vietnamese": "Tối nay"
+                },
+                {
+                    "id": 15,
+                    "japanese": "ゆうべ",
+                    "vietnamese": "Tối qua"
+                },
+                {
+                    "id": 16,
+                    "japanese": "いま",
+                    "vietnamese": "Bây giờ"
+                },
+                {
+                    "id": 17,
+                    "japanese": "～じ",
+                    "vietnamese": "～ Giờ"
+                },
+                {
+                    "id": 18,
+                    "japanese": "～ふん / ～ぷん",
+                    "vietnamese": "～ Phút"
+                },
+                {
+                    "id": 19,
+                    "japanese": "はん",
+                    "vietnamese": "Rưỡi, nửa"
+                },
+                {
+                    "id": 20,
+                    "japanese": "なんじ",
+                    "vietnamese": "Mấy giờ?"
+                },
+                {
+                    "id": 21,
+                    "japanese": "なんぷん",
+                    "vietnamese": "Mấy phút?"
+                },
+                {
+                    "id": 22,
+                    "japanese": "じかん",
+                    "vietnamese": "Thời gian / Tiếng đồng hồ"
+                },
+                {
+                    "id": 23,
+                    "japanese": "～じかん",
+                    "vietnamese": "～ Tiếng (đồng hồ)"
+                },
+                {
+                    "id": 24,
+                    "japanese": "なんじかん",
+                    "vietnamese": "Mấy tiếng?"
+                },
+                {
+                    "id": 25,
+                    "japanese": "あさ",
+                    "vietnamese": "Buổi sáng"
+                },
+                {
+                    "id": 26,
+                    "japanese": "ひる",
+                    "vietnamese": "Buổi trưa"
+                },
+                {
+                    "id": 27,
+                    "japanese": "ばん / よる",
+                    "vietnamese": "Buổi tối"
+                },
+                {
+                    "id": 28,
+                    "japanese": "おきます",
+                    "vietnamese": "Thức dậy"
+                },
+                {
+                    "id": 29,
+                    "japanese": "ねます",
+                    "vietnamese": "Ngủ"
+                },
+                {
+                    "id": 30,
+                    "japanese": "はたらきます",
+                    "vietnamese": "Làm việc"
+                },
+                {
+                    "id": 31,
+                    "japanese": "やすみます",
+                    "vietnamese": "Nghỉ ngơi"
+                },
+                {
+                    "id": 32,
+                    "japanese": "おわります",
+                    "vietnamese": "Kết thúc"
+                },
+                {
+                    "id": 33,
+                    "japanese": "から",
+                    "vietnamese": "Từ"
+                },
+                {
+                    "id": 34,
+                    "japanese": "まで",
+                    "vietnamese": "Đến"
+                },
+                {
+                    "id": 35,
+                    "japanese": "と",
+                    "vietnamese": "Và"
+                },
+                {
+                    "id": 36,
+                    "japanese": "たいへんね",
+                    "vietnamese": "Vất vả nhỉ"
+                },
+                {
+                    "id": 37,
+                    "japanese": "としょかん",
+                    "vietnamese": "Thư viện"
+                },
+                {
+                    "id": 38,
+                    "japanese": "ゆうびんきょく",
+                    "vietnamese": "Bưu điện"
+                },
+                {
+                    "id": 39,
+                    "japanese": "びじゅつかん",
+                    "vietnamese": "Bảo tàng mỹ thuật"
+                },
+                {
+                    "id": 40,
+                    "japanese": "えき",
+                    "vietnamese": "Nhà ga"
+                },
+                {
+                    "id": 41,
+                    "japanese": "デパート",
+                    "vietnamese": "Trung tâm thương mại"
+                },
+                {
+                    "id": 42,
+                    "japanese": "スーパー",
+                    "vietnamese": "Siêu thị"
+                },
+                {
+                    "id": 43,
+                    "japanese": "コンビニ",
+                    "vietnamese": "Cửa hàng tiện lợi"
+                },
+                {
+                    "id": 44,
+                    "japanese": "なんばん",
+                    "vietnamese": "Số mấy?"
+                },
+                {
+                    "id": 45,
+                    "japanese": "ばんごう",
+                    "vietnamese": "Số (điện thoại, phòng...)"
+                },
+                {
+                    "id": 46,
+                    "japanese": "でんわばんごう",
+                    "vietnamese": "Số điện thoại"
+                },
+                {
+                    "id": 47,
+                    "japanese": "そちら",
+                    "vietnamese": "Phía đó / Bên đó"
+                },
+                {
+                    "id": 48,
+                    "japanese": "ごぜん",
+                    "vietnamese": "Giờ sáng, buổi sáng (AM)"
+                },
+                {
+                    "id": 49,
+                    "japanese": "ごご",
+                    "vietnamese": "Giờ chiều, buổi chiều (PM)"
+                },
+                {
+                    "id": 50,
+                    "japanese": "べんきょう",
+                    "vietnamese": "Sự học"
+                },
+                {
+                    "id": 51,
+                    "japanese": "やすみ",
+                    "vietnamese": "Ngày nghỉ, giờ nghỉ"
+                },
+                {
+                    "id": 52,
+                    "japanese": "バンコク",
+                    "vietnamese": "Băng Cốc"
+                },
+                {
+                    "id": 53,
+                    "japanese": "ロンドン",
+                    "vietnamese": "Luân Đôn"
+                },
+                {
+                    "id": 54,
+                    "japanese": "ニューヨーク",
+                    "vietnamese": "New York"
+                },
+                {
+                    "id": 55,
+                    "japanese": "ペキン",
+                    "vietnamese": "Bắc Kinh"
+                },
+                {
+                    "id": 56,
+                    "japanese": "こんしゅう",
+                    "vietnamese": "Tuần này"
+                },
+                {
+                    "id": 57,
+                    "japanese": "らいしゅう",
+                    "vietnamese": "Tuần sau"
+                },
+                {
+                    "id": 58,
+                    "japanese": "さらいしゅう",
+                    "vietnamese": "Tuần sau nữa"
+                },
+                {
+                    "id": 59,
+                    "japanese": "せんしゅう",
+                    "vietnamese": "Tuần trước"
+                },
+                {
+                    "id": 60,
+                    "japanese": "せんせんしゅう",
+                    "vietnamese": "Tuần trước nữa"
+                },
+                {
+                    "id": 61,
+                    "japanese": "まいしゅう",
+                    "vietnamese": "Mỗi tuần"
+                }
+            ]
+        },
+        "bai_5": {
+            "ten_bai": "Bài 5 - ことば (Từ vựng)",
+            "danh_sach_thang": [
+                {
+                    "id": 1,
+                    "japanese": "いちがつ",
+                    "vietnamese": "Tháng 1"
+                },
+                {
+                    "id": 2,
+                    "japanese": "にがつ",
+                    "vietnamese": "Tháng 2"
+                },
+                {
+                    "id": 3,
+                    "japanese": "さんがつ",
+                    "vietnamese": "Tháng 3"
+                },
+                {
+                    "id": 4,
+                    "japanese": "しがつ",
+                    "vietnamese": "Tháng 4"
+                },
+                {
+                    "id": 5,
+                    "japanese": "ごがつ",
+                    "vietnamese": "Tháng 5"
+                },
+                {
+                    "id": 6,
+                    "japanese": "ろくがつ",
+                    "vietnamese": "Tháng 6"
+                },
+                {
+                    "id": 7,
+                    "japanese": "しちがつ",
+                    "vietnamese": "Tháng 7"
+                },
+                {
+                    "id": 8,
+                    "japanese": "はちがつ",
+                    "vietnamese": "Tháng 8"
+                },
+                {
+                    "id": 9,
+                    "japanese": "くがつ",
+                    "vietnamese": "Tháng 9"
+                },
+                {
+                    "id": 10,
+                    "japanese": "じゅうがつ",
+                    "vietnamese": "Tháng 10"
+                },
+                {
+                    "id": 11,
+                    "japanese": "じゅういちがつ",
+                    "vietnamese": "Tháng 11"
+                },
+                {
+                    "id": 12,
+                    "japanese": "じゅうにがつ",
+                    "vietnamese": "Tháng 12"
+                },
+                {
+                    "id": 13,
+                    "japanese": "なんがつ",
+                    "vietnamese": "Tháng mấy?"
+                }
+            ],
+            "danh_sach_ngay": [
+                {
+                    "id": 14,
+                    "japanese": "ついたち",
+                    "vietnamese": "Mồng 1"
+                },
+                {
+                    "id": 15,
+                    "japanese": "ふつか",
+                    "vietnamese": "Mồng 2, 2 ngày"
+                },
+                {
+                    "id": 16,
+                    "japanese": "みっか",
+                    "vietnamese": "Mồng 3, 3 ngày"
+                },
+                {
+                    "id": 17,
+                    "japanese": "よっか",
+                    "vietnamese": "Mồng 4, 4 ngày"
+                },
+                {
+                    "id": 18,
+                    "japanese": "いつか",
+                    "vietnamese": "Mồng 5, 5 ngày"
+                },
+                {
+                    "id": 19,
+                    "japanese": "むいか",
+                    "vietnamese": "Mồng 6, 6 ngày"
+                },
+                {
+                    "id": 20,
+                    "japanese": "なのか",
+                    "vietnamese": "Mồng 7, 7 ngày"
+                },
+                {
+                    "id": 21,
+                    "japanese": "ようか",
+                    "vietnamese": "Mồng 8, 8 ngày"
+                },
+                {
+                    "id": 22,
+                    "japanese": "ここのか",
+                    "vietnamese": "Mồng 9, 9 ngày"
+                },
+                {
+                    "id": 23,
+                    "japanese": "とおか",
+                    "vietnamese": "Mồng 10, 10 ngày"
+                },
+                {
+                    "id": 24,
+                    "japanese": "じゅうよっか",
+                    "vietnamese": "Ngày 14, 14 ngày"
+                },
+                {
+                    "id": 25,
+                    "japanese": "はつか",
+                    "vietnamese": "Ngày 20, 20 ngày"
+                },
+                {
+                    "id": 26,
+                    "japanese": "にじゅうよっか",
+                    "vietnamese": "Ngày 24, 24 ngày"
+                },
+                {
+                    "id": 27,
+                    "japanese": "なんにち",
+                    "vietnamese": "Ngày mấy? Mấy ngày?"
+                }
+            ],
+            "tu_vung_chung_va_gia_dinh": [
+                {
+                    "id": 28,
+                    "japanese": "いつ",
+                    "vietnamese": "Khi nào"
+                },
+                {
+                    "id": 29,
+                    "japanese": "たんじょうび",
+                    "vietnamese": "Sinh nhật"
+                },
+                {
+                    "id": 30,
+                    "japanese": "いきます",
+                    "vietnamese": "Đi"
+                },
+                {
+                    "id": 31,
+                    "japanese": "きます",
+                    "vietnamese": "Đến"
+                },
+                {
+                    "id": 32,
+                    "japanese": "かえります",
+                    "vietnamese": "Về"
+                },
+                {
+                    "id": 33,
+                    "japanese": "どこへもいきません",
+                    "vietnamese": "Không đi đâu cả"
+                },
+                {
+                    "id": 34,
+                    "japanese": "ひこうき",
+                    "vietnamese": "Máy bay"
+                },
+                {
+                    "id": 35,
+                    "japanese": "ふね",
+                    "vietnamese": "Tàu thủy"
+                },
+                {
+                    "id": 36,
+                    "japanese": "でんしゃ",
+                    "vietnamese": "Tàu điện"
+                },
+                {
+                    "id": 37,
+                    "japanese": "ちかてつ",
+                    "vietnamese": "Tàu điện ngầm"
+                },
+                {
+                    "id": 38,
+                    "japanese": "しんかんせん",
+                    "vietnamese": "Tàu Shinkansen"
+                },
+                {
+                    "id": 39,
+                    "japanese": "タクシー",
+                    "vietnamese": "Taxi"
+                },
+                {
+                    "id": 40,
+                    "japanese": "バス",
+                    "vietnamese": "Xe buýt"
+                },
+                {
+                    "id": 41,
+                    "japanese": "あるいて",
+                    "vietnamese": "Đi bộ"
+                },
+                {
+                    "id": 42,
+                    "japanese": "ひと",
+                    "vietnamese": "Người"
+                },
+                {
+                    "id": 43,
+                    "japanese": "ともだち",
+                    "vietnamese": "Bạn bè"
+                },
+                {
+                    "id": 44,
+                    "japanese": "かれ",
+                    "vietnamese": "Anh ấy / Bạn trai"
+                },
+                {
+                    "id": 45,
+                    "japanese": "かのじょ",
+                    "vietnamese": "Cô ấy / Bạn gái"
+                },
+                {
+                    "id": 46,
+                    "japanese": "ひとりで",
+                    "vietnamese": "Một mình"
+                },
+                {
+                    "id": 47,
+                    "japanese": "ことし",
+                    "vietnamese": "Năm nay"
+                },
+                {
+                    "id": 48,
+                    "japanese": "らいねん",
+                    "vietnamese": "Năm sau"
+                },
+                {
+                    "id": 49,
+                    "japanese": "さらいねん",
+                    "vietnamese": "Năm sau nữa"
+                },
+                {
+                    "id": 50,
+                    "japanese": "きょねん",
+                    "vietnamese": "Năm ngoái"
+                },
+                {
+                    "id": 51,
+                    "japanese": "おととし",
+                    "vietnamese": "Năm kia"
+                },
+                {
+                    "id": 52,
+                    "japanese": "こんげつ",
+                    "vietnamese": "Tháng này"
+                },
+                {
+                    "id": 53,
+                    "japanese": "らいげつ",
+                    "vietnamese": "Tháng sau"
+                },
+                {
+                    "id": 54,
+                    "japanese": "さらいげつ",
+                    "vietnamese": "Tháng sau nữa"
+                },
+                {
+                    "id": 55,
+                    "japanese": "せんげつ",
+                    "vietnamese": "Tháng trước"
+                },
+                {
+                    "id": 56,
+                    "japanese": "せんせんげつ",
+                    "vietnamese": "Tháng trước nữa"
+                },
+                {
+                    "id": 57,
+                    "japanese": "まいげつ / まいつき",
+                    "vietnamese": "Mỗi tháng"
+                },
+                {
+                    "id": 58,
+                    "japanese": "まいねん / まいとし",
+                    "vietnamese": "Mỗi năm"
+                },
+                {
+                    "id": 59,
+                    "japanese": "スーパー",
+                    "vietnamese": "Siêu thị"
+                },
+                {
+                    "id": 60,
+                    "japanese": "デパート",
+                    "vietnamese": "Trung tâm thương mại"
+                },
+                {
+                    "id": 61,
+                    "japanese": "こうえん",
+                    "vietnamese": "Công viên"
+                },
+                {
+                    "id": 62,
+                    "japanese": "おまつり",
+                    "vietnamese": "Lễ hội"
+                },
+                {
+                    "id": 63,
+                    "japanese": "～ばんせん",
+                    "vietnamese": "Sân ga số ~"
+                },
+                {
+                    "id": 64,
+                    "japanese": "つぎの",
+                    "vietnamese": "Tiếp theo"
+                },
+                {
+                    "id": 65,
+                    "japanese": "どういたしまして",
+                    "vietnamese": "Không có gì"
+                },
+                {
+                    "id": 66,
+                    "japanese": "かぞく",
+                    "vietnamese": "Gia đình tôi"
+                },
+                {
+                    "id": 67,
+                    "japanese": "りょうしん",
+                    "vietnamese": "Bố mẹ tôi"
+                },
+                {
+                    "id": 68,
+                    "japanese": "きょうだい",
+                    "vietnamese": "Anh em tôi"
+                },
+                {
+                    "id": 69,
+                    "japanese": "おにいさん",
+                    "vietnamese": "Anh trai (bạn)"
+                },
+                {
+                    "id": 70,
+                    "japanese": "おねえさん",
+                    "vietnamese": "Chị gái (bạn)"
+                },
+                {
+                    "id": 71,
+                    "japanese": "おとうとさん",
+                    "vietnamese": "Em trai (bạn)"
+                },
+                {
+                    "id": 72,
+                    "japanese": "いもうとさん",
+                    "vietnamese": "Em gái (bạn)"
+                },
+                {
+                    "id": 73,
+                    "japanese": "おじいさん",
+                    "vietnamese": "Ông (bạn)"
+                },
+                {
+                    "id": 74,
+                    "japanese": "おばあさん",
+                    "vietnamese": "Bà (bạn)"
+                },
+                {
+                    "id": 75,
+                    "japanese": "おとうさん",
+                    "vietnamese": "Bố (bạn)"
+                },
+                {
+                    "id": 76,
+                    "japanese": "おかあさん",
+                    "vietnamese": "Mẹ (bạn)"
+                },
+                {
+                    "id": 77,
+                    "japanese": "ごかぞく",
+                    "vietnamese": "Gia đình (bạn)"
+                },
+                {
+                    "id": 78,
+                    "japanese": "ごりょうしん",
+                    "vietnamese": "Bố mẹ (bạn)"
+                },
+                {
+                    "id": 79,
+                    "japanese": "ごきょうだい",
+                    "vietnamese": "Anh em (bạn)"
+                },
+                {
+                    "id": 80,
+                    "japanese": "ちち",
+                    "vietnamese": "Bố tôi"
+                },
+                {
+                    "id": 81,
+                    "japanese": "はは",
+                    "vietnamese": "Mẹ tôi"
+                },
+                {
+                    "id": 82,
+                    "japanese": "あに",
+                    "vietnamese": "Anh trai tôi"
+                },
+                {
+                    "id": 83,
+                    "japanese": "あね",
+                    "vietnamese": "Chị gái tôi"
+                },
+                {
+                    "id": 84,
+                    "japanese": "おとうと",
+                    "vietnamese": "Em trai tôi"
+                },
+                {
+                    "id": 85,
+                    "japanese": "いもうと",
+                    "vietnamese": "Em gái tôi"
+                },
+                {
+                    "id": 86,
+                    "japanese": "おじいちゃん / おじ",
+                    "vietnamese": "Chú/Cậu tôi"
+                },
+                {
+                    "id": 87,
+                    "japanese": "おば",
+                    "vietnamese": "Cô/Dì tôi"
+                },
+                {
+                    "id": 88,
+                    "japanese": "そふ",
+                    "vietnamese": "Ông tôi"
+                },
+                {
+                    "id": 89,
+                    "japanese": "そぼ",
+                    "vietnamese": "Bà tôi"
+                }
+            ]
+        },
+        "bai_6": {
+            "ten_bai": "Bài 6 - ことば (Từ vựng)",
+            "tu_vung": [
+                {
+                    "id": 1,
+                    "japanese": "たべもの",
+                    "vietnamese": "Đồ ăn"
+                },
+                {
+                    "id": 2,
+                    "japanese": "ごはん",
+                    "vietnamese": "Cơm / Bữa ăn"
+                },
+                {
+                    "id": 3,
+                    "japanese": "パン",
+                    "vietnamese": "Bánh mỳ"
+                },
+                {
+                    "id": 4,
+                    "japanese": "さかな",
+                    "vietnamese": "Cá"
+                },
+                {
+                    "id": 5,
+                    "japanese": "たまご",
+                    "vietnamese": "Trứng"
+                },
+                {
+                    "id": 6,
+                    "japanese": "にく",
+                    "vietnamese": "Thịt"
+                },
+                {
+                    "id": 7,
+                    "japanese": "ぎゅうにく",
+                    "vietnamese": "Thịt bò"
+                },
+                {
+                    "id": 8,
+                    "japanese": "ぶたにく",
+                    "vietnamese": "Thịt heo"
+                },
+                {
+                    "id": 9,
+                    "japanese": "とりにく",
+                    "vietnamese": "Thịt gà"
+                },
+                {
+                    "id": 10,
+                    "japanese": "やさい",
+                    "vietnamese": "Rau củ"
+                },
+                {
+                    "id": 11,
+                    "japanese": "くだもの",
+                    "vietnamese": "Trái cây, hoa quả"
+                },
+                {
+                    "id": 12,
+                    "japanese": "のみもの",
+                    "vietnamese": "Thức uống, đồ uống"
+                },
+                {
+                    "id": 13,
+                    "japanese": "おみず / みず",
+                    "vietnamese": "Nước"
+                },
+                {
+                    "id": 14,
+                    "japanese": "おちゃ",
+                    "vietnamese": "Trà, chè"
+                },
+                {
+                    "id": 15,
+                    "japanese": "こうちゃ",
+                    "vietnamese": "Hồng trà"
+                },
+                {
+                    "id": 16,
+                    "japanese": "ぎゅうにゅう / ミルク",
+                    "vietnamese": "Sữa bò"
+                },
+                {
+                    "id": 17,
+                    "japanese": "ジュース",
+                    "vietnamese": "Nước trái cây"
+                },
+                {
+                    "id": 18,
+                    "japanese": "ビール",
+                    "vietnamese": "Bia"
+                },
+                {
+                    "id": 19,
+                    "japanese": "おさけ / さけ",
+                    "vietnamese": "Rượu / Rượu sake"
+                },
+                {
+                    "id": 20,
+                    "japanese": "みせ",
+                    "vietnamese": "Cửa hàng, tiệm"
+                },
+                {
+                    "id": 21,
+                    "japanese": "レストラン",
+                    "vietnamese": "Nhà hàng"
+                },
+                {
+                    "id": 22,
+                    "japanese": "みせのひと",
+                    "vietnamese": "Nhân viên cửa hàng"
+                },
+                {
+                    "id": 23,
+                    "japanese": "えいが",
+                    "vietnamese": "Phim, điện ảnh"
+                },
+                {
+                    "id": 24,
+                    "japanese": "おんがく",
+                    "vietnamese": "Âm nhạc"
+                },
+                {
+                    "id": 25,
+                    "japanese": "うた",
+                    "vietnamese": "Bài hát"
+                },
+                {
+                    "id": 26,
+                    "japanese": "CD",
+                    "vietnamese": "Đĩa CD"
+                },
+                {
+                    "id": 27,
+                    "japanese": "スポーツ",
+                    "vietnamese": "Thể thao"
+                },
+                {
+                    "id": 28,
+                    "japanese": "サッカー",
+                    "vietnamese": "Bóng đá"
+                },
+                {
+                    "id": 29,
+                    "japanese": "テニス",
+                    "vietnamese": "Quần vợt"
+                },
+                {
+                    "id": 30,
+                    "japanese": "しゅくだい",
+                    "vietnamese": "Bài tập về nhà"
+                },
+                {
+                    "id": 31,
+                    "japanese": "おはなみ",
+                    "vietnamese": "Ngắm hoa anh đào"
+                },
+                {
+                    "id": 32,
+                    "japanese": "しゃしん",
+                    "vietnamese": "Hình ảnh, bức ảnh"
+                },
+                {
+                    "id": 33,
+                    "japanese": "にわ",
+                    "vietnamese": "Sân vườn"
+                },
+                {
+                    "id": 34,
+                    "japanese": "よる / ばん",
+                    "vietnamese": "Buổi tối, đêm"
+                },
+                {
+                    "id": 35,
+                    "japanese": "つぎ",
+                    "vietnamese": "Tiếp theo"
+                },
+                {
+                    "id": 36,
+                    "japanese": "たべます",
+                    "vietnamese": "Ăn"
+                },
+                {
+                    "id": 37,
+                    "japanese": "みます",
+                    "vietnamese": "Xem, nhìn, ngắm"
+                },
+                {
+                    "id": 38,
+                    "japanese": "かいます",
+                    "vietnamese": "Mua"
+                },
+                {
+                    "id": 39,
+                    "japanese": "かきます",
+                    "vietnamese": "Viết, vẽ"
+                },
+                {
+                    "id": 40,
+                    "japanese": "ききます",
+                    "vietnamese": "Nghe"
+                },
+                {
+                    "id": 41,
+                    "japanese": "のみます",
+                    "vietnamese": "Uống"
+                },
+                {
+                    "id": 42,
+                    "japanese": "よみます",
+                    "vietnamese": "Đọc"
+                },
+                {
+                    "id": 43,
+                    "japanese": "します",
+                    "vietnamese": "Làm, chơi (thể thao)"
+                },
+                {
+                    "id": 44,
+                    "japanese": "あいます",
+                    "vietnamese": "Gặp gỡ"
+                },
+                {
+                    "id": 45,
+                    "japanese": "とります",
+                    "vietnamese": "Chụp (hình)"
+                },
+                {
+                    "id": 46,
+                    "japanese": "ちょっと",
+                    "vietnamese": "Một chút, một lát"
+                },
+                {
+                    "id": 47,
+                    "japanese": "いつも",
+                    "vietnamese": "Luôn luôn"
+                },
+                {
+                    "id": 48,
+                    "japanese": "ときどき",
+                    "vietnamese": "Thỉnh thoảng"
+                },
+                {
+                    "id": 49,
+                    "japanese": "いっしょに",
+                    "vietnamese": "Cùng nhau"
+                },
+                {
+                    "id": 50,
+                    "japanese": "いいですね",
+                    "vietnamese": "Được đấy nhỉ / Hay quá nhỉ"
+                },
+                {
+                    "id": 51,
+                    "japanese": "わかりました",
+                    "vietnamese": "Tôi đã hiểu rồi"
+                },
+                {
+                    "id": 52,
+                    "japanese": "なんですか",
+                    "vietnamese": "Cái gì vậy?"
+                },
+                {
+                    "id": 53,
+                    "japanese": "じゃ、また",
+                    "vietnamese": "Hẹn gặp lại nhé"
+                }
+            ]
+        }
+    }
+}

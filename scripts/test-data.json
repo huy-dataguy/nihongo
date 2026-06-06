@@ -1,0 +1,730 @@
+[
+  {
+    "id": "test-b1-q1",
+    "question": "【１】A：あなたは　ミラーさん　ですか。 　　　B：はい、（　　　）です。",
+    "options": [
+      "ミラーさん",
+      "ミラー"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 1",
+    "type": "grammar",
+    "lesson": 1,
+    "is_custom": false
+  },
+  {
+    "id": "test-b1-q2",
+    "question": "【２】A：やまださんは　ぎんこういん　ですか。 　　　B：（　　　）、ぎんこういん　です。",
+    "options": [
+      "はい",
+      "いいえ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 1",
+    "type": "grammar",
+    "lesson": 1,
+    "is_custom": false
+  },
+  {
+    "id": "test-b1-q3",
+    "question": "【３】 A：ワットさんは　かいしゃいん　ですか。 　　　 B：いいえ、かいしゃいん（　　　）。",
+    "options": [
+      "です",
+      "じゃ ありません"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 1",
+    "type": "grammar",
+    "lesson": 1,
+    "is_custom": false
+  },
+  {
+    "id": "test-b1-q4",
+    "question": "【 4 】A: やまださんは　なんさい　ですか。 　　　B：（　　　）。",
+    "options": [
+      "はい、35さいです",
+      "35さいです"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 1",
+    "type": "grammar",
+    "lesson": 1,
+    "is_custom": false
+  },
+  {
+    "id": "test-b1-q5",
+    "question": "【 5 】 A：あのひとは　だれ　ですか。 　　　 B：（　　　　）。",
+    "options": [
+      "だれですか",
+      "さとうさんです"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 1",
+    "type": "grammar",
+    "lesson": 1,
+    "is_custom": false
+  },
+  {
+    "id": "test-b1-q6",
+    "question": "【６】A：たろうくんは（　　　）ですか。 　　　B：８さいです。",
+    "options": [
+      "なんさい",
+      "だれ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 1",
+    "type": "grammar",
+    "lesson": 1,
+    "is_custom": false
+  },
+  {
+    "id": "test-b1-q7",
+    "question": "【７】 A：あのかたは（　　　）ですか。 　　　 B：ミラーさんです。",
+    "options": [
+      "おいくつ",
+      "どなた"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 1",
+    "type": "grammar",
+    "lesson": 1,
+    "is_custom": false
+  },
+  {
+    "id": "test-b1-q8",
+    "question": "【８】 わたしは（　　　）から　きました。",
+    "options": [
+      "ブラジル",
+      "ブラジルじん"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 1",
+    "type": "grammar",
+    "lesson": 1,
+    "is_custom": false
+  },
+  {
+    "id": "test-b1-q9",
+    "question": "【９】 さとうさんは　にほんじんです。やまださん（　　　）にほんじんです。",
+    "options": [
+      "の",
+      "も"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 1",
+    "type": "grammar",
+    "lesson": 1,
+    "is_custom": false
+  },
+  {
+    "id": "test-b1-q10",
+    "question": "【１０】 やまださんは　IMC（　　　）しゃいんです。",
+    "options": [
+      "の",
+      "も"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 1",
+    "type": "grammar",
+    "lesson": 1,
+    "is_custom": false
+  },
+  {
+    "id": "test-b2-q1",
+    "question": "【１】A：これは　なん　ですか。 　　　B：（　　　）。",
+    "options": [
+      "ほんです",
+      "はい、ほんです"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 2",
+    "type": "grammar",
+    "lesson": 2,
+    "is_custom": false
+  },
+  {
+    "id": "test-b2-q2",
+    "question": "【２】A：これは　ほん　ですか。 　　　B：（　　　）。",
+    "options": [
+      "いいえ、ほん じゃ ありません",
+      "ほん じゃ ありません"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 2",
+    "type": "grammar",
+    "lesson": 2,
+    "is_custom": false
+  },
+  {
+    "id": "test-b2-q3",
+    "question": "【３】 A：それは　なんの　ざっし　ですか。 　　　 B：（　　　）ざっしです。",
+    "options": [
+      "くるまの",
+      "わたしの"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 2",
+    "type": "grammar",
+    "lesson": 2,
+    "is_custom": false
+  },
+  {
+    "id": "test-b2-q4",
+    "question": "【 4 】A: これは　ほんですか、ざっしですか。 　　　B：（　　　）。",
+    "options": [
+      "はい、ざっしです",
+      "ざっしです"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 2",
+    "type": "grammar",
+    "lesson": 2,
+    "is_custom": false
+  },
+  {
+    "id": "test-b2-q5",
+    "question": "【 5 】 A：それは　だれの　カメラですか。 　　　 B：（　　　　）です。",
+    "options": [
+      "わたし",
+      "わたしの"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 2",
+    "type": "grammar",
+    "lesson": 2,
+    "is_custom": false
+  },
+  {
+    "id": "test-b2-q6",
+    "question": "【６】A：あれは（　　　）ですか。 　　　B：てちょうです。",
+    "options": [
+      "なん",
+      "だれ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 2",
+    "type": "grammar",
+    "lesson": 2,
+    "is_custom": false
+  },
+  {
+    "id": "test-b2-q7",
+    "question": "【７】 A：あれは（　　　）かばん　ですか。 　　　 B：たなかさんのです。",
+    "options": [
+      "だれの",
+      "なんの"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 2",
+    "type": "grammar",
+    "lesson": 2,
+    "is_custom": false
+  },
+  {
+    "id": "test-b2-q8",
+    "question": "【８】 A：カリナさんは　がくせいですか。 　　　 B：はい、（　　　）です。",
+    "options": [
+      "そう",
+      "カリナさん"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 2",
+    "type": "grammar",
+    "lesson": 2,
+    "is_custom": false
+  },
+  {
+    "id": "test-b2-q9",
+    "question": "【９】 （　　　）は　わたしのです。",
+    "options": [
+      "あの",
+      "あれ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 2",
+    "type": "grammar",
+    "lesson": 2,
+    "is_custom": false
+  },
+  {
+    "id": "test-b2-q10",
+    "question": "【１０】 （　　　）かさは　わたしのです。",
+    "options": [
+      "この",
+      "これ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 2",
+    "type": "grammar",
+    "lesson": 2,
+    "is_custom": false
+  },
+  {
+    "id": "test-b3-q1",
+    "question": "【１】トイレは（　　　）です。",
+    "options": [
+      "ここ",
+      "これ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 3",
+    "type": "grammar",
+    "lesson": 3,
+    "is_custom": false
+  },
+  {
+    "id": "test-b3-q2",
+    "question": "【２】A：おくには　どちら　ですか。 　　　B：（　　　）です。",
+    "options": [
+      "とうきょう",
+      "にほん"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 3",
+    "type": "grammar",
+    "lesson": 3,
+    "is_custom": false
+  },
+  {
+    "id": "test-b3-q3",
+    "question": "【３】 A：うけつけは どこですか。 　　　 B：（　　　）です。",
+    "options": [
+      "あそこ",
+      "にほん"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 3",
+    "type": "grammar",
+    "lesson": 3,
+    "is_custom": false
+  },
+  {
+    "id": "test-b3-q4",
+    "question": "【 4 】A: これは（　　　）ですか。 　　　B：5,000えんです。",
+    "options": [
+      "なん",
+      "いくら"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 3",
+    "type": "grammar",
+    "lesson": 3,
+    "is_custom": false
+  },
+  {
+    "id": "test-b3-q5",
+    "question": "【 5 】 A：これは（①　　　）ネクタイ　ですか。",
+    "options": [
+      "どこの",
+      "だれの"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 3",
+    "type": "grammar",
+    "lesson": 3,
+    "is_custom": false
+  },
+  {
+    "id": "test-b3-q6",
+    "question": "「【5】B：（　　　　）ネクタイ　です。",
+    "options": [
+      "タイの",
+      "タイ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 3",
+    "type": "grammar",
+    "lesson": 3,
+    "is_custom": false
+  },
+  {
+    "id": "test-b3-q7",
+    "question": "【６】A：おくには（　　　）ですか。 　　　B：タイです。",
+    "options": [
+      "なん",
+      "どこ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 3",
+    "type": "grammar",
+    "lesson": 3,
+    "is_custom": false
+  },
+  {
+    "id": "test-b3-q8",
+    "question": "【７】 A：かいしゃは（　　　）ですか。 　　　 B：パワーでんきです。",
+    "options": [
+      "なん",
+      "どちら"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 3",
+    "type": "grammar",
+    "lesson": 3,
+    "is_custom": false
+  },
+  {
+    "id": "test-b3-q9",
+    "question": "【８】 A：パワーでんきは（　　　）かいしゃですか。 　　　B：コンピューターの　かいしゃ　です。",
+    "options": [
+      "なんの",
+      "どこの"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 3",
+    "type": "grammar",
+    "lesson": 3,
+    "is_custom": false
+  },
+  {
+    "id": "test-b3-q10",
+    "question": "【９】 A：カメラうりばは（　　　）ですか。 　　　B：あちら　です。",
+    "options": [
+      "なん",
+      "どちら"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 3",
+    "type": "grammar",
+    "lesson": 3,
+    "is_custom": false
+  },
+  {
+    "id": "test-b4-q1",
+    "question": "【１】A：いま　なんじ　ですか。 　　　B：（　　　）です。",
+    "options": [
+      "４じに",
+      "４じ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 4",
+    "type": "grammar",
+    "lesson": 4,
+    "is_custom": false
+  },
+  {
+    "id": "test-b4-q2",
+    "question": "【２】A：あしたは　なんようび　ですか。 　　　B：（　　　）です。",
+    "options": [
+      "もくようび",
+      "なんようび"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 4",
+    "type": "grammar",
+    "lesson": 4,
+    "is_custom": false
+  },
+  {
+    "id": "test-b4-q3",
+    "question": "【３】 A：でんわばんごうは（　　）ですか。 　　　 B：341の　2531です。",
+    "options": [
+      "なん",
+      "なんばん"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 4",
+    "type": "grammar",
+    "lesson": 4,
+    "is_custom": false
+  },
+  {
+    "id": "test-b4-q4",
+    "question": "【 4 】A: けさ　なんじに　おきましたか。 　　　B：７じに（　　　）。",
+    "options": [
+      "おきました",
+      "おきます"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 4",
+    "type": "grammar",
+    "lesson": 4,
+    "is_custom": false
+  },
+  {
+    "id": "test-b4-q5",
+    "question": "【 5 】 A：こんばん　べんきょう　しますか。 　　　 B：はい、（　　　　）。",
+    "options": [
+      "べんきょうします",
+      "べんきょうしました"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 4",
+    "type": "grammar",
+    "lesson": 4,
+    "is_custom": false
+  },
+  {
+    "id": "test-b4-q6",
+    "question": "【６】A：きのう　はたらきましたか。 　　　B：いいえ、（　　　）。",
+    "options": [
+      "はたらきません",
+      "はたらきませんでした"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 4",
+    "type": "grammar",
+    "lesson": 4,
+    "is_custom": false
+  },
+  {
+    "id": "test-b4-q7",
+    "question": "【７】 A：ぎんこうは　なんじから　ですか。 　　　 B：９じから（　　　）。",
+    "options": [
+      "はたらきます",
+      "です"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 4",
+    "type": "grammar",
+    "lesson": 4,
+    "is_custom": false
+  },
+  {
+    "id": "test-b4-q8",
+    "question": "【８】 デパートは　１０じ（　　　）です。",
+    "options": [
+      "から",
+      "に"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 4",
+    "type": "grammar",
+    "lesson": 4,
+    "is_custom": false
+  },
+  {
+    "id": "test-b4-q9",
+    "question": "【９】 ひるやすみは　１じ（　　　）おわります。",
+    "options": [
+      "まで",
+      "に"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 4",
+    "type": "grammar",
+    "lesson": 4,
+    "is_custom": false
+  },
+  {
+    "id": "test-b4-q10",
+    "question": "【１０】 A：やすみは　なんようびですか。 　　　　 B：どようび（　　　）にちようび　です。",
+    "options": [
+      "と",
+      "も"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 4",
+    "type": "grammar",
+    "lesson": 4,
+    "is_custom": false
+  },
+  {
+    "id": "test-b5-q1",
+    "question": "【１】にちようび　デパートへ　（　　　）。",
+    "options": [
+      "いきます",
+      "きます"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 5",
+    "type": "grammar",
+    "lesson": 5,
+    "is_custom": false
+  },
+  {
+    "id": "test-b5-q2",
+    "question": "【２】A：きのう　どこへ　いきましたか。 　　　B：どこも（　　　）。",
+    "options": [
+      "いきませんでした",
+      "いきました"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 5",
+    "type": "grammar",
+    "lesson": 5,
+    "is_custom": false
+  },
+  {
+    "id": "test-b5-q3",
+    "question": "【３】 A：(　　　）にほんへ　きましたか。 　　　 B：ひこうきで　きました。",
+    "options": [
+      "なんで",
+      "だれと"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 5",
+    "type": "grammar",
+    "lesson": 5,
+    "is_custom": false
+  },
+  {
+    "id": "test-b5-q4",
+    "question": "【 4 】A: （　　　）くにへ　かえりましたか。 　　　B：らいげつ　かえります。",
+    "options": [
+      "いつ",
+      "だれと"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 5",
+    "type": "grammar",
+    "lesson": 5,
+    "is_custom": false
+  },
+  {
+    "id": "test-b5-q5",
+    "question": "【 5 】 しんかんせん （　　　） きょうと （　　　）いきます。",
+    "options": [
+      "へ、 で",
+      "で、  へ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 5",
+    "type": "grammar",
+    "lesson": 5,
+    "is_custom": false
+  },
+  {
+    "id": "test-b5-q6",
+    "question": "【６】ひとりで（　　　）あるいて（　　　）いきます。",
+    "options": [
+      "と、 で",
+      "Ｘ、 Ｘ"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 5",
+    "type": "grammar",
+    "lesson": 5,
+    "is_custom": false
+  },
+  {
+    "id": "test-b5-q7",
+    "question": "【７】 A：いつ（　 　 ）にほんへ　きましたか。 　　　 B：６がつ２８にち（　 　 ）きました。",
+    "options": [
+      "X、に",
+      "に、X"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 5",
+    "type": "grammar",
+    "lesson": 5,
+    "is_custom": false
+  },
+  {
+    "id": "test-b6-q1",
+    "question": "【１】A：なにを　たべますか。 　　　B：パンと（　　　）を　たべます。",
+    "options": [
+      "コーヒー",
+      "くだもの"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 6",
+    "type": "grammar",
+    "lesson": 6,
+    "is_custom": false
+  },
+  {
+    "id": "test-b6-q2",
+    "question": "【２】A：なにを　よみますか。 　　　B：なにも（　　　）。",
+    "options": [
+      "よみません",
+      "よみます"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 6",
+    "type": "grammar",
+    "lesson": 6,
+    "is_custom": false
+  },
+  {
+    "id": "test-b6-q3",
+    "question": "【３】 A：あした　いっしょに　きょうとへ（① 　 ）。       B: ええ、いいですね。（②　　）。",
+    "options": [
+      "① いきませんか/  ② いきましょう",
+      "① いきましたか/ ② いきました"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 6",
+    "type": "grammar",
+    "lesson": 6,
+    "is_custom": false
+  },
+  {
+    "id": "test-b6-q4",
+    "question": "【 4 】A: あした（　　　）をしますか。 　　　B：よこはまへ　いきます。",
+    "options": [
+      "なに",
+      "なん"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 6",
+    "type": "grammar",
+    "lesson": 6,
+    "is_custom": false
+  },
+  {
+    "id": "test-b6-q5",
+    "question": "【 5 】 A：きのう　なにを　しましたか。 　　　 B：えいがを、（　　　　）。",
+    "options": [
+      "しました",
+      "みました"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 6",
+    "type": "grammar",
+    "lesson": 6,
+    "is_custom": false
+  },
+  {
+    "id": "test-b6-q6",
+    "question": "【６】A：どこで　コーヒーを　のみますか。 　　　B：しょくどう（　　　）のみます。",
+    "options": [
+      "へ",
+      "で"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 6",
+    "type": "grammar",
+    "lesson": 6,
+    "is_custom": false
+  },
+  {
+    "id": "test-b6-q7",
+    "question": "【７】 ともだち（　　　）あいました。",
+    "options": [
+      "に",
+      "を"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 6",
+    "type": "grammar",
+    "lesson": 6,
+    "is_custom": false
+  },
+  {
+    "id": "test-b6-q8",
+    "question": "【８】 ともだち（　　　）ごはんを　たべました。",
+    "options": [
+      "に",
+      "と"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 6",
+    "type": "grammar",
+    "lesson": 6,
+    "is_custom": false
+  },
+  {
+    "id": "test-b6-q9",
+    "question": "【９】 げつようびから　きんようびまで　がっこうへ　いきます。どようび（　　　）いきません。",
+    "options": [
+      "は",
+      "も"
+    ],
+    "answer_index": 0,
+    "explanation": "Kiểm tra 5 phút ngữ pháp - Bài 6",
+    "type": "grammar",
+    "lesson": 6,
+    "is_custom": false
+  }
+]

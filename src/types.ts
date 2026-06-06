@@ -16,15 +16,36 @@ export interface ExampleSentence {
 }
 
 export interface VocabularyItem {
-  id: string; // generated client-side
+  id: string;
   word: string;
   reading: string;
   romaji: string;
   meaning: string;
-  category: string; // week or theme (e.g. "Tuần 1 - Chào hỏi", "Gia đình")
+  category: string;
+  lesson?: number;
   examples: ExampleSentence[];
-  isCustom?: boolean; // user imported
+  isCustom?: boolean;
   createdAt?: string;
+}
+
+export interface GrammarExample {
+  // Statement format
+  tieng_nhat?: string;
+  tieng_viet?: string;
+  // Q&A format
+  cau_hoi?: string;
+  dich_cau_hoi?: string;
+  cau_tra_loi?: string;
+  dich_cau_tra_loi?: string;
+  // Additional
+  tra_loi_khang_dinh?: string;
+  dich_khang_dinh?: string;
+  tra_loi_phu_dinh?: string;
+  dich_phu_dinh?: string;
+  // Legacy format
+  japanese?: string;
+  reading?: string;
+  meaning?: string;
 }
 
 export interface GrammarItem {
@@ -32,8 +53,12 @@ export interface GrammarItem {
   structure: string;
   meaning: string;
   explanation: string;
-  examples: ExampleSentence[];
-  category?: string; // week or level
+  notes?: string;
+  category?: string;
+  lesson?: number;
+  examples: GrammarExample[];
+  summary?: Record<string, any>;
+  conjugationTables?: Record<string, any>;
   isCustom?: boolean;
 }
 
@@ -48,7 +73,8 @@ export interface KanjiItem {
   character: string;
   onyomi: string;
   kunyomi: string;
-  meaning: string; // Hán-Việt & Viet meaning
+  meaning: string;
+  lesson?: number;
   examples: KanjiCompound[];
   isCustom?: boolean;
 }
@@ -60,11 +86,12 @@ export interface QuizQuestion {
   answerIndex: number;
   explanation: string;
   type: "vocabulary" | "grammar" | "kanji" | "kana";
+  lesson?: number;
   isCustom?: boolean;
 }
 
 export interface StudyProgress {
-  viewedKana: string[]; // list of romaji/chars mastered
+  viewedKana: string[];
   quizScores: {
     [quizId: string]: {
       score: number;
@@ -72,7 +99,7 @@ export interface StudyProgress {
       date: string;
     }
   };
-  favorites: string[]; // vocabulary or grammar IDs starred
+  favorites: string[];
 }
 
 export interface DailyImportLog {

@@ -1,0 +1,367 @@
+{
+    "khoa_hoc": "N5 ONLINE - Nhật ngữ SAKAE",
+    "danh_muc": "TỔNG HỢP CHI TIẾT TỪ VỰNG & HÁN TỰ BÀI 7",
+    "noi_dung": {
+        "ten_bai": "BÀI 7: TỪ VỰNG & HÁN TỰ",
+        "danh_tu": [
+            {
+                "stt": 1,
+                "hiragana": "どうぐ",
+                "tieng_viet": "Dụng cụ"
+            },
+            {
+                "stt": 2,
+                "hiragana": "はし",
+                "tieng_viet": "Đũa"
+            },
+            {
+                "stt": 3,
+                "hiragana": "スプーン",
+                "tieng_viet": "Muỗng"
+            },
+            {
+                "stt": 4,
+                "hiragana": "ナイフ",
+                "tieng_viet": "Dao"
+            },
+            {
+                "stt": 5,
+                "hiragana": "フォーク",
+                "tieng_viet": "Nĩa"
+            },
+            {
+                "stt": 6,
+                "hiragana": "コップ",
+                "tieng_viet": "Ly"
+            },
+            {
+                "stt": 7,
+                "hiragana": "て",
+                "tieng_viet": "Tay"
+            },
+            {
+                "stt": 8,
+                "hiragana": "はさみ",
+                "tieng_viet": "Kéo"
+            },
+            {
+                "stt": 9,
+                "hiragana": "かみ",
+                "tieng_viet": "Giấy"
+            },
+            {
+                "stt": 10,
+                "hiragana": "メール",
+                "tieng_viet": "Email"
+            },
+            {
+                "stt": 11,
+                "hiragana": "メッセージ",
+                "tieng_viet": "Tin nhắn"
+            },
+            {
+                "stt": 12,
+                "hiragana": "ホッチキス",
+                "tieng_viet": "Dập ghim"
+            },
+            {
+                "stt": 13,
+                "hiragana": "セロテープ",
+                "tieng_viet": "Băng dính"
+            },
+            {
+                "stt": 14,
+                "hiragana": "パンチ",
+                "tieng_viet": "Bấm lỗ"
+            },
+            {
+                "stt": 15,
+                "hiragana": "ファクス",
+                "tieng_viet": "Máy Fax"
+            },
+            {
+                "stt": 16,
+                "hiragana": "パソコン",
+                "tieng_viet": "Máy tính"
+            },
+            {
+                "stt": 17,
+                "hiragana": "おしょうがつ",
+                "tieng_viet": "Tết Tây"
+            },
+            {
+                "stt": 18,
+                "hiragana": "テト",
+                "tieng_viet": "Tết Việt"
+            },
+            {
+                "stt": 19,
+                "hiragana": "クリスマス",
+                "tieng_viet": "Giáng Sinh"
+            },
+            {
+                "stt": 20,
+                "hiragana": "バレンタイン",
+                "tieng_viet": "Ngày lễ tình nhân"
+            },
+            {
+                "stt": 21,
+                "hiragana": "せんせいのひ",
+                "tieng_viet": "Ngày Nhà giáo"
+            },
+            {
+                "stt": 22,
+                "hiragana": "プレゼント",
+                "tieng_viet": "Món quà"
+            },
+            {
+                "stt": 23,
+                "hiragana": "バラ",
+                "tieng_viet": "Hoa hồng"
+            },
+            {
+                "stt": 24,
+                "hiragana": "おとしだま",
+                "tieng_viet": "Tiền lì xì"
+            },
+            {
+                "stt": 25,
+                "hiragana": "ねんがじょう",
+                "tieng_viet": "Thiệp chúc Tết"
+            },
+            {
+                "stt": 26,
+                "hiragana": "カード",
+                "tieng_viet": "Thiệp / Thẻ"
+            },
+            {
+                "stt": 27,
+                "hiragana": "おとこのひと",
+                "tieng_viet": "Người đàn ông"
+            },
+            {
+                "stt": 28,
+                "hiragana": "おんなのひと",
+                "tieng_viet": "Phụ nữ"
+            },
+            {
+                "stt": 29,
+                "hiragana": "こども",
+                "tieng_viet": "Trẻ con"
+            },
+            {
+                "stt": 30,
+                "hiragana": "りょこう",
+                "tieng_viet": "Du lịch"
+            },
+            {
+                "stt": 31,
+                "hiragana": "おみやげ",
+                "tieng_viet": "Quà lưu niệm"
+            },
+            {
+                "stt": 32,
+                "hiragana": "にもつ",
+                "tieng_viet": "Hành lý"
+            },
+            {
+                "stt": 33,
+                "hiragana": "きっぷ",
+                "tieng_viet": "Vé tàu"
+            },
+            {
+                "stt": 34,
+                "hiragana": "ヨーロッパ",
+                "tieng_viet": "Châu Âu"
+            }
+        ],
+        "dong_tu": [
+            {
+                "stt": 35,
+                "hiragana": "きります",
+                "tieng_viet": "Cắt"
+            },
+            {
+                "stt": 36,
+                "hiragana": "おくります",
+                "tieng_viet": "Gửi"
+            },
+            {
+                "stt": 37,
+                "hiragana": "(でんわを)かけます",
+                "tieng_viet": "Gọi (điện thoại)"
+            },
+            {
+                "stt": 38,
+                "hiragana": "おしえます",
+                "tieng_viet": "Dạy"
+            },
+            {
+                "stt": 39,
+                "hiragana": "ならいます",
+                "tieng_viet": "Học (từ người khác)"
+            },
+            {
+                "stt": 40,
+                "hiragana": "かします",
+                "tieng_viet": "Cho mượn"
+            },
+            {
+                "stt": 41,
+                "hiragana": "かります",
+                "tieng_viet": "Mượn"
+            },
+            {
+                "stt": 42,
+                "hiragana": "あげます",
+                "tieng_viet": "Tặng"
+            },
+            {
+                "stt": 43,
+                "hiragana": "もらいます",
+                "tieng_viet": "Nhận"
+            },
+            {
+                "stt": 44,
+                "hiragana": "くれます",
+                "tieng_viet": "Cho tôi"
+            }
+        ],
+        "cach_dien_dat_va_lien_tu": [
+            {
+                "stt": 45,
+                "japanese": "ごめん ください。",
+                "tieng_viet": "Có ai ở nhà không?"
+            },
+            {
+                "stt": 46,
+                "japanese": "いらっしゃい。",
+                "tieng_viet": "Hoan nghênh anh chị đến chơi"
+            },
+            {
+                "stt": 47,
+                "japanese": "どうぞ おあがり ください。",
+                "tieng_viet": "Mời vào nhà"
+            },
+            {
+                "stt": 48,
+                "japanese": "しつれいします。",
+                "tieng_viet": "Tôi xin phép vào nhà ạ"
+            },
+            {
+                "stt": 49,
+                "japanese": "そろそろ しつれいします。",
+                "tieng_viet": "Đã đến lúc tôi phải về"
+            },
+            {
+                "stt": 50,
+                "japanese": "また いらっしゃって ください。",
+                "tieng_viet": "Lần sau lại đến chơi nhé"
+            },
+            {
+                "stt": 51,
+                "japanese": "いただきます。",
+                "tieng_viet": "Tôi xin phép dùng đây (trước khi ăn)"
+            },
+            {
+                "stt": 52,
+                "japanese": "ごちそうさまでした。",
+                "tieng_viet": "Cảm ơn vì bữa ăn (sau khi ăn)"
+            },
+            {
+                "stt": 53,
+                "japanese": "コーヒー、 もう いっぱい いかがですか。",
+                "tieng_viet": "Anh chị dùng thêm một ly cà phê nữa nhé?"
+            },
+            {
+                "stt": 54,
+                "japanese": "はい、いただきます。",
+                "tieng_viet": "Vâng, tôi xin phép dùng thêm ạ"
+            },
+            {
+                "stt": 55,
+                "japanese": "いいえ、けっこうです。",
+                "tieng_viet": "Không, cảm ơn ạ. (từ chối)"
+            },
+            {
+                "stt": 56,
+                "japanese": "これから",
+                "tieng_viet": "Kể từ nay"
+            }
+        ],
+        "kanji": [
+            {
+                "stt": 1,
+                "chu_han": "日",
+                "onyomi_kunyomi": "ひ / にち",
+                "vi_du": "毎日 (Mỗi ngày), 日曜日 (Chủ nhật)"
+            },
+            {
+                "stt": 2,
+                "chu_han": "月",
+                "onyomi_kunyomi": "つき / がつ / げつ",
+                "vi_du": "いち月 (Tháng 1), 毎月 (Mỗi tháng), 月曜日 (Thứ 2)"
+            },
+            {
+                "stt": 3,
+                "chu_han": "火",
+                "onyomi_kunyomi": "ひ / か",
+                "vi_du": "火 (Lửa), 火曜日 (Thứ 3)"
+            },
+            {
+                "stt": 4,
+                "chu_han": "水",
+                "onyomi_kunyomi": "みず / すい",
+                "vi_du": "水 (Nước), 水曜日 (Thứ 4)"
+            },
+            {
+                "stt": 5,
+                "chu_han": "木",
+                "onyomi_kunyomi": "き / もく",
+                "vi_du": "木 (Cây), 木曜日 (Thứ 5)"
+            },
+            {
+                "stt": 6,
+                "chu_han": "金",
+                "onyomi_kunyomi": "かね / きん",
+                "vi_du": "お金 (Tiền), 金曜日 (Thứ 6)"
+            },
+            {
+                "stt": 7,
+                "chu_han": "土",
+                "onyomi_kunyomi": "つち / ど",
+                "vi_du": "土 (Đất), 土曜日 (Thứ 7)"
+            },
+            {
+                "stt": 8,
+                "chu_han": "今",
+                "onyomi_kunyomi": "いま / こん",
+                "vi_du": "今 (Bây giờ), 今月 (Tháng này), 今日 (Hôm nay)"
+            },
+            {
+                "stt": 9,
+                "chu_han": "先",
+                "onyomi_kunyomi": "せん",
+                "vi_du": "先月 (Tháng trước)"
+            },
+            {
+                "stt": 10,
+                "chu_han": "来",
+                "onyomi_kunyomi": "らい / き",
+                "vi_du": "来月 (Tháng sau), 来ます (Đến)"
+            },
+            {
+                "stt": 11,
+                "chu_han": "毎",
+                "onyomi_kunyomi": "まい",
+                "vi_du": "毎日 (Mỗi ngày), 毎月 (Mỗi tháng), 毎年 (Mỗi năm)"
+            },
+            {
+                "stt": 12,
+                "chu_han": "年",
+                "onyomi_kunyomi": "とし / ねん",
+                "vi_du": "今年 (Năm nay), 来年 (Năm sau), 去年 (Năm ngoái)"
+            }
+        ]
+    }
+}
