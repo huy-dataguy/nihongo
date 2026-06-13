@@ -1,0 +1,124 @@
+{
+    "bai": 9,
+    "noi_dung": {
+        "meishi": [
+            {
+                "stt": 1,
+                "tu_vung": "スポーツ",
+                "y_nghia": "Thể thao"
+            },
+            {
+                "stt": 2,
+                "tu_vung": "やきゅう",
+                "y_nghia": "Bóng chày"
+            },
+            {
+                "stt": 3,
+                "tu_vung": "たっきゅう",
+                "y_nghia": "Bóng bàn"
+            },
+            {
+                "stt": 4,
+                "tu_vung": "バレーボール",
+                "y_nghia": "Bóng chuyền"
+            },
+            {
+                "stt": 5,
+                "tu_vung": "バスケット(ボール)",
+                "y_nghia": "Bóng rổ"
+            },
+            {
+                "stt": 6,
+                "tu_vung": "バドミントン",
+                "y_nghia": "Cầu lông"
+            },
+            {
+                "stt": 7,
+                "tu_vung": "ダンス",
+                "y_nghia": "Khiêu vũ, nhảy múa"
+            },
+            {
+                "stt": 8,
+                "tu_vung": "クラシック",
+                "y_nghia": "Nhạc cổ điển"
+            },
+            {
+                "stt": 9,
+                "tu_vung": "ジャズ",
+                "y_nghia": "Nhạc Jazz"
+            },
+            {
+                "stt": 10,
+                "tu_vung": "うた",
+                "y_nghia": "Bài hát"
+            }
+        ],
+        "bieu_dat": [
+            {
+                "stt": 58,
+                "tu_vung": "もしもし",
+                "y_nghia": "Alô"
+            },
+            {
+                "stt": 59,
+                "tu_vung": "いっしょに いかがですか",
+                "y_nghia": "Bạn có muốn đi cùng tôi không?"
+            },
+            {
+                "stt": 60,
+                "tu_vung": "また こんど おねがいします",
+                "y_nghia": "Hẹn lần sau nhé"
+            }
+        ],
+        "kanji": [
+            {
+                "stt": 1,
+                "kanji": "前",
+                "hiragana": "まえ",
+                "y_nghia": "Trước"
+            },
+            {
+                "stt": 2,
+                "kanji": "午前",
+                "hiragana": "ごぜん",
+                "y_nghia": "Giờ sáng"
+            },
+            {
+                "stt": 3,
+                "kanji": "午後",
+                "hiragana": "ごご",
+                "y_nghia": "Buổi chiều"
+            },
+            {
+                "stt": 4,
+                "kanji": "後ろ",
+                "hiragana": "うしろ",
+                "y_nghia": "Phía sau"
+            },
+            {
+                "stt": 5,
+                "kanji": "時",
+                "hiragana": "じ",
+                "y_nghia": "Giờ"
+            },
+            {
+                "stt": 6,
+                "kanji": "四時",
+                "hiragana": "よじ",
+                "y_nghia": "4 giờ"
+            },
+            {
+                "stt": 7,
+                "kanji": "七時",
+                "hiragana": "しちじ",
+                "y_nghia": "7 giờ"
+            },
+            {
+                "stt": 8,
+                "kanji": "五分",
+                "hiragana": "ごふん",
+                "y_nghia": "5 phút"
+            }
+        ]
+    }
+}

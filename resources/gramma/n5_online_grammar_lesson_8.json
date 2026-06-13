@@ -1,0 +1,56 @@
+{
+    "bai": 8,
+    "chu_de": "NGỮ PHÁP BÀI 8",
+    "noi_dung": {
+        "tinh_tu_i": {
+            "mo_ta": "Cách sử dụng tính từ đuôi い",
+            "cau_truc": [
+                {
+                    "khang_dinh": "N は A い です (N thì A)",
+                    "vi_du": "ひるはあついです (Buổi trưa thì nóng)"
+                },
+                {
+                    "phu_dinh": "N は A くない です (N thì không A)",
+                    "vi_du": "よるはあつくないです (Đêm thì không nóng)"
+                }
+            ],
+            "luu_y": "Tính từ 'いい' khi chia sang phủ định sẽ là 'よくない' (không tốt)."
+        },
+        "tinh_tu_na": {
+            "mo_ta": "Cách sử dụng tính từ đuôi な",
+            "cau_truc": [
+                {
+                    "khang_dinh": "N は A です (N thì A)",
+                    "vi_du": "こうえんのさくらはきれいです (Hoa anh đào ở công viên thì đẹp)"
+                },
+                {
+                    "phu_dinh": "N は A じゃありません (N thì không A)",
+                    "vi_du": "あのうみはきれいじゃありません (Biển kia thì không sạch)"
+                }
+            ]
+        },
+        "ket_hop_tinh_tu": {
+            "cau_truc": [
+                {
+                    "noi_cau": "N は A1 です。そして、A2 です (N thì A1 và A2)",
+                    "vi_du": "やまださんのうちはおおきいです。そして、あたらしいです (Nhà anh Yamada thì to và mới)"
+                },
+                {
+                    "doi_lap": "N は A1 ですが、A2 です (N thì A1, nhưng lại A2)",
+                    "vi_du": "日よう日はひまですが、つまらないです (Chủ nhật thì rảnh nhưng lại chán)"
+                }
+            ]
+        },
+        "bo_nghia_danh_tu": {
+            "cau_truc": "N1 は A N2 です (N1 là N2 + tính từ A)",
+            "vi_du": [
+                "フォーはおいしいりょうりです (Phở là món ăn ngon)",
+                "ホーチミンしはにぎやかなまちです (TPHCM là thành phố náo nhiệt)"
+            ],
+            "cau_hoi": {
+                "cau_truc": "N は どんな N ですか (N là N như thế nào?)",
+                "vi_du": "ダラットはどんなところですか (Đà Lạt là nơi như thế nào?) -> しずかなところです (Là nơi yên tĩnh)"
+            }
+        }
+    }
+}
