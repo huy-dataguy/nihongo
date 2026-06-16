@@ -1,56 +1,113 @@
 {
-    "bai": 8,
-    "chu_de": "NGỮ PHÁP BÀI 8",
-    "noi_dung": {
-        "tinh_tu_i": {
-            "mo_ta": "Cách sử dụng tính từ đuôi い",
-            "cau_truc": [
+    "lesson": 8,
+    "title": "NGỮ PHÁP BÀI 8 - 第8課の文法",
+    "content": {
+        "i_keiyoushi": {
+            "title": "いけいようし: Cách sử dụng tính từ đuôi い",
+            "structure": [
                 {
-                    "khang_dinh": "N は A い です (N thì A)",
-                    "vi_du": "ひるはあついです (Buổi trưa thì nóng)"
+                    "khang_dinh": "N は Aいです",
+                    "meaning": "N thì A"
                 },
                 {
-                    "phu_dinh": "N は A くない です (N thì không A)",
-                    "vi_du": "よるはあつくないです (Đêm thì không nóng)"
+                    "phu_dinh": "N は Aくないです",
+                    "meaning": "N thì không A"
                 }
             ],
-            "luu_y": "Tính từ 'いい' khi chia sang phủ định sẽ là 'よくない' (không tốt)."
-        },
-        "tinh_tu_na": {
-            "mo_ta": "Cách sử dụng tính từ đuôi な",
-            "cau_truc": [
+            "examples": [
                 {
-                    "khang_dinh": "N は A です (N thì A)",
-                    "vi_du": "こうえんのさくらはきれいです (Hoa anh đào ở công viên thì đẹp)"
+                    "sentence": "ひるはあついです。",
+                    "meaning": "Buổi trưa thì nóng."
                 },
                 {
-                    "phu_dinh": "N は A じゃありません (N thì không A)",
-                    "vi_du": "あのうみはきれいじゃありません (Biển kia thì không sạch)"
+                    "sentence": "よるはあつくないです。",
+                    "meaning": "Đêm thì không nóng."
+                },
+                {
+                    "sentence": "このじしょはいいですか。はい、いいです。",
+                    "meaning": "Cuốn từ điển này tốt không? Vâng, tốt."
+                },
+                {
+                    "sentence": "いいえ、よくないです。",
+                    "meaning": "Không, không tốt (Lưu ý: い -> よくない)."
+                },
+                {
+                    "sentence": "インドはどうですか。とてもあついです。",
+                    "meaning": "Ấn Độ thế nào? Rất nóng."
+                },
+                {
+                    "sentence": "このみせのくつはどうですか。あまりやすくないです。",
+                    "meaning": "Giày ở cửa hàng này thế nào? Không rẻ lắm."
+                },
+                {
+                    "sentence": "たばこはどうですか。ぜんぜんよくないです。",
+                    "meaning": "Thuốc lá thế nào? Hoàn toàn không tốt."
+                }
+            ]
+        },
+        "na_keiyoushi": {
+            "title": "なけいようし: Cách sử dụng tính từ đuôi な",
+            "structure": [
+                {
+                    "khang_dinh": "N は Aです",
+                    "meaning": "N thì A"
+                },
+                {
+                    "phu_dinh": "N は Aじゃありません",
+                    "meaning": "N thì không A"
+                }
+            ],
+            "examples": [
+                {
+                    "sentence": "こうえんのさくらはきれいです。",
+                    "meaning": "Hoa anh đào ở công viên thì đẹp."
+                },
+                {
+                    "sentence": "あのうみはきれいじゃありません。",
+                    "meaning": "Biển kia thì không sạch sẽ."
                 }
             ]
         },
         "ket_hop_tinh_tu": {
-            "cau_truc": [
+            "title": "Kết hợp tính từ",
+            "structures": [
                 {
-                    "noi_cau": "N は A1 です。そして、A2 です (N thì A1 và A2)",
-                    "vi_du": "やまださんのうちはおおきいです。そして、あたらしいです (Nhà anh Yamada thì to và mới)"
+                    "pattern": "N は A1 です。そして、A2 です。",
+                    "meaning": "N thì A1 và A2."
                 },
                 {
-                    "doi_lap": "N は A1 ですが、A2 です (N thì A1, nhưng lại A2)",
-                    "vi_du": "日よう日はひまですが、つまらないです (Chủ nhật thì rảnh nhưng lại chán)"
+                    "pattern": "N は A1 ですが、A2 です。",
+                    "meaning": "N thì A1, nhưng lại A2."
+                }
+            ],
+            "examples": [
+                {
+                    "sentence": "やまださんのうちはおおきいです。そして、あたらしいです。",
+                    "meaning": "Nhà anh Yamada thì to và mới."
+                },
+                {
+                    "sentence": "日よう日はひまですが、つまらないです。",
+                    "meaning": "Chủ nhật thì rảnh nhưng lại chán."
                 }
             ]
         },
         "bo_nghia_danh_tu": {
-            "cau_truc": "N1 は A N2 です (N1 là N2 + tính từ A)",
-            "vi_du": [
-                "フォーはおいしいりょうりです (Phở là món ăn ngon)",
-                "ホーチミンしはにぎやかなまちです (TPHCM là thành phố náo nhiệt)"
-            ],
-            "cau_hoi": {
-                "cau_truc": "N は どんな N ですか (N là N như thế nào?)",
-                "vi_du": "ダラットはどんなところですか (Đà Lạt là nơi như thế nào?) -> しずかなところです (Là nơi yên tĩnh)"
-            }
+            "title": "Bổ nghĩa cho danh từ",
+            "structure": "N1 は A(い/な) + N2 です",
+            "examples": [
+                {
+                    "sentence": "フォーはおいしいりょうりです。",
+                    "meaning": "Phở là món ăn ngon."
+                },
+                {
+                    "sentence": "ホーチミンしはにぎやかなまちです。",
+                    "meaning": "TPHCM là thành phố náo nhiệt."
+                },
+                {
+                    "sentence": "ダラットはどんなところですか。しずかなところです。",
+                    "meaning": "Đà Lạt là nơi như thế nào? Là nơi yên tĩnh."
+                }
+            ]
         }
     }
 }

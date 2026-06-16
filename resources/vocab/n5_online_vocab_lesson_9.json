@@ -1,124 +1,418 @@
 {
-    "bai": 9,
-    "noi_dung": {
-        "meishi": [
-            {
-                "stt": 1,
-                "tu_vung": "スポーツ",
-                "y_nghia": "Thể thao"
-            },
-            {
-                "stt": 2,
-                "tu_vung": "やきゅう",
-                "y_nghia": "Bóng chày"
-            },
-            {
-                "stt": 3,
-                "tu_vung": "たっきゅう",
-                "y_nghia": "Bóng bàn"
-            },
-            {
-                "stt": 4,
-                "tu_vung": "バレーボール",
-                "y_nghia": "Bóng chuyền"
-            },
-            {
-                "stt": 5,
-                "tu_vung": "バスケット(ボール)",
-                "y_nghia": "Bóng rổ"
-            },
-            {
-                "stt": 6,
-                "tu_vung": "バドミントン",
-                "y_nghia": "Cầu lông"
-            },
-            {
-                "stt": 7,
-                "tu_vung": "ダンス",
-                "y_nghia": "Khiêu vũ, nhảy múa"
-            },
-            {
-                "stt": 8,
-                "tu_vung": "クラシック",
-                "y_nghia": "Nhạc cổ điển"
-            },
-            {
-                "stt": 9,
-                "tu_vung": "ジャズ",
-                "y_nghia": "Nhạc Jazz"
-            },
-            {
-                "stt": 10,
-                "tu_vung": "うた",
-                "y_nghia": "Bài hát"
-            }
-        ],
-        "bieu_dat": [
-            {
-                "stt": 58,
-                "tu_vung": "もしもし",
-                "y_nghia": "Alô"
-            },
-            {
-                "stt": 59,
-                "tu_vung": "いっしょに いかがですか",
-                "y_nghia": "Bạn có muốn đi cùng tôi không?"
-            },
-            {
-                "stt": 60,
-                "tu_vung": "また こんど おねがいします",
-                "y_nghia": "Hẹn lần sau nhé"
-            }
-        ],
-        "kanji": [
-            {
-                "stt": 1,
-                "kanji": "前",
-                "hiragana": "まえ",
-                "y_nghia": "Trước"
-            },
-            {
-                "stt": 2,
-                "kanji": "午前",
-                "hiragana": "ごぜん",
-                "y_nghia": "Giờ sáng"
-            },
-            {
-                "stt": 3,
-                "kanji": "午後",
-                "hiragana": "ごご",
-                "y_nghia": "Buổi chiều"
-            },
-            {
-                "stt": 4,
-                "kanji": "後ろ",
-                "hiragana": "うしろ",
-                "y_nghia": "Phía sau"
-            },
-            {
-                "stt": 5,
-                "kanji": "時",
-                "hiragana": "じ",
-                "y_nghia": "Giờ"
-            },
-            {
-                "stt": 6,
-                "kanji": "四時",
-                "hiragana": "よじ",
-                "y_nghia": "4 giờ"
-            },
-            {
-                "stt": 7,
-                "kanji": "七時",
-                "hiragana": "しちじ",
-                "y_nghia": "7 giờ"
-            },
-            {
-                "stt": 8,
-                "kanji": "五分",
-                "hiragana": "ごふん",
-                "y_nghia": "5 phút"
-            }
-        ]
+    "title": "SAKAE Japanese School - N5 ONLINE",
+    "contact": "NHẬT NGỮ SAKAE THỦ ĐỨC - 028.3720.1830",
+    "lesson": "だい9か - Bài 9",
+    "content_type": "ことば - Từ vựng",
+    "sections": {
+        "meishi": {
+            "title": "めいし(N): Danh từ",
+            "items": [
+                {
+                    "stt": 1,
+                    "japanese": "スポーツ",
+                    "vietnamese": "Thể thao"
+                },
+                {
+                    "stt": 2,
+                    "japanese": "やきゅう",
+                    "vietnamese": "Bóng chày"
+                },
+                {
+                    "stt": 3,
+                    "japanese": "たっきゅう",
+                    "vietnamese": "Bóng bàn"
+                },
+                {
+                    "stt": 4,
+                    "japanese": "バレーボール",
+                    "vietnamese": "Bóng chuyền"
+                },
+                {
+                    "stt": 5,
+                    "japanese": "バスケット(ボール)",
+                    "vietnamese": "Bóng rổ"
+                },
+                {
+                    "stt": 6,
+                    "japanese": "バドミントン",
+                    "vietnamese": "Cầu lông"
+                },
+                {
+                    "stt": 7,
+                    "japanese": "ダンス",
+                    "vietnamese": "Khiêu vũ, nhảy múa"
+                },
+                {
+                    "stt": 8,
+                    "japanese": "クラシック",
+                    "vietnamese": "Nhạc cổ điển"
+                },
+                {
+                    "stt": 9,
+                    "japanese": "ジャズ",
+                    "vietnamese": "Nhạc Jazz"
+                },
+                {
+                    "stt": 10,
+                    "japanese": "うた",
+                    "vietnamese": "Bài hát"
+                },
+                {
+                    "stt": 11,
+                    "japanese": "カラオケ",
+                    "vietnamese": "Karaoke"
+                },
+                {
+                    "stt": 12,
+                    "japanese": "みかん",
+                    "vietnamese": "Quýt"
+                },
+                {
+                    "stt": 13,
+                    "japanese": "ぶどう",
+                    "vietnamese": "Nho"
+                },
+                {
+                    "stt": 14,
+                    "japanese": "スイカ",
+                    "vietnamese": "Dưa hấu"
+                },
+                {
+                    "stt": 15,
+                    "japanese": "いちご",
+                    "vietnamese": "Dâu tây"
+                },
+                {
+                    "stt": 16,
+                    "japanese": "もも",
+                    "vietnamese": "Đào"
+                },
+                {
+                    "stt": 17,
+                    "japanese": "なし",
+                    "vietnamese": "Lê"
+                },
+                {
+                    "stt": 18,
+                    "japanese": "かき",
+                    "vietnamese": "Hồng giòn"
+                },
+                {
+                    "stt": 19,
+                    "japanese": "パイナップル",
+                    "vietnamese": "Dứa, thơm"
+                },
+                {
+                    "stt": 20,
+                    "japanese": "ピザ",
+                    "vietnamese": "Bánh Pizza"
+                },
+                {
+                    "stt": 21,
+                    "japanese": "スパゲッティ",
+                    "vietnamese": "Mỳ Ý"
+                },
+                {
+                    "stt": 22,
+                    "japanese": "ハンバーガー",
+                    "vietnamese": "Bánh Hamburger"
+                },
+                {
+                    "stt": 23,
+                    "japanese": "サラダ",
+                    "vietnamese": "Salad"
+                },
+                {
+                    "stt": 24,
+                    "japanese": "サンドイッチ",
+                    "vietnamese": "Bánh mỳ kẹp"
+                },
+                {
+                    "stt": 25,
+                    "japanese": "カレー",
+                    "vietnamese": "Cà ri"
+                },
+                {
+                    "stt": 26,
+                    "japanese": "アイスクリーム",
+                    "vietnamese": "Kem"
+                },
+                {
+                    "stt": 27,
+                    "japanese": "ケーキ",
+                    "vietnamese": "Bánh kem"
+                },
+                {
+                    "stt": 28,
+                    "japanese": "こまかいおかね",
+                    "vietnamese": "Tiền lẻ"
+                },
+                {
+                    "stt": 29,
+                    "japanese": "じ",
+                    "vietnamese": "Chữ"
+                },
+                {
+                    "stt": 30,
+                    "japanese": "ひらがな",
+                    "vietnamese": "Chữ Hiragana"
+                },
+                {
+                    "stt": 31,
+                    "japanese": "カタカナ",
+                    "vietnamese": "Chữ Katakana"
+                },
+                {
+                    "stt": 32,
+                    "japanese": "かんじ",
+                    "vietnamese": "Chữ Hán"
+                },
+                {
+                    "stt": 33,
+                    "japanese": "ローマじ",
+                    "vietnamese": "Chữ La-tinh"
+                },
+                {
+                    "stt": 34,
+                    "japanese": "ようじ",
+                    "vietnamese": "Việc riêng"
+                },
+                {
+                    "stt": 35,
+                    "japanese": "やくそく",
+                    "vietnamese": "Cuộc hẹn"
+                },
+                {
+                    "stt": 36,
+                    "japanese": "コンサート",
+                    "vietnamese": "Buổi hòa nhạc"
+                },
+                {
+                    "stt": 37,
+                    "japanese": "チケット",
+                    "vietnamese": "Vé sự kiện"
+                },
+                {
+                    "stt": 38,
+                    "japanese": "おっと",
+                    "vietnamese": "Chồng tôi"
+                },
+                {
+                    "stt": 39,
+                    "japanese": "つま",
+                    "vietnamese": "Vợ tôi"
+                },
+                {
+                    "stt": 40,
+                    "japanese": "むすこ",
+                    "vietnamese": "Con trai tôi"
+                },
+                {
+                    "stt": 41,
+                    "japanese": "むすめ",
+                    "vietnamese": "Con gái tôi"
+                },
+                {
+                    "stt": 42,
+                    "japanese": "こども",
+                    "vietnamese": "Con tôi"
+                },
+                {
+                    "stt": 43,
+                    "japanese": "ごしゅじん",
+                    "vietnamese": "Chồng người khác"
+                },
+                {
+                    "stt": 44,
+                    "japanese": "おくさん",
+                    "vietnamese": "Vợ người khác"
+                },
+                {
+                    "stt": 45,
+                    "japanese": "むすこさん",
+                    "vietnamese": "Con trai người khác"
+                },
+                {
+                    "stt": 46,
+                    "japanese": "むすめさん",
+                    "vietnamese": "Con gái người khác"
+                },
+                {
+                    "stt": 47,
+                    "japanese": "おこさん",
+                    "vietnamese": "Con người khác"
+                }
+            ]
+        },
+        "doushi": {
+            "title": "どうし（V）: Động từ",
+            "items": [
+                {
+                    "stt": 48,
+                    "japanese": "わかります",
+                    "vietnamese": "Hiểu, biết"
+                },
+                {
+                    "stt": 49,
+                    "japanese": "あります",
+                    "vietnamese": "Có"
+                }
+            ]
+        },
+        "keiyoushi_na": {
+            "title": "けいようし（Aな）: Tính từ na",
+            "items": [
+                {
+                    "stt": 50,
+                    "japanese": "すき（な）",
+                    "vietnamese": "Thích"
+                },
+                {
+                    "stt": 51,
+                    "japanese": "きらい（な）",
+                    "vietnamese": "Ghét"
+                },
+                {
+                    "stt": 52,
+                    "japanese": "じょうず（な）",
+                    "vietnamese": "Giỏi"
+                },
+                {
+                    "stt": 53,
+                    "japanese": "へた（な）",
+                    "vietnamese": "Dở"
+                }
+            ]
+        },
+        "hyougen": {
+            "title": "ひょうげん: cách diễn đạt (E)",
+            "items": [
+                {
+                    "stt": 54,
+                    "japanese": "パーティーにきます",
+                    "vietnamese": "Đến dự tiệc"
+                },
+                {
+                    "stt": 55,
+                    "japanese": "かいしゃを やすみます。 がっこうを やすみます。",
+                    "vietnamese": "Nghỉ làm nghỉ học"
+                },
+                {
+                    "stt": 56,
+                    "japanese": "よく ねます",
+                    "vietnamese": "Ngủ ngon"
+                },
+                {
+                    "stt": 57,
+                    "japanese": "はやく かえります",
+                    "vietnamese": "Về sớm"
+                },
+                {
+                    "stt": 58,
+                    "japanese": "もしもし。",
+                    "vietnamese": "Alô"
+                },
+                {
+                    "stt": 59,
+                    "japanese": "いっしょに いかがですか。",
+                    "vietnamese": "Bạn có muốn đi cùng tôi không?"
+                },
+                {
+                    "stt": 60,
+                    "japanese": "また こんど おねがいします。",
+                    "vietnamese": "Hẹn lần sau nhé"
+                }
+            ]
+        },
+        "kanji": {
+            "title": "かんじ: chữ hán tự",
+            "items": [
+                {
+                    "stt": 1,
+                    "japanese": "前",
+                    "reading": "まえ",
+                    "vietnamese": "Trước"
+                },
+                {
+                    "stt": 2,
+                    "japanese": "午前",
+                    "reading": "ご ぜん",
+                    "vietnamese": "Giờ sáng"
+                },
+                {
+                    "stt": 3,
+                    "japanese": "午後",
+                    "reading": "ご ご",
+                    "vietnamese": "Buổi chiều"
+                },
+                {
+                    "stt": 4,
+                    "japanese": "後ろ",
+                    "reading": "う しろ",
+                    "vietnamese": "Phía sau"
+                },
+                {
+                    "stt": 5,
+                    "japanese": "時",
+                    "reading": "じ",
+                    "vietnamese": "Giờ"
+                },
+                {
+                    "stt": 6,
+                    "japanese": "四時",
+                    "reading": "よ じ",
+                    "vietnamese": "4 giờ"
+                },
+                {
+                    "stt": 7,
+                    "japanese": "七時",
+                    "reading": "しち じ",
+                    "vietnamese": "7 giờ"
+                },
+                {
+                    "stt": 8,
+                    "japanese": "五分",
+                    "reading": "ご ふん",
+                    "vietnamese": "5 phút"
+                },
+                {
+                    "stt": 9,
+                    "japanese": "十分",
+                    "reading": "じゅっぷん",
+                    "vietnamese": "10 phút"
+                },
+                {
+                    "stt": 10,
+                    "japanese": "半",
+                    "reading": "はん",
+                    "vietnamese": "Nửa"
+                },
+                {
+                    "stt": 11,
+                    "japanese": "一時半",
+                    "reading": "いち じ はん",
+                    "vietnamese": "1 giờ rưỡi"
+                },
+                {
+                    "stt": 12,
+                    "japanese": "何日",
+                    "reading": "なんにch",
+                    "reading_correct": "なんにち",
+                    "vietnamese": "Ngày bao nhiêu"
+                },
+                {
+                    "stt": 13,
+                    "japanese": "何月",
+                    "reading": "なんがつ",
+                    "vietnamese": "Tháng mấy"
+                },
+                {
+                    "stt": 14,
+                    "japanese": "何年",
+                    "reading": "なんねん",
+                    "vietnamese": "Năm bao nhiêu"
+                }
+            ]
+        }
     }
 }

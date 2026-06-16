@@ -1,10 +1,16 @@
 /**
- * Import all resource JSON files into Supabase
- * Usage: npx tsx scripts/import-to-supabase.ts
+ * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-9, grammar bài 1-8, kanji).
+ * Dùng `upsert` theo `id` => CHẠY LẠI BAO NHIÊU LẦN CŨNG ĐƯỢC, không bị trùng.
+ * Mỗi lần sửa/thêm file trong resources/, chỉ cần chạy lại lệnh này:
  *
- * Requires .env with:
- *   SUPABASE_URL=...
- *   SUPABASE_ANON_KEY=...
+ *   npx tsx scripts/import-to-supabase.ts
+ *
+ * Hành vi:
+ *   - Thêm mới: item có trong file mà chưa có DB => insert.
+ *   - Cập nhật: item đã có => ghi đè bằng nội dung mới nhất trong file.
+ *   - KHÔNG tự xóa: item đã bị bỏ khỏi file vẫn còn trong DB (để an toàn).
+ *
+ * Yêu cầu .env có VITE_SUPABASE_URL và VITE_SUPABASE_ANON_KEY.
  */
 import { createClient } from "@supabase/supabase-js";
 import fs from "fs";
@@ -180,6 +186,31 @@ async function main() {
     }
   }
 
+  // Bài 9 — cấu trúc mới: { sections: { meishi/doushi/keiyoushi_na/hyougen/kanji: { title, items } } }
+  const file9 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "vocab/n5_online_vocab_lesson_9.json"), "utf-8"));
+  const lesson9 = parseInt((String(file9.lesson || "9").match(/\d+/) || ["9"])[0]) || 9;
+  const sections9 = file9.sections || {};
+  for (const [secKey, secData] of Object.entries(sections9)) {
+    const sec = secData as any;
+    const items = sec.items;
+    if (!Array.isArray(items)) continue;
+    if (secKey === "kanji") continue; // kanji xử lý riêng ở phần KANJI bên dưới
+    const label = labelFromTitle(sec.title) || secKey;
+    for (const item of items) {
+      vocabRows.push({
+        id: `vocab-b${lesson9}-${secKey}-${item.stt || vocabRows.length}`,
+        word: item.japanese || "",
+        reading: item.japanese || "",
+        romaji: "",
+        meaning: item.vietnamese || "",
+        category: `Bài ${lesson9} - ${label}`,
+        lesson: lesson9,
+        examples: [],
+        is_custom: false,
+      });
+    }
+  }
+
   console.log(`📖 Vocabulary: ${vocabRows.length} items`);
 
   // --- KANJI from Bài 7 ---
@@ -214,6 +245,21 @@ async function main() {
         is_custom: false,
       });
     }
+  }
+
+  // --- KANJI from Bài 9 (sections.kanji.items: japanese/reading(+reading_correct)/vietnamese) ---
+  const kanji9 = (sections9.kanji && sections9.kanji.items) || [];
+  for (const item of kanji9) {
+    kanjiRows.push({
+      id: `kanji-b9-${item.stt || kanjiRows.length}`,
+      character: item.japanese || "",
+      onyomi: "",
+      kunyomi: item.reading_correct || item.reading || "",
+      meaning: item.vietnamese || "",
+      lesson: lesson9,
+      examples: [],
+      is_custom: false,
+    });
   }
 
   console.log(`KANJI: ${kanjiRows.length} items`);
@@ -290,6 +336,38 @@ async function main() {
     });
   }
 
+  // Bài 8 — cấu trúc mới: { lesson, title, content: { catKey: { title, structure|structures, examples } } }
+  // structure: mảng [{khang_dinh|phu_dinh|pattern, meaning}] | chuỗi đơn lẻ; structures: mảng số nhiều
+  const gram8 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "gramma/n5_online_grammar_lesson_8.json"), "utf-8"));
+  const lesson8Num = gram8.lesson || 8;
+  const gram8Content = gram8.content || {};
+  for (const [catKey, catData] of Object.entries(gram8Content)) {
+    const catObj = catData as any;
+    const label = `Bài ${lesson8Num} - ${labelFromTitle(catObj.title) || catKey}`;
+    const examples = Array.isArray(catObj.examples) ? catObj.examples : [];
+
+    let structureItems: any[] = [];
+    if (Array.isArray(catObj.structures)) structureItems = catObj.structures;
+    else if (Array.isArray(catObj.structure)) structureItems = catObj.structure;
+    else if (typeof catObj.structure === "string") structureItems = [{ pattern: catObj.structure, meaning: "" }];
+
+    for (const item of structureItems) {
+      grammarRows.push({
+        id: `grammar-b${lesson8Num}-${catKey}-${grammarRows.length}`,
+        structure: patternFromItem(item),
+        meaning: item.meaning || label,
+        explanation: "",
+        notes: "",
+        category: label,
+        lesson: lesson8Num,
+        examples,
+        summary: {},
+        conjugation_tables: {},
+        is_custom: false,
+      });
+    }
+  }
+
   console.log(`📝 Grammar: ${grammarRows.length} items`);
 
   // --- INSERT INTO SUPABASE ---
@@ -349,6 +427,22 @@ function formatCategory(cat: string): string {
     bo_sung: "Bổ sung",
   };
   return map[cat] || cat;
+}
+
+// Lấy mẫu câu (pattern) trong 1 điểm ngữ pháp bài 8
+// (trường key biến thiên: khang_dinh / phu_dinh / pattern ...), bỏ qua meaning
+function patternFromItem(item: any): string {
+  for (const [key, val] of Object.entries(item)) {
+    if (key !== "meaning" && typeof val === "string") return val;
+  }
+  return "";
+}
+
+// Lấy nhãn tiếng Việt từ title mục, vd "めいし(N): Danh từ" -> "Danh từ"
+function labelFromTitle(title: any): string {
+  if (!title || typeof title !== "string") return "";
+  const parts = title.split(/[:：]/);
+  return (parts[parts.length - 1] || title).trim();
 }
 
 function normalizeGrammarExamples(examples: any[]): any[] {
