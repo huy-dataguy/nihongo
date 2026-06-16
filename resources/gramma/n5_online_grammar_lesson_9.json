@@ -1,0 +1,146 @@
+{
+  "bai_hoc": "第9課の文法 – NGỮ PHÁP BÀI 9",
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "ひとは Nが A (cảm xúc, mức độ, khả năng)",
+      "vi_du": [
+        {
+          "loai": "vi_du_khang_dinh",
+          "tieng_nhat": "1. シュミットさんはビールがすきです。",
+          "tieng_viet": "Anh Schmidt thì thích bia."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: どんなくだものがすきですか。",
+          "tieng_viet": "Bạn thích loại trái cây nào?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: みかんがすきです。",
+          "tieng_viet": "Tôi thích quýt."
+        },
+        {
+          "loai": "vi_du_khang_dinh",
+          "tieng_nhat": "2. サントスさんはサッカーがじょうずです。",
+          "tieng_viet": "Anh Santos thì giỏi bóng đá."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: ベトナムじんはどんなスポーツがじょうずですか。",
+          "tieng_viet": "Người Việt Nam thì giỏi môn thể thao nào?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: バドミントンがじょうずです。",
+          "tieng_viet": "Giỏi cầu lông."
+        }
+      ]
+    },
+    {
+      "cau_truc": "ひとはNがわかります・ません。",
+      "y_nghia": "Người thì hiểu/không hiểu N",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "わたしはえいごがわかります。",
+          "tieng_viet": "Tôi hiểu tiếng Anh. (Ghi chú trong file: Tananese Schì Sumuung hiểu tiếng Anh.)"
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "サントスさんはひらがながよくわかります。",
+          "tieng_viet": "Anh Santo thì hiểu rõ chữ Hiragana."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "ミラーさんはかたかながだいたいわかります。",
+          "tieng_viet": "Anh Miller thì hiểu đại khái chữ Katakana."
+        },
+        {
+          "so_thu_tu": 4,
+          "tieng_nhat": "さとうさんはちゅうごくごがすこしわかります。",
+          "tieng_viet": "Chị Sato thì hiểu một chút tiếng Trung."
+        },
+        {
+          "so_thu_tu": 5,
+          "tieng_nhat": "サントスさんはびょういんのばしょがわかりません。",
+          "tieng_viet": "Anh Santos thì không biết địa điểm của bệnh viện."
+        },
+        {
+          "so_thu_tu": 6,
+          "tieng_nhat": "わたしはにほんごがよくわかりません。",
+          "tieng_viet": "Tôi thì không hiểu rõ tiếng Nhật."
+        },
+        {
+          "so_thu_tu": 7,
+          "tieng_nhat": "やまださんはえいごがあまりわかりません。",
+          "tieng_viet": "Yamada thì không hiểu tiếng Anh lắm."
+        },
+        {
+          "so_thu_tu": 8,
+          "tieng_nhat": "カリナさんはかんじがぜんぜんわかりません。",
+          "tieng_viet": "Karina thì hoàn toàn không hiểu chữ hán tự."
+        }
+      ]
+    },
+    {
+      "cau_truc": "ひとはNがあります。",
+      "y_nghia": "Người thì có N (sở hữu)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "サントスさんはくるまがあります。",
+          "tieng_viet": "Anh Santos thì có xe ô tô."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "マリアさんはクラシックのCDがたくさんあります。",
+          "tieng_viet": "Chị Maria thì có nhiều CD nhạc cổ điển."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "さとうさんはやすみがありません。",
+          "tieng_viet": "Chị Sato thì không có ngày nghỉ."
+        }
+      ]
+    },
+    {
+      "cau_truc": "~から、Vます・ません",
+      "y_nghia": "Vì...nên V/không V",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "かんじがわかりませんから、ひらがなでかきます。",
+          "tieng_viet": "Vì không hiểu chữ hán tự nên tôi viết bằng chữ hiragana."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "今いそがしいですから、ひるごはんをたべません。",
+          "tieng_viet": "Vì bây giờ bận rộn nên tôi sẽ không ăn trưa."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "サッカーがへたですから、ぜんぜんしません。",
+          "tieng_viet": "Vì chơi bóng đá dở nên tôi hoàn toàn không chơi.",
+          "ghi_chu_loi_ocr_goc": "SAKAL から、ぜんぜんしません nên hoàn toàn chơi chơi"
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: どうして にほんごをべんきょうしますか。",
+          "tieng_viet": "Tại sao bạn học tiếng Nhật?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: 来年にほんへいきますから。",
+          "tieng_viet": "Vì năm sau tôi sẽ đi Nhật"
+        }
+      ]
+    }
+  ],
+  "thong_tin_bo_sung": {
+    "tieu_de_phu": "だいか ぶんぼう",
+    "chan_trang": [
+      "Nhật ngữ Sakac Thú Bite",
+      "Nhật ngữ Sakac Thủ Dite"
+    ]
+  }
+}

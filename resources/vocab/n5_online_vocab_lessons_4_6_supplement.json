@@ -1,0 +1,15 @@
+{
+  "source": "Từ vựng bổ sung trích từ câu ví dụ ngữ pháp (grammar lessons 4-6), chưa có trong vocab chính",
+  "lesson_range": "4-6",
+  "items": [
+    { "stt": 1, "lesson": 4, "word": "まいにち", "reading": "まいにち", "romaji": "mainichi", "meaning": "Mỗi ngày", "category": "Trạng từ tần suất" },
+    { "stt": 2, "lesson": 4, "word": "まいあさ", "reading": "まいあさ", "romaji": "maiasa", "meaning": "Mỗi sáng", "category": "Trạng từ tần suất" },
+    { "stt": 3, "lesson": 4, "word": "まいばん", "reading": "まいばん", "romaji": "maiban", "meaning": "Mỗi tối", "category": "Trạng từ tần suất" },
+    { "stt": 1, "lesson": 5, "word": "きっさてん", "reading": "きっさてん", "romaji": "kissaten", "meaning": "Quán cà phê", "category": "Danh từ" },
+    { "stt": 2, "lesson": 5, "word": "じてんしゃ", "reading": "じてんしゃ", "romaji": "jitensha", "meaning": "Xe đạp", "category": "Danh từ" },
+    { "stt": 1, "lesson": 6, "word": "バナナ", "reading": "バナナ", "romaji": "banana", "meaning": "Chuối", "category": "Danh từ" },
+    { "stt": 2, "lesson": 6, "word": "ばんごはん", "reading": "ばんごはん", "romaji": "bangohan", "meaning": "Bữa tối, cơm tối", "category": "Danh từ" },
+    { "stt": 3, "lesson": 6, "word": "いちば", "reading": "いちば", "romaji": "ichiba", "meaning": "Chợ", "category": "Danh từ" },
+    { "stt": 4, "lesson": 6, "word": "それから", "reading": "それから", "romaji": "sorekara", "meaning": "Sau đó, và rồi thì", "category": "Liên từ" }
+  ]
+}

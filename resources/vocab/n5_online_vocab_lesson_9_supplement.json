@@ -1,0 +1,14 @@
+{
+  "source": "Từ vựng bổ sung trích từ câu ví dụ ngữ pháp (grammar lesson 9), chưa có trong vocab chính",
+  "lesson_range": "9",
+  "items": [
+    { "stt": 1, "lesson": 9, "word": "よく", "reading": "よく", "romaji": "yoku", "meaning": "Hay, thường; rõ ràng", "category": "Trạng từ mức độ/tần suất" },
+    { "stt": 2, "lesson": 9, "word": "だいたい", "reading": "だいたい", "romaji": "daitai", "meaning": "Đại khái, phần lớn", "category": "Trạng từ mức độ" },
+    { "stt": 3, "lesson": 9, "word": "すこし", "reading": "すこし", "romaji": "sukoshi", "meaning": "Một chút, hơi", "category": "Trạng từ mức độ" },
+    { "stt": 4, "lesson": 9, "word": "あまり", "reading": "あまり", "romaji": "amari", "meaning": "Không…lắm (đi với phủ định)", "category": "Trạng từ mức độ" },
+    { "stt": 5, "lesson": 9, "word": "ぜんぜん", "reading": "ぜんぜん", "romaji": "zenzen", "meaning": "Hoàn toàn không (đi với phủ định)", "category": "Trạng từ mức độ" },
+    { "stt": 6, "lesson": 9, "word": "たくさん", "reading": "たくさん", "romaji": "takusan", "meaning": "Nhiều", "category": "Trạng từ mức độ/số lượng" },
+    { "stt": 7, "lesson": 9, "word": "どうして", "reading": "どうして", "romaji": "dōshite", "meaning": "Tại sao, vì sao", "category": "Từ để hỏi" },
+    { "stt": 8, "lesson": 9, "word": "ひるごはん", "reading": "ひるごはん", "romaji": "hirugohan", "meaning": "Bữa trưa, cơm trưa", "category": "Danh từ" }
+  ]
+}

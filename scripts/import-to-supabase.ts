@@ -1,5 +1,5 @@
 /**
- * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-9, grammar bài 1-8, kanji).
+ * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-9, grammar bài 1-9, kanji).
  * Dùng `upsert` theo `id` => CHẠY LẠI BAO NHIÊU LẦN CŨNG ĐƯỢC, không bị trùng.
  * Mỗi lần sửa/thêm file trong resources/, chỉ cần chạy lại lệnh này:
  *
@@ -366,6 +366,26 @@ async function main() {
         is_custom: false,
       });
     }
+  }
+
+  // Bài 9 — cấu trúc: { bai_hoc, noi_dung_ngu_phap: [ { cau_truc, y_nghia, vi_du } ] }
+  const gram9 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "gramma/n5_online_grammar_lesson_9.json"), "utf-8"));
+  const lesson9Num = 9;
+  const cauTruc9 = gram9.noi_dung_ngu_phap || [];
+  for (const [index, item] of cauTruc9.entries()) {
+    grammarRows.push({
+      id: `grammar-b${lesson9Num}-${index + 1}`,
+      structure: item.cau_truc || "",
+      meaning: item.y_nghia || "",
+      explanation: "",
+      notes: "",
+      category: gram9.bai_hoc || `Bài ${lesson9Num}`,
+      lesson: lesson9Num,
+      examples: normalizeGrammarExamples(item.vi_du || []),
+      summary: {},
+      conjugation_tables: {},
+      is_custom: false,
+    });
   }
 
   console.log(`📝 Grammar: ${grammarRows.length} items`);

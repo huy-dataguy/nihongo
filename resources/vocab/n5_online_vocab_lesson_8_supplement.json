@@ -1,0 +1,8 @@
+{
+  "source": "Từ vựng bổ sung trích từ câu ví dụ ngữ pháp (grammar lesson 8), chưa có trong vocab chính",
+  "lesson_range": "8",
+  "items": [
+    { "stt": 1, "lesson": 8, "word": "とても", "reading": "とても", "romaji": "totemo", "meaning": "Rất", "category": "Trạng từ mức độ" },
+    { "stt": 2, "lesson": 8, "word": "そして", "reading": "そして", "romaji": "soshite", "meaning": "Và, rồi thì, sau đó", "category": "Liên từ" }
+  ]
+}
