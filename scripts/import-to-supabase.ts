@@ -1,5 +1,5 @@
 /**
- * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-11, grammar bài 1-9, kanji).
+ * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-11, grammar bài 1-10, kanji).
  * Dùng `upsert` theo `id` => CHẠY LẠI BAO NHIÊU LẦN CŨNG ĐƯỢC, không bị trùng.
  * Mỗi lần sửa/thêm file trong resources/, chỉ cần chạy lại lệnh này:
  *
@@ -409,6 +409,27 @@ async function main() {
       notes: "",
       category: gram9.bai_hoc || `Bài ${lesson9Num}`,
       lesson: lesson9Num,
+      examples: normalizeGrammarExamples(item.vi_du || []),
+      summary: {},
+      conjugation_tables: {},
+      is_custom: false,
+    });
+  }
+
+  // Bài 10 — cấu trúc mảng phẳng: [{ cau_truc, y_nghia, vi_du }]
+  // (giống item bài 9 nhưng KHÔNG bọc trong object `noi_dung_ngu_phap`, không có `bai_hoc`)
+  const gram10 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "gramma/n5_online_grammar_lesson_10.json"), "utf-8"));
+  const lesson10Num = 10;
+  const cauTruc10 = Array.isArray(gram10) ? gram10 : gram10.noi_dung_ngu_phap || [];
+  for (const [index, item] of cauTruc10.entries()) {
+    grammarRows.push({
+      id: `grammar-b${lesson10Num}-${index + 1}`,
+      structure: item.cau_truc || "",
+      meaning: item.y_nghia || "",
+      explanation: "",
+      notes: "",
+      category: `Bài ${lesson10Num}`,
+      lesson: lesson10Num,
       examples: normalizeGrammarExamples(item.vi_du || []),
       summary: {},
       conjugation_tables: {},

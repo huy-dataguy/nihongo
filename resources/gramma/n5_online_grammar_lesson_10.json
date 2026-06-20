@@ -1,0 +1,79 @@
+[
+    {
+        "cau_truc": "Địa điểm + に + động vật/người + がいます",
+        "y_nghia": "Có động vật, người ở địa điểm",
+        "vi_du": [
+            "へやにいぬがいます (Có con chó ở phòng)",
+            "へやにおとこのこがいます (Có bé trai ở phòng)",
+            "きょうしつになにもいません (Không có con gì ở phòng học cả)",
+            "ロビーにだれもいません (Không có ai ở sảnh cả)"
+        ]
+    },
+    {
+        "cau_truc": "Địa điểm + に + đồ vật/địa điểm + があります",
+        "y_nghia": "Có đồ vật, địa điểm ở địa điểm",
+        "vi_du": [
+            "へやにベッドがあります (Có cái giường ở phòng)",
+            "あそこになにもありません (Không có cái gì ở chỗ kia cả)",
+            "ホーチミンしにくうこうがあります (Có sân bay ở thành phố Hồ Chí Minh)"
+        ]
+    },
+    {
+        "cau_truc": "Danh từ (Vị trí) + の + Địa điểm + に + động vật/người + がいます",
+        "y_nghia": "Có con vật/con người ở vị trí của N",
+        "vi_du": [
+            "ドアのまえにいぬがいます (Có con chó ở trước cửa)",
+            "いぬのとなりにおとこのこがいます (Có bé trai ở bên cạnh con chó)",
+            "ミラーさんとサントスさんのあいだにだれがいますか (Có ai ở giữa bạn Miller và bạn Santos?)"
+        ]
+    },
+    {
+        "cau_truc": "Danh từ (Vị trí) + の + Địa điểm + に + đồ vật + があります",
+        "y_nghia": "Có đồ vật/địa điểm ở vị trí của N",
+        "vi_du": [
+            "つくえのうえに本があります (Có cuốn sách ở trên cái bàn)",
+            "うちのまえになにがありますか (Có cái gì ở trước nhà?)",
+            "うちのちかくにぎんこうがあります (Có ngân hàng ở gần nhà)"
+        ]
+    },
+    {
+        "cau_truc": "Danh từ 1 + の + N2 (danh từ chỉ vị trí/người)",
+        "y_nghia": "Xác định vị trí tương đối",
+        "vi_du": [
+            "ミラーさんのとなりのひとはやまださんです (Bên cạnh anh Miller là anh Yamada)",
+            "えきのそばのスーパーでたべものをかいます (Tôi mua đồ ăn ở siêu thị xung quanh nhà ga)"
+        ]
+    },
+    {
+        "cau_truc": "いろいろな N + が/を + V",
+        "y_nghia": "V nhiều (thể loại, đa dạng) N",
+        "vi_du": [
+            "こうえんにいろいろなひとがいます (Ở công viên có nhiều loại người)",
+            "れいぞうこのなかにいろいろなくだものがあります (Có nhiều loại trái cây trong tủ lạnh)",
+            "きのう レストランでいろいろなりょうりをたべました (Hôm qua tôi đã ăn nhiều món ăn ở nhà hàng)"
+        ]
+    },
+    {
+        "cau_truc": "N1 + や + N2 + ... (など) + が/を + V",
+        "y_nghia": "V N1, N2... (liệt kê)",
+        "vi_du": [
+            "かいぎしつにやまださんやさとうさん(など)がいます (Trong phòng họp có nào là Anh Yamada nào là chị Sato v.v.)",
+            "れいぞうこのなかににくややさいがあります (Trong tủ lạnh có nào là rau nào là thịt v.v.)",
+            "がっこうでサッカーやバスケットなどをします (Ở trường tôi chơi nào là bóng đá, nào là bóng rổ)"
+        ]
+    },
+    {
+        "cau_truc": "N + は + Địa điểm + に + います/あります",
+        "y_nghia": "N thì ở địa điểm",
+        "vi_du": [
+            "ねこはベッドのしたにいます (Con mèo thì ở dưới cái giường)",
+            "さとうさんはうけつけにいます (Chị Sato thì ở quầy lễ tân)",
+            "ほんはかばんのなかにあります (Sách thì ở trong cặp sách)",
+            "スイッチはどこにありますか (Công tắc thì ở đâu?)",
+            "ドアのみぎにあります (Ở bên phải cửa)",
+            "バスのりばはえきのまえにあります (Trạm xe buýt thì ở trước nhà ga)",
+            "スイカはいちばんうえのたなにあります (Dưa hấu thì ở tầng trên cùng của cái kệ)",
+            "ぶどうはうえからにだんめのたなにあります (Nho thì ở tầng 2 từ trên xuống)"
+        ]
+    }
+]
