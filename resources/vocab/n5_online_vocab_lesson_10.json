@@ -1,0 +1,287 @@
+[
+    {
+        "stt": 1,
+        "tu_vung": "おとこのこ",
+        "nghia": "Bé trai"
+    },
+    {
+        "stt": 2,
+        "tu_vung": "おんなのこ",
+        "nghia": "Bé gái"
+    },
+    {
+        "stt": 3,
+        "tu_vung": "どうぶつ",
+        "nghia": "Động vật"
+    },
+    {
+        "stt": 4,
+        "tu_vung": "いぬ",
+        "nghia": "Chó"
+    },
+    {
+        "stt": 5,
+        "tu_vung": "ねこ",
+        "nghia": "Mèo"
+    },
+    {
+        "stt": 6,
+        "tu_vung": "いけ",
+        "nghia": "Ao"
+    },
+    {
+        "stt": 7,
+        "tu_vung": "木",
+        "nghia": "Cây"
+    },
+    {
+        "stt": 8,
+        "tu_vung": "ビル",
+        "nghia": "Tòa nhà"
+    },
+    {
+        "stt": 9,
+        "tu_vung": "ポスト",
+        "nghia": "Hộp thư"
+    },
+    {
+        "stt": 10,
+        "tu_vung": "まど",
+        "nghia": "Cửa sổ"
+    },
+    {
+        "stt": 11,
+        "tu_vung": "ドア",
+        "nghia": "Cửa"
+    },
+    {
+        "stt": 12,
+        "tu_vung": "もの",
+        "nghia": "Đồ vật"
+    },
+    {
+        "stt": 13,
+        "tu_vung": "ベッド",
+        "nghia": "Giường"
+    },
+    {
+        "stt": 14,
+        "tu_vung": "テーブル",
+        "nghia": "Bàn ăn"
+    },
+    {
+        "stt": 15,
+        "tu_vung": "たな",
+        "nghia": "Kệ"
+    },
+    {
+        "stt": 16,
+        "tu_vung": "なか",
+        "nghia": "Trong"
+    },
+    {
+        "stt": 17,
+        "tu_vung": "そと",
+        "nghia": "Ngoài"
+    },
+    {
+        "stt": 18,
+        "tu_vung": "うえ",
+        "nghia": "Trên"
+    },
+    {
+        "stt": 19,
+        "tu_vung": "した",
+        "nghia": "Dưới"
+    },
+    {
+        "stt": 20,
+        "tu_vung": "前",
+        "nghia": "Phía trước"
+    },
+    {
+        "stt": 21,
+        "tu_vung": "後ろ",
+        "nghia": "Phía sau"
+    },
+    {
+        "stt": 22,
+        "tu_vung": "みぎ",
+        "nghia": "Bên phải"
+    },
+    {
+        "stt": 23,
+        "tu_vung": "ひだり",
+        "nghia": "Bên trái"
+    },
+    {
+        "stt": 24,
+        "tu_vung": "となり",
+        "nghia": "Bên cạnh"
+    },
+    {
+        "stt": 25,
+        "tu_vung": "あいだ",
+        "nghia": "Ở giữa"
+    },
+    {
+        "stt": 26,
+        "tu_vung": "そば",
+        "nghia": "Xung quanh"
+    },
+    {
+        "stt": 27,
+        "tu_vung": "ちかく",
+        "nghia": "Gần"
+    },
+    {
+        "stt": 28,
+        "tu_vung": "れいぞうこ",
+        "nghia": "Tủ lạnh"
+    },
+    {
+        "stt": 29,
+        "tu_vung": "はこ",
+        "nghia": "Hộp"
+    },
+    {
+        "stt": 30,
+        "tu_vung": "スイッチ",
+        "nghia": "Công tắc"
+    },
+    {
+        "stt": 31,
+        "tu_vung": "ポケット",
+        "nghia": "Túi"
+    },
+    {
+        "stt": 32,
+        "tu_vung": "ほんや",
+        "nghia": "Nhà sách"
+    },
+    {
+        "stt": 33,
+        "tu_vung": "パンや",
+        "nghia": "Cửa hàng bánh mỳ"
+    },
+    {
+        "stt": 34,
+        "tu_vung": "のりば",
+        "nghia": "Bến xe buýt, điểm đón xe"
+    },
+    {
+        "stt": 35,
+        "tu_vung": "でんち",
+        "nghia": "Pin"
+    },
+    {
+        "stt": 36,
+        "tu_vung": "ATM",
+        "nghia": "Cây ATM"
+    },
+    {
+        "stt": 37,
+        "tu_vung": "ナンプラー",
+        "nghia": "Nước mắm Thái"
+    },
+    {
+        "stt": 38,
+        "tu_vung": "のみもののコーナー",
+        "nghia": "Quầy nước"
+    },
+    {
+        "stt": 39,
+        "tu_vung": "やさいのコーナー",
+        "nghia": "Gian hàng rau"
+    },
+    {
+        "stt": 40,
+        "tu_vung": "います",
+        "nghia": "Có (người, động vật)"
+    },
+    {
+        "stt": 41,
+        "tu_vung": "あります",
+        "nghia": "Có (đồ vật, cây cối, địa điểm)"
+    },
+    {
+        "stt": 42,
+        "tu_vung": "いろいろ（な）",
+        "nghia": "Nhiều (thể loại, đa dạng)"
+    },
+    {
+        "stt": 43,
+        "tu_vung": "先生 (せんせい)",
+        "nghia": "Giáo viên"
+    },
+    {
+        "stt": 44,
+        "tu_vung": "学生 (がくせい)",
+        "nghia": "Học sinh"
+    },
+    {
+        "stt": 45,
+        "tu_vung": "学校 (がっこう)",
+        "nghia": "Trường học"
+    },
+    {
+        "stt": 46,
+        "tu_vung": "会います (あいます)",
+        "nghia": "Gặp"
+    },
+    {
+        "stt": 47,
+        "tu_vung": "教会 (きょうかい)",
+        "nghia": "Nhà thờ"
+    },
+    {
+        "stt": 48,
+        "tu_vung": "会社 (かいしゃ)",
+        "nghia": "Công ty"
+    },
+    {
+        "stt": 49,
+        "tu_vung": "国 (くに)",
+        "nghia": "Đất nước"
+    },
+    {
+        "stt": 50,
+        "tu_vung": "韓国 (かんこく)",
+        "nghia": "Hàn Quốc"
+    },
+    {
+        "stt": 51,
+        "tu_vung": "山 (やま)",
+        "nghia": "Núi"
+    },
+    {
+        "stt": 52,
+        "tu_vung": "ふじ山 (ふじやま)",
+        "nghia": "Núi Phú Sĩ"
+    },
+    {
+        "stt": 53,
+        "tu_vung": "川 (かわ)",
+        "nghia": "Sông"
+    },
+    {
+        "stt": 54,
+        "tu_vung": "メコン川 (めこんがわ)",
+        "nghia": "Sông Mêkông"
+    },
+    {
+        "stt": 55,
+        "tu_vung": "本 (ほん)",
+        "nghia": "Sách"
+    },
+    {
+        "stt": 56,
+        "tu_vung": "本や (ほんや)",
+        "nghia": "Hiệu sách"
+    },
+    {
+        "stt": 57,
+        "tu_vung": "日本 (にほん)",
+        "nghia": "Nhật Bản"
+    }
+]

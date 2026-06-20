@@ -1,5 +1,5 @@
 /**
- * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-9, grammar bài 1-9, kanji).
+ * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-11, grammar bài 1-9, kanji).
  * Dùng `upsert` theo `id` => CHẠY LẠI BAO NHIÊU LẦN CŨNG ĐƯỢC, không bị trùng.
  * Mỗi lần sửa/thêm file trong resources/, chỉ cần chạy lại lệnh này:
  *
@@ -209,6 +209,34 @@ async function main() {
         is_custom: false,
       });
     }
+  }
+
+  // Bài 10 & 11 — schema phẳng: mảng [{ stt, tu_vung, nghia }]
+  // stt thường là số; khi stt là chuỗi ("Đơn vị đếm...", "Thời gian...", "Hán tự")
+  // thì đó là tiêu đề mục -> gom category cho các mục đi sau.
+  for (const lessonNum of [10, 11]) {
+    const filePath = path.join(resourcesDir, `vocab/n5_online_vocab_lesson_${lessonNum}.json`);
+    if (!fs.existsSync(filePath)) continue;
+    const items: any[] = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    let section = "Từ vựng chung";
+    items.forEach((item, idx) => {
+      if (typeof item.stt === "string" && item.stt.trim()) {
+        // Bỏ phần trong ngoặc: "Đơn vị đếm (Đại)" -> "Đơn vị đếm"
+        section = item.stt.trim().replace(/\s*[（(].*$/, "").trim();
+      }
+      const { word, reading } = splitWordReading(item.tu_vung || "");
+      vocabRows.push({
+        id: `vocab-b${lessonNum}-${idx + 1}`,
+        word,
+        reading,
+        romaji: "",
+        meaning: item.nghia || "",
+        category: `Bài ${lessonNum} - ${section}`,
+        lesson: lessonNum,
+        examples: [],
+        is_custom: false,
+      });
+    });
   }
 
   console.log(`📖 Vocabulary: ${vocabRows.length} items`);
@@ -431,6 +459,20 @@ async function main() {
 // ============================================
 // Helpers
 // ============================================
+
+// Tách chữ Hán + cách đọc cho bài 10/11.
+// "学校 (がっこう)"  -> word "学校", reading "がっこう"
+// "（荷物）"          -> cả từ trong ngoặc: bỏ ngoặc, word = reading = "荷物"
+function splitWordReading(tuVung: string): { word: string; reading: string } {
+  const m = tuVung.match(/^(.+?)\s*[（(]\s*([^)）]+)\s*[)）]\s*$/);
+  if (m) return { word: m[1].trim(), reading: m[2].trim() };
+  const full = tuVung.match(/^[（(]\s*([^)）]+)\s*[)）]$/);
+  if (full) {
+    const inner = full[1].trim();
+    return { word: inner, reading: inner };
+  }
+  return { word: tuVung, reading: tuVung };
+}
 
 function extractCategory(tenBai: string): string {
   const match = tenBai.match(/Bài\s*(\d+)/i);

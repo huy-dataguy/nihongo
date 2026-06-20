@@ -1,0 +1,212 @@
+[
+    {
+        "stt": 1,
+        "tu_vung": "はがき",
+        "nghia": "Bưu thiếp"
+    },
+    {
+        "stt": 2,
+        "tu_vung": "きって",
+        "nghia": "Con tem"
+    },
+    {
+        "stt": 3,
+        "tu_vung": "ふうとう",
+        "nghia": "Phong bì"
+    },
+    {
+        "stt": 4,
+        "tu_vung": "おさら",
+        "nghia": "Đĩa"
+    },
+    {
+        "stt": 5,
+        "tu_vung": "ちゃわん",
+        "nghia": "Chén"
+    },
+    {
+        "stt": 6,
+        "tu_vung": "エアメール",
+        "nghia": "Gửi thư bằng đường hàng không"
+    },
+    {
+        "stt": 7,
+        "tu_vung": "（荷物）",
+        "nghia": "Gửi hàng hóa bằng đường hàng không"
+    },
+    {
+        "stt": 8,
+        "tu_vung": "ふなびん",
+        "nghia": "Gửi bằng đường tàu, biển"
+    },
+    {
+        "stt": 9,
+        "tu_vung": "かきとめ",
+        "nghia": "Gửi đảm bảo"
+    },
+    {
+        "stt": 10,
+        "tu_vung": "そくたつ",
+        "nghia": "Chuyển phát nhanh"
+    },
+    {
+        "stt": 11,
+        "tu_vung": "かかります",
+        "nghia": "Mất, tốn (thời gian, tiền)"
+    },
+    {
+        "stt": 12,
+        "tu_vung": "います",
+        "nghia": "Ở"
+    },
+    {
+        "stt": 13,
+        "tu_vung": "ぜんぶで",
+        "nghia": "Tổng cộng"
+    },
+    {
+        "stt": "Đơn vị đếm (Đại)",
+        "tu_vung": "～だい",
+        "nghia": "Chiếc, Cái (đồ lớn, máy móc)"
+    },
+    {
+        "stt": "Đơn vị đếm (Mai)",
+        "tu_vung": "～まい",
+        "nghia": "Bức, Tấm, Tờ, Cái (mỏng)"
+    },
+    {
+        "stt": "Đơn vị đếm (Satsu)",
+        "tu_vung": "～さつ",
+        "nghia": "Cuốn"
+    },
+    {
+        "stt": "Đơn vị đếm (Hon)",
+        "tu_vung": "～ほん",
+        "nghia": "Cây, Cái (dài)"
+    },
+    {
+        "stt": "Đơn vị đếm (Kai)",
+        "tu_vung": "～かい",
+        "nghia": "Lần"
+    },
+    {
+        "stt": "Đơn vị đếm (Tsu)",
+        "tu_vung": "～つ",
+        "nghia": "Quả, Cái (nhỏ)"
+    },
+    {
+        "stt": "Thời gian (Năm)",
+        "tu_vung": "～ねん",
+        "nghia": "Năm"
+    },
+    {
+        "stt": "Thời gian (Tháng)",
+        "tu_vung": "～かげつ",
+        "nghia": "Tháng"
+    },
+    {
+        "stt": "Thời gian (Tuần)",
+        "tu_vung": "～しゅうかん",
+        "nghia": "Tuần"
+    },
+    {
+        "stt": "Thời gian (Ngày)",
+        "tu_vung": "～にち/～か",
+        "nghia": "Ngày"
+    },
+    {
+        "stt": "Thời gian (Tiếng)",
+        "tu_vung": "～じかん",
+        "nghia": "Tiếng"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "父 (ちち)",
+        "nghia": "Cha mình"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "祖父 (そふ)",
+        "nghia": "Ông mình"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "お父さん (おとうさん)",
+        "nghia": "Cha người khác"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "母 (はは)",
+        "nghia": "Mẹ mình"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "祖母 (そぼ)",
+        "nghia": "Bà mình"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "お母さん (おかあさん)",
+        "nghia": "Mẹ người khác"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "子ども",
+        "nghia": "Trẻ con"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "男 (おとこ)",
+        "nghia": "Nam"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "男の子 (おとこのこ)",
+        "nghia": "Bé trai"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "男の人 (おとこのひと)",
+        "nghia": "Người đàn ông"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "女 (おんな)",
+        "nghia": "Nữ"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "女の子 (おんなのこ)",
+        "nghia": "Bé gái"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "女の人 (おんなのひと)",
+        "nghia": "Người phụ nữ"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "上 (うえ)",
+        "nghia": "Trên"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "下 (した)",
+        "nghia": "Dưới"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "地下 (ちか)",
+        "nghia": "Tầng hầm"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "中 (なか)",
+        "nghia": "Bên trong"
+    },
+    {
+        "stt": "Hán tự",
+        "tu_vung": "中国 (ちゅうごく)",
+        "nghia": "Trung Quốc"
+    }
+]
