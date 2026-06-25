@@ -1,0 +1,310 @@
+{
+  "lesson": 12,
+  "title": "N5 Từ vựng bài 12",
+  "vocabulary": [
+    {
+      "id": 1,
+      "jp": "きせつ",
+      "vi": "Mùa",
+      "type": "noun"
+    },
+    {
+      "id": 2,
+      "jp": "はる",
+      "vi": "Mùa xuân",
+      "type": "noun"
+    },
+    {
+      "id": 3,
+      "jp": "なつ",
+      "vi": "Mùa hè",
+      "type": "noun"
+    },
+    {
+      "id": 4,
+      "jp": "あき",
+      "vi": "Mùa thu",
+      "type": "noun"
+    },
+    {
+      "id": 5,
+      "jp": "ふゆ",
+      "vi": "Mùa đông",
+      "type": "noun"
+    },
+    {
+      "id": 6,
+      "jp": "てんき",
+      "vi": "Thời tiết",
+      "type": "noun"
+    },
+    {
+      "id": 7,
+      "jp": "はれ",
+      "vi": "Trời nắng",
+      "type": "noun"
+    },
+    {
+      "id": 8,
+      "jp": "あめ",
+      "vi": "Trời mưa",
+      "type": "noun"
+    },
+    {
+      "id": 9,
+      "jp": "くもり",
+      "vi": "Trời âm u",
+      "type": "noun"
+    },
+    {
+      "id": 10,
+      "jp": "ゆき",
+      "vi": "Trời có tuyết",
+      "type": "noun"
+    },
+    {
+      "id": 11,
+      "jp": "いいてんき",
+      "vi": "Trời đẹp",
+      "type": "noun"
+    },
+    {
+      "id": 12,
+      "jp": "おまつり",
+      "vi": "Lễ hội",
+      "type": "noun"
+    },
+    {
+      "id": 13,
+      "jp": "テスト",
+      "vi": "Kiểm tra",
+      "type": "noun"
+    },
+    {
+      "id": 14,
+      "jp": "しけん",
+      "vi": "Kỳ thi",
+      "type": "noun"
+    },
+    {
+      "id": 15,
+      "jp": "いけばな",
+      "vi": "Cắm hoa",
+      "type": "noun"
+    },
+    {
+      "id": 16,
+      "jp": "すし",
+      "vi": "Món Sushi",
+      "type": "noun"
+    },
+    {
+      "id": 17,
+      "jp": "さしみ",
+      "vi": "Món cá sống",
+      "type": "noun"
+    },
+    {
+      "id": 18,
+      "jp": "てんぷら",
+      "vi": "Món Tempura",
+      "type": "noun"
+    },
+    {
+      "id": 19,
+      "jp": "ほっかいどう",
+      "vi": "Đảo Hokkaido",
+      "type": "noun"
+    },
+    {
+      "id": 20,
+      "jp": "四国",
+      "reading": "しこく",
+      "vi": "Đảo Shikoku",
+      "type": "noun"
+    },
+    {
+      "id": 21,
+      "jp": "九州",
+      "reading": "きゅうしゅう",
+      "vi": "Đảo Kyushu",
+      "type": "noun"
+    },
+    {
+      "id": 22,
+      "jp": "おきなわ",
+      "vi": "Đảo Okinawa",
+      "type": "noun"
+    },
+    {
+      "id": 23,
+      "jp": "ずっと",
+      "vi": "Hơn hẳn",
+      "type": "adverb"
+    },
+    {
+      "id": 24,
+      "jp": "いちばん",
+      "vi": "Nhất",
+      "type": "adverb"
+    },
+    {
+      "id": 25,
+      "jp": "あまい",
+      "vi": "Ngọt",
+      "type": "adjective"
+    },
+    {
+      "id": 26,
+      "jp": "からい",
+      "vi": "Cay",
+      "type": "adjective"
+    },
+    {
+      "id": 27,
+      "jp": "あたたかい",
+      "vi": "Ấm áp",
+      "type": "adjective"
+    },
+    {
+      "id": 28,
+      "jp": "すずしい",
+      "vi": "Mát mẻ",
+      "type": "adjective"
+    },
+    {
+      "id": 29,
+      "jp": "ちかい",
+      "vi": "Gần",
+      "type": "adjective"
+    },
+    {
+      "id": 30,
+      "jp": "とおい",
+      "vi": "Xa",
+      "type": "adjective"
+    },
+    {
+      "id": 31,
+      "jp": "おおい",
+      "vi": "Nhiều, đông",
+      "type": "adjective"
+    },
+    {
+      "id": 32,
+      "jp": "すくない",
+      "vi": "Ít, vắng",
+      "type": "adjective"
+    },
+    {
+      "id": 33,
+      "jp": "はやい",
+      "vi": "Sớm, nhanh",
+      "type": "adjective"
+    },
+    {
+      "id": 34,
+      "jp": "おそい",
+      "vi": "Trễ, chậm",
+      "type": "adjective"
+    },
+    {
+      "id": 35,
+      "jp": "おもい",
+      "vi": "Nặng",
+      "type": "adjective"
+    },
+    {
+      "id": 36,
+      "jp": "かるい",
+      "vi": "Nhẹ",
+      "type": "adjective"
+    },
+    {
+      "id": 37,
+      "jp": "かんたん（な）",
+      "vi": "Đơn giản",
+      "type": "na-adjective"
+    },
+    {
+      "id": 38,
+      "jp": "ふくざつ（な）",
+      "vi": "Phức tạp",
+      "type": "na-adjective"
+    },
+    {
+      "id": 39,
+      "jp": "いってきます。",
+      "vi": "Con đi đây",
+      "type": "expression"
+    },
+    {
+      "id": 40,
+      "jp": "いってらっしゃい。",
+      "vi": "Con đi nhé",
+      "type": "expression"
+    },
+    {
+      "id": 41,
+      "jp": "ただいま。",
+      "vi": "Con đã về đây",
+      "type": "expression"
+    },
+    {
+      "id": 42,
+      "jp": "おかえりなさい。",
+      "vi": "Con về rồi à",
+      "type": "expression"
+    }
+  ],
+  "kanji": [
+    {
+      "id": 1,
+      "jp": "大きい",
+      "reading": "おおきい",
+      "vi": "To lớn"
+    },
+    {
+      "id": 2,
+      "jp": "大学",
+      "reading": "だいがく",
+      "vi": "Đại học"
+    },
+    {
+      "id": 3,
+      "jp": "小さい",
+      "reading": "ちいさい",
+      "vi": "Nhỏ bé"
+    },
+    {
+      "id": 4,
+      "jp": "小学校",
+      "reading": "しょうがっこう",
+      "vi": "Trường Tiểu học"
+    },
+    {
+      "id": 5,
+      "jp": "安い",
+      "reading": "やすい",
+      "vi": "Rẻ"
+    },
+    {
+      "id": 6,
+      "jp": "高い",
+      "reading": "たかい",
+      "vi": "Cao, đắt"
+    },
+    {
+      "id": 7,
+      "jp": "高校",
+      "reading": "こうこう",
+      "vi": "Trường cấp 3"
+    },
+    {
+      "id": 8,
+      "jp": "古い",
+      "reading": "ふるい",
+      "vi": "Cũ"
+    }
+  ]
+}

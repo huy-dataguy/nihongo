@@ -1,5 +1,5 @@
 /**
- * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-11, grammar bài 1-10, kanji).
+ * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-12, grammar bài 1-10, kanji).
  * Dùng `upsert` theo `id` => CHẠY LẠI BAO NHIÊU LẦN CŨNG ĐƯỢC, không bị trùng.
  * Mỗi lần sửa/thêm file trong resources/, chỉ cần chạy lại lệnh này:
  *
@@ -239,6 +239,23 @@ async function main() {
     });
   }
 
+  // Bài 12 — schema: { lesson, title, vocabulary: [{id, jp, reading?, vi, type}], kanji: [{id, jp, reading, vi}] }
+  const file12 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "vocab/n5_online_vocab_lesson_12.json"), "utf-8"));
+  const lesson12 = file12.lesson || 12;
+  for (const item of file12.vocabulary || []) {
+    vocabRows.push({
+      id: `vocab-b${lesson12}-${item.id}`,
+      word: item.jp || "",
+      reading: item.reading || item.jp || "",
+      romaji: "",
+      meaning: item.vi || "",
+      category: `Bài ${lesson12} - ${mapType12(item.type)}`,
+      lesson: lesson12,
+      examples: [],
+      is_custom: false,
+    });
+  }
+
   console.log(`📖 Vocabulary: ${vocabRows.length} items`);
 
   // --- KANJI from Bài 7 ---
@@ -285,6 +302,21 @@ async function main() {
       kunyomi: item.reading_correct || item.reading || "",
       meaning: item.vietnamese || "",
       lesson: lesson9,
+      examples: [],
+      is_custom: false,
+    });
+  }
+
+  // --- KANJI from Bài 12 (kanji: [{id, jp, reading, vi}] -> character/kunyomi/meaning) ---
+  const kanji12 = file12.kanji || [];
+  for (const item of kanji12) {
+    kanjiRows.push({
+      id: `kanji-b12-${item.id}`,
+      character: item.jp || "",
+      onyomi: "",
+      kunyomi: item.reading || "",
+      meaning: item.vi || "",
+      lesson: lesson12,
       examples: [],
       is_custom: false,
     });
@@ -499,6 +531,18 @@ function extractCategory(tenBai: string): string {
   const match = tenBai.match(/Bài\s*(\d+)/i);
   if (match) return `Bài ${match[1]}`;
   return tenBai;
+}
+
+// Ánh xạ type tiếng Anh (bài 12) -> nhãn tiếng Việt cho category
+function mapType12(type: string): string {
+  const map: Record<string, string> = {
+    noun: "Danh từ",
+    adverb: "Phó từ",
+    adjective: "Tính từ",
+    "na-adjective": "Tính từ đuôi na",
+    expression: "Cách diễn đạt",
+  };
+  return map[type] || type || "Từ vựng chung";
 }
 
 function formatCategory(cat: string): string {

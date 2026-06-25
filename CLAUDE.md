@@ -31,7 +31,7 @@ Cả `gramma/` lẫn `vocab/` đều **đổi schema theo bài** (bài 7 ≠ bà
 
 ```
 npm run dev                              # chạy app (tsx server.ts)
-npx tsx scripts/import-to-supabase.ts    # đồng bộ toàn bộ vocab 1-9 + kanji + grammar 1-9
+npx tsx scripts/import-to-supabase.ts    # đồng bộ toàn bộ vocab 1-12 + kanji + grammar 1-10
 npx tsx scripts/import-vocab-supplement.ts  # nạp vocab bổ sung (*_supplement.json)
 ```
 
