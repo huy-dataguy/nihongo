@@ -86,16 +86,17 @@ npx tsx scripts/import-vocab-supplement.ts
 Script đọc mọi `resources/vocab/*_supplement.json`, upsert vào bảng `vocabulary`.
 **AI không tự ghi DB** — chỉ đưa lệnh cho user (xem `CLAUDE.md`).
 
-## Bảng từ vựng đã trích (cập nhật 2026-06-16 — 21 từ)
+## Bảng từ vựng đã trích (cập nhật 2026-06-27 — 35 từ: 21 trích từ grammar + 14 gap-fill)
 
 | Bài | Số | Từ |
 |---|---|---|
+| 1-3 *(gap-fill)* | 14 | `だれ`, `どなた`, `なんさい`, `おいくつ`, `さい`, `とし`, `どちら`, `なに`, `どこ`, `どれ`, `どう`, `なぜ`, `いくつ`, `いくら` |
 | 4-6 | 9 | `まいにち`, `まいあさ`, `まいばん`, `きっさてん`, `じてんしゃ`, `バナナ`, `ばんごはん`, `いちば`, `それから` |
 | 7 | 2 | `レポート`, `こいびと` |
 | 8 | 2 | `とても`, `そして` |
 | 9 | 8 | `よく`, `だいたい`, `すこし`, `あまり`, `ぜんぜん`, `たくさん`, `どうして`, `ひるごはん` |
 
-Bài 1-3: ví dụ ngữ pháp dùng toàn từ cơ bản đã có → chưa có từ mới.
+> **Bài 1-3 (gap-fill, 2026-06-27):** các câu ví dụ ngữ pháp bài 1-3 dùng toàn từ cơ bản đã có nên chưa trích được từ grammar. Tuy nhiên user phát hiện **bộ từ để hỏi + tuổi tác + where/what đang thiếu** trong vocab (`だれ`, `どこ`, `なに`, `なんさい`, `おいくつ`…) → bổ sung riêng vào `n5_online_vocab_lessons_1_3_supplement.json`. Đây là **gap-fill theo yêu cầu**, không phải trích từ câu ví dụ grammar.
 
 > Khi trích thêm các bài sau (N4, bài 10+…), dùng đúng quy trình trên và **cập nhật bảng này** để session sau biết đâu đã làm.
 

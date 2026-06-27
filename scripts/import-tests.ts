@@ -61,8 +61,13 @@ async function main() {
       const target = grammarItems[targetIndex];
       const existing = target.examples || [];
 
-      // Append test example
-      grammarItems[targetIndex].examples = [...existing, testExample];
+      // Append test example (bỏ qua nếu đã có → idempotent khi chạy lại import)
+      const alreadyExists = existing.some(
+        (ex: any) => ex && ex.cau_hoi === testExample.cau_hoi
+      );
+      if (!alreadyExists) {
+        grammarItems[targetIndex].examples = [...existing, testExample];
+      }
     }
 
     // Batch update all grammar items for this lesson

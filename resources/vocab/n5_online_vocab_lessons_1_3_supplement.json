@@ -1,0 +1,22 @@
+{
+  "source": "Từ vựng bổ sung GAP-FILL: bộ từ để hỏi + tuổi tác + where/what đang thiếu trong vocab (không phải trích từ grammar). Bổ sung vì user yêu cầu thêm các bộ này. Đối chiếu đã tránh trùng vocab chính.",
+  "lesson_range": "1-3",
+  "items": [
+    { "stt": 1, "lesson": 1, "word": "だれ", "reading": "だれ", "romaji": "dare", "meaning": "Ai", "category": "Từ để hỏi" },
+    { "stt": 2, "lesson": 1, "word": "どなた", "reading": "どなた", "romaji": "donata", "meaning": "Ai (cách hỏi lịch sự của だれ)", "category": "Từ để hỏi" },
+    { "stt": 3, "lesson": 1, "word": "なんさい", "reading": "なんさい", "romaji": "nansai", "meaning": "Bao nhiêu tuổi, mấy tuổi", "category": "Từ để hỏi / Tuổi tác" },
+    { "stt": 4, "lesson": 1, "word": "おいくつ", "reading": "おいくつ", "romaji": "oikutsu", "meaning": "Bao nhiêu tuổi (cách hỏi lịch sự của なんさい)", "category": "Từ để hỏi / Tuổi tác" },
+    { "stt": 5, "lesson": 1, "word": "さい", "reading": "さい", "romaji": "sai", "meaning": "…tuổi (bộ đếm tuổi, chữ Hán 歳, vd 20さい = 20 tuổi)", "category": "Bộ đếm tuổi" },
+    { "stt": 6, "lesson": 1, "word": "とし", "reading": "とし", "romaji": "toshi", "meaning": "Tuổi; năm (年)", "category": "Tuổi tác / Danh từ" },
+    { "stt": 7, "lesson": 1, "word": "どちら", "reading": "どちら", "romaji": "dochira", "meaning": "Nước nào / hướng nào / bên nào (lịch sự của どこ, vd おくには どちら ですか)", "category": "Từ để hỏi" },
+
+    { "stt": 1, "lesson": 2, "word": "なに", "reading": "なに", "romaji": "nani", "meaning": "Cái gì, gì (đọc なん khi đứng trước từ chỉ số/lượng, vd なんさい)", "category": "Từ để hỏi" },
+    { "stt": 2, "lesson": 2, "word": "どこ", "reading": "どこ", "romaji": "doko", "meaning": "Ở đâu, đâu (where)", "category": "Từ để hỏi" },
+    { "stt": 3, "lesson": 2, "word": "どれ", "reading": "どれ", "romaji": "dore", "meaning": "Cái nào, thứ nào (trong 3 lựa chọn trở lên)", "category": "Từ để hỏi" },
+
+    { "stt": 1, "lesson": 3, "word": "どう", "reading": "どう", "romaji": "dō", "meaning": "Thế nào, ra sao (how)", "category": "Từ để hỏi" },
+    { "stt": 2, "lesson": 3, "word": "なぜ", "reading": "なぜ", "romaji": "naze", "meaning": "Tại sao, vì sao (trang trọng hơn どうして)", "category": "Từ để hỏi" },
+    { "stt": 3, "lesson": 3, "word": "いくつ", "reading": "いくつ", "romaji": "ikutsu", "meaning": "Bao nhiêu (số lượng) / Mấy tuổi (hỏi tuổi người)", "category": "Từ để hỏi" },
+    { "stt": 4, "lesson": 3, "word": "いくら", "reading": "いくら", "romaji": "ikura", "meaning": "Bao nhiêu tiền, giá bao nhiêu", "category": "Từ để hỏi" }
+  ]
+}

@@ -1,8 +1,67 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { hiraganaData, katakanaData } from "../data/kanaData";
 import { speakJapanese } from "../utils/audio";
 import { Volume2, Eye, EyeOff, Search, BookOpen, ChevronDown, Filter } from "lucide-react";
-import { KanjiItem } from "../types";
+import { KanjiItem, KanaCharacter } from "../types";
+
+// --- Bố cục bảng 五十音: mỗi cột = 1 nguyên âm, các cột xếp phải→trái (a,i,u,e,o) ---
+const VOWELS_5 = ["a", "i", "u", "e", "o"];
+const VOWELS_3 = ["a", "u", "o"]; // Yōon chỉ có 3 cột (a, u, o)
+
+// Layout theo char hiragana (null = ô trống giữ chỗ để cột thẳng hàng)
+const KANA_LAYOUT: Record<string, (string | null)[][]> = {
+  gojuon: [
+    ["あ", "い", "う", "え", "お"],
+    ["か", "き", "く", "け", "こ"],
+    ["さ", "し", "す", "せ", "そ"],
+    ["た", "ち", "つ", "て", "と"],
+    ["な", "に", "ぬ", "ね", "の"],
+    ["は", "ひ", "ふ", "へ", "ほ"],
+    ["ま", "み", "む", "め", "も"],
+    ["や", null, "ゆ", null, "よ"],
+    ["ら", "り", "る", "れ", "ろ"],
+    ["わ", null, null, null, "を"],
+    ["ん", null, null, null, null],
+  ],
+  dakuon: [
+    ["が", "ぎ", "ぐ", "げ", "ご"],
+    ["ざ", "じ", "ず", "ぜ", "ぞ"],
+    ["だ", "ぢ", "づ", "で", "ど"],
+    ["ば", "び", "ぶ", "べ", "ぼ"],
+  ],
+  handakuon: [["ぱ", "ぴ", "ぷ", "ぺ", "ぽ"]],
+  yoon: [
+    ["きゃ", "きゅ", "きょ"],
+    ["しゃ", "しゅ", "しょ"],
+    ["ちゃ", "ちゅ", "ちょ"],
+    ["にゃ", "にゅ", "にょ"],
+    ["ひゃ", "ひゅ", "ひょ"],
+    ["みゃ", "みゅ", "みょ"],
+    ["りゃ", "りゅ", "りょ"],
+    ["ぎゃ", "ぎゅ", "ぎょ"],
+    ["じゃ", "じゅ", "じょ"],
+    ["びゃ", "びゅ", "びょ"],
+    ["ぴゃ", "ぴゅ", "ぴょ"],
+  ],
+};
+
+const KANA_TYPE_META: { type: "gojuon" | "dakuon" | "handakuon" | "yoon"; label: string; vowels: string[] }[] = [
+  { type: "gojuon", label: "Âm thuần — Gojūon", vowels: VOWELS_5 },
+  { type: "dakuon", label: "Âm đục — Dakuon", vowels: VOWELS_5 },
+  { type: "handakuon", label: "Âm bán đục — Handakuon", vowels: VOWELS_5 },
+  { type: "yoon", label: "Âm ghép — Yōon", vowels: VOWELS_3 },
+];
+
+// Chuyển slot hiragana sang chữ đang xem: cộng 0x60 cho mỗi ký tự trong block hiragana → katakana
+function hiraToActive(hira: string, isKatakana: boolean): string {
+  if (!isKatakana) return hira;
+  return Array.from(hira)
+    .map((ch) => {
+      const code = ch.codePointAt(0)!;
+      return code >= 0x3041 && code <= 0x3096 ? String.fromCodePoint(code + 0x60) : ch;
+    })
+    .join("");
+}
 
 interface KanaBoardProps {
   kanjiList?: KanjiItem[];
@@ -30,10 +89,16 @@ export default function KanaBoard({ kanjiList = [] }: KanaBoardProps) {
 
   const dataset = selectedKana === "hiragana" ? hiraganaData : katakanaData;
 
-  const filteredDataset = dataset.filter((char) => {
-    if (activeTab === "all") return true;
-    return char.type === activeTab;
-  });
+  // Bảng tra char -> kana (để render theo slot layout)
+  const charMap = useMemo(() => {
+    const m = new Map<string, KanaCharacter>();
+    dataset.forEach((c) => m.set(c.char, c));
+    return m;
+  }, [dataset]);
+
+  const isKatakana = selectedKana === "katakana";
+  const typesToShow =
+    activeTab === "all" ? KANA_TYPE_META : KANA_TYPE_META.filter((t) => t.type === activeTab);
 
   // Filter Kanji list if Kanji is selected
   const filteredKanji = kanjiList.filter((item) => {
@@ -158,36 +223,66 @@ export default function KanaBoard({ kanjiList = [] }: KanaBoardProps) {
             )}
           </div>
 
-          {/* Characters list */}
-          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3">
-            {filteredDataset.map((char, index) => (
-              <div
-                key={`${char.category}-${char.char}-${index}`}
-                onClick={() => speakJapanese(char.char)}
-                className="group relative flex flex-col items-center justify-between p-4 bg-gray-50/50 hover:bg-amber-50/40 rounded-xl border border-gray-100 hover:border-amber-200 cursor-pointer transition-all duration-200 text-center shadow-xs"
-              >
-                <span className="text-3xl font-bold font-sans text-gray-800 group-hover:text-amber-700 transition-colors">
-                  {char.char}
-                </span>
-                
-                <div className="mt-2.5 flex items-center justify-center gap-1 min-h-[20px]">
-                  {showRomaji && (
-                    <span className="text-xs font-mono font-medium text-gray-500 uppercase tracking-widest bg-gray-100 px-1.5 py-0.5 rounded">
-                      {char.romaji}
-                    </span>
+          {/* Bảng chữ cái: bố cục 五十音 — mỗi cột = 1 nguyên âm, các cột xếp PHẢI→TRÁI (a,i,u,e,o) */}
+          <div className="space-y-8">
+            {typesToShow.map(({ type, label, vowels }) => (
+              <div key={type}>
+                <h3 className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-3">
+                  {label}
+                </h3>
+                <div
+                  dir="rtl"
+                  className="grid gap-1.5 sm:gap-2"
+                  style={{ gridTemplateColumns: `repeat(${vowels.length}, minmax(0, 1fr))` }}
+                >
+                  {/* Hàng tiêu đề nguyên âm */}
+                  {vowels.map((v) => (
+                    <div
+                      key={`hdr-${type}-${v}`}
+                      dir="ltr"
+                      className="text-center text-[10px] font-mono font-bold text-amber-500/70 pb-1"
+                    >
+                      {v}
+                    </div>
+                  ))}
+                  {/* Các ô kana (theo hàng phụ âm, cột nguyên âm) */}
+                  {KANA_LAYOUT[type].map((row, ri) =>
+                    row.map((slot, ci) => {
+                      const key = `${type}-${ri}-${ci}`;
+                      if (!slot) return <div key={key} className="aspect-[3/4]" />;
+                      const char = hiraToActive(slot, isKatakana);
+                      const kana = charMap.get(char);
+                      if (!kana) return <div key={key} className="aspect-[3/4]" />;
+                      return (
+                        <div
+                          key={key}
+                          dir="ltr"
+                          onClick={() => speakJapanese(kana.char)}
+                          className="group relative flex flex-col items-center justify-center aspect-[3/4] bg-gray-50/50 hover:bg-amber-50/40 rounded-lg border border-gray-100 hover:border-amber-200 cursor-pointer transition-all duration-200 text-center shadow-xs"
+                        >
+                          <span className="text-lg sm:text-2xl font-bold font-sans text-gray-800 group-hover:text-amber-700 transition-colors leading-none">
+                            {kana.char}
+                          </span>
+                          {showRomaji && (
+                            <span className="mt-1 text-[9px] font-mono font-medium text-gray-400 uppercase tracking-wider">
+                              {kana.romaji}
+                            </span>
+                          )}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              speakJapanese(kana.char);
+                            }}
+                            className="absolute right-1 top-1 opacity-0 group-hover:opacity-100 p-0.5 text-gray-400 hover:text-amber-600 rounded bg-white shadow-xs transition-opacity"
+                            title="Phát âm"
+                          >
+                            <Volume2 size={11} />
+                          </button>
+                        </div>
+                      );
+                    })
                   )}
                 </div>
-
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    speakJapanese(char.char);
-                  }}
-                  className="absolute right-1.5 top-1.5 opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-amber-600 rounded bg-white shadow-xs transition-opacity"
-                  title="Phát âm"
-                >
-                  <Volume2 size={12} />
-                </button>
               </div>
             ))}
           </div>
