@@ -1,0 +1,19 @@
+{
+  "source": "Từ vựng bổ sung trích từ câu ví dụ ngữ pháp (grammar lessons 11-14), chưa có trong vocab chính",
+  "lesson_range": "11-14",
+  "items": [
+    { "stt": 1, "lesson": 11, "word": "だけ", "reading": "だけ", "romaji": "dake", "meaning": "Chỉ...", "category": "Trạng từ mức độ/giới hạn" },
+    { "stt": 2, "lesson": 11, "word": "ぐらい", "reading": "ぐらい", "romaji": "gurai", "meaning": "Khoảng, cỡ (đi sau số lượng)", "category": "Trạng từ mức độ" },
+    { "stt": 3, "lesson": 11, "word": "どのくらい", "reading": "どのくらい", "romaji": "dono kurai", "meaning": "Bao lâu, cỡ nào, chừng nào", "category": "Từ để hỏi" },
+    { "stt": 1, "lesson": 12, "word": "くうこう", "reading": "くうこう", "romaji": "kuukou", "meaning": "Sân bay", "category": "Danh từ" },
+    { "stt": 2, "lesson": 12, "word": "りんご", "reading": "りんご", "romaji": "ringo", "meaning": "Táo", "category": "Danh từ" },
+    { "stt": 3, "lesson": 12, "word": "どちらも", "reading": "どちらも", "romaji": "dochira mo", "meaning": "Cả hai, cái nào cũng (vậy)", "category": "Đại từ phiếm chỉ" },
+    { "stt": 1, "lesson": 13, "word": "何か", "reading": "なにか", "romaji": "nanika", "meaning": "Cái gì đó", "category": "Đại từ phiếm chỉ" },
+    { "stt": 2, "lesson": 13, "word": "どこか", "reading": "どこか", "romaji": "dokoka", "meaning": "Đâu đó, nơi nào đó", "category": "Đại từ phiếm chỉ" },
+    { "stt": 3, "lesson": 13, "word": "だれか", "reading": "だれか", "romaji": "dareka", "meaning": "Ai đó", "category": "Đại từ phiếm chỉ" },
+    { "stt": 4, "lesson": 13, "word": "どこも", "reading": "どこも", "romaji": "dokomo", "meaning": "Không...đâu cả (đi với phủ định)", "category": "Đại từ phiếm chỉ" },
+    { "stt": 5, "lesson": 13, "word": "なつ休み", "reading": "なつやすみ", "romaji": "natsuyasumi", "meaning": "Nghỉ hè", "category": "Danh từ" },
+    { "stt": 1, "lesson": 14, "word": "もう一ど", "reading": "もういちど", "romaji": "mou ichido", "meaning": "Thêm một lần nữa", "category": "Cách diễn đạt" },
+    { "stt": 2, "lesson": 14, "word": "かた", "reading": "かた", "romaji": "kata", "meaning": "Cách... (hậu tố gắn sau Vます, tạo thành danh từ chỉ cách thức)", "category": "Hậu tố" }
+  ]
+}

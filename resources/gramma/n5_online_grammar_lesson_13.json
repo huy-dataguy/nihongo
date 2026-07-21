@@ -1,0 +1,171 @@
+{
+  "bai_hoc": "第13課の文法 – NGỮ PHÁP BÀI 13",
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "Vますたいです (khẳng định) / Vますたくないです (phủ định)",
+      "y_nghia": "Muốn V / Không muốn V",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "はやくうちへかえりたいです。",
+          "tieng_viet": "Tôi muốn về nhà sớm."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "休みの日にはたらきたくないです。",
+          "tieng_viet": "Tôi không muốn làm việc vào ngày nghỉ."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q： 日本で何をしたいですか。",
+          "tieng_viet": "Bạn muốn làm gì ở Nhật vậy?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: おはなみをしたいです。",
+          "tieng_viet": "Tôi muốn tổ chức lễ ngắm hoa anh đào."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Nがほしいです (khẳng định) / Nがほしくないです (phủ định)",
+      "y_nghia": "Muốn có N / Không muốn có N",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "あたらしいうちがほしいです。",
+          "tieng_viet": "Tôi muốn có ngôi nhà mới."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "ふるいくるまがほしくないです。",
+          "tieng_viet": "Tôi không muốn chiếc xe cũ."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: たんじょう日に何がほしいですか。",
+          "tieng_viet": "Bạn muốn có cái gì vào ngày sinh nhật vậy?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: あかいくつがほしいです。",
+          "tieng_viet": "Tôi muốn một đôi giày màu đỏ."
+        }
+      ]
+    },
+    {
+      "cau_truc": "何か・どこか・だれか Vますか。 / はい、Nを・へ・が Vます。 / いいえ、何も・どこも・だれも Vません。",
+      "y_nghia": "Hỏi có V gì đó / đi đâu đó / có ai đó không? — Đáp có/không",
+      "vi_du": [
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q： 何かのみますか。",
+          "tieng_viet": "Bạn uống gì đó phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A１：はい、こうちゃをのみます。",
+          "tieng_viet": "Vâng, tôi uống trà."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A２：いいえ、何ものみません。",
+          "tieng_viet": "Không, tôi không uống gì cả."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q：なつ休みにどこかいきますか。",
+          "tieng_viet": "Nghỉ hè bạn sẽ đi đâu đó phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A１：はい、ダラットへいきます。",
+          "tieng_viet": "Vâng, tôi sẽ đi Đà Lạt."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A２：いいえ、どこもいきません。",
+          "tieng_viet": "Không, tôi sẽ không đi đâu cả."
+        }
+      ]
+    },
+    {
+      "cau_truc": "～から、何か・どこか Vたい・たくない",
+      "y_nghia": "Vì… nên muốn V / không muốn V (một cái gì đó / đi đâu đó)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "おなかがすきましたから、何かたべたいです。",
+          "tieng_viet": "Vì đói bụng nên tôi muốn ăn cái gì đó."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "ひまですから、どこかいきたいです。",
+          "tieng_viet": "Vì tôi rảnh nên muốn đi đâu đó."
+        }
+      ]
+    },
+    {
+      "cau_truc": "ばしょへ Nを Vますに いきます・きます・かえります。",
+      "y_nghia": "Đi, đến, trở về địa điểm để làm V (động từ chia dạng ます, bỏ ます, rồi thêm に)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "これからゆうびんきょくへてがみをだしにいきます。",
+          "tieng_viet": "Từ bây giờ tôi sẽ đi bưu điện để gửi thư."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: くうこうへ何をしにいきますか。",
+          "tieng_viet": "Bạn đi đến sân bay để làm gì?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: まつもとさんをむかえにいきます。",
+          "tieng_viet": "Tôi đi để đón ông Matsumoto."
+        }
+      ]
+    },
+    {
+      "cau_truc": "ばしょへ Nします に いきます・きます・かえります。",
+      "y_nghia": "Đi, đến, trở về địa điểm để làm V (danh động từ + に, không chia dạng ます)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "レストランへしょくじにいきます。",
+          "tieng_viet": "Tôi sẽ đi đến nhà hàng để dùng bữa."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q：こうえんへ何をしにいきますか。",
+          "tieng_viet": "Bạn đi đến công viên để làm gì vậy?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A：いぬとさんぽにいきます。",
+          "tieng_viet": "Tôi đi dạo với chó."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "いなかへかぞくに会いにかえります。",
+          "tieng_viet": "Tôi trở về quê để gặp gia đình."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "ホーチミンしへ日本ごをおしえに来ました。",
+          "tieng_viet": "Tôi đã đến TP.HCM để dạy tiếng Nhật."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q：日本へ何をしに来ましたか。",
+          "tieng_viet": "Bạn đã đến Nhật để làm gì vậy?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A：けいざいのべんきょうに来ました。",
+          "tieng_viet": "Tôi đã đến để học về kinh tế."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "bai_hoc": "第11課の文法 – NGỮ PHÁP BÀI 11",
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "địa điểm + に + N + が + số + counter(だい/まい/つ/にん/さつ/ほん) + あります/います",
+      "y_nghia": "Đếm số lượng đồ vật/động vật/người ở địa điểm (counter thay đổi tùy loại danh từ đếm)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "うちの前にくるまが一だいあります。",
+          "tieng_viet": "Có 1 chiếc xe hơi phía trước nhà."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: じむしょにパソコンが何だいありますか。",
+          "tieng_viet": "Có mấy cái máy tính ở trong văn phòng?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: 四だいあります。",
+          "tieng_viet": "Có 4 cái."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "へやにえが三まいあります。",
+          "tieng_viet": "Có 3 bức tranh ở phòng."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: テーブルのうえにおさらが何まいありますか。",
+          "tieng_viet": "Có mấy cái đĩa trên bàn?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: 二まいあります。",
+          "tieng_viet": "Có 2 cái."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "おさらのうえにいちごが四つあります。",
+          "tieng_viet": "Có 4 quả dâu ở trên dĩa."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: れいぞうこのなかにたまごがいくつありますか。",
+          "tieng_viet": "Có bao nhiêu quả trứng ở trong tủ lạnh?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: 六つあります。",
+          "tieng_viet": "Có 6 quả."
+        },
+        {
+          "so_thu_tu": 4,
+          "tieng_nhat": "会ぎしつにいすが二十四あります。",
+          "tieng_viet": "Có 24 cái ghế ở trong phòng họp."
+        },
+        {
+          "so_thu_tu": 5,
+          "tieng_nhat": "きょうしつに学生が六人います。",
+          "tieng_viet": "Có 6 bạn học sinh trong lớp học."
+        },
+        {
+          "so_thu_tu": 6,
+          "tieng_nhat": "かばんのなかにノートが三さつあります。",
+          "tieng_viet": "Có 3 cuốn tập trong cặp."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: いちばんうえのたなにじしょが何さつありますか。",
+          "tieng_viet": "Có mấy cuốn từ điển ở tầng trên cùng của cái kệ?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: 五さつあります。",
+          "tieng_viet": "Có 5 cuốn."
+        },
+        {
+          "so_thu_tu": 7,
+          "tieng_nhat": "ドアのひだりにかさが五本あります。",
+          "tieng_viet": "Có 5 cây dù ở bên trái cái cửa."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: おさらのとなりにスプーンが何本ありますか。",
+          "tieng_viet": "Có mấy cái thìa ở bên cạnh cái đĩa vậy?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: 一本あります。",
+          "tieng_viet": "Có 1 cái."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Nを + số lượng + counter + ください",
+      "y_nghia": "Xin/hãy cho tôi số lượng N (khi mua hàng, gọi món)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "スイカを三つください。",
+          "tieng_viet": "Hãy lấy cho tôi 3 quả dưa."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "ノートを四さつください。",
+          "tieng_viet": "Hãy lấy cho tôi 4 cuốn tập."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Nを + số lượng + counter + Vます",
+      "y_nghia": "Thực hiện hành động (viết, mua, mượn...) với số lượng N cụ thể",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "レポートを五まいかきます。",
+          "tieng_viet": "Tôi sẽ viết 5 tờ báo cáo."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "きのうとしょかんで本を三さつかりました。",
+          "tieng_viet": "Hôm qua tôi đã mượn 3 cuốn sách ở thư viện."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "八十円のきってを三まいと百円のはがきを一まいかいました。ぜんぶで三百四十円です。",
+          "tieng_viet": "Tôi đã mua 3 con tem loại 80 yên và 1 bưu thiếp loại 100 yên. Tổng cộng là 340 yên."
+        }
+      ]
+    },
+    {
+      "cau_truc": "địa điểm1から地点2まで phương tiện で thời gian/số tiền + かかります",
+      "y_nghia": "Từ A đến B bằng phương tiện C thì tốn/mất D (thời gian hoặc tiền)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "とうきょうからおおさかまでしんかんせんで二時かんかかります。",
+          "tieng_viet": "Tốn (mất) 2 tiếng từ Tokyo đến Osaka bằng tàu siêu tốc."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q：日本からベトナムまでひこうきでどのくらいかかりますか。",
+          "tieng_viet": "Từ Nhật đến Việt Nam bằng máy bay thì mất bao lâu?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A：六時かんぐらいかかります。",
+          "tieng_viet": "Mất khoảng 6 tiếng."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "日本からアメリカまでエアメールで一しゅうかんかかります。",
+          "tieng_viet": "Mất khoảng 1 tuần để gửi bức thư này từ Nhật Bản đến Mỹ bằng đường hàng không."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "とうきょうからこうべまでしんかんせんで二万円かかります。",
+          "tieng_viet": "Từ Tokyo đến Kobe bằng shinkansen thì tốn 20,000 yên."
+        }
+      ]
+    },
+    {
+      "cau_truc": "khoảng thời gian + います/Vました",
+      "y_nghia": "Khoảng thời gian đã/đang ở đâu đó hoặc làm gì đó",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "サントスさんはおおさかに二年います。",
+          "tieng_viet": "Anh Santosu ở Osaka 2 năm."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "日本ごを二か月ぐらいならいました。",
+          "tieng_viet": "Tôi đã học tiếng Nhật được khoảng 2 tháng."
+        }
+      ]
+    },
+    {
+      "cau_truc": "N/số lượng + だけ + Vます",
+      "y_nghia": "Chỉ có N / chỉ làm điều gì đó ở một mức độ nhất định",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "ひる一時間だけねます。",
+          "tieng_viet": "Buổi trưa tôi chỉ ngủ 1 tiếng."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "あさ何もたべません。コーヒーだけのみます。",
+          "tieng_viet": "Buổi sáng tôi không ăn gì cả. Tôi chỉ uống cà phê."
+        }
+      ]
+    },
+    {
+      "cau_truc": "khoảng thời gian + に + số + かい + Vます",
+      "y_nghia": "Tần suất: làm gì đó mấy lần trong khoảng thời gian",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "一しゅうかんに三かい日本ごをべんきょうします。",
+          "tieng_viet": "Tôi học tiếng Nhật 3 lần trong 1 tuần."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 一か月に何かいえいがをみますか。",
+          "tieng_viet": "Bạn xem phim mấy lần trong 1 tháng?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: 五かいみます。",
+          "tieng_viet": "Tôi xem 5 lần."
+        }
+      ]
+    }
+  ]
+}

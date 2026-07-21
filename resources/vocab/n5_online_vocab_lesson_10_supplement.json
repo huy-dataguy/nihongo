@@ -1,0 +1,9 @@
+{
+  "source": "Từ vựng bổ sung trích từ câu ví dụ ngữ pháp (grammar lesson 10), chưa có trong vocab chính",
+  "lesson_range": "10",
+  "items": [
+    { "stt": 1, "lesson": 10, "word": "え", "reading": "え", "romaji": "e", "meaning": "Tranh, hình vẽ", "category": "Danh từ" },
+    { "stt": 2, "lesson": 10, "word": "何も", "reading": "なにも", "romaji": "nanimo", "meaning": "Không...gì cả (đi với phủ định)", "category": "Đại từ phiếm chỉ" },
+    { "stt": 3, "lesson": 10, "word": "だれも", "reading": "だれも", "romaji": "daremo", "meaning": "Không...ai cả (đi với phủ định)", "category": "Đại từ phiếm chỉ" }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+    "school_name": "SAKAE Japanese School",
+    "contact": "NHẬT NGỮ SAKAE THỦ ĐỨC - 028.3720.1830",
+    "lesson": {
+        "title": "Bài 15 (だい15か)",
+        "content": "Từ vựng (ことば)",
+        "vocabulary": {
+            "nouns": [
+                {
+                    "id": 1,
+                    "japanese": "カタログ",
+                    "vietnamese": "Catalô"
+                },
+                {
+                    "id": 2,
+                    "japanese": "しりょう",
+                    "vietnamese": "Tài liệu"
+                },
+                {
+                    "id": 3,
+                    "japanese": "じこくひょう",
+                    "vietnamese": "Bảng giờ tàu chạy"
+                },
+                {
+                    "id": 4,
+                    "japanese": "ふく",
+                    "vietnamese": "Quần áo"
+                },
+                {
+                    "id": 5,
+                    "japanese": "せいひん",
+                    "vietnamese": "Sản phẩm"
+                },
+                {
+                    "id": 6,
+                    "japanese": "でんきせいひん",
+                    "vietnamese": "Đồ điện"
+                },
+                {
+                    "id": 7,
+                    "japanese": "コンピューターソフト",
+                    "vietnamese": "Phần mềm máy tính"
+                },
+                {
+                    "id": 8,
+                    "japanese": "でんしじしょ",
+                    "vietnamese": "Kim từ điển"
+                },
+                {
+                    "id": 9,
+                    "japanese": "はいしゃ",
+                    "vietnamese": "Nha sĩ"
+                },
+                {
+                    "id": 10,
+                    "japanese": "どくしん",
+                    "vietnamese": "Độc thân"
+                },
+                {
+                    "id": 11,
+                    "japanese": "とこや",
+                    "vietnamese": "Tiệm cắt tóc (nam)"
+                },
+                {
+                    "id": 12,
+                    "japanese": "びよういん",
+                    "vietnamese": "Nơi làm đẹp (nữ)"
+                },
+                {
+                    "id": 14,
+                    "japanese": "小学校",
+                    "vietnamese": "Trường tiểu học"
+                },
+                {
+                    "id": 15,
+                    "japanese": "小学生",
+                    "vietnamese": "Học sinh tiểu học"
+                },
+                {
+                    "id": 16,
+                    "japanese": "中学校",
+                    "vietnamese": "Trường cấp 2"
+                },
+                {
+                    "id": 17,
+                    "japanese": "中学生",
+                    "vietnamese": "Học sinh cấp 2"
+                },
+                {
+                    "id": 18,
+                    "japanese": "高校",
+                    "vietnamese": "Trường cấp 3"
+                },
+                {
+                    "id": 19,
+                    "japanese": "高校生",
+                    "vietnamese": "Học sinh cấp 3"
+                },
+                {
+                    "id": 20,
+                    "japanese": "大学生",
+                    "vietnamese": "Sinh viên"
+                },
+                {
+                    "id": 21,
+                    "japanese": "せんもん学校",
+                    "vietnamese": "Trường nghề"
+                }
+            ],
+            "adverbs_and_expressions": [
+                {
+                    "id": 13,
+                    "japanese": "とくに",
+                    "vietnamese": "Đặc biệt"
+                },
+                {
+                    "id": 30,
+                    "japanese": "ごかぞくはどちらにいらっしゃいますか。",
+                    "vietnamese": "Gia đình bạn sống ở đâu?"
+                }
+            ],
+            "verbs": [
+                {
+                    "id": 22,
+                    "japanese": "(ばしょに)おきます",
+                    "vietnamese": "Đặt, để"
+                },
+                {
+                    "id": 23,
+                    "japanese": "しつもんします",
+                    "vietnamese": "Đặt câu hỏi"
+                },
+                {
+                    "id": 24,
+                    "japanese": "しります",
+                    "vietnamese": "Biết"
+                },
+                {
+                    "id": 25,
+                    "japanese": "つくります",
+                    "vietnamese": "Làm, sản xuất"
+                },
+                {
+                    "id": 26,
+                    "japanese": "うります",
+                    "vietnamese": "Bán"
+                },
+                {
+                    "id": 27,
+                    "japanese": "おもいだします",
+                    "vietnamese": "Hồi tưởng, nhớ lại"
+                },
+                {
+                    "id": 28,
+                    "japanese": "けんきゅうします",
+                    "vietnamese": "Nghiên cứu"
+                },
+                {
+                    "id": 29,
+                    "japanese": "(ばしょに)すみます",
+                    "vietnamese": "Sống"
+                }
+            ],
+            "kanji": [
+                {
+                    "id": 1,
+                    "kanji": "書く",
+                    "vietnamese": "Viết"
+                },
+                {
+                    "id": 2,
+                    "kanji": "辞書",
+                    "vietnamese": "Từ điển"
+                },
+                {
+                    "id": 3,
+                    "kanji": "聞く",
+                    "vietnamese": "Nghe"
+                },
+                {
+                    "id": 4,
+                    "kanji": "新聞",
+                    "vietnamese": "Báo"
+                },
+                {
+                    "id": 5,
+                    "kanji": "読む",
+                    "vietnamese": "Đọc"
+                },
+                {
+                    "id": 6,
+                    "kanji": "読書",
+                    "vietnamese": "Đọc sách"
+                },
+                {
+                    "id": 7,
+                    "kanji": "話す",
+                    "vietnamese": "Nói chuyện"
+                },
+                {
+                    "id": 8,
+                    "kanji": "電話",
+                    "vietnamese": "Điện thoại"
+                },
+                {
+                    "id": 9,
+                    "kanji": "見る",
+                    "vietnamese": "Nhìn"
+                },
+                {
+                    "id": 10,
+                    "kanji": "見学",
+                    "vietnamese": "Tham quan"
+                },
+                {
+                    "id": 11,
+                    "kanji": "友だち",
+                    "vietnamese": "Bạn bè"
+                },
+                {
+                    "id": 12,
+                    "kanji": "ご主人",
+                    "vietnamese": "Chồng người khác"
+                }
+            ]
+        }
+    }
+}

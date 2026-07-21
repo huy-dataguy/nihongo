@@ -86,25 +86,48 @@ npx tsx scripts/import-vocab-supplement.ts
 Script đọc mọi `resources/vocab/*_supplement.json`, upsert vào bảng `vocabulary`.
 **AI không tự ghi DB** — chỉ đưa lệnh cho user (xem `CLAUDE.md`).
 
-## Bảng từ vựng đã trích (cập nhật 2026-06-27 — 35 từ: 21 trích từ grammar + 14 gap-fill)
+## Bảng từ vựng đã trích (cập nhật 2026-07-21 — 60 từ: 45 trích từ grammar + 15 gap-fill)
 
 | Bài | Số | Từ |
 |---|---|---|
-| 1-3 *(gap-fill)* | 14 | `だれ`, `どなた`, `なんさい`, `おいくつ`, `さい`, `とし`, `どちら`, `なに`, `どこ`, `どれ`, `どう`, `なぜ`, `いくつ`, `いくら` |
-| 4-6 | 9 | `まいにち`, `まいあさ`, `まいばん`, `きっさてん`, `じてんしゃ`, `バナナ`, `ばんごはん`, `いちば`, `それから` |
-| 7 | 2 | `レポート`, `こいびと` |
-| 8 | 2 | `とても`, `そして` |
-| 9 | 8 | `よく`, `だいたい`, `すこし`, `あまり`, `ぜんぜん`, `たくさん`, `どうして`, `ひるごはん` |
+| 1-3 *(gap-fill trừ `はたち`)* | 15 | `だれ`, `どなた`, `なんさい`, `おいくつ`, `さい`, `とし`, `どちら`, `なに`, `どこ`, `どれ`, `どう`, `なぜ`, `いくつ`, `いくら`, `はたち` |
+| 4-6 | 11 | `まいにち`, `まいあさ`, `まいばん`, `きっさてん`, `じてんしゃ`, `ふたり`, `バナナ`, `ばんごはん`, `いちば`, `それから`, `すみません` |
+| 7 | 4 | `レポート`, `こいびと`, `こんにちは`, `フォー` |
+| 8 | 4 | `とても`, `そして`, `よる`, `どんな` |
+| 9 | 9 | `よく`, `だいたい`, `すこし`, `あまり`, `ぜんぜん`, `たくさん`, `どうして`, `ひるごはん`, `かたかな` |
+| 10 | 3 | `え`, `何も`, `だれも` |
+| 11 | 3 | `だけ`, `ぐらい`, `どのくらい` |
+| 12 | 3 | `くうこう`, `りんご`, `どちらも` |
+| 13 | 5 | `何か`, `どこか`, `だれか`, `どこも`, `なつ休み` |
+| 14 | 2 | `もう一ど`, `かた` |
+| 15-16 | 1 | `どうやって` |
 
 > **Bài 1-3 (gap-fill, 2026-06-27):** các câu ví dụ ngữ pháp bài 1-3 dùng toàn từ cơ bản đã có nên chưa trích được từ grammar. Tuy nhiên user phát hiện **bộ từ để hỏi + tuổi tác + where/what đang thiếu** trong vocab (`だれ`, `どこ`, `なに`, `なんさい`, `おいくつ`…) → bổ sung riêng vào `n5_online_vocab_lessons_1_3_supplement.json`. Đây là **gap-fill theo yêu cầu**, không phải trích từ câu ví dụ grammar.
 
-> Khi trích thêm các bài sau (N4, bài 10+…), dùng đúng quy trình trên và **cập nhật bảng này** để session sau biết đâu đã làm.
+> **Bài 11-14 (2026-07-18):** trích từ `resources/gramma/n5_online_grammar_lesson_{11,12,13,14}.json` (mới thêm cùng lúc, xem PDF gốc trong `03 - Learning/JLPT/Gramma/`). Ghi vào `n5_online_vocab_lessons_11_14_supplement.json`. Đối chiếu với toàn bộ `resources/vocab/*.json` hiện có trước khi chọn — nhiều từ tưởng thiếu (`先月/せんげつ`, `一ばん/いちばん`, `たんじょう日/たんじょうび`) hoá ra đã có dưới dạng chính tả khác nên bị loại.
 
-## Ghi chú: import grammar bài 9
+> **Rà soát lại toàn bộ bài 1-10 (2026-07-18, theo yêu cầu user "check các bài ngữ pháp còn từ vựng nào vocab chưa có"):** đọc lại **tất cả** các file `resources/gramma/*.json` (kể cả các bài đã "xong" trước đó) và đối chiếu bằng script Python (so khớp chính xác, có tách từ dạng `漢字 (かな)` thành cả 2 dạng để tránh báo thiếu giả). Phát hiện thêm 8 từ bị bỏ sót: `はたち` (bài 1, 20 tuổi — đọc đặc biệt), `ふたり` (bài 5, 2 người — đọc đặc biệt), `すみません` (bài 6), `こんにちは`/`フォー` (bài 7), `よる`/`どんな` (bài 8), `かたかな` (bài 9). Ghi thêm vào các file supplement **đã có sẵn** của từng bài (không tạo file mới) để giữ nguyên quy ước 1 bài = 1 file supplement.
+> Riêng bài 10 trước đó **chưa từng được xử lý** (không có dòng trong bảng này) — đã trích 3 từ (`え`, `何も`, `だれも`) vào file mới `n5_online_vocab_lesson_10_supplement.json`. Do đó `何も`/`だれも` được **chuyển từ bài 13 về bài 10** (nơi xuất hiện đầu tiên thực sự, theo đúng quy tắc "gán vào bài xuất hiện đầu") trong `n5_online_vocab_lessons_11_14_supplement.json`.
 
-Grammar bài 9 đã được thêm vào `scripts/import-to-supabase.ts`
-(schema `noi_dung_ngu_phap` → các row `grammar`, id `grammar-b9-1..4`).
-Đồng bộ grammar bài 1-9 bằng:
+> **Bài 15-16 (2026-07-21):** trích từ `resources/gramma/n5_online_grammar_lesson_{15,16}.json`
+> (PDF gốc: `NGU_PHAP_BAI_15.pdf`, `NGU_PHAP_BAI_16.pdf` trong `03 - Learning/JLPT/Gramma/`).
+> Rà soát toàn bộ từ trong câu ví dụ, đối chiếu `resources/vocab/*.json` — phần lớn từ đã có sẵn
+> (nhiều từ trùng với vocab bài 15/16/17: つくります・うります・しります・すみます・りょう・せいひん…).
+> Chỉ 1 từ thực sự mới: `どうやって` (bằng cách nào), ghi vào `n5_online_vocab_lesson_16_supplement.json`.
+> Loại `アメリカ人` (danh từ riêng dùng làm ví dụ, theo quy tắc loại trừ) và `電気せいひん` (ghép từ
+> 2 từ đã biết: `電気` + `せいひん`).
+
+> Khi trích thêm các bài sau (N4, bài 18+…), dùng đúng quy trình trên và **cập nhật bảng này** để session sau biết đâu đã làm.
+
+## Ghi chú: import grammar bài 9-16
+
+Grammar bài 9, 11-13, 15-16 dùng chung schema `{ bai_hoc, noi_dung_ngu_phap: [{cau_truc, y_nghia, vi_du}] }`
+(bài 10 là mảng phẳng không có `bai_hoc`). Cả 8 bài (9, 11-13, 15-16 qua vòng lặp chung; 10 riêng)
+đã được parse trong `scripts/import-to-supabase.ts` → các row `grammar`, id `grammar-b{lesson}-{stt}`.
+Riêng bài 14 có thêm bảng chia động từ 3 nhóm (じしょけい + てけい, trích từ ảnh trong PDF gốc)
+lưu ở field `bang_chia_dong_tu` của file JSON, gắn vào `conjugation_tables` của điểm ngữ pháp đầu tiên khi import.
+
+Đồng bộ toàn bộ grammar bài 1-16 bằng:
 
 ```
 npx tsx scripts/import-to-supabase.ts
@@ -115,7 +138,7 @@ npx tsx scripts/import-to-supabase.ts
 | Mục đích | Lệnh |
 |---|---|
 | Nạp vocab bổ sung | `npx tsx scripts/import-vocab-supplement.ts` |
-| Đồng bộ toàn bộ (vocab 1-9 + kanji + grammar 1-9) | `npx tsx scripts/import-to-supabase.ts` |
+| Đồng bộ toàn bộ (vocab 1-17 + kanji + grammar 1-16) | `npx tsx scripts/import-to-supabase.ts` |
 | Xem vocab bổ sung | `SELECT id, word, meaning FROM vocabulary WHERE id LIKE 'vocab-b%-sup-%';` |
-| Xem grammar bài 9 | `SELECT id, structure, meaning FROM grammar WHERE lesson = 9;` |
+| Xem grammar bài 11-16 | `SELECT id, structure, meaning FROM grammar WHERE lesson IN (11,12,13,14,15,16);` |
 | Gỡ vocab bổ sung | `DELETE FROM vocabulary WHERE id LIKE 'vocab-b%-sup-%';` |

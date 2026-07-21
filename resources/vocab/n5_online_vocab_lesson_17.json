@@ -1,0 +1,69 @@
+{
+    "school_name": "SAKAE Japanese School",
+    "contact": "NHẬT NGỮ SAKAE THỦ ĐỨC - 028.3720.1830",
+    "lesson": {
+        "title": "Bài 17 (だい17か)",
+        "content": "Từ vựng (ことば)",
+        "vocabulary": {
+            "nouns": [
+                { "id": 1, "japanese": "ようふく", "vietnamese": "Quần áo kiểu tây" },
+                { "id": 2, "japanese": "上ぎ", "vietnamese": "Áo khoác" },
+                { "id": 3, "japanese": "下ぎ", "vietnamese": "Quần áo lót" },
+                { "id": 4, "japanese": "ほけんしょう", "vietnamese": "Thẻ bảo hiểm" },
+                { "id": 5, "japanese": "ビザ", "vietnamese": "Visa" },
+                { "id": 6, "japanese": "大使かん", "vietnamese": "Đại sứ quán" },
+                { "id": 7, "japanese": "りょうじかん", "vietnamese": "Lãnh sự quán" },
+                { "id": 8, "japanese": "もんだい", "vietnamese": "Vấn đề, câu hỏi thi" },
+                { "id": 9, "japanese": "くすり", "vietnamese": "Thuốc" },
+                { "id": 10, "japanese": "くび", "vietnamese": "Cổ" },
+                { "id": 11, "japanese": "からだ", "vietnamese": "Cơ thể" },
+                { "id": 12, "japanese": "かた", "vietnamese": "Vai" },
+                { "id": 13, "japanese": "せなか", "vietnamese": "Lưng" },
+                { "id": 14, "japanese": "こし", "vietnamese": "Thắt lưng" },
+                { "id": 15, "japanese": "あし", "vietnamese": "Chân" },
+                { "id": 16, "japanese": "ねつ（があります）", "vietnamese": "Sốt" },
+                { "id": 17, "japanese": "びょうき", "vietnamese": "Bệnh" },
+                { "id": 18, "japanese": "かぜ", "vietnamese": "Cảm" },
+                { "id": 19, "japanese": "きんえん", "vietnamese": "Cấm hút thuốc" }
+            ],
+            "verbs": [
+                { "id": 20, "japanese": "もって行きます", "vietnamese": "Mang đi" },
+                { "id": 21, "japanese": "もって来ます", "vietnamese": "Mang đến" },
+                { "id": 22, "japanese": "出かけます", "vietnamese": "Đi ra ngoài" },
+                { "id": 23, "japanese": "おぼえます", "vietnamese": "Nhớ" },
+                { "id": 24, "japanese": "わすれます", "vietnamese": "Quên" },
+                { "id": 25, "japanese": "なくします", "vietnamese": "Làm mất" },
+                { "id": 26, "japanese": "しんぱいします", "vietnamese": "Lo lắng" },
+                { "id": 27, "japanese": "ぬぎます", "vietnamese": "Cởi" },
+                { "id": 28, "japanese": "かえします", "vietnamese": "Trả lại" },
+                { "id": 29, "japanese": "はらいます", "vietnamese": "Trả tiền" },
+                { "id": 30, "japanese": "（Ｎを）出します", "vietnamese": "Nộp" },
+                { "id": 31, "japanese": "（Ｎに）こたえます", "vietnamese": "Trả lời" },
+                { "id": 32, "japanese": "ざんぎょうします", "vietnamese": "Tăng ca" },
+                { "id": 33, "japanese": "出ちょうします", "vietnamese": "Đi công tác" }
+            ],
+            "adjectives": [
+                { "id": 34, "japanese": "あぶない", "vietnamese": "Nguy hiểm" },
+                { "id": 35, "japanese": "大切（な）", "vietnamese": "Quan trọng" },
+                { "id": 36, "japanese": "大じょうぶ（な）", "vietnamese": "Ổn, không sao" },
+                { "id": 37, "japanese": "いたい", "vietnamese": "Đau" }
+            ],
+            "expressions": [
+                { "id": 38, "japanese": "お大事に。", "vietnamese": "Chúc bạn mau khỏi bệnh." },
+                { "id": 39, "japanese": "どうしましたか。", "vietnamese": "Bạn bị làm sao vậy?" }
+            ],
+            "kanji": [
+                { "id": 1, "kanji": "住む", "vietnamese": "Sống" },
+                { "id": 2, "kanji": "住所", "vietnamese": "Địa chỉ" },
+                { "id": 3, "kanji": "作る", "vietnamese": "Làm, nấu" },
+                { "id": 4, "kanji": "使う", "vietnamese": "Sử dụng" },
+                { "id": 5, "kanji": "大使かん", "vietnamese": "Đại sứ quán" },
+                { "id": 6, "kanji": "知る", "vietnamese": "Biết" },
+                { "id": 7, "kanji": "立つ", "vietnamese": "Đứng" },
+                { "id": 8, "kanji": "花", "vietnamese": "Hoa" },
+                { "id": 9, "kanji": "いけ花", "vietnamese": "Nghệ thuật cắm hoa" },
+                { "id": 10, "kanji": "犬", "vietnamese": "Con chó" }
+            ]
+        }
+    }
+}

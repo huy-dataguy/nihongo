@@ -1,0 +1,150 @@
+{
+  "bai_hoc": "第15課の文法 – NGỮ PHÁP BÀI 15",
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "ばしょに（Ｎを）Ｖ",
+      "y_nghia": "V N ở địa điểm (thường dùng với nhóm động từ đặt/để: おきます、たちます、すわります...)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "テーブルの上におさらをおきます。",
+          "tieng_viet": "Tôi để cái đĩa ở trên bàn."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "このいすにすわってください。",
+          "tieng_viet": "Xin hãy ngồi vào ghế này."
+        }
+      ]
+    },
+    {
+      "cau_truc": "（～から）Ｖても いいですか。",
+      "y_nghia": "Tôi V được không? (xin phép)",
+      "vi_du": [
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: となりにすわってもいいですか。",
+          "tieng_viet": "Tôi ngồi bên cạnh được không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A1: ええ、いいですよ。どうぞ。",
+          "tieng_viet": "Vâng, được đấy. Xin mời."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A2: すみません。ちょっと。",
+          "tieng_viet": "Xin lỗi. Nhưng mà... (cách từ chối khéo)"
+        },
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "かんじがわかりませんから、ひらがなでかいてもいいですか。",
+          "tieng_viet": "Vì không hiểu chữ Hán tự nên viết bằng chữ Hiragana được không?"
+        }
+      ]
+    },
+    {
+      "cau_truc": "（～から）Ｖてはいけません。",
+      "y_nghia": "Không được V (cấm đoán)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "じむしょでたばこをすってはいけません。",
+          "tieng_viet": "Ở văn phòng không được hút thuốc."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "今しけんをしていますから、となりの人とはなしてはいけません。",
+          "tieng_viet": "Bây giờ vì đang thi nên không được nói chuyện với người bên cạnh."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: びじゅつかんでしゃしんをとってもいいですか。",
+          "tieng_viet": "Chụp hình ở bảo tàng mỹ thuật được không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: いいえ、とってはいけません。",
+          "tieng_viet": "Không, không được chụp."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｎを・に　Ｖています。",
+      "y_nghia": "Diễn tả trạng thái/tình trạng đang tiếp diễn. Nhóm động từ chỉ tình trạng: しります・すみます・もちます・けっこんします. Nhóm động từ chỉ hành động lặp đi lặp lại trong thời gian dài: うります・つくります・つかいます・はたらきます・べんきょうします・おしえます.",
+      "vi_du": [
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: マリアさんはけっこんしていますか。",
+          "tieng_viet": "Chị Maria đã kết hôn chưa?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A1: はい、けっこんしています。",
+          "tieng_viet": "Vâng, chị ấy đã kết hôn rồi."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A2: いいえ、けっこんしていません。",
+          "tieng_viet": "Chưa, chị ấy chưa kết hôn."
+        },
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "トヨタはせかいで車をつくっています。",
+          "tieng_viet": "Toyota thì đang sản xuất xe ôtô trên thế giới."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "あのみせでケータイをうっています。",
+          "tieng_viet": "Ở cửa hàng kia thì đang bán điện thoại."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: ミラーさんのじゅうしょをしっていますか。",
+          "tieng_viet": "Bạn có biết địa chỉ nhà anh Mira không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A1: はい、しっています。",
+          "tieng_viet": "Vâng, tôi biết."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A2: いいえ、しりません。",
+          "tieng_viet": "Không, tôi không biết. (chú ý: phủ định của 知っています là 知りません, dạng bất quy tắc, không phải 知っていません)"
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "わたしはホーチミンしにすんでいます。",
+          "tieng_viet": "Tôi thì đang sống tại Tp.Hồ Chí Minh."
+        },
+        {
+          "so_thu_tu": 4,
+          "tieng_nhat": "わたしはパスポートをもっています。",
+          "tieng_viet": "Tôi thì có hộ chiếu."
+        }
+      ]
+    },
+    {
+      "cau_truc": "人は N1 で N2 です・Vています。",
+      "y_nghia": "Người là N và N/V (nối 2 vế thông tin về một người bằng で)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "ミラーさんはアメリカ人で、IMCのしゃいんです。",
+          "tieng_viet": "Anh Mira là người Mỹ và là nhân viên công ty IMC."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "ミラーさんはIMCのしゃいんで、おおさかではたらいています。",
+          "tieng_viet": "Anh Mira là nhân viên công ty IMC và đang làm việc ở Osaka."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "ソニーは日本の会社で、せかいで電きせいひんをつくっています。",
+          "tieng_viet": "Sony là công ty Nhật và đang sản xuất đồ điện trên thế giới."
+        }
+      ]
+    }
+  ]
+}

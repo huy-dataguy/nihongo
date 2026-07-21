@@ -9,6 +9,7 @@
     { "stt": 5, "lesson": 9, "word": "ぜんぜん", "reading": "ぜんぜん", "romaji": "zenzen", "meaning": "Hoàn toàn không (đi với phủ định)", "category": "Trạng từ mức độ" },
     { "stt": 6, "lesson": 9, "word": "たくさん", "reading": "たくさん", "romaji": "takusan", "meaning": "Nhiều", "category": "Trạng từ mức độ/số lượng" },
     { "stt": 7, "lesson": 9, "word": "どうして", "reading": "どうして", "romaji": "dōshite", "meaning": "Tại sao, vì sao", "category": "Từ để hỏi" },
-    { "stt": 8, "lesson": 9, "word": "ひるごはん", "reading": "ひるごはん", "romaji": "hirugohan", "meaning": "Bữa trưa, cơm trưa", "category": "Danh từ" }
+    { "stt": 8, "lesson": 9, "word": "ひるごはん", "reading": "ひるごはん", "romaji": "hirugohan", "meaning": "Bữa trưa, cơm trưa", "category": "Danh từ" },
+    { "stt": 9, "lesson": 9, "word": "かたかな", "reading": "かたかな", "romaji": "katakana", "meaning": "Chữ Katakana", "category": "Danh từ" }
   ]
 }

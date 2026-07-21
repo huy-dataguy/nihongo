@@ -1,0 +1,303 @@
+{
+    "school_name": "SAKAE Japanese School",
+    "contact": "NHẬT NGỮ SAKAE THỦ ĐỨC - 028.3720.1830",
+    "lesson": {
+        "title": "Bài 14 (だい14か)",
+        "content": "Từ vựng (ことば)",
+        "vocabulary": {
+            "nouns": [
+                {
+                    "id": 1,
+                    "japanese": "パスポート",
+                    "vietnamese": "Hộ chiếu"
+                },
+                {
+                    "id": 2,
+                    "japanese": "じゅうしょ",
+                    "vietnamese": "Địa chỉ"
+                },
+                {
+                    "id": 3,
+                    "japanese": "メールアドレス",
+                    "vietnamese": "Địa chỉ Email"
+                },
+                {
+                    "id": 4,
+                    "japanese": "しお",
+                    "vietnamese": "Muối"
+                },
+                {
+                    "id": 5,
+                    "japanese": "さとう",
+                    "vietnamese": "Đường"
+                },
+                {
+                    "id": 6,
+                    "japanese": "テキスト",
+                    "vietnamese": "Sách giáo khoa"
+                },
+                {
+                    "id": 7,
+                    "japanese": "No.ページ",
+                    "vietnamese": "Trang (sách, vở)"
+                },
+                {
+                    "id": 8,
+                    "japanese": "エアコン",
+                    "vietnamese": "Máy điều hòa"
+                },
+                {
+                    "id": 9,
+                    "japanese": "せんぷうき",
+                    "vietnamese": "Quạt máy"
+                },
+                {
+                    "id": 10,
+                    "japanese": "でんき",
+                    "vietnamese": "Đèn, điện"
+                },
+                {
+                    "id": 11,
+                    "japanese": "ちゅう車じょう",
+                    "vietnamese": "Bãi đỗ xe"
+                },
+                {
+                    "id": 12,
+                    "japanese": "こうさてん",
+                    "vietnamese": "Ngã tư"
+                },
+                {
+                    "id": 13,
+                    "japanese": "しんごう",
+                    "vietnamese": "Đèn giao thông"
+                },
+                {
+                    "id": 14,
+                    "japanese": "おつり",
+                    "vietnamese": "Tiền thối"
+                }
+            ],
+            "verbs": [
+                {
+                    "id": 15,
+                    "japanese": "まちます",
+                    "vietnamese": "Chờ đợi"
+                },
+                {
+                    "id": 16,
+                    "japanese": "もちます",
+                    "vietnamese": "Cầm, mang"
+                },
+                {
+                    "id": 17,
+                    "japanese": "いそぎます",
+                    "vietnamese": "Vội"
+                },
+                {
+                    "id": 18,
+                    "japanese": "はなします",
+                    "vietnamese": "Nói chuyện"
+                },
+                {
+                    "id": 19,
+                    "japanese": "よびます",
+                    "vietnamese": "Kêu, gọi (taxi)"
+                },
+                {
+                    "id": 20,
+                    "japanese": "みせます",
+                    "vietnamese": "Cho xem"
+                },
+                {
+                    "id": 21,
+                    "japanese": "てつだいます",
+                    "vietnamese": "Giúp đỡ"
+                },
+                {
+                    "id": 22,
+                    "japanese": "おしえます",
+                    "vietnamese": "Chỉ"
+                },
+                {
+                    "id": 23,
+                    "japanese": "とります",
+                    "vietnamese": "Lấy"
+                },
+                {
+                    "id": 24,
+                    "japanese": "たちます",
+                    "vietnamese": "Đứng"
+                },
+                {
+                    "id": 25,
+                    "japanese": "すわります",
+                    "vietnamese": "Ngồi"
+                },
+                {
+                    "id": 26,
+                    "japanese": "あけます",
+                    "vietnamese": "Mở"
+                },
+                {
+                    "id": 27,
+                    "japanese": "しめます",
+                    "vietnamese": "Đóng"
+                },
+                {
+                    "id": 28,
+                    "japanese": "つけます",
+                    "vietnamese": "Bật"
+                },
+                {
+                    "id": 29,
+                    "japanese": "けします",
+                    "vietnamese": "Tắt"
+                },
+                {
+                    "id": 30,
+                    "japanese": "コピーします",
+                    "vietnamese": "Photo"
+                },
+                {
+                    "id": 31,
+                    "japanese": "(Nが)ふります",
+                    "vietnamese": "Rơi"
+                },
+                {
+                    "id": 32,
+                    "japanese": "はじめます",
+                    "vietnamese": "Bắt đầu"
+                },
+                {
+                    "id": 33,
+                    "japanese": "とめます",
+                    "vietnamese": "Dừng xe, đỗ xe"
+                },
+                {
+                    "id": 34,
+                    "japanese": "まがります",
+                    "vietnamese": "Rẽ, quẹo"
+                },
+                {
+                    "id": 35,
+                    "japanese": "つかいます",
+                    "vietnamese": "Sử dụng"
+                }
+            ],
+            "adverbs": [
+                {
+                    "id": 36,
+                    "japanese": "ゆっくり",
+                    "vietnamese": "Chậm, từ từ, thong thả"
+                },
+                {
+                    "id": 37,
+                    "japanese": "もう少し",
+                    "vietnamese": "Một chút nữa"
+                },
+                {
+                    "id": 38,
+                    "japanese": "もう一度",
+                    "vietnamese": "Một lần nữa"
+                },
+                {
+                    "id": 39,
+                    "japanese": "もう一つ(まい、さつ、本)",
+                    "vietnamese": "Một cái nữa"
+                },
+                {
+                    "id": 40,
+                    "japanese": "すぐ",
+                    "vietnamese": "Ngay lập tức"
+                },
+                {
+                    "id": 41,
+                    "japanese": "あと 後で",
+                    "vietnamese": "Lát nữa"
+                },
+                {
+                    "id": 42,
+                    "japanese": "No.時ごろ",
+                    "vietnamese": "Khoảng ... giờ"
+                },
+                {
+                    "id": 43,
+                    "japanese": "まっすぐ",
+                    "vietnamese": "Đi thẳng"
+                },
+                {
+                    "id": 44,
+                    "japanese": "また",
+                    "vietnamese": "Lại"
+                }
+            ],
+            "kanji": [
+                {
+                    "id": 1,
+                    "kanji": "食べる",
+                    "vietnamese": "Ăn"
+                },
+                {
+                    "id": 2,
+                    "kanji": "食どう",
+                    "vietnamese": "Nhà ăn"
+                },
+                {
+                    "id": 3,
+                    "kanji": "飲む",
+                    "vietnamese": "Uống"
+                },
+                {
+                    "id": 4,
+                    "kanji": "食べ物",
+                    "vietnamese": "Đồ ăn"
+                },
+                {
+                    "id": 5,
+                    "kanji": "飲み物",
+                    "vietnamese": "Đồ uống"
+                },
+                {
+                    "id": 6,
+                    "kanji": "どう物",
+                    "vietnamese": "Động vật"
+                },
+                {
+                    "id": 7,
+                    "kanji": "肉",
+                    "vietnamese": "Thịt"
+                },
+                {
+                    "id": 8,
+                    "kanji": "お茶",
+                    "vietnamese": "Trà"
+                },
+                {
+                    "id": 9,
+                    "kanji": "行く",
+                    "vietnamese": "Đi"
+                },
+                {
+                    "id": 10,
+                    "kanji": "ぎん行",
+                    "vietnamese": "Ngân hàng"
+                },
+                {
+                    "id": 11,
+                    "kanji": "電ち",
+                    "vietnamese": "Cục pin"
+                },
+                {
+                    "id": 12,
+                    "kanji": "車",
+                    "vietnamese": "Xe hơi"
+                },
+                {
+                    "id": 13,
+                    "kanji": "電車",
+                    "vietnamese": "Xe điện"
+                }
+            ]
+        }
+    }
+}

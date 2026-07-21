@@ -7,9 +7,11 @@
     { "stt": 3, "lesson": 4, "word": "まいばん", "reading": "まいばん", "romaji": "maiban", "meaning": "Mỗi tối", "category": "Trạng từ tần suất" },
     { "stt": 1, "lesson": 5, "word": "きっさてん", "reading": "きっさてん", "romaji": "kissaten", "meaning": "Quán cà phê", "category": "Danh từ" },
     { "stt": 2, "lesson": 5, "word": "じてんしゃ", "reading": "じてんしゃ", "romaji": "jitensha", "meaning": "Xe đạp", "category": "Danh từ" },
+    { "stt": 3, "lesson": 5, "word": "ふたり", "reading": "ふたり", "romaji": "futari", "meaning": "2 người (cách đọc đặc biệt, không phải ににん)", "category": "Bộ đếm người" },
     { "stt": 1, "lesson": 6, "word": "バナナ", "reading": "バナナ", "romaji": "banana", "meaning": "Chuối", "category": "Danh từ" },
     { "stt": 2, "lesson": 6, "word": "ばんごはん", "reading": "ばんごはん", "romaji": "bangohan", "meaning": "Bữa tối, cơm tối", "category": "Danh từ" },
     { "stt": 3, "lesson": 6, "word": "いちば", "reading": "いちば", "romaji": "ichiba", "meaning": "Chợ", "category": "Danh từ" },
-    { "stt": 4, "lesson": 6, "word": "それから", "reading": "それから", "romaji": "sorekara", "meaning": "Sau đó, và rồi thì", "category": "Liên từ" }
+    { "stt": 4, "lesson": 6, "word": "それから", "reading": "それから", "romaji": "sorekara", "meaning": "Sau đó, và rồi thì", "category": "Liên từ" },
+    { "stt": 5, "lesson": 6, "word": "すみません", "reading": "すみません", "romaji": "sumimasen", "meaning": "Xin lỗi (dùng để xin lỗi hoặc từ chối khéo léo)", "category": "Cách diễn đạt" }
   ]
 }

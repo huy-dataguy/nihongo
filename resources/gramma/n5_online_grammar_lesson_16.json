@@ -1,0 +1,126 @@
+{
+  "bai_hoc": "第16課の文法 – NGỮ PHÁP BÀI 16",
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "Ｖ１て、Ｖ２て、Ｖ３ます・ました",
+      "y_nghia": "V1, V2 và V3 (liệt kê chuỗi hành động theo thứ tự)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "ごはんを食べて、しゅくだいをして、テレビを見ます。",
+          "tieng_viet": "Tôi ăn cơm, làm bài tập về nhà, và xem TV."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "けさジョギングして、シャワーをあびて、うちをでました。",
+          "tieng_viet": "Sáng nay tôi đã chạy bộ, tắm vòi sen, và đi ra khỏi nhà."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "うみへ行って、ふねにのって、つりをしたいです。",
+          "tieng_viet": "Tôi muốn đi biển, lên tàu và câu cá."
+        }
+      ]
+    },
+    {
+      "cau_truc": "どうやって　Ｖますか。",
+      "y_nghia": "V bằng cách nào (hỏi phương pháp/cách thức thực hiện)",
+      "vi_du": [
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: どうやってお金を出しますか。",
+          "tieng_viet": "Rút tiền bằng cách nào?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: まずここにカードを入れて、つぎにあんしょうばんごうをおしてください。それから、金がくをおして、かくにんボタンをおしてください。",
+          "tieng_viet": "Trước hết hãy bỏ thẻ vào đây, tiếp theo bấm mật khẩu. Sau đó hãy bấm khoản tiền, bấm nút xác nhận."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｖ１てから、Ｖ２。",
+      "y_nghia": "Sau khi V1 thì V2 (nhấn mạnh thứ tự trước-sau)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "サッカーをしてから、シャワーをあびます。",
+          "tieng_viet": "Sau khi chơi đá bóng thì tắm."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "かおをあらって、みがいてから、ごはんを食べます。",
+          "tieng_viet": "Sau khi rửa mặt, đánh răng thì ăn cơm."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "うちへかえってから、ごはんを食べて、しゅくだいをやります。",
+          "tieng_viet": "Sau khi về nhà, tôi ăn cơm và làm bài tập về nhà."
+        }
+      ]
+    },
+    {
+      "cau_truc": "人はＮが A です。 / Ｎ１はＮ２が A です。",
+      "y_nghia": "Người N thì A / N1 thì N2 A (dùng để miêu tả chi tiết trong tổng thể)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "マリアさんはかみがながいです。",
+          "tieng_viet": "Chị Maria thì tóc dài."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: ミラーさんはどの人ですか。",
+          "tieng_viet": "Mira là người nào?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: あのせが高い人です。",
+          "tieng_viet": "Là người cao kia."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｎは Ａいくて、Ａです。",
+      "y_nghia": "Nối hai tính từ đuôi い (đổi い→くて rồi nối vế tính từ tiếp theo)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "あのうちは大きくて、あたらしいです。",
+          "tieng_viet": "Nhà kia thì to và mới."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 大学のりょうはどうですか。",
+          "tieng_viet": "Ký túc xá đại học thì thế nào?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: 古くて、へやがせまいです。",
+          "tieng_viet": "Cũ kỹ và phòng hẹp."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｎは Ａなで、Ａです。",
+      "y_nghia": "Nối hai tính từ đuôi な (thêm で rồi nối vế tính từ tiếp theo)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "このこうえんはしずかで、みどりが多いです。",
+          "tieng_viet": "Công viên này yên tĩnh và nhiều cây xanh."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: おおさかはどんなまちですか。",
+          "tieng_viet": "Osaka là thành phố thế nào?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: にぎやかで、食べ物がおいしいまちです。",
+          "tieng_viet": "Là thành phố náo nhiệt và đồ ăn ngon."
+        }
+      ]
+    }
+  ]
+}

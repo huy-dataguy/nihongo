@@ -1,0 +1,262 @@
+{
+    "school_info": {
+        "name": "SAKAE Japanese School",
+        "branch": "NHẬT NGỮ SAKAE THỦ ĐỨC",
+        "contact": "028.3720.1830"
+    },
+    "lesson_info": {
+        "lesson_number": 13,
+        "title": "ことば (Từ vựng)"
+    },
+    "vocabulary": {
+        "nouns": [
+            {
+                "id": 1,
+                "japanese": "ていしょく",
+                "vietnamese": "Cơm phần N"
+            },
+            {
+                "id": 2,
+                "japanese": "ぎゅうどん",
+                "vietnamese": "Cơm thịt bò xào hành tây"
+            },
+            {
+                "id": 3,
+                "japanese": "すきやき",
+                "vietnamese": "Lẩu thịt bò nướng"
+            },
+            {
+                "id": 4,
+                "japanese": "ラーメン",
+                "vietnamese": "Mỳ tôm Nhật"
+            },
+            {
+                "id": 5,
+                "japanese": "うどん",
+                "vietnamese": "Mỳ Udon"
+            },
+            {
+                "id": 6,
+                "japanese": "つり(をします)",
+                "vietnamese": "Câu cá"
+            },
+            {
+                "id": 7,
+                "japanese": "スキー(をします)",
+                "vietnamese": "Trượt tuyết"
+            },
+            {
+                "id": 8,
+                "japanese": "プール",
+                "vietnamese": "Hồ bơi"
+            },
+            {
+                "id": 9,
+                "japanese": "けいざい",
+                "vietnamese": "Kinh tế"
+            },
+            {
+                "id": 10,
+                "japanese": "びじゅつ",
+                "vietnamese": "Mỹ thuật"
+            },
+            {
+                "id": 11,
+                "japanese": "しやくしょ",
+                "vietnamese": "Ủy ban nhân dân"
+            },
+            {
+                "id": 12,
+                "japanese": "コンビニ",
+                "vietnamese": "Cửa hàng tiện lợi"
+            },
+            {
+                "id": 13,
+                "japanese": "しゅうまつ",
+                "vietnamese": "Cuối tuần"
+            },
+            {
+                "id": 14,
+                "japanese": "かいぎ(をします)",
+                "vietnamese": "Cuộc họp"
+            }
+        ],
+        "adjectives": [
+            {
+                "id": 15,
+                "japanese": "ひろい",
+                "vietnamese": "Rộng"
+            },
+            {
+                "id": 16,
+                "japanese": "せまい",
+                "vietnamese": "Hẹp"
+            },
+            {
+                "id": 17,
+                "japanese": "さびしい",
+                "vietnamese": "Cô đơn"
+            },
+            {
+                "id": 18,
+                "japanese": "ほしい",
+                "vietnamese": "Muốn có"
+            }
+        ],
+        "verbs": [
+            {
+                "id": 19,
+                "japanese": "けっこんします",
+                "vietnamese": "Kết hôn"
+            },
+            {
+                "id": 20,
+                "japanese": "ばしょにはいります",
+                "vietnamese": "Đi vào"
+            },
+            {
+                "id": 21,
+                "japanese": "ばしょをでます",
+                "vietnamese": "Đi ra"
+            },
+            {
+                "id": 22,
+                "japanese": "およぎます",
+                "vietnamese": "Bơi"
+            },
+            {
+                "id": 23,
+                "japanese": "あそびます",
+                "vietnamese": "Chơi đùa"
+            },
+            {
+                "id": 24,
+                "japanese": "むかえます",
+                "vietnamese": "Đón"
+            },
+            {
+                "id": 25,
+                "japanese": "てがみをだします",
+                "vietnamese": "Gửi thư"
+            },
+            {
+                "id": 26,
+                "japanese": "さんぽします",
+                "vietnamese": "Đi dạo"
+            },
+            {
+                "id": 27,
+                "japanese": "かいもの します",
+                "vietnamese": "Mua sắm"
+            },
+            {
+                "id": 28,
+                "japanese": "しょくじします",
+                "vietnamese": "Dùng bữa"
+            }
+        ],
+        "expressions": [
+            {
+                "id": 29,
+                "japanese": "おなかがすきました。",
+                "vietnamese": "Đói bụng"
+            },
+            {
+                "id": 30,
+                "japanese": "おなかがいっぱいです。",
+                "vietnamese": "Tôi no rồi"
+            },
+            {
+                "id": 31,
+                "japanese": "のどがかわきました",
+                "vietnamese": "Khát nước"
+            },
+            {
+                "id": 32,
+                "japanese": "つかれました",
+                "vietnamese": "Mệt"
+            },
+            {
+                "id": 33,
+                "japanese": "いらっしゃいませ。",
+                "vietnamese": "Xin chào quý khách"
+            },
+            {
+                "id": 34,
+                "japanese": "ごちゅうもんは?",
+                "vietnamese": "Anh chị gọi món gì ạ?"
+            },
+            {
+                "id": 35,
+                "japanese": "かしこまりました",
+                "vietnamese": "Vâng thưa anh chị"
+            },
+            {
+                "id": 36,
+                "japanese": "おまたせしました。",
+                "vietnamese": "Xin lỗi đã để bạn đợi lâu"
+            },
+            {
+                "id": 37,
+                "japanese": "べつべつにおねがいします。",
+                "vietnamese": "Tính riêng"
+            }
+        ],
+        "kanji": [
+            {
+                "id": 1,
+                "kanji": "多い",
+                "reading": "おお",
+                "meaning": "Nhiều"
+            },
+            {
+                "id": 2,
+                "kanji": "少し",
+                "reading": "すこ",
+                "meaning": "Một chút"
+            },
+            {
+                "id": 3,
+                "kanji": "少ない",
+                "reading": "すく",
+                "meaning": "Ít"
+            },
+            {
+                "id": 4,
+                "kanji": "広い",
+                "reading": "ひろ",
+                "meaning": "Rộng"
+            },
+            {
+                "id": 5,
+                "kanji": "近い",
+                "reading": "ちか",
+                "meaning": "Gần"
+            },
+            {
+                "id": 6,
+                "kanji": "さい近",
+                "reading": "きん",
+                "meaning": "Gần đây"
+            },
+            {
+                "id": 7,
+                "kanji": "早い",
+                "reading": "はや",
+                "meaning": "Sớm"
+            },
+            {
+                "id": 8,
+                "kanji": "間",
+                "reading": "あいだ",
+                "meaning": "Ở giữa"
+            },
+            {
+                "id": 9,
+                "kanji": "時間",
+                "reading": "じかん",
+                "meaning": "Thời gian"
+            }
+        ]
+    }
+}

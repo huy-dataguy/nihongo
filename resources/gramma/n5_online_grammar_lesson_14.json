@@ -1,0 +1,234 @@
+{
+  "bai_hoc": "第14課の文法 – NGỮ PHÁP BÀI 14",
+  "gioi_thieu": "Động từ trong tiếng Nhật chia thành 3 nhóm (グループ I / II / III). Bài này giới thiệu じしょけい (thể từ điển) và てけい (thể て) của từng nhóm, làm nền tảng cho các mẫu câu dùng thể て.",
+  "bang_chia_dong_tu": {
+    "jishokei": {
+      "tieu_de": "じしょけい（Vる）- Thể từ điển",
+      "nhom_1": {
+        "quy_tac": "い → う (Vます bỏ ます, đổi い→う)",
+        "vi_du": [
+          { "masu": "すいます", "jishokei": "すう" },
+          { "masu": "はたらきます", "jishokei": "はたらく" },
+          { "masu": "いそぎます", "jishokei": "いそぐ" },
+          { "masu": "かします", "jishokei": "かす" },
+          { "masu": "まちます", "jishokei": "まつ" },
+          { "masu": "しにます", "jishokei": "しぬ" },
+          { "masu": "あそびます", "jishokei": "あそぶ" },
+          { "masu": "のみます", "jishokei": "のむ" },
+          { "masu": "かえります", "jishokei": "かえる" }
+        ]
+      },
+      "nhom_2": {
+        "quy_tac": "ます → る",
+        "vi_du": [
+          { "masu": "たべます", "jishokei": "たべる" },
+          { "masu": "ねます", "jishokei": "ねる" },
+          { "masu": "かけます", "jishokei": "かける" },
+          { "masu": "おしえます", "jishokei": "おしえる" },
+          { "masu": "あげます", "jishokei": "あげる" },
+          { "masu": "おきます", "jishokei": "おきる" },
+          { "masu": "かります", "jishokei": "かりる" },
+          { "masu": "みます", "jishokei": "みる" },
+          { "masu": "います", "jishokei": "いる" }
+        ]
+      },
+      "nhom_3": {
+        "quy_tac": "bất quy tắc (来ます・します・N します)",
+        "vi_du": [
+          { "masu": "来ます", "jishokei": "来る" },
+          { "masu": "します", "jishokei": "する" },
+          { "masu": "べんきょうします", "jishokei": "べんきょうする" },
+          { "masu": "けっこんします", "jishokei": "けっこんする" },
+          { "masu": "かいものします", "jishokei": "かいものする" },
+          { "masu": "しょくじします", "jishokei": "しょくじする" }
+        ]
+      }
+    },
+    "tekei": {
+      "tieu_de": "てけい - Thể Tê",
+      "nhom_1": [
+        {
+          "quy_tac": "い ます → う・つ・る → って",
+          "vi_du": [
+            { "masu": "会います", "jishokei": "会う", "tekei": "会って" },
+            { "masu": "かいます", "jishokei": "かう", "tekei": "かって" },
+            { "masu": "まちます", "jishokei": "まつ", "tekei": "まって" },
+            { "masu": "たちます", "jishokei": "たつ", "tekei": "たって" },
+            { "masu": "おわります", "jishokei": "おわる", "tekei": "おわって" },
+            { "masu": "おくります", "jishokei": "おくる", "tekei": "おくって" }
+          ]
+        },
+        {
+          "quy_tac": "い ます → む・ぬ・ぶ → んで",
+          "vi_du": [
+            { "masu": "よみます", "jishokei": "よむ", "tekei": "よんで" },
+            { "masu": "のみます", "jishokei": "のむ", "tekei": "のんで" },
+            { "masu": "あそびます", "jishokei": "あそぶ", "tekei": "あそんで" },
+            { "masu": "よびます", "jishokei": "よぶ", "tekei": "よんで" }
+          ]
+        },
+        {
+          "quy_tac": "い ます → く・ぐ → いて・いで",
+          "ghi_chu": "ngoại lệ: いきます → いく → いって",
+          "vi_du": [
+            { "masu": "かきます", "jishokei": "かく", "tekei": "かいて" },
+            { "masu": "はたらきます", "jishokei": "はたらく", "tekei": "はたらいて" },
+            { "masu": "いきます", "jishokei": "いく", "tekei": "いって", "ngoai_le": true },
+            { "masu": "およぎます", "jishokei": "およぐ", "tekei": "およいで" },
+            { "masu": "いそぎます", "jishokei": "いそぐ", "tekei": "いそいで" }
+          ]
+        },
+        {
+          "quy_tac": "い ます → す → して",
+          "vi_du": [
+            { "masu": "かします", "jishokei": "かす", "tekei": "かして" },
+            { "masu": "だします", "jishokei": "だす", "tekei": "だして" },
+            { "masu": "はなします", "jishokei": "はなす", "tekei": "はなして" }
+          ]
+        }
+      ],
+      "nhom_2": {
+        "quy_tac": "ê ます → ê る → ê て (bỏ ます, thêm て)",
+        "vi_du": [
+          { "masu": "たべます", "jishokei": "たべる", "tekei": "たべて" },
+          { "masu": "ねます", "jishokei": "ねる", "tekei": "ねて" },
+          { "masu": "かけます", "jishokei": "かける", "tekei": "かけて" },
+          { "masu": "おしえます", "jishokei": "おしえる", "tekei": "おしえて" }
+        ]
+      }
+    }
+  },
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "Vて + ください。",
+      "y_nghia": "Xin hãy V (yêu cầu, nhờ vả người khác làm việc gì đó)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "CDをきいてください。",
+          "tieng_viet": "Hãy nghe đĩa CD."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "時間がありませんから、いそいでください。",
+          "tieng_viet": "Vì không có thời gian nên hãy nhanh lên."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "かんじがわかりませんから、ひらがなでかいてください。",
+          "tieng_viet": "Vì không hiểu hán tự nên hãy viết bằng hiragana."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Adv. + Vて + ください。",
+      "y_nghia": "Xin hãy V (kèm trạng từ bổ nghĩa)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "こたえがわかりませんから、もう一どおしえてください。",
+          "tieng_viet": "Vì em không hiểu câu trả lời nên hãy dạy lại một lần nữa."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "時間がありませんから、すぐタクシーをよんでください。",
+          "tieng_viet": "Vì không có thời gian, nên hãy gọi taxi ngay lập tức."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Nの Vます＋かた。",
+      "y_nghia": "Cách V (danh từ hóa động từ theo cách thực hiện)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "このかんじのよみかたをおしえてください。",
+          "tieng_viet": "Hãy chỉ cho tôi cách đọc chữ kanji này."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "びょういんのいきかたをおしえてください。",
+          "tieng_viet": "Hãy chỉ cho tôi cách đi bệnh viện."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Vて います。(khẳng định) / Vて いません。(phủ định)",
+      "y_nghia": "Đang V / Đang không V",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "今ごはんを食べています。",
+          "tieng_viet": "Bây giờ tôi đang ăn cơm."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "今おんがくをきいていません。",
+          "tieng_viet": "Bây giờ tôi (đang) không nghe nhạc."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 今外であめがふっていますか。",
+          "tieng_viet": "Bây giờ ngoài trời đang mưa phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: はい、ふっています。",
+          "tieng_viet": "Vâng, đang mưa."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "いいえ、ふっていません。",
+          "tieng_viet": "Không, đang không mưa."
+        }
+      ]
+    },
+    {
+      "cau_truc": "ばしょに・で・を Vます。",
+      "y_nghia": "V ở địa điểm (trợ từ tùy loại động từ: に đỗ/dừng lại, で hành động tại chỗ, を đi qua/rẽ tại)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "ちゅう車じょうに車をとめます。",
+          "tieng_viet": "Tôi đậu xe ở bãi đỗ xe."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "ゆうびんきょくの前でとめてください。",
+          "tieng_viet": "Xin hãy dừng ở phía trước bưu điện."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "しんごうを右へまがります。",
+          "tieng_viet": "Tôi rẽ phải ở đèn giao thông."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Vます ＋ ましょうか。",
+      "y_nghia": "Để tôi V cho nhé (đề nghị giúp đỡ)",
+      "vi_du": [
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q： えんぴつをかしましょうか。",
+          "tieng_viet": "Để tôi cho bạn mượn cây bút chì nhé."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: ええ、おねがいします。",
+          "tieng_viet": "Vâng, làm ơn cho tôi mượn."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q： タクシーをよびましょうか。",
+          "tieng_viet": "Để tôi gọi taxi cho bạn nhé."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: いいえ、けっこうです。",
+          "tieng_viet": "Không, thôi được rồi ạ. (từ chối)"
+        }
+      ]
+    }
+  ]
+}

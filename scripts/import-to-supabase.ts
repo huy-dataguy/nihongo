@@ -1,5 +1,5 @@
 /**
- * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-12, grammar bài 1-10, kanji).
+ * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-17, grammar bài 1-16, kanji).
  * Dùng `upsert` theo `id` => CHẠY LẠI BAO NHIÊU LẦN CŨNG ĐƯỢC, không bị trùng.
  * Mỗi lần sửa/thêm file trong resources/, chỉ cần chạy lại lệnh này:
  *
@@ -256,6 +256,52 @@ async function main() {
     });
   }
 
+  // Bài 13 — schema: { lesson_info, school_info, vocabulary: { nouns/adjectives/verbs/expressions/kanji: [...] } }
+  const file13Lesson = JSON.parse(fs.readFileSync(path.join(resourcesDir, "vocab/n5_online_vocab_lesson_13.json"), "utf-8"));
+  const lesson13 = file13Lesson.lesson_info?.lesson_number || 13;
+  for (const [catKey, items] of Object.entries(file13Lesson.vocabulary || {})) {
+    if (catKey === "kanji" || !Array.isArray(items)) continue;
+    for (const item of items) {
+      vocabRows.push({
+        id: `vocab-b${lesson13}-${catKey}-${item.id}`,
+        word: item.japanese || "",
+        reading: item.japanese || "",
+        romaji: "",
+        meaning: item.vietnamese || "",
+        category: `Bài ${lesson13} - ${mapVocabCategory(catKey)}`,
+        lesson: lesson13,
+        examples: [],
+        is_custom: false,
+      });
+    }
+  }
+
+  // Bài 14-17 — schema đồng nhất: { school_name, contact, lesson: { title, content, vocabulary: { <cats>: [{id, japanese, vietnamese}], kanji: [{id, kanji, vietnamese}] } } }
+  const filesLesson14to16: Record<number, any> = {};
+  for (const lessonNum of [14, 15, 16, 17]) {
+    const filePath = path.join(resourcesDir, `vocab/n5_online_vocab_lesson_${lessonNum}.json`);
+    if (!fs.existsSync(filePath)) continue;
+    const fileData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    filesLesson14to16[lessonNum] = fileData;
+    const vocab = fileData.lesson?.vocabulary || {};
+    for (const [catKey, items] of Object.entries(vocab)) {
+      if (catKey === "kanji" || !Array.isArray(items)) continue;
+      for (const item of items) {
+        vocabRows.push({
+          id: `vocab-b${lessonNum}-${catKey}-${item.id}`,
+          word: item.japanese || "",
+          reading: item.japanese || "",
+          romaji: "",
+          meaning: item.vietnamese || "",
+          category: `Bài ${lessonNum} - ${mapVocabCategory(catKey)}`,
+          lesson: lessonNum,
+          examples: [],
+          is_custom: false,
+        });
+      }
+    }
+  }
+
   console.log(`📖 Vocabulary: ${vocabRows.length} items`);
 
   // --- KANJI from Bài 7 ---
@@ -320,6 +366,38 @@ async function main() {
       examples: [],
       is_custom: false,
     });
+  }
+
+  // --- KANJI from Bài 13 (vocabulary.kanji: [{id, kanji, reading, meaning}]) ---
+  const kanji13 = file13Lesson.vocabulary?.kanji || [];
+  for (const item of kanji13) {
+    kanjiRows.push({
+      id: `kanji-b${lesson13}-${item.id}`,
+      character: item.kanji || "",
+      onyomi: "",
+      kunyomi: item.reading || "",
+      meaning: item.meaning || "",
+      lesson: lesson13,
+      examples: [],
+      is_custom: false,
+    });
+  }
+
+  // --- KANJI from Bài 14-17 (vocabulary.kanji: [{id, kanji, vietnamese}]) ---
+  for (const lessonNum of [14, 15, 16, 17]) {
+    const kanjiItems = filesLesson14to16[lessonNum]?.lesson?.vocabulary?.kanji || [];
+    for (const item of kanjiItems) {
+      kanjiRows.push({
+        id: `kanji-b${lessonNum}-${item.id}`,
+        character: item.kanji || "",
+        onyomi: "",
+        kunyomi: "",
+        meaning: item.vietnamese || "",
+        lesson: lessonNum,
+        examples: [],
+        is_custom: false,
+      });
+    }
   }
 
   console.log(`KANJI: ${kanjiRows.length} items`);
@@ -469,6 +547,50 @@ async function main() {
     });
   }
 
+  // Bài 11-13, 15-16 — cấu trúc giống bài 9: { bai_hoc, noi_dung_ngu_phap: [{ cau_truc, y_nghia, vi_du }] }
+  // (bài 14 dùng cấu trúc riêng bên dưới vì có thêm bang_chia_dong_tu)
+  for (const lessonNum of [11, 12, 13, 15, 16]) {
+    const filePath = path.join(resourcesDir, `gramma/n5_online_grammar_lesson_${lessonNum}.json`);
+    if (!fs.existsSync(filePath)) continue;
+    const gramData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    const cauTruc = gramData.noi_dung_ngu_phap || [];
+    for (const [index, item] of cauTruc.entries()) {
+      grammarRows.push({
+        id: `grammar-b${lessonNum}-${index + 1}`,
+        structure: item.cau_truc || "",
+        meaning: item.y_nghia || "",
+        explanation: "",
+        notes: "",
+        category: gramData.bai_hoc || `Bài ${lessonNum}`,
+        lesson: lessonNum,
+        examples: normalizeGrammarExamples(item.vi_du || []),
+        summary: {},
+        conjugation_tables: {},
+        is_custom: false,
+      });
+    }
+  }
+
+  // Bài 14 — giống cấu trúc trên, kèm bảng chia động từ 3 nhóm (じしょけい + てけい)
+  // gắn vào conjugation_tables của điểm ngữ pháp đầu tiên
+  const gram14 = JSON.parse(fs.readFileSync(path.join(resourcesDir, "gramma/n5_online_grammar_lesson_14.json"), "utf-8"));
+  const cauTruc14 = gram14.noi_dung_ngu_phap || [];
+  for (const [index, item] of cauTruc14.entries()) {
+    grammarRows.push({
+      id: `grammar-b14-${index + 1}`,
+      structure: item.cau_truc || "",
+      meaning: item.y_nghia || "",
+      explanation: "",
+      notes: "",
+      category: gram14.bai_hoc || "Bài 14",
+      lesson: 14,
+      examples: normalizeGrammarExamples(item.vi_du || []),
+      summary: {},
+      conjugation_tables: index === 0 ? gram14.bang_chia_dong_tu || {} : {},
+      is_custom: false,
+    });
+  }
+
   console.log(`📝 Grammar: ${grammarRows.length} items`);
 
   // --- INSERT INTO SUPABASE ---
@@ -541,6 +663,19 @@ function mapType12(type: string): string {
     adjective: "Tính từ",
     "na-adjective": "Tính từ đuôi na",
     expression: "Cách diễn đạt",
+  };
+  return map[type] || type || "Từ vựng chung";
+}
+
+// Ánh xạ category tiếng Anh (bài 13-16) -> nhãn tiếng Việt cho category
+function mapVocabCategory(type: string): string {
+  const map: Record<string, string> = {
+    nouns: "Danh từ",
+    adjectives: "Tính từ",
+    verbs: "Động từ",
+    adverbs: "Phó từ",
+    expressions: "Cách diễn đạt",
+    adverbs_and_expressions: "Phó từ & Cách diễn đạt",
   };
   return map[type] || type || "Từ vựng chung";
 }

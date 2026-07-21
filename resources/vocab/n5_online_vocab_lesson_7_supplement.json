@@ -3,6 +3,8 @@
   "lesson_range": "7",
   "items": [
     { "stt": 1, "lesson": 7, "word": "レポート", "reading": "レポート", "romaji": "repōto", "meaning": "Báo cáo, tiểu luận", "category": "Danh từ" },
-    { "stt": 2, "lesson": 7, "word": "こいびと", "reading": "こいびと", "romaji": "koibito", "meaning": "Người yêu", "category": "Danh từ" }
+    { "stt": 2, "lesson": 7, "word": "こいびと", "reading": "こいびと", "romaji": "koibito", "meaning": "Người yêu", "category": "Danh từ" },
+    { "stt": 3, "lesson": 7, "word": "こんにちは", "reading": "こんにちは", "romaji": "konnichiwa", "meaning": "Xin chào", "category": "Cách diễn đạt" },
+    { "stt": 4, "lesson": 7, "word": "フォー", "reading": "フォー", "romaji": "foo", "meaning": "Phở", "category": "Danh từ" }
   ]
 }

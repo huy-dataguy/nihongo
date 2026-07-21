@@ -1,0 +1,184 @@
+{
+  "bai_hoc": "第12課の文法 – NGỮ PHÁP BÀI 12",
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "いけいようし: Aいかったです (khẳng định) / Aいくなかったです (phủ định)",
+      "y_nghia": "Đã A / Đã không A (tính từ đuôi い ở thì quá khứ)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "きのうはあつかったです。",
+          "tieng_viet": "Hôm qua thì đã nóng."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 先月のりょこうはどうでしたか。",
+          "tieng_viet": "Chuyến du lịch tháng trước đã như thế nào?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A1: とてもよかったです。",
+          "tieng_viet": "Đã rất tốt."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A2: あまりよくなかったです。",
+          "tieng_viet": "Đã không tốt lắm."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A3: ぜんぜんよくなかったです。",
+          "tieng_viet": "Đã hoàn toàn không tốt."
+        }
+      ]
+    },
+    {
+      "cau_truc": "なけいようし: Aでした (khẳng định) / Aじゃありませんでした (phủ định)",
+      "y_nghia": "Đã A / Đã không A (tính từ đuôi な ở thì quá khứ)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "きのうひまでした。",
+          "tieng_viet": "Hôm qua tôi đã rảnh."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "おとといげんきじゃありませんでした。",
+          "tieng_viet": "Hôm kia tôi đã không khỏe."
+        }
+      ]
+    },
+    {
+      "cau_truc": "じかん（のてんき）はNです・でした。",
+      "y_nghia": "Thời gian (thời tiết) là/đã là N",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "あしたははれです。",
+          "tieng_viet": "Ngày mai trời sẽ nắng."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "きのうはくもりでした。",
+          "tieng_viet": "Ngày hôm qua trời có mây."
+        }
+      ]
+    },
+    {
+      "cau_truc": "A1かった・でした そして、A2… / A1かった・でしたが、A2…",
+      "y_nghia": "Đã (không) A1 và đã (không) A2 / Đã (không) A1 nhưng đã (không) A2",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "レストランのりょうりはおいしかったです。そして、安かったです。",
+          "tieng_viet": "Món ăn của nhà hàng đã ngon và rẻ."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "きのうのパーティーはにぎやかでしたが、りょうりはおいしくなかったです。",
+          "tieng_viet": "Buổi tiệc hôm qua đã nhộn nhịp nhưng món ăn thì đã không ngon."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Aかった・でしたから、Vました。",
+      "y_nghia": "Vì đã (không) A nên đã (không) V",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "きのうのテストはむずかしかったですから、よくわかりませんでした。",
+          "tieng_viet": "Vì bài kiểm tra hôm qua đã khó nên tôi đã không hiểu rõ."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q： どうしてはやくうちへかえりましたか。",
+          "tieng_viet": "Tại sao bạn đã về nhà sớm?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A： あまりげんきじゃありませんでしたから。",
+          "tieng_viet": "Vì tôi đã không khỏe lắm."
+        }
+      ]
+    },
+    {
+      "cau_truc": "N1はN2がAです。 / N1はN2からAです。",
+      "y_nghia": "N1 thì A (về mặt) N2 / N1 thì A tính từ (khoảng cách/vị trí) N2",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "ホーチミンしはくるまがおおいです。",
+          "tieng_viet": "Thành phố Hồ Chí Minh thì nhiều xe hơi."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "ホテルはくうこうからちかいです。",
+          "tieng_viet": "Khách sạn thì gần sân bay."
+        }
+      ]
+    },
+    {
+      "cau_truc": "N1はN2よりAです。",
+      "y_nghia": "N1 thì A hơn N2",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "バナナはりんごよりやすいです。",
+          "tieng_viet": "Chuối thì rẻ hơn táo."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "ひこうきはくるまよりずっとはやいです。",
+          "tieng_viet": "Máy bay thì nhanh hơn hẳn xe hơi."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Q: N1とN2とどちらがAですか。 / A: (N1より)N2のほうがAです。",
+      "y_nghia": "Hỏi: N1 và N2 cái nào A hơn? / Đáp: N2 thì A hơn (so với N1)",
+      "vi_du": [
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q：えいごと日本ごとどちらがむずかしいですか。",
+          "tieng_viet": "Tiếng Anh và tiếng Nhật cái nào khó hơn?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A：日本ごのほうがむずかしいです。",
+          "tieng_viet": "Tiếng Nhật khó hơn."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q：さくらとふじさんとどちらがゆうめいですか。",
+          "tieng_viet": "Hoa anh đào và núi Phú Sĩ cái nào nổi tiếng hơn?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A：どちらもゆうめいです。",
+          "tieng_viet": "Cái nào cũng nổi tiếng."
+        }
+      ]
+    },
+    {
+      "cau_truc": "N1（の中）でN2が一ばんAです。",
+      "y_nghia": "Trong (phạm vi) N1, N2 là A nhất",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "一日（の中）でひるが一ばんいそがしいです。",
+          "tieng_viet": "Trong một ngày buổi trưa bận nhất."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: くだもので何が一ばんすきですか。",
+          "tieng_viet": "Trong các loại trái cây bạn thích cái gì nhất?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A： りんごが一ばんすきです。",
+          "tieng_viet": "Tôi thích táo nhất."
+        }
+      ]
+    }
+  ]
+}
