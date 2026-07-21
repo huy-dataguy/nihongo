@@ -45,6 +45,26 @@ function compactCount(value: number) {
   return value >= 1000 ? `${(value / 1000).toFixed(1)}k` : String(value);
 }
 
+// Supabase/PostgREST caps a bare `.select()` at 1000 rows — page through with
+// `.range()` so tables that grow past that (vocabulary already has) load in full.
+async function fetchAllRows(table: string): Promise<any[]> {
+  const pageSize = 1000;
+  const rows: any[] = [];
+  let from = 0;
+  while (true) {
+    const { data, error } = await supabase
+      .from(table)
+      .select("*")
+      .order("created_at", { ascending: true })
+      .range(from, from + pageSize - 1);
+    if (error) throw error;
+    rows.push(...(data || []));
+    if (!data || data.length < pageSize) break;
+    from += pageSize;
+  }
+  return rows;
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>(tabFromHash);
   const [practiceType, setPracticeType] = useState<QuizQuestion["type"] | "all">(practiceTypeFromHash);
@@ -88,32 +108,21 @@ export default function App() {
   async function loadData() {
     setIsLoading(true);
     try {
-      const [vocabRes, grammarRes, kanjiRes, quizzesRes, logsRes, progressRes] = await Promise.all([
-        supabase.from("vocabulary").select("*").order("created_at", { ascending: true }),
-        supabase.from("grammar").select("*").order("created_at", { ascending: true }),
-        supabase.from("kanji").select("*").order("created_at", { ascending: true }),
-        supabase.from("quizzes").select("*").order("created_at", { ascending: true }),
+      const [vocabRows, grammarRows, kanjiRows, quizRows, logsRes, progressRes] = await Promise.all([
+        fetchAllRows("vocabulary"),
+        fetchAllRows("grammar"),
+        fetchAllRows("kanji"),
+        fetchAllRows("quizzes"),
         supabase.from("import_logs").select("*").order("created_at", { ascending: false }),
         supabase.from("study_progress").select("*").eq("id", 1).single(),
       ]);
 
-      const coreError = [vocabRes.error, grammarRes.error, kanjiRes.error, quizzesRes.error].find(Boolean);
-      if (coreError) throw coreError;
-
       // Map DB rows (snake_case) → TypeScript interfaces (camelCase). Starter data keeps
       // the app useful in local/offline environments where Supabase is not configured.
-      setVocabularyList(
-        vocabRes.data?.length ? vocabRes.data.map(mapVocabRow) : starterVocabulary
-      );
-      setGrammarList(
-        grammarRes.data?.length ? grammarRes.data.map(mapGrammarRow) : starterGrammar
-      );
-      setKanjiList(
-        kanjiRes.data?.length ? kanjiRes.data.map(mapKanjiRow) : starterKanji
-      );
-      setQuizQuestions(
-        quizzesRes.data?.length ? quizzesRes.data.map(mapQuizRow) : starterQuizzes
-      );
+      setVocabularyList(vocabRows.length ? vocabRows.map(mapVocabRow) : starterVocabulary);
+      setGrammarList(grammarRows.length ? grammarRows.map(mapGrammarRow) : starterGrammar);
+      setKanjiList(kanjiRows.length ? kanjiRows.map(mapKanjiRow) : starterKanji);
+      setQuizQuestions(quizRows.length ? quizRows.map(mapQuizRow) : starterQuizzes);
       setImportLogs(
         (logsRes.data || []).map(mapLogRow)
       );
