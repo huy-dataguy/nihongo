@@ -3,6 +3,24 @@
 App học tiếng Nhật N5. Vite + React + TypeScript, backend Express (`server.ts`),
 lưu trữ Supabase. Chi tiết chạy app xem `README.md` (`npm run dev` → `tsx server.ts`).
 
+## Environment (agent-factory)
+
+Dự án chạy trên agent-factory. Các chuẩn nền được import bên dưới; phần riêng của
+dự án mở rộng thêm, chỉ được override khi nói rõ.
+
+@../agent-factory/standards/workflow.md
+@../agent-factory/standards/definition-of-done.md
+@../agent-factory/standards/engineering.md
+@../agent-factory/standards/ground-truth.md
+@../agent-factory/standards/memory.md
+@../agent-factory/standards/debugging.md
+
+## Stack
+
+Vite 6 + React 19 + TypeScript, Tailwind v4. Backend Express (`server.ts`, chạy qua
+`tsx`, kiêm Vite middleware dev-server + endpoint `/api/parse-study-data` gọi
+Gemini). Lưu trữ Supabase (Postgres). Deploy Vercel (`vercel.json`, `api/`).
+
 ## Cấu trúc dữ liệu
 
 - `resources/gramma/*.json` — ngữ pháp N5 (chỉ chứa ngữ pháp, **không có mục từ vựng riêng**).
@@ -27,12 +45,25 @@ File gramma chỉ có ngữ pháp, nhưng **câu ví dụ ngữ pháp chứa nhi
 ### 3. Schema khác nhau từng bài
 Cả `gramma/` lẫn `vocab/` đều **đổi schema theo bài** (bài 7 ≠ bài 8 ≠ bài 9). Trước khi parse/import một file mới, **luôn đọc cấu trúc thực tế của file đó** trước; đừng giả định theo bài khác.
 
-## Lệnh thường dùng
+## Commands
 
-```
-npm run dev                              # chạy app (tsx server.ts)
-npx tsx scripts/import-to-supabase.ts    # đồng bộ toàn bộ vocab 1-12 + kanji + grammar 1-10
-npx tsx scripts/import-vocab-supplement.ts  # nạp vocab bổ sung (*_supplement.json)
-```
+- setup: `npm install`
+- build: `npm run build`
+- test: `npm test`
+- lint: `npm run lint`
+- run: `npm run dev`
+- đồng bộ vocab 1-12 + kanji + grammar 1-10: `npx tsx scripts/import-to-supabase.ts`
+- nạp vocab bổ sung (`*_supplement.json`): `npx tsx scripts/import-vocab-supplement.ts`
 
-Yêu cầu `.env` có `SUPABASE_URL` + `SUPABASE_ANON_KEY` (xem `.env.example`).
+Yêu cầu `.env` có `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` (xem `.env.example`).
+Mọi script `scripts/*.ts` đều ghi thẳng Supabase → **AI không tự chạy** (xem quy tắc 1); đưa lệnh cho user tự `npx tsx scripts/...`.
+
+## Definition of Done — project additions
+
+- Mọi file `resources/**/*.json` vừa sửa phải parse được, ví dụ: `node -e "JSON.parse(require('fs').readFileSync('<file>','utf8'))"`.
+
+## Gotchas / trapdoors
+
+- Xem "Quy tắc BẮT BUỘC" ở trên — đó là các trapdoor đã biết (ghi Supabase trực tiếp, schema đổi theo bài, vocab thiếu trong gramma).
+- `npm test` chạy `node --import tsx --test src/**/*.test.ts` qua `/bin/sh` (npm mặc định), pattern này **không bắt được test lồng từ 2 cấp thư mục trở lên** (đã kiểm chứng: `src/utils/nested/probe.test.ts` bị bỏ sót lặng lẽ, không lỗi). Test file mới nên đặt ngay dưới `src/<thư-mục>/*.test.ts`.
+- `dist/` là build output, nằm trong `.gitignore` — không sửa tay, chỉ sinh lại bằng `npm run build`.
