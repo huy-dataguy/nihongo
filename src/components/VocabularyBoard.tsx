@@ -2,19 +2,40 @@ import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { VocabularyItem } from "../types";
 import { speakJapanese } from "../utils/audio";
 import { supabase } from "../lib/supabase";
-import { Search, Volume2, Star, Grid, List as ListIcon, BookOpen, Layers, Brain, Check, X, RotateCcw, BarChart3 } from "lucide-react";
+import { Search, Volume2, Star, Grid, List as ListIcon, BookOpen, Layers, Brain, RotateCcw, BarChart3, Target } from "lucide-react";
 import { getRomaji, kanaToRomaji } from "../utils/kanaToRomaji";
 
 interface VocabularyBoardProps {
   vocabularyList: VocabularyItem[];
   favorites: string[];
   toggleFavorite: (id: string) => void;
+  onPractice?: () => void;
+}
+
+type StudyFilter = "today" | "all" | "due" | "new" | "lesson";
+type StudyRating = "again" | "hard" | "good" | "easy";
+
+interface VocabProgress {
+  box: number;
+  next_review: string;
+  last_reviewed?: string;
+  correct_streak: number;
+  total_reviews: number;
+  total_correct: number;
+}
+
+function localDateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 export default function VocabularyBoard({
   vocabularyList,
   favorites,
   toggleFavorite,
+  onPractice,
 }: VocabularyBoardProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -22,21 +43,25 @@ export default function VocabularyBoard({
   const [showReadings, setShowReadings] = useState(true);
 
   // Study mode states
-  const [studyFilter, setStudyFilter] = useState<"all" | "due" | "new" | "lesson">("all");
+  const [studyFilter, setStudyFilter] = useState<StudyFilter>("today");
   const [studyLesson, setStudyLesson] = useState<number>(0);
   const [studyCards, setStudyCards] = useState<VocabularyItem[]>([]);
   const [studyIndex, setStudyIndex] = useState(0);
   const [studyFlipped, setStudyFlipped] = useState(false);
-  const [studyStats, setStudyStats] = useState({ known: 0, unknown: 0, total: 0 });
-  const [vocabProgress, setVocabProgress] = useState<Record<string, any>>({});
+  const [studyStats, setStudyStats] = useState({ again: 0, hard: 0, good: 0, easy: 0, total: 0 });
+  const [vocabProgress, setVocabProgress] = useState<Record<string, VocabProgress>>({});
 
   // Load vocab study progress from Supabase
   const loadProgress = useCallback(async () => {
+    let local: Record<string, VocabProgress> = {};
+    try { local = JSON.parse(localStorage.getItem("n5_vocab_progress") || "{}"); } catch { /* keep empty */ }
+    setVocabProgress(local);
     const { data } = await supabase.from("vocab_study").select("*");
     if (data) {
-      const map: Record<string, any> = {};
+      const map: Record<string, VocabProgress> = { ...local };
       for (const row of data) map[row.vocab_id] = row;
       setVocabProgress(map);
+      localStorage.setItem("n5_vocab_progress", JSON.stringify(map));
     }
   }, []);
 
@@ -45,46 +70,53 @@ export default function VocabularyBoard({
   // Spaced repetition: intervals per box level (days)
   const BOX_INTERVALS = [0, 1, 3, 7, 14, 30];
 
-  const updateWordProgress = async (vocabId: string, knew: boolean) => {
+  const updateWordProgress = async (vocabId: string, rating: StudyRating) => {
     const existing = vocabProgress[vocabId];
     let newBox: number, newStreak: number, newCorrect: number, newTotal: number;
+    const remembered = rating !== "again";
 
     if (existing) {
       newTotal = (existing.total_reviews || 0) + 1;
-      newCorrect = (existing.total_correct || 0) + (knew ? 1 : 0);
-      newStreak = knew ? (existing.correct_streak || 0) + 1 : 0;
-      // Promote or demote box
-      if (knew) {
-        newBox = Math.min((existing.box || 0) + 1, 5);
-      } else {
-        newBox = Math.max((existing.box || 0) - 1, 0);
-      }
+      newCorrect = (existing.total_correct || 0) + (remembered ? 1 : 0);
+      newStreak = remembered ? (existing.correct_streak || 0) + 1 : 0;
+      if (rating === "again") newBox = Math.max((existing.box || 0) - 1, 0);
+      else if (rating === "hard") newBox = Math.max(existing.box || 0, 1);
+      else if (rating === "easy") newBox = Math.min((existing.box || 0) + 2, 5);
+      else newBox = Math.min((existing.box || 0) + 1, 5);
     } else {
       newTotal = 1;
-      newCorrect = knew ? 1 : 0;
-      newStreak = knew ? 1 : 0;
-      newBox = knew ? 1 : 0;
+      newCorrect = remembered ? 1 : 0;
+      newStreak = remembered ? 1 : 0;
+      newBox = rating === "easy" ? 2 : remembered ? 1 : 0;
     }
 
     const nextReview = new Date();
-    nextReview.setDate(nextReview.getDate() + BOX_INTERVALS[newBox]);
+    const interval = rating === "hard" ? Math.max(1, Math.floor(BOX_INTERVALS[newBox] / 2)) : BOX_INTERVALS[newBox];
+    nextReview.setDate(nextReview.getDate() + interval);
+    const nextReviewDate = localDateKey(nextReview);
+    const nextProgress: VocabProgress = {
+      box: newBox,
+      next_review: nextReviewDate,
+      last_reviewed: new Date().toISOString(),
+      correct_streak: newStreak,
+      total_reviews: newTotal,
+      total_correct: newCorrect,
+    };
+
+    const optimistic = { ...vocabProgress, [vocabId]: nextProgress };
+    setVocabProgress(optimistic);
+    localStorage.setItem("n5_vocab_progress", JSON.stringify(optimistic));
 
     await supabase.from("vocab_study").upsert({
       vocab_id: vocabId,
       box: newBox,
-      next_review: nextReview.toISOString().split("T")[0],
-      last_reviewed: new Date().toISOString(),
+      next_review: nextReviewDate,
+      last_reviewed: nextProgress.last_reviewed,
       correct_streak: newStreak,
       total_reviews: newTotal,
       total_correct: newCorrect,
       updated_at: new Date().toISOString(),
     });
-
-    // Update local state
-    setVocabProgress(prev => ({
-      ...prev,
-      [vocabId]: { box: newBox, next_review: nextReview, correct_streak: newStreak, total_reviews: newTotal, total_correct: newCorrect },
-    }));
   };
   
   // Flashcard states
@@ -135,16 +167,18 @@ export default function VocabularyBoard({
   }, [selectedCategory, searchTerm]);
 
   return (
-    <div className="bg-white rounded-2xl shadow-xs border border-gray-100 p-6">
+    <div className="learning-board bg-white rounded-2xl shadow-xs border border-gray-100 p-6">
       {/* Header Controls */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-5 mb-6">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 tracking-tight">Từ vựng & Từ điển N5</h2>
-          <p className="text-sm text-gray-500 mt-1">Từ vựng thiết yếu xếp theo tuần và chủ đề có kèm âm thanh</p>
+          <span className="eyebrow">Từ điển cá nhân</span>
+          <h2 className="text-xl font-semibold text-gray-900 tracking-tight mt-1">Từ vựng N5</h2>
+          <p className="text-sm text-gray-500 mt-1">Tra cứu khi cần, nhưng hãy dùng Ôn cách quãng để thực sự ghi nhớ.</p>
         </div>
 
         {/* View Mode Switcher & Show Readings Toggle */}
         <div className="flex flex-wrap items-center gap-3 self-start md:self-auto">
+          {onPractice && <button onClick={onPractice} className="board-practice-button"><Target size={14} /> Kiểm tra từ vựng</button>}
           {viewMode === "list" && (
             <button
               onClick={() => setShowReadings(!showReadings)}
@@ -178,7 +212,7 @@ export default function VocabularyBoard({
               Flashcards
             </button>
             <button
-              onClick={() => { setViewMode("study"); startStudySession(); }}
+              onClick={() => { setViewMode("study"); startStudySession("today"); }}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 viewMode === "study"
                   ? "bg-amber-600 text-white shadow-xs"
@@ -186,7 +220,7 @@ export default function VocabularyBoard({
               }`}
             >
               <Brain size={14} />
-              Ôn tập
+              Ôn cách quãng
             </button>
           </div>
         </div>
@@ -233,7 +267,8 @@ export default function VocabularyBoard({
               <p className="text-xs text-gray-400 mt-1">Hãy nhập từ khác hoặc thêm từ vựng mới bằng công cụ Import bài học.</p>
             </div>
           ) : (
-            <div className="border border-gray-100 rounded-xl overflow-hidden shadow-xs">
+            <>
+            <div className="hidden md:block border border-gray-100 rounded-xl overflow-hidden shadow-xs">
               <table className="w-full text-left text-sm border-collapse">
                 <thead>
                   <tr className="bg-gray-100/40 border-b border-gray-100 text-gray-600 font-medium text-xs uppercase tracking-wider">
@@ -312,6 +347,22 @@ export default function VocabularyBoard({
                 </tbody>
               </table>
             </div>
+            <div className="md:hidden space-y-2">
+              {filteredVocabulary.map((item) => (
+                <article key={item.id} className="mobile-vocab-card">
+                  <button onClick={() => toggleFavorite(item.id)} aria-label="Đánh dấu từ yêu thích" className={favorites.includes(item.id) ? "favorite" : ""}>
+                    <Star size={15} fill={favorites.includes(item.id) ? "currentColor" : "none"} />
+                  </button>
+                  <div>
+                    <strong>{item.word}</strong>
+                    {showReadings && <span>{item.reading} · {getRomaji(item.reading, item.romaji)}</span>}
+                    <p>{item.meaning}</p>
+                  </div>
+                  <button onClick={() => speakJapanese(item.word)} aria-label={`Nghe ${item.word}`}><Volume2 size={16} /></button>
+                </article>
+              ))}
+            </div>
+            </>
           )}
         </div>
       )}
@@ -438,13 +489,14 @@ export default function VocabularyBoard({
           {/* Study Filter Controls */}
           <div className="flex flex-wrap gap-2 items-center">
             {([
+              { key: "today", label: "Hôm nay" },
               { key: "all", label: "🎯 Tất cả" },
               { key: "due", label: "⏰ Cần ôn hôm nay" },
               { key: "new", label: "🆕 Từ mới" },
             ] as const).map(({ key, label }) => (
               <button
                 key={key}
-                onClick={() => { setStudyFilter(key as any); }}
+                onClick={() => startStudySession(key)}
                 className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                   studyFilter === key ? "bg-amber-600 text-white" : "bg-gray-100 text-gray-500 hover:text-gray-900"
                 }`}
@@ -459,7 +511,7 @@ export default function VocabularyBoard({
               return lessons.map(l => (
                 <button
                   key={l}
-                  onClick={() => { setStudyFilter("lesson"); setStudyLesson(l); }}
+                  onClick={() => startStudySession("lesson", l)}
                   className={`px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                     studyFilter === "lesson" && studyLesson === l ? "bg-stone-900 text-white" : "bg-gray-100 text-gray-500 hover:text-gray-900"
                   }`}
@@ -470,7 +522,7 @@ export default function VocabularyBoard({
             })()}
 
             <button
-              onClick={() => startStudySession()}
+              onClick={() => startStudySession(studyFilter, studyLesson)}
               className="ml-auto px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 transition-all flex items-center gap-1"
             >
               <RotateCcw size={12} />
@@ -482,10 +534,10 @@ export default function VocabularyBoard({
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {[
               { label: "Từ mới", count: vocabularyList.filter(v => !vocabProgress[v.id]).length, color: "text-blue-600 bg-blue-50" },
-              { label: "Hộp 1 (1 ngày)", count: Object.values(vocabProgress).filter((v: any) => v.box === 1).length, color: "text-amber-600 bg-amber-50" },
-              { label: "Hộp 2 (3 ngày)", count: Object.values(vocabProgress).filter((v: any) => v.box === 2).length, color: "text-orange-600 bg-orange-50" },
-              { label: "Hộp 3-4 (1-2 tuần)", count: Object.values(vocabProgress).filter((v: any) => v.box === 3 || v.box === 4).length, color: "text-emerald-600 bg-emerald-50" },
-              { label: "Đã thuộc (Box 5)", count: Object.values(vocabProgress).filter((v: any) => v.box === 5).length, color: "text-green-600 bg-green-50" },
+              { label: "Hộp 1 (1 ngày)", count: (Object.values(vocabProgress) as VocabProgress[]).filter((v) => v.box === 1).length, color: "text-amber-600 bg-amber-50" },
+              { label: "Hộp 2 (3 ngày)", count: (Object.values(vocabProgress) as VocabProgress[]).filter((v) => v.box === 2).length, color: "text-orange-600 bg-orange-50" },
+              { label: "Hộp 3-4 (1-2 tuần)", count: (Object.values(vocabProgress) as VocabProgress[]).filter((v) => v.box === 3 || v.box === 4).length, color: "text-emerald-600 bg-emerald-50" },
+              { label: "Đã thuộc (Box 5)", count: (Object.values(vocabProgress) as VocabProgress[]).filter((v) => v.box === 5).length, color: "text-green-600 bg-green-50" },
             ].map(s => (
               <div key={s.label} className={`p-3 rounded-xl border border-gray-100 ${s.color}`}>
                 <span className="text-[10px] font-bold block opacity-70">{s.label}</span>
@@ -498,7 +550,7 @@ export default function VocabularyBoard({
             <div className="text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
               <Brain className="mx-auto h-12 w-12 text-gray-300 mb-3" />
               <p className="text-gray-500 font-medium">Không có từ nào cần ôn cho bộ lọc này.</p>
-              <p className="text-xs text-gray-400 mt-1">Thử đổi filter hoặc click "Tất cả" để ôn toàn bộ.</p>
+              <p className="text-xs text-gray-400 mt-1">Thử đổi bộ lọc hoặc chọn “Tất cả” để ôn toàn bộ.</p>
             </div>
           ) : studyIndex >= studyCards.length ? (
             /* Study Complete */
@@ -510,15 +562,15 @@ export default function VocabularyBoard({
               <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 inline-block px-12">
                 <span className="text-xs text-gray-400 font-bold block uppercase tracking-wider font-mono">Kết quả</span>
                 <div className="flex items-center justify-center gap-4 mt-2">
-                  <span className="text-emerald-600 text-3xl font-black">✓ {studyStats.known}</span>
-                  <span className="text-rose-600 text-3xl font-black">✗ {studyStats.unknown}</span>
+                  <span className="text-emerald-600 text-3xl font-black">✓ {studyStats.good + studyStats.easy}</span>
+                  <span className="text-rose-600 text-3xl font-black">↻ {studyStats.again + studyStats.hard}</span>
                 </div>
                 <span className="text-xs text-gray-500 mt-1 block">
-                  {studyStats.total} từ • {Math.round((studyStats.known / studyStats.total) * 100)}% nhớ được
+                  {studyStats.total} từ • {Math.round(((studyStats.good + studyStats.easy) / studyStats.total) * 100)}% nhớ chắc
                 </span>
               </div>
               <button
-                onClick={() => startStudySession()}
+                onClick={() => startStudySession(studyFilter, studyLesson)}
                 className="flex items-center gap-2 px-5 py-2.5 mx-auto text-sm font-semibold text-white bg-amber-600 hover:bg-amber-700 rounded-xl transition-all shadow-md"
               >
                 <RotateCcw size={16} />
@@ -530,7 +582,7 @@ export default function VocabularyBoard({
             <div className="max-w-md mx-auto space-y-4">
               <div className="flex justify-between items-center text-xs text-gray-400 font-mono">
                 <span>
-                  {studyFilter === "lesson" ? `Bài ${studyLesson}` : studyFilter === "due" ? "Cần ôn hôm nay" : studyFilter === "new" ? "Từ mới" : "Tất cả"}
+                  {studyFilter === "lesson" ? `Bài ${studyLesson}` : studyFilter === "today" ? "Phiên thông minh hôm nay" : studyFilter === "due" ? "Cần ôn hôm nay" : studyFilter === "new" ? "Từ mới" : "Tất cả"}
                 </span>
                 <span>Câu {studyIndex + 1} / {studyCards.length}</span>
               </div>
@@ -582,21 +634,35 @@ export default function VocabularyBoard({
                 </div>
               </div>
 
-              {/* Know / Don't Know buttons */}
-              <div className="flex gap-3">
+              <p className="text-center text-[10px] text-gray-400">Đoán trước → lật thẻ → tự chấm đúng mức độ nhớ</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <button
-                  onClick={() => handleStudyAnswer(false)}
-                  className="flex-1 py-3 rounded-xl border-2 border-rose-200 bg-rose-50 text-rose-700 font-bold text-sm hover:bg-rose-100 transition-all flex items-center justify-center gap-2"
+                  onClick={() => handleStudyAnswer("again")}
+                  disabled={!studyFlipped}
+                  className="py-3 rounded-xl border border-rose-200 bg-rose-50 text-rose-700 font-bold text-xs hover:bg-rose-100 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  <X size={16} />
-                  Chưa nhớ
+                  Học lại <span className="block text-[9px] opacity-60 mt-0.5">hôm nay</span>
                 </button>
                 <button
-                  onClick={() => handleStudyAnswer(true)}
-                  className="flex-1 py-3 rounded-xl border-2 border-emerald-200 bg-emerald-50 text-emerald-700 font-bold text-sm hover:bg-emerald-100 transition-all flex items-center justify-center gap-2"
+                  onClick={() => handleStudyAnswer("hard")}
+                  disabled={!studyFlipped}
+                  className="py-3 rounded-xl border border-amber-200 bg-amber-50 text-amber-800 font-bold text-xs hover:bg-amber-100 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  <Check size={16} />
-                  Đã nhớ ✓
+                  Khó <span className="block text-[9px] opacity-60 mt-0.5">ôn sớm</span>
+                </button>
+                <button
+                  onClick={() => handleStudyAnswer("good")}
+                  disabled={!studyFlipped}
+                  className="py-3 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 font-bold text-xs hover:bg-emerald-100 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  Nhớ <span className="block text-[9px] opacity-60 mt-0.5">đúng lịch</span>
+                </button>
+                <button
+                  onClick={() => handleStudyAnswer("easy")}
+                  disabled={!studyFlipped}
+                  className="py-3 rounded-xl border border-blue-200 bg-blue-50 text-blue-700 font-bold text-xs hover:bg-blue-100 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  Rất dễ <span className="block text-[9px] opacity-60 mt-0.5">giãn lịch</span>
                 </button>
               </div>
             </div>
@@ -610,41 +676,46 @@ export default function VocabularyBoard({
   // Study Mode helpers
   // ============================================
 
-  function startStudySession() {
+  function startStudySession(filter: StudyFilter = studyFilter, lesson = studyLesson) {
     let cards = [...vocabularyList];
-    const today = new Date().toISOString().split("T")[0];
+    const today = localDateKey();
 
-    if (studyFilter === "lesson" && studyLesson > 0) {
-      cards = cards.filter(v => (v.lesson || 0) === studyLesson);
-    } else if (studyFilter === "due") {
+    if (filter === "lesson" && lesson > 0) {
+      cards = cards.filter(v => (v.lesson || 0) === lesson);
+    } else if (filter === "today") {
+      const due = cards.filter(v => vocabProgress[v.id]?.next_review <= today);
+      const fresh = cards.filter(v => !vocabProgress[v.id]).slice(0, Math.max(0, 15 - due.length));
+      cards = [...due, ...fresh];
+    } else if (filter === "due") {
       cards = cards.filter(v => {
         const p = vocabProgress[v.id];
         if (!p) return false; // not due if never studied
         return p.next_review <= today;
       });
-    } else if (studyFilter === "new") {
+    } else if (filter === "new") {
       cards = cards.filter(v => !vocabProgress[v.id]);
     }
 
     // Shuffle
     cards = cards.sort(() => Math.random() - 0.5).slice(0, 30); // max 30 per session
 
+    setStudyFilter(filter);
+    setStudyLesson(lesson);
     setStudyCards(cards);
     setStudyIndex(0);
     setStudyFlipped(false);
-    setStudyStats({ known: 0, unknown: 0, total: cards.length });
+    setStudyStats({ again: 0, hard: 0, good: 0, easy: 0, total: cards.length });
   }
 
-  function handleStudyAnswer(knew: boolean) {
+  function handleStudyAnswer(rating: StudyRating) {
     const card = studyCards[studyIndex];
-    if (!card) return;
+    if (!card || !studyFlipped) return;
 
-    updateWordProgress(card.id, knew);
+    updateWordProgress(card.id, rating);
 
     setStudyStats(prev => ({
       ...prev,
-      known: prev.known + (knew ? 1 : 0),
-      unknown: prev.unknown + (knew ? 0 : 1),
+      [rating]: prev[rating] + 1,
     }));
 
     setStudyFlipped(false);

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, Fragment } from "react";
 import { GrammarItem, GrammarExample } from "../types";
 import { speakJapanese } from "../utils/audio";
-import { ChevronDown, ChevronUp, Volume2, BookOpen, Clock, MessageCircle } from "lucide-react";
+import { ChevronDown, ChevronUp, Volume2, BookOpen, Clock, Search, Target } from "lucide-react";
 
 // ============================================
 // Keyword Highlighting System
@@ -143,11 +143,13 @@ function highlightJapanese(text: string): React.ReactNode {
 
 interface GrammarBoardProps {
   grammarList: GrammarItem[];
+  onPractice?: () => void;
 }
 
-export default function GrammarBoard({ grammarList }: GrammarBoardProps) {
+export default function GrammarBoard({ grammarList, onPractice }: GrammarBoardProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
 
   // Extract weeks/categories
   const categories = useMemo(() => {
@@ -157,23 +159,41 @@ export default function GrammarBoard({ grammarList }: GrammarBoardProps) {
 
   // Filter based on week selection
   const filteredGrammar = useMemo(() => {
-    if (selectedCategory === "all") return grammarList;
-    return grammarList.filter((item) => (item.category || "Chưa phân loại") === selectedCategory);
-  }, [grammarList, selectedCategory]);
+    const query = search.trim().toLowerCase();
+    return grammarList.filter((item) => {
+      if (selectedCategory !== "all" && (item.category || "Chưa phân loại") !== selectedCategory) return false;
+      if (!query) return true;
+      return [item.structure, item.meaning, item.explanation, item.notes || "", item.category || ""]
+        .join(" ")
+        .toLowerCase()
+        .includes(query);
+    });
+  }, [grammarList, selectedCategory, search]);
 
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xs border border-gray-100 p-6">
+    <div className="learning-board bg-white rounded-2xl shadow-xs border border-gray-100 p-6">
       {/* Header Controls */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-5 mb-6">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 tracking-tight">Ngữ pháp N5 ứng dụng</h2>
-          <p className="text-sm text-gray-500 mt-1">Cấu trúc câu, cách chia động từ và ví dụ liên quan theo giáo trình</p>
+          <span className="eyebrow">Mẫu câu ứng dụng</span>
+          <h2 className="text-xl font-semibold text-gray-900 tracking-tight mt-1">Ngữ pháp N5</h2>
+          <p className="text-sm text-gray-500 mt-1">Hiểu cấu trúc trong ngữ cảnh, sau đó tự chọn lại cách dùng đúng.</p>
         </div>
 
+        <div className="flex flex-wrap items-center gap-2">
+          {onPractice && <button onClick={onPractice} className="board-practice-button"><Target size={14} /> Kiểm tra ngữ pháp</button>}
+        </div>
+      </div>
+
+      <div className="grammar-toolbar">
+        <label className="grammar-search">
+          <Search size={15} />
+          <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Tìm cấu trúc, ý nghĩa hoặc ghi chú..." />
+        </label>
         {/* Categories selector */}
         <div className="flex items-center gap-1.5 self-start md:self-auto bg-gray-100 p-1.5 rounded-xl text-xs overflow-x-auto w-full md:w-auto">
           {categories.slice(0, 5).map((category) => (
@@ -206,6 +226,8 @@ export default function GrammarBoard({ grammarList }: GrammarBoardProps) {
         </div>
       </div>
 
+      <p className="grammar-result-count">Hiển thị {filteredGrammar.length} / {grammarList.length} cấu trúc</p>
+
       {/* Main List */}
       <div className="space-y-4">
         {filteredGrammar.length === 0 ? (
@@ -227,9 +249,10 @@ export default function GrammarBoard({ grammarList }: GrammarBoardProps) {
                 }`}
               >
                 {/* Accordion Trigger */}
-                <div
+                <button
                   onClick={() => toggleExpand(item.id)}
-                  className="flex items-center justify-between p-4 cursor-pointer select-none"
+                  className="flex items-center justify-between p-4 cursor-pointer select-none w-full text-left"
+                  aria-expanded={isExpanded}
                 >
                   <div className="space-y-1 pr-4">
                     <div className="flex items-center gap-2">
@@ -255,7 +278,7 @@ export default function GrammarBoard({ grammarList }: GrammarBoardProps) {
                       {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                     </span>
                   </div>
-                </div>
+                </button>
 
                 {/* Expanded Details */}
                 {isExpanded && (

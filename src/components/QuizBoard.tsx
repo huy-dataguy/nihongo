@@ -1,428 +1,394 @@
-import React, { useState, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Award,
+  BookOpen,
+  BrainCircuit,
+  CheckCircle2,
+  Clock3,
+  GraduationCap,
+  History,
+  Layers,
+  Play,
+  RefreshCw,
+  RotateCcw,
+  Sparkles,
+  Target,
+  XCircle,
+} from "lucide-react";
 import { QuizQuestion } from "../types";
 import { kanaToRomaji } from "../utils/kanaToRomaji";
-import { CheckCircle2, XCircle, Award, RefreshCw, Layers, Clock, BookOpen, Play, ChevronRight, Home } from "lucide-react";
 
 interface QuizBoardProps {
   quizQuestions: QuizQuestion[];
   onQuizComplete: (score: number, total: number) => void;
+  initialType?: QuizQuestion["type"] | "all";
 }
 
 type Phase = "setup" | "running" | "result";
+type SetupType = QuizQuestion["type"] | "all";
+type QuizResult = { q: QuizQuestion; selected: number; correct: boolean };
 
-export default function QuizBoard({ quizQuestions, onQuizComplete }: QuizBoardProps) {
-  // Phase
+interface HistoryEntry {
+  id: string;
+  date: string;
+  score: number;
+  total: number;
+  percent: number;
+  filter: string;
+  duration: number;
+  mistakeIds: string[];
+}
+
+const TYPE_META: Record<SetupType, { label: string; description: string; icon: typeof BookOpen; accent: string }> = {
+  all: { label: "Tổng hợp", description: "Trộn đều mọi kỹ năng", icon: Sparkles, accent: "mixed" },
+  vocabulary: { label: "Từ vựng", description: "Nghĩa, mặt chữ và cách đọc", icon: BookOpen, accent: "coral" },
+  grammar: { label: "Ngữ pháp", description: "Cấu trúc và cách dùng", icon: BrainCircuit, accent: "indigo" },
+  kanji: { label: "Kanji", description: "Âm đọc và ý nghĩa", icon: Layers, accent: "mint" },
+  kana: { label: "Kana", description: "Nhận diện Hiragana · Katakana", icon: GraduationCap, accent: "sand" },
+};
+
+function readHistory(): HistoryEntry[] {
+  try {
+    return JSON.parse(localStorage.getItem("n5_quiz_history") || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function readMistakes(): string[] {
+  try {
+    return JSON.parse(localStorage.getItem("n5_mistake_ids") || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function shuffled<T>(items: T[]) {
+  const next = [...items];
+  for (let index = next.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [next[index], next[randomIndex]] = [next[randomIndex], next[index]];
+  }
+  return next;
+}
+
+function typeLabel(type: SetupType) {
+  return TYPE_META[type].label;
+}
+
+function hasJapanese(value: string) {
+  return /[\u3040-\u30ff\u3400-\u9fff]/.test(value);
+}
+
+export default function QuizBoard({ quizQuestions, onQuizComplete, initialType = "all" }: QuizBoardProps) {
   const [phase, setPhase] = useState<Phase>("setup");
-
-  // Setup choices
-  const [setupType, setSetupType] = useState<"vocabulary" | "grammar" | "kanji" | "all">("vocabulary");
-  const [setupLesson, setSetupLesson] = useState<number>(0); // 0 = all lessons
-  const [setupCount, setSetupCount] = useState<number>(10);
-
-  // Running state
+  const [setupType, setSetupType] = useState<SetupType>(initialType);
+  const [setupLesson, setSetupLesson] = useState(0);
+  const [setupCount, setSetupCount] = useState(10);
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
-  const [qIndex, setQIndex] = useState(0);
+  const [questionIndex, setQuestionIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [answered, setAnswered] = useState(false);
   const [score, setScore] = useState(0);
-  const [results, setResults] = useState<{ q: QuizQuestion; selected: number; correct: boolean }[]>([]);
+  const [results, setResults] = useState<QuizResult[]>([]);
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [history, setHistory] = useState<HistoryEntry[]>(readHistory);
+  const [mistakeIds, setMistakeIds] = useState<string[]>(readMistakes);
+  const [startedAt, setStartedAt] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
+  const [reviewingMistakes, setReviewingMistakes] = useState(false);
 
-  // History
-  const [showHistory, setShowHistory] = useState(false);
+  useEffect(() => {
+    if (phase === "setup") {
+      setSetupType(initialType);
+      setSetupLesson(0);
+    }
+  }, [initialType, phase]);
 
-  // Extract lessons
+  useEffect(() => {
+    if (phase !== "running") return;
+    const timer = window.setInterval(() => setElapsed(Math.floor((Date.now() - startedAt) / 1000)), 1000);
+    return () => window.clearInterval(timer);
+  }, [phase, startedAt]);
+
   const lessons = useMemo(() => {
-    const set = new Set(quizQuestions.map(q => q.lesson || 0).filter(l => l > 0));
-    return Array.from(set).sort((a, b) => a - b);
-  }, [quizQuestions]);
+    const available = quizQuestions
+      .filter((question) => setupType === "all" || question.type === setupType)
+      .map((question) => question.lesson || 0)
+      .filter((lesson) => lesson > 0);
+    return Array.from(new Set(available)).sort((a, b) => a - b);
+  }, [quizQuestions, setupType]);
 
-  // Count questions per lesson/type
-  const countFor = (type: string, lesson: number) => {
-    let qs = quizQuestions;
-    if (type !== "all") qs = qs.filter(q => q.type === type);
-    if (lesson > 0) qs = qs.filter(q => (q.lesson || 0) === lesson);
-    return qs.length;
-  };
+  useEffect(() => {
+    if (setupLesson > 0 && !lessons.includes(setupLesson)) setSetupLesson(0);
+  }, [lessons, setupLesson]);
 
-  // Start quiz
-  const startQuiz = () => {
-    let qs = quizQuestions;
-    if (setupType !== "all") qs = qs.filter(q => q.type === setupType);
-    if (setupLesson > 0) qs = qs.filter(q => (q.lesson || 0) === setupLesson);
+  const pool = useMemo(() => quizQuestions.filter((question) => {
+    if (setupType !== "all" && question.type !== setupType) return false;
+    if (setupLesson > 0 && (question.lesson || 0) !== setupLesson) return false;
+    return true;
+  }), [quizQuestions, setupType, setupLesson]);
 
-    // Shuffle and limit
-    qs = [...qs].sort(() => Math.random() - 0.5).slice(0, setupCount);
+  const mistakePool = useMemo(() => {
+    const ids = new Set(mistakeIds);
+    return quizQuestions.filter((question) => ids.has(question.id));
+  }, [quizQuestions, mistakeIds]);
 
-    if (qs.length === 0) return;
+  const current = questions[questionIndex];
+  const percent = questions.length ? Math.round((score / questions.length) * 100) : 0;
+  const wrongResults = results.filter((result) => !result.correct);
 
-    setQuestions(qs);
-    setQIndex(0);
+  const startQuiz = useCallback((mistakesOnly = false) => {
+    const source = mistakesOnly ? mistakePool : pool;
+    if (!source.length) return;
+    const nextQuestions = shuffled(source).slice(0, mistakesOnly ? Math.min(20, source.length) : Math.min(setupCount, source.length));
+    setQuestions(nextQuestions);
+    setQuestionIndex(0);
     setSelected(null);
     setAnswered(false);
     setScore(0);
     setResults([]);
+    setElapsed(0);
+    setStartedAt(Date.now());
+    setReviewingMistakes(mistakesOnly);
     setPhase("running");
-  };
+  }, [mistakePool, pool, setupCount]);
 
-  const handleAnswer = (optIndex: number) => {
-    if (answered) return;
-    setSelected(optIndex);
+  const answer = useCallback((optionIndex: number) => {
+    if (answered || !current) return;
+    const correct = optionIndex === current.answerIndex;
+    setSelected(optionIndex);
     setAnswered(true);
+    if (correct) setScore((value) => value + 1);
+    setResults((value) => [...value, { q: current, selected: optionIndex, correct }]);
+  }, [answered, current]);
 
-    const q = questions[qIndex];
-    const correct = optIndex === q.answerIndex;
-    if (correct) setScore(s => s + 1);
-    setResults(prev => [...prev, { q, selected: optIndex, correct }]);
-  };
+  const finish = useCallback(() => {
+    const total = questions.length;
+    const finalMistakes = results.filter((result) => !result.correct).map((result) => result.q.id);
+    const answeredCorrectly = new Set(results.filter((result) => result.correct).map((result) => result.q.id));
+    const updatedMistakes = Array.from(new Set([
+      ...mistakeIds.filter((id) => !answeredCorrectly.has(id)),
+      ...finalMistakes,
+    ])).slice(0, 200);
 
-  const handleNext = () => {
-    if (qIndex + 1 < questions.length) {
-      setQIndex(i => i + 1);
-      setSelected(null);
-      setAnswered(false);
-    } else {
-      // Finish
-      const finalScore = score;
-      const total = questions.length;
-      onQuizComplete(finalScore, total);
+    const entry: HistoryEntry = {
+      id: `hist-${Date.now()}`,
+      date: new Date().toLocaleString("vi-VN"),
+      score,
+      total,
+      percent: Math.round((score / total) * 100),
+      filter: reviewingMistakes ? "Ôn lại câu sai" : `${typeLabel(setupType)}${setupLesson > 0 ? ` · Bài ${setupLesson}` : " · Tổng hợp"}`,
+      duration: elapsed,
+      mistakeIds: finalMistakes,
+    };
+    const updatedHistory = [entry, ...history].slice(0, 50);
+    localStorage.setItem("n5_quiz_history", JSON.stringify(updatedHistory));
+    localStorage.setItem("n5_mistake_ids", JSON.stringify(updatedMistakes));
+    setHistory(updatedHistory);
+    setMistakeIds(updatedMistakes);
+    onQuizComplete(score, total);
+    setPhase("result");
+  }, [elapsed, history, mistakeIds, onQuizComplete, questions.length, results, reviewingMistakes, score, setupLesson, setupType]);
 
-      // Save history
-      const entry = {
-        id: `hist-${Date.now()}`,
-        date: new Date().toLocaleString("vi-VN"),
-        score: finalScore,
-        total,
-        percent: Math.round((finalScore / total) * 100),
-        filter: setupLesson > 0 ? `Bài ${setupLesson} - ${setupType === "all" ? "Tất cả" : setupType === "vocabulary" ? "Từ vựng" : "Ngữ pháp"}` : `${setupType === "all" ? "Tất cả" : setupType === "vocabulary" ? "Từ vựng" : "Ngữ pháp"} - Tổng hợp`,
-        questionCount: total,
-      };
-      const existing = JSON.parse(localStorage.getItem("n5_quiz_history") || "[]");
-      localStorage.setItem("n5_quiz_history", JSON.stringify([entry, ...existing]));
-
-      setPhase("result");
+  const nextQuestion = useCallback(() => {
+    if (!answered) return;
+    if (questionIndex + 1 >= questions.length) {
+      finish();
+      return;
     }
-  };
+    setQuestionIndex((value) => value + 1);
+    setSelected(null);
+    setAnswered(false);
+  }, [answered, finish, questionIndex, questions.length]);
 
-  const goHome = () => {
+  useEffect(() => {
+    if (phase !== "running") return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!answered && ["1", "2", "3", "4"].includes(event.key)) answer(Number(event.key) - 1);
+      if (answered && event.key === "Enter") nextQuestion();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [answer, answered, nextQuestion, phase]);
+
+  const reset = () => {
     setPhase("setup");
     setSelected(null);
     setAnswered(false);
   };
 
-  // History
-  const history = useMemo(() => {
-    try { return JSON.parse(localStorage.getItem("n5_quiz_history") || "[]"); }
-    catch { return []; }
-  }, [phase, showHistory]);
-
-  // Current question
-  const current = questions[qIndex];
-
   return (
-    <div className="bg-white rounded-2xl shadow-xs border border-gray-100 p-6">
-      {/* ====== SETUP PHASE ====== */}
+    <div className="practice-board animate-fade">
       {phase === "setup" && (
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
+        <div className="practice-setup">
+          <div className="board-title-row">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 tracking-tight">Trắc nghiệm ôn tập</h2>
-              <p className="text-sm text-gray-500 mt-1">{quizQuestions.length} câu hỏi sẵn sàng • Chọn bài & bắt đầu</p>
+              <span className="eyebrow">Active recall</span>
+              <h1>Trung tâm luyện tập</h1>
+              <p>Chọn một kỹ năng, trả lời trước khi xem lời giải và tập trung ôn lại phần đã sai.</p>
             </div>
-            <button
-              onClick={() => setShowHistory(!showHistory)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1 ${
-                showHistory ? "bg-stone-900 text-white" : "bg-gray-100 text-gray-500 hover:text-gray-900"
-              }`}
-            >
-              <Clock size={12} />
-              Lịch sử ({history.length})
+            <button className={`history-toggle ${historyOpen ? "active" : ""}`} onClick={() => setHistoryOpen((value) => !value)}>
+              <History size={16} /> Lịch sử <span>{history.length}</span>
             </button>
           </div>
 
-          {/* History Panel */}
-          {showHistory && (
-            <div className="bg-gray-50 rounded-2xl border border-gray-100 p-4 space-y-3 animate-fade">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400">Lịch sử làm bài</h3>
-              {history.length === 0 ? (
-                <p className="text-xs text-gray-400 text-center py-4">Chưa có bài làm nào.</p>
-              ) : (
-                <div className="space-y-2 max-h-[250px] overflow-y-auto">
-                  {history.map((h: any, i: number) => (
-                    <div key={h.id || i} className="bg-white p-3 rounded-xl border border-gray-100 flex items-center justify-between">
-                      <div>
-                        <p className="text-xs font-bold text-gray-800">{h.filter} — {h.questionCount} câu</p>
-                        <p className="text-[10px] text-gray-400 font-mono">{h.date}</p>
-                      </div>
-                      <div className="text-right">
-                        <span className={`text-lg font-black ${h.percent >= 80 ? "text-emerald-600" : h.percent >= 50 ? "text-amber-600" : "text-rose-600"}`}>
-                          {h.percent}%
-                        </span>
-                        <p className="text-[10px] text-gray-400">{h.score}/{h.total}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+          {historyOpen && (
+            <section className="history-drawer animate-fade">
+              <div className="history-summary">
+                <span><strong>{history.length}</strong> phiên đã làm</span>
+                <span><strong>{mistakePool.length}</strong> câu đang cần ôn</span>
+                <button disabled={!mistakePool.length} onClick={() => startQuiz(true)}><RotateCcw size={14} /> Ôn câu sai</button>
+              </div>
+              <div className="history-list">
+                {history.length === 0 && <p>Chưa có lịch sử. Phiên đầu tiên sẽ xuất hiện tại đây.</p>}
+                {history.slice(0, 6).map((entry) => (
+                  <div key={entry.id}>
+                    <span className={entry.percent >= 80 ? "good" : entry.percent >= 50 ? "medium" : "low"}>{entry.percent}%</span>
+                    <p><strong>{entry.filter}</strong><small>{entry.date} · {Math.max(1, Math.ceil((entry.duration || 0) / 60))} phút</small></p>
+                    <em>{entry.score}/{entry.total}</em>
+                  </div>
+                ))}
+              </div>
+            </section>
           )}
 
-          {/* Step 1: Choose Type */}
-          <div className="space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400">1️⃣ Chọn loại câu hỏi</h3>
-            <div className="flex flex-wrap gap-2">
-              {([
-                { key: "vocabulary", label: "📝 Từ vựng", emoji: "📝" },
-                { key: "grammar", label: "📖 Ngữ pháp", emoji: "📖" },
-                { key: "all", label: "🎯 Tổng hợp", emoji: "🎯" },
-              ] as const).map(({ key, label }) => (
-                <button
-                  key={key}
-                  onClick={() => setSetupType(key as any)}
-                  className={`px-4 py-2.5 text-sm font-semibold rounded-xl transition-all border-2 ${
-                    setupType === key
-                      ? "bg-amber-50 border-amber-400 text-amber-800 shadow-xs"
-                      : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
-                  }`}
-                >
-                  {label}
-                  <span className="ml-1.5 text-[10px] text-gray-400 font-mono">({countFor(key, setupLesson)})</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Step 2: Choose Lesson */}
-          <div className="space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400">2️⃣ Chọn bài học</h3>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setSetupLesson(0)}
-                className={`px-3 py-2 text-xs font-semibold rounded-xl transition-all border-2 ${
-                  setupLesson === 0
-                    ? "bg-stone-900 text-white border-stone-900 shadow-xs"
-                    : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
-                }`}
-              >
-                🎲 Lộn xộn (tất cả bài)
-              </button>
-              {lessons.map(l => (
-                <button
-                  key={l}
-                  onClick={() => setSetupLesson(l)}
-                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-all border-2 ${
-                    setupLesson === l
-                      ? "bg-stone-900 text-white border-stone-900 shadow-xs"
-                      : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
-                  }`}
-                >
-                  Bài {l}
-                  <span className="ml-1 text-[10px] opacity-60">({countFor(setupType, l)})</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Step 3: Number of Questions */}
-          <div className="space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400">3️⃣ Số câu hỏi</h3>
-            <div className="flex flex-wrap gap-2">
-              {[5, 10, 15, 20, 30].map(n => {
-                const max = countFor(setupType, setupLesson);
-                if (n > max && n !== 10) return null;
+          <section className="setup-section">
+            <div className="setup-label"><span>01</span><div><strong>Chọn kỹ năng</strong><small>Mỗi loại kiểm tra một cách gợi nhớ khác nhau</small></div></div>
+            <div className="practice-type-grid">
+              {(Object.keys(TYPE_META) as SetupType[]).map((type) => {
+                const meta = TYPE_META[type];
+                const Icon = meta.icon;
+                const count = type === "all" ? quizQuestions.length : quizQuestions.filter((question) => question.type === type).length;
                 return (
-                  <button
-                    key={n}
-                    onClick={() => setSetupCount(n)}
-                    className={`px-3 py-2 text-xs font-semibold rounded-xl transition-all border ${
-                      setupCount === n
-                        ? "bg-amber-600 text-white border-amber-600"
-                        : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
-                    }`}
-                  >
-                    {n} câu
+                  <button key={type} className={`${setupType === type ? "active" : ""} type-${meta.accent}`} onClick={() => setSetupType(type)}>
+                    <span className="type-icon"><Icon size={20} /></span>
+                    <span><strong>{meta.label}</strong><small>{meta.description}</small></span>
+                    <em>{count}</em>
+                    {setupType === type && <CheckCircle2 className="type-check" size={16} />}
                   </button>
                 );
               })}
-              <button
-                onClick={() => setSetupCount(999)}
-                className={`px-3 py-2 text-xs font-semibold rounded-xl transition-all border ${
-                  setupCount === 999
-                    ? "bg-amber-600 text-white border-amber-600"
-                    : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
-                }`}
-              >
-                Tất cả ({countFor(setupType, setupLesson)})
-              </button>
             </div>
-          </div>
+          </section>
 
-          {/* Start Button */}
-          <div className="pt-2 border-t border-gray-100">
-            <button
-              onClick={startQuiz}
-              disabled={countFor(setupType, setupLesson) === 0}
-              className="w-full py-4 rounded-xl text-base font-bold text-white bg-amber-600 hover:bg-amber-700 active:bg-amber-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
-            >
-              <Play size={20} />
-              Bắt đầu ôn tập • {Math.min(setupCount, countFor(setupType, setupLesson))} câu
-              {setupLesson > 0 ? ` • Bài ${setupLesson}` : " • Lộn xộn"}
-              <ChevronRight size={18} />
+          <section className="setup-section">
+            <div className="setup-label"><span>02</span><div><strong>Phạm vi bài học</strong><small>Học rộng hoặc tập trung vào một bài</small></div></div>
+            <div className="choice-row lesson-choices">
+              <button className={setupLesson === 0 ? "active" : ""} onClick={() => setSetupLesson(0)}>Tất cả bài <small>{pool.length}</small></button>
+              {lessons.map((lesson) => (
+                <button key={lesson} className={setupLesson === lesson ? "active" : ""} onClick={() => setSetupLesson(lesson)}>
+                  Bài {lesson} <small>{quizQuestions.filter((question) => (setupType === "all" || question.type === setupType) && question.lesson === lesson).length}</small>
+                </button>
+              ))}
+              {lessons.length === 0 && <span className="no-lessons">Kỹ năng này được luyện theo bộ tổng hợp.</span>}
+            </div>
+          </section>
+
+          <section className="setup-section setup-final">
+            <div className="setup-label"><span>03</span><div><strong>Độ dài phiên học</strong><small>10–15 câu là khoảng tập trung lý tưởng</small></div></div>
+            <div className="choice-row count-choices">
+              {[5, 10, 15, 20].filter((count) => count <= pool.length || count === 10).map((count) => (
+                <button key={count} className={setupCount === count ? "active" : ""} onClick={() => setSetupCount(count)}>{count} câu</button>
+              ))}
+              <button className={setupCount === 999 ? "active" : ""} onClick={() => setSetupCount(999)}>Tất cả ({pool.length})</button>
+            </div>
+            <button className="start-practice" onClick={() => startQuiz(false)} disabled={!pool.length}>
+              <Play size={18} fill="currentColor" /> Bắt đầu {Math.min(setupCount, pool.length)} câu
+              <ArrowRight size={18} />
             </button>
-          </div>
+          </section>
         </div>
       )}
 
-      {/* ====== RUNNING PHASE ====== */}
       {phase === "running" && current && (
-        <div className="max-w-xl mx-auto space-y-5">
-          {/* Top bar */}
-          <div className="flex justify-between items-center text-xs text-gray-400 font-mono">
-            <button onClick={goHome} className="flex items-center gap-1 text-gray-500 hover:text-gray-900 transition-colors">
-              <Home size={12} /> Thoát
-            </button>
-            <span className="flex items-center gap-1.5">
-              <BookOpen size={12} />
-              {setupLesson > 0 ? `Bài ${setupLesson}` : "Lộn xộn"} • {setupType === "all" ? "Tổng hợp" : setupType === "vocabulary" ? "Từ vựng" : "Ngữ pháp"}
-            </span>
-            <span>Đúng: <span className="text-emerald-600 font-bold">{score}</span>/{qIndex + 1}</span>
+        <div className="quiz-runner">
+          <div className="runner-topbar">
+            <button onClick={reset}><ArrowLeft size={15} /> Thoát</button>
+            <div><span>{typeLabel(current.type)}</span>{current.lesson ? <span>Bài {current.lesson}</span> : null}</div>
+            <span className="runner-timer"><Clock3 size={14} /> {Math.floor(elapsed / 60)}:{String(elapsed % 60).padStart(2, "0")}</span>
           </div>
 
-          {/* Progress */}
-          <div className="w-full bg-gray-100 rounded-full h-2">
-            <div className="bg-amber-500 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${((qIndex + 1) / questions.length) * 100}%` }} />
-          </div>
-          <div className="text-center text-[10px] text-gray-300 font-mono">Câu {qIndex + 1} / {questions.length}</div>
+          <div className="runner-progress-meta"><span>Câu {questionIndex + 1} / {questions.length}</span><span>{score} đúng</span></div>
+          <div className="runner-progress"><span style={{ width: `${((questionIndex + (answered ? 1 : 0)) / questions.length) * 100}%` }} /></div>
 
-          {/* Question */}
-          <div className="bg-stone-50/50 p-5 rounded-2xl border border-gray-100 text-center">
-            <p className="text-lg font-bold text-gray-800 leading-relaxed">{current.question}</p>
-          </div>
+          <section className="question-card">
+            <span className="question-kicker"><Target size={14} /> Chọn một đáp án</span>
+            <h2>{current.question}</h2>
+          </section>
 
-          {/* Options */}
-          <div className="space-y-3">
-            {current.options.map((opt, idx) => {
-              const isSel = selected === idx;
-              const isCor = idx === current.answerIndex;
-              let style = "border-gray-200 hover:border-amber-300 hover:bg-gray-50 bg-white text-gray-800";
-              let icon = null;
-
-              if (answered) {
-                if (isCor) {
-                  style = "border-emerald-300 bg-emerald-50/50 text-emerald-900 font-bold";
-                  icon = <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />;
-                } else if (isSel && !isCor) {
-                  style = "border-rose-300 bg-rose-50/50 text-rose-900 font-bold";
-                  icon = <XCircle size={16} className="text-rose-600 shrink-0" />;
-                } else {
-                  style = "border-gray-100 bg-gray-50 opacity-50 text-gray-400";
-                }
-              }
-
+          <div className="answer-grid">
+            {current.options.map((option, index) => {
+              const isCorrect = index === current.answerIndex;
+              const isSelected = selected === index;
+              const state = answered ? (isCorrect ? "correct" : isSelected ? "wrong" : "muted") : "";
               return (
-                <button
-                  key={idx}
-                  disabled={answered}
-                  onClick={() => handleAnswer(idx)}
-                  className={`w-full p-4 rounded-xl border-2 text-left text-sm font-medium transition-all flex items-center justify-between gap-3 ${style}`}
-                >
-                  <span className="flex-1">{opt}</span>
-                  {icon}
+                <button key={`${option}-${index}`} className={state} disabled={answered} onClick={() => answer(index)}>
+                  <span className="answer-key">{index + 1}</span>
+                  <strong>{option}</strong>
+                  {answered && isCorrect && <CheckCircle2 size={19} />}
+                  {answered && isSelected && !isCorrect && <XCircle size={19} />}
                 </button>
               );
             })}
           </div>
 
-          {/* Romaji of correct answer */}
           {answered && (
-            <div className="text-center text-sm text-gray-500 font-mono animate-fade">
-              🗣 {current.options[current.answerIndex]} → <span className="text-amber-700 font-semibold">{kanaToRomaji(current.options[current.answerIndex])}</span>
-            </div>
+            <section className={`answer-feedback ${selected === current.answerIndex ? "correct" : "wrong"}`}>
+              <div className="feedback-title">
+                {selected === current.answerIndex ? <CheckCircle2 size={20} /> : <XCircle size={20} />}
+                <div><strong>{selected === current.answerIndex ? "Chính xác" : "Chưa đúng"}</strong><span>{selected === current.answerIndex ? "Bạn đã gợi nhớ đúng." : "Đọc lời giải rồi thử tự nhắc lại đáp án."}</span></div>
+              </div>
+              {hasJapanese(current.options[current.answerIndex]) && (
+                <p className="answer-reading">{current.options[current.answerIndex]} <span>· {kanaToRomaji(current.options[current.answerIndex])}</span></p>
+              )}
+              {current.explanation && <p>{current.explanation}</p>}
+            </section>
           )}
 
-          {/* Explanation */}
-          {answered && current.explanation && (
-            <div className="bg-amber-50/30 rounded-2xl border border-amber-100/70 p-4 animate-fade">
-              <span className="text-xs font-bold text-amber-800 block font-mono uppercase tracking-widest mb-1">Lời giải</span>
-              <p className="text-xs text-gray-700 leading-relaxed">{current.explanation}</p>
-            </div>
-          )}
-
-          {/* Next */}
-          {answered && (
-            <div className="flex justify-end pt-1">
-              <button
-                onClick={handleNext}
-                className="px-6 py-3 text-sm font-bold text-white bg-stone-900 hover:bg-stone-800 rounded-xl transition-all shadow-md flex items-center gap-2"
-              >
-                {qIndex + 1 < questions.length ? "Câu tiếp ▶" : "Xem kết quả 🏁"}
-              </button>
-            </div>
-          )}
+          <div className="runner-footer">
+            <span>{answered ? "Nhấn Enter để tiếp tục" : "Dùng phím 1–4 để chọn nhanh"}</span>
+            <button onClick={nextQuestion} disabled={!answered}>
+              {questionIndex + 1 === questions.length ? "Hoàn thành" : "Câu tiếp theo"} <ArrowRight size={16} />
+            </button>
+          </div>
         </div>
       )}
 
-      {/* ====== RESULT PHASE ====== */}
       {phase === "result" && (
-        <div className="max-w-lg mx-auto space-y-6 animate-fade">
-          <div className="text-center space-y-4 py-4">
-            <div className="inline-flex p-4 rounded-full bg-amber-50 text-amber-500">
-              <Award size={48} />
+        <div className="quiz-result animate-fade">
+          <section className="result-hero">
+            <span className="result-icon"><Award size={34} /></span>
+            <span className="eyebrow">Phiên học hoàn tất</span>
+            <h1>{percent >= 90 ? "Rất chắc chắn!" : percent >= 70 ? "Tiến bộ tốt!" : "Đã tìm ra phần cần ôn."}</h1>
+            <p>{percent >= 80 ? "Bạn có thể chuyển sang một kỹ năng khác hoặc tăng phạm vi bài." : "Sai không phải là thất bại — đây chính là dữ liệu cho lần ôn tiếp theo."}</p>
+            <div className="result-score"><strong>{percent}%</strong><span>{score}/{questions.length} câu đúng</span></div>
+            <div className="result-stats">
+              <span><Clock3 size={14} /><strong>{Math.max(1, Math.ceil(elapsed / 60))}</strong> phút</span>
+              <span><CheckCircle2 size={14} /><strong>{score}</strong> đúng</span>
+              <span><XCircle size={14} /><strong>{wrongResults.length}</strong> cần ôn</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900">
-              {score === questions.length ? "🎉 Hoàn hảo!" :
-               score >= questions.length * 0.8 ? "🌟 Rất tốt!" :
-               score >= questions.length * 0.5 ? "💪 Khá tốt!" :
-               "📚 Cần ôn thêm!"}
-            </h3>
-            <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 inline-block">
-              <span className="text-xs text-gray-400 font-bold block uppercase tracking-wider font-mono">Kết quả</span>
-              <span className="text-5xl font-black text-amber-700 block mt-1">{score} / {questions.length}</span>
-              <span className="text-xs text-gray-500 mt-1 block">
-                {Math.round((score / questions.length) * 100)}% chính xác
-              </span>
-            </div>
-          </div>
+          </section>
 
-          {/* Review wrong answers */}
-          {results.filter(r => !r.correct).length > 0 && (
-            <div className="space-y-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-rose-600 flex items-center gap-1">
-                <XCircle size={12} /> Cần ôn lại ({results.filter(r => !r.correct).length} câu sai)
-              </h3>
-              <div className="space-y-2 max-h-[300px] overflow-y-auto">
-                {results.filter(r => !r.correct).map((r, i) => (
-                  <div key={i} className="bg-rose-50/50 p-3 rounded-xl border border-rose-100 text-xs space-y-1.5">
-                    <p className="font-semibold text-gray-800">{r.q.question}</p>
-                    <p className="text-rose-600">Bạn chọn: {r.q.options[r.selected]}</p>
-                    <p className="text-emerald-700">Đáp án đúng: {r.q.options[r.q.answerIndex]} <span className="text-gray-400 font-mono">({kanaToRomaji(r.q.options[r.q.answerIndex])})</span></p>
-                    {r.q.explanation && <p className="text-gray-500 mt-1">{r.q.explanation}</p>}
-                  </div>
+          {wrongResults.length > 0 && (
+            <section className="mistake-review">
+              <div className="section-heading compact"><div><span className="eyebrow">Error loop</span><h2>Xem lại câu sai</h2></div><span className="quiet-label">{wrongResults.length} câu</span></div>
+              <div className="mistake-list">
+                {wrongResults.map((result, index) => (
+                  <article key={`${result.q.id}-${index}`}>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <div><strong>{result.q.question}</strong><p className="picked">Bạn chọn: {result.q.options[result.selected]}</p><p className="expected">Đúng: {result.q.options[result.q.answerIndex]}</p>{result.q.explanation && <small>{result.q.explanation}</small>}</div>
+                  </article>
                 ))}
               </div>
-            </div>
+            </section>
           )}
 
-          {/* Action buttons */}
-          <div className="flex gap-3 pt-2">
-            <button
-              onClick={goHome}
-              className="flex-1 py-3 rounded-xl text-sm font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all flex items-center justify-center gap-2"
-            >
-              <Home size={16} />
-              Chọn bài khác
-            </button>
-            <button
-              onClick={() => {
-                setPhase("setup");
-                setSelected(null);
-                setAnswered(false);
-              }}
-              className="flex-1 py-3 rounded-xl text-sm font-bold text-white bg-amber-600 hover:bg-amber-700 transition-all shadow-md flex items-center justify-center gap-2"
-            >
-              <RefreshCw size={16} />
-              Làm lại
-            </button>
+          <div className="result-actions">
+            <button className="secondary" onClick={reset}><ArrowLeft size={16} /> Đổi bộ câu hỏi</button>
+            <button className="primary" onClick={() => startQuiz(false)}><RefreshCw size={16} /> Làm một phiên khác</button>
           </div>
         </div>
       )}

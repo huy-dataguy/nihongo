@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { lazy, Suspense, useState, useEffect, useMemo, useCallback } from "react";
 import { supabase } from "./lib/supabase";
 import {
   starterVocabulary,
@@ -7,15 +7,47 @@ import {
   starterQuizzes,
 } from "./data/n5StarterData";
 import { VocabularyItem, GrammarItem, KanjiItem, QuizQuestion, DailyImportLog, StudyProgress } from "./types";
-import KanaBoard from "./components/KanaBoard";
-import VocabularyBoard from "./components/VocabularyBoard";
-import GrammarBoard from "./components/GrammarBoard";
-import QuizBoard from "./components/QuizBoard";
-import DailyImporter from "./components/DailyImporter";
-import { BookOpen, HelpCircle, GraduationCap, Sparkles, BookCheck } from "lucide-react";
+import LearningDashboard from "./components/LearningDashboard";
+import { createPracticeQuestions, mergePracticeQuestions } from "./utils/practice";
+import {
+  BookOpen,
+  BrainCircuit,
+  GraduationCap,
+  Home,
+  Layers,
+  Settings2,
+  Sparkles,
+  Target,
+} from "lucide-react";
+
+const KanaBoard = lazy(() => import("./components/KanaBoard"));
+const VocabularyBoard = lazy(() => import("./components/VocabularyBoard"));
+const GrammarBoard = lazy(() => import("./components/GrammarBoard"));
+const QuizBoard = lazy(() => import("./components/QuizBoard"));
+const KanjiBoard = lazy(() => import("./components/KanjiBoard"));
+const DailyImporter = lazy(() => import("./components/DailyImporter"));
+
+type ActiveTab = "home" | "kana" | "vocabulary" | "kanji" | "grammar" | "practice" | "import";
+
+const validTabs: ActiveTab[] = ["home", "kana", "vocabulary", "kanji", "grammar", "practice", "import"];
+
+function tabFromHash(): ActiveTab {
+  const candidate = window.location.hash.replace("#", "").split(":")[0] as ActiveTab;
+  return validTabs.includes(candidate) ? candidate : "home";
+}
+
+function practiceTypeFromHash(): QuizQuestion["type"] | "all" {
+  const candidate = window.location.hash.replace("#", "").split(":")[1];
+  return ["vocabulary", "grammar", "kanji", "kana"].includes(candidate) ? candidate as QuizQuestion["type"] : "all";
+}
+
+function compactCount(value: number) {
+  return value >= 1000 ? `${(value / 1000).toFixed(1)}k` : String(value);
+}
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<"kana" | "vocabulary" | "grammar" | "quiz" | "import">("vocabulary");
+  const [activeTab, setActiveTab] = useState<ActiveTab>(tabFromHash);
+  const [practiceType, setPracticeType] = useState<QuizQuestion["type"] | "all">(practiceTypeFromHash);
 
   // Main lists loaded from Supabase
   const [vocabularyList, setVocabularyList] = useState<VocabularyItem[]>([]);
@@ -40,6 +72,19 @@ export default function App() {
     loadData();
   }, []);
 
+  useEffect(() => {
+    const syncFromHash = () => {
+      setActiveTab(tabFromHash());
+      setPracticeType(practiceTypeFromHash());
+    };
+    window.addEventListener("hashchange", syncFromHash);
+    window.addEventListener("popstate", syncFromHash);
+    return () => {
+      window.removeEventListener("hashchange", syncFromHash);
+      window.removeEventListener("popstate", syncFromHash);
+    };
+  }, []);
+
   async function loadData() {
     setIsLoading(true);
     try {
@@ -52,18 +97,22 @@ export default function App() {
         supabase.from("study_progress").select("*").eq("id", 1).single(),
       ]);
 
-      // Map DB rows (snake_case) → TypeScript interfaces (camelCase)
+      const coreError = [vocabRes.error, grammarRes.error, kanjiRes.error, quizzesRes.error].find(Boolean);
+      if (coreError) throw coreError;
+
+      // Map DB rows (snake_case) → TypeScript interfaces (camelCase). Starter data keeps
+      // the app useful in local/offline environments where Supabase is not configured.
       setVocabularyList(
-        (vocabRes.data || []).map(mapVocabRow)
+        vocabRes.data?.length ? vocabRes.data.map(mapVocabRow) : starterVocabulary
       );
       setGrammarList(
-        (grammarRes.data || []).map(mapGrammarRow)
+        grammarRes.data?.length ? grammarRes.data.map(mapGrammarRow) : starterGrammar
       );
       setKanjiList(
-        (kanjiRes.data || []).map(mapKanjiRow)
+        kanjiRes.data?.length ? kanjiRes.data.map(mapKanjiRow) : starterKanji
       );
       setQuizQuestions(
-        (quizzesRes.data || []).map(mapQuizRow)
+        quizzesRes.data?.length ? quizzesRes.data.map(mapQuizRow) : starterQuizzes
       );
       setImportLogs(
         (logsRes.data || []).map(mapLogRow)
@@ -372,173 +421,121 @@ export default function App() {
   }, []);
 
   // Calculate statistics
-  const totalCompletedQuizzes = Object.keys(studyProgress.quizScores).length;
+  const localQuizHistory = useMemo(() => {
+    try {
+      return JSON.parse(localStorage.getItem("n5_quiz_history") || "[]") as Array<{ percent?: number }>;
+    } catch {
+      return [];
+    }
+  }, [studyProgress.quizScores]);
+  const totalCompletedQuizzes = Math.max(Object.keys(studyProgress.quizScores).length, localQuizHistory.length);
   const averageAccuracy = useMemo(() => {
-    const scores = Object.values(studyProgress.quizScores) as any[];
-    if (scores.length === 0) return 0;
-    const sum = scores.reduce((acc: number, current: any) => acc + (current.score / current.total), 0);
-    return Math.round((sum / scores.length) * 100);
-  }, [studyProgress]);
+    const scores = Object.values(studyProgress.quizScores) as StudyProgress["quizScores"][string][];
+    if (scores.length > 0) {
+      const sum = scores.reduce((acc, current) => acc + (current.score / current.total), 0);
+      return Math.round((sum / scores.length) * 100);
+    }
+    if (localQuizHistory.length > 0) {
+      return Math.round(localQuizHistory.reduce((sum, entry) => sum + (entry.percent || 0), 0) / localQuizHistory.length);
+    }
+    return 0;
+  }, [localQuizHistory, studyProgress.quizScores]);
+
+  const practiceQuestions = useMemo(
+    () => mergePracticeQuestions(
+      quizQuestions,
+      createPracticeQuestions(vocabularyList, grammarList, kanjiList),
+    ),
+    [quizQuestions, vocabularyList, grammarList, kanjiList],
+  );
+
+  const navigate = useCallback((destination: ActiveTab, type?: QuizQuestion["type"] | "all") => {
+    if (type) setPracticeType(type);
+    setActiveTab(destination);
+    const nextHash = destination === "practice" && type && type !== "all" ? `#${destination}:${type}` : `#${destination}`;
+    if (window.location.hash !== nextHash) window.history.pushState(null, "", nextHash);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const navigation = [
+    { key: "home" as const, label: "Hôm nay", shortLabel: "Hôm nay", icon: Home },
+    { key: "kana" as const, label: "Bảng chữ Kana", shortLabel: "Kana", icon: GraduationCap },
+    { key: "vocabulary" as const, label: "Từ vựng", shortLabel: "Từ vựng", icon: BookOpen },
+    { key: "kanji" as const, label: "Kanji", shortLabel: "Kanji", icon: Layers },
+    { key: "grammar" as const, label: "Ngữ pháp", shortLabel: "Ngữ pháp", icon: BrainCircuit },
+    { key: "practice" as const, label: "Luyện tập", shortLabel: "Luyện", icon: Target },
+    { key: "import" as const, label: "Dữ liệu & AI", shortLabel: "Dữ liệu", icon: Settings2 },
+  ];
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-stone-50/50 flex items-center justify-center">
-        <div className="text-center space-y-3">
-          <div className="w-8 h-8 border-2 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm text-gray-500 font-medium">Đang tải dữ liệu...</p>
-        </div>
+      <div className="app-loading">
+        <div className="loading-mark">日</div>
+        <div className="loading-line"><span /></div>
+        <p>Đang chuẩn bị góc học của bạn...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-stone-50/50 flex flex-col font-sans text-gray-800 antialiased selection:bg-amber-100 selection:text-amber-900">
-
-      {/* Upper Navigation/Header Bar */}
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-stone-900 text-white flex items-center justify-center font-bold font-sans shadow-sm">
-              N5
-            </div>
-            <div>
-              <h1 className="text-base font-bold text-gray-900 tracking-tight flex items-center gap-1.5 leading-none">
-                nihonGO!
-              </h1>
-              <span className="text-[10px] text-gray-500 font-mono">Bản học tiếng Nhật cá nhân</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100/50">
-              <Sparkles size={11} />
-              AI-Support Active
-            </span>
-          </div>
-        </div>
+    <div className="app-shell">
+      <header className="app-topbar">
+        <button className="brand" onClick={() => navigate("home")} aria-label="Về trang Hôm nay">
+          <span className="brand-mark">日</span>
+          <span><strong>nihonGo</strong><small>JLPT N5 companion</small></span>
+        </button>
+        <button className="quick-practice" onClick={() => navigate("practice", "all")}>
+          <Sparkles size={15} /> <span>Luyện nhanh</span>
+        </button>
       </header>
 
-      {/* Main Application Grid */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-
-        {/* N5 Progress Overview Dashboard Row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-xs space-y-1">
-            <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider block font-mono">Từ vựng khả dụng</span>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-black text-gray-900">{vocabularyList.length}</span>
-              <span className="text-xs text-green-600 font-bold">từ N5</span>
-            </div>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-xs space-y-1">
-            <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider block font-mono">Ngữ pháp làm chủ</span>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-black text-gray-900">{grammarList.length}</span>
-              <span className="text-xs text-green-600 font-bold">cấu trúc</span>
-            </div>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-xs space-y-1">
-            <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider block font-mono">Chữ Hán bổ sung</span>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-black text-gray-900">{kanjiList.length}</span>
-              <span className="text-xs text-green-600 font-bold">chữ viết</span>
-            </div>
-          </div>
-
-          <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-xs space-y-1">
-            <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider block font-mono">Bài kiểm tra / Điểm số</span>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-black text-gray-900">{totalCompletedQuizzes}</span>
-              <span className="text-xs text-amber-700 font-semibold">(Độ chuẩn {averageAccuracy}%)</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Tab Selection Row */}
-        <div className="border-b border-gray-200 flex flex-wrap gap-1">
-          <button
-            onClick={() => setActiveTab("kana")}
-            className={`px-4 py-3 text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 ${
-              activeTab === "kana"
-                ? "border-amber-600 text-amber-700"
-                : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
-            }`}
-          >
-            <GraduationCap size={16} />
-            Bảng chữ cái
+      <nav className="top-tabs" aria-label="Điều hướng chính">
+        {navigation.map(({ key, label, icon: Icon }) => (
+          <button key={key} className={activeTab === key ? "active" : ""} onClick={() => navigate(key)}>
+            <Icon size={16} strokeWidth={activeTab === key ? 2.3 : 1.8} />
+            <span>{label}</span>
+            {key === "practice" && <small>{compactCount(practiceQuestions.length)}</small>}
           </button>
+        ))}
+      </nav>
 
-          <button
-            onClick={() => setActiveTab("vocabulary")}
-            className={`px-4 py-3 text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 ${
-              activeTab === "vocabulary"
-                ? "border-amber-600 text-amber-700"
-                : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
-            }`}
-          >
-            <BookOpen size={16} />
-            Từ vựng & Từ điển
-          </button>
+      <main className="app-content">
+        {activeTab === "home" && (
+          <LearningDashboard
+            vocabularyCount={vocabularyList.length}
+            grammarCount={grammarList.length}
+            kanjiCount={kanjiList.length}
+            favoritesCount={favorites.length}
+            completedSessions={totalCompletedQuizzes}
+            averageAccuracy={averageAccuracy}
+            questions={practiceQuestions}
+            onNavigate={(destination, type) => navigate(destination, type)}
+          />
+        )}
 
-          <button
-            onClick={() => setActiveTab("grammar")}
-            className={`px-4 py-3 text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 ${
-              activeTab === "grammar"
-                ? "border-amber-600 text-amber-700"
-                : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
-            }`}
-          >
-            <BookCheck size={16} />
-            Ngữ pháp
-          </button>
-
-          <button
-            onClick={() => setActiveTab("quiz")}
-            className={`px-4 py-3 text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 ${
-              activeTab === "quiz"
-                ? "border-amber-600 text-amber-700"
-                : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
-            }`}
-          >
-            <HelpCircle size={16} />
-            Trắc nghiệm ôn tập
-          </button>
-
-          <button
-            onClick={() => setActiveTab("import")}
-            className={`px-4 py-3 text-sm font-semibold border-b-2 transition-all flex items-center gap-1.5 ${
-              activeTab === "import"
-                ? "border-amber-600 text-amber-700"
-                : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
-            }`}
-          >
-            <Sparkles size={16} />
-            Cập nhật hàng ngày (AI)
-          </button>
-        </div>
-
-        {/* Tab Boards Dynamic Render */}
-        <div className="animate-fade">
-          {activeTab === "kana" && <KanaBoard kanjiList={kanjiList} />}
+        <Suspense fallback={<div className="board-loading"><span /><p>Đang mở bài học...</p></div>}>
+          {activeTab === "kana" && <KanaBoard onPractice={() => navigate("practice", "kana")} />}
 
           {activeTab === "vocabulary" && (
             <VocabularyBoard
               vocabularyList={vocabularyList}
               favorites={favorites}
               toggleFavorite={toggleFavorite}
+              onPractice={() => navigate("practice", "vocabulary")}
             />
           )}
 
+          {activeTab === "kanji" && <KanjiBoard kanjiList={kanjiList} onPractice={() => navigate("practice", "kanji")} />}
+
           {activeTab === "grammar" && (
-            <GrammarBoard grammarList={grammarList} />
+            <GrammarBoard grammarList={grammarList} onPractice={() => navigate("practice", "grammar")} />
           )}
 
-          {activeTab === "quiz" && (
+          {activeTab === "practice" && (
             <QuizBoard
-              quizQuestions={quizQuestions}
+              quizQuestions={practiceQuestions}
               onQuizComplete={handleQuizComplete}
+              initialType={practiceType}
             />
           )}
 
@@ -551,14 +548,18 @@ export default function App() {
               importBackup={importBackup}
             />
           )}
-        </div>
+        </Suspense>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-100 py-6 mt-12 text-center text-xs text-gray-400 font-medium">
-        <p>Học ngoại ngữ là một quá trình kiên trì hằng ngày. Bạn đang tiến bộ hơn mỗi ngày cùng nihonGO!</p>
-        <p className="mt-1 font-mono text-[10px] text-gray-300">© 2026 nihonGO! • Crafted elegantly with Gemini Intelligence</p>
-      </footer>
+      <footer className="app-footer">少しずつ、毎日。 <span>nihonGo · 2026</span></footer>
+
+      <nav className="mobile-bottom-nav" aria-label="Điều hướng di động">
+        {navigation.map(({ key, shortLabel, icon: Icon }) => (
+          <button key={key} className={activeTab === key ? "active" : ""} onClick={() => navigate(key)}>
+            <Icon size={18} /><span>{shortLabel}</span>
+          </button>
+        ))}
+      </nav>
     </div>
   );
 }
