@@ -17,6 +17,10 @@ import {
   Table,
   Layers,
   Check,
+  CheckSquare,
+  Binary,
+  GitBranch,
+  ShieldAlert,
 } from "lucide-react";
 
 export interface VerbConjugationItem {
@@ -117,7 +121,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "待たない",
     te: "待って",
     ta: "待った",
-    tai: " meりたい ➔ 待ちたい",
+    tai: "待ちたい",
     kanou: "待てる",
     ikou: "待とう",
     jouken: "待てば",
@@ -349,7 +353,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "起きない",
     te: "起きて",
     ta: "起きた",
-    tai: " meりたい ➔ 起きたい",
+    tai: "起きたい",
     kanou: "起きられる",
     ikou: "起きよう",
     jouken: "起きれば",
@@ -389,7 +393,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "借りない",
     te: "借りて",
     ta: "借りた",
-    tai: " meりたい ➔ 借りたい",
+    tai: "借りたい",
     kanou: "借りられる",
     ikou: "借りよう",
     jouken: "借りれば",
@@ -473,13 +477,98 @@ export function getEndingPattern(v: VerbConjugationItem): string {
   return `~${lastChar} (~${rom})`;
 }
 
+export interface GroupAnalysisResult {
+  group: 1 | 2 | 3;
+  groupLabel: string;
+  reason: string;
+  isSpecialTrap: boolean;
+  matchedVerb?: VerbConjugationItem;
+}
+
+export function analyzeVerbGroup(input: string): GroupAnalysisResult | null {
+  const text = input.trim().toLowerCase();
+  if (!text) return null;
+
+  // 1. Check exact match in database
+  const dbMatch = VERB_CONJUGATION_DATABASE.find(
+    (v) =>
+      v.kanji.toLowerCase() === text ||
+      v.hiragana.toLowerCase() === text ||
+      v.romaji.toLowerCase() === text ||
+      v.masu.toLowerCase() === text ||
+      v.jisho.toLowerCase() === text
+  );
+
+  if (dbMatch) {
+    let reason = "";
+    if (dbMatch.group === 3) {
+      reason = `Động từ '${dbMatch.kanji}' (${dbMatch.hiragana}) là động từ bất quy tắc thuộc Nhóm 3.`;
+    } else if (dbMatch.group === 2) {
+      reason = `Động từ '${dbMatch.kanji}' (mang âm đuôi ${getEndingPattern(dbMatch)}) thuộc Nhóm 2 (一段). Bỏ ます/る ➔ + ない / て / た.`;
+    } else {
+      reason = `Động từ '${dbMatch.kanji}' (${dbMatch.hiragana}) thuộc Nhóm 1 (五段). Chuyển hàng い/う ➔ hàng あ + ない.`;
+    }
+    if (dbMatch.isSpecial && dbMatch.specialNote) {
+      reason += ` [⚠️ Ghi chú bẫy: ${dbMatch.specialNote}]`;
+    }
+    return {
+      group: dbMatch.group,
+      groupLabel: dbMatch.group === 1 ? "Nhóm 1 (五段)" : dbMatch.group === 2 ? "Nhóm 2 (一段)" : "Nhóm 3 (不規則)",
+      reason,
+      isSpecialTrap: !!dbMatch.isSpecial,
+      matchedVerb: dbMatch,
+    };
+  }
+
+  // 2. Dynamic heuristic classification algorithm
+  if (text.endsWith("します") || text.endsWith("する") || text === "きます" || text === "くる" || text === "来ます" || text === "来る") {
+    return {
+      group: 3,
+      groupLabel: "Nhóm 3 (不規則 - Bất quy tắc)",
+      reason: "Động từ kết thúc bằng します/する hoặc 来ます/くる ➔ 100% Thuộc Nhóm 3 (Bất quy tắc).",
+      isSpecialTrap: false,
+    };
+  }
+
+  const group1Traps = ["帰る", "かえる", "kaeru", "切る", "きる", "kiru", "知る", "しる", "shiru", "入る", "はいり", "hairu", "走る", "はしる", "hashiru"];
+  if (group1Traps.some((t) => text.includes(t))) {
+    return {
+      group: 1,
+      groupLabel: "Nhóm 1 (五段 - Bẫy đặc biệt)",
+      reason: "Mặc dù có đuôi mang âm ~える / ~いる, đây là 1 trong các động từ bẫy N5 bắt buộc nhớ ➔ Thuộc Nhóm 1 (五段)!",
+      isSpecialTrap: true,
+    };
+  }
+
+  const eRowSounds = ["え", "け", "せ", "て", "ね", "へ", "め", "れ", "げ", "ぜ", "で", "べ", "ぺ"];
+  const isERowMasu = eRowSounds.some((e) => text.endsWith(`${e}ます`));
+  if (isERowMasu || text.endsWith("える") || text.endsWith("いる")) {
+    return {
+      group: 2,
+      groupLabel: "Nhóm 2 (一段)",
+      reason: "Đứng trước ます là âm thuộc hàng え (~e) hoặc đuôi thể từ điển là ~える/~いる ➔ Thuộc Nhóm 2 (一段).",
+      isSpecialTrap: false,
+    };
+  }
+
+  return {
+    group: 1,
+    groupLabel: "Nhóm 1 (五段)",
+    reason: "Đứng trước ます là âm thuộc hàng い (~i) hoặc tận cùng thể từ điển là ~く, ~ぐ, ~す, ~つ, ~ぬ, ~ぶ, ~む, ~う ➔ Thuộc Nhóm 1 (五段).",
+    isSpecialTrap: false,
+  };
+}
+
 export const VerbConjugationBoard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"matrix" | "rules" | "quiz">("matrix");
+  const [activeTab, setActiveTab] = useState<"matrix" | "verifier" | "rules" | "quiz">("matrix");
   const [groupFilter, setGroupFilter] = useState<"all" | 1 | 2 | 3 | "special">("all");
   const [search, setSearch] = useState("");
+  const [testInput, setTestInput] = useState("");
   const [visibleForms, setVisibleForms] = useState<Set<VerbFormKey>>(
     new Set(["masu", "jisho", "nai", "te", "ta", "kanou"])
   );
+
+  const testAnalysis = useMemo(() => analyzeVerbGroup(testInput), [testInput]);
 
   const toggleFormColumn = (key: VerbFormKey) => {
     setVisibleForms((prev) => {
@@ -583,40 +672,50 @@ export const VerbConjugationBoard: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-5">
         <div>
           <span className="eyebrow flex items-center gap-1.5 text-amber-700 font-bold">
-            <ArrowRightLeft size={14} /> Bảng Quy tắc Chia Động từ đầy đủ (12 Thể tiếng Nhật)
+            <ArrowRightLeft size={14} /> Bảng Quy tắc Chia Động từ & Trình Phân Nhóm
           </span>
           <h2 className="text-xl font-semibold text-gray-900 tracking-tight mt-1">
-            Tổng hợp Tất cả Các Thể & Quy tắc Chia Động từ
+            Tổng hợp Quy tắc & Trình Xác Nhận Nhóm Động Từ
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            Masu, Từ điển (う), Nai (ない), Te (て), Ta (た), Tai (たい), Khả năng, Ý định, Điều kiện, Mệnh lệnh, Bị động & Sai khiến.
+            Tra cứu ma trận 12 thể, thuật toán phân loại Nhóm 1/2/3 và kiểm tra tự động.
           </p>
         </div>
 
         {/* Top Tab Bar */}
-        <div className="flex items-center bg-gray-100 p-1.5 rounded-xl border border-gray-200/60 self-start md:self-auto">
+        <div className="flex flex-wrap items-center bg-gray-100 p-1.5 rounded-xl border border-gray-200/60 self-start md:self-auto gap-1">
           <button
             onClick={() => setActiveTab("matrix")}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               activeTab === "matrix" ? "bg-white text-rose-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
             }`}
           >
             <Table size={14} /> Bảng tra Động từ
           </button>
           <button
+            onClick={() => setActiveTab("verifier")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
+              activeTab === "verifier" ? "bg-white text-rose-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            <GitBranch size={14} /> Xác nhận Nhóm 1-2-3
+          </button>
+
+          <button
             onClick={() => setActiveTab("rules")}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               activeTab === "rules" ? "bg-white text-rose-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
             }`}
           >
-            <Lightbulb size={14} /> 12 Quy tắc Chia thể
+            <Lightbulb size={14} /> 12 Quy tắc Chia
           </button>
+
           <button
             onClick={() => {
               setActiveTab("quiz");
               if (!currentQuiz) generateQuiz();
             }}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
               activeTab === "quiz" ? "bg-white text-rose-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
             }`}
           >
@@ -822,7 +921,139 @@ export const VerbConjugationBoard: React.FC = () => {
         </div>
       )}
 
-      {/* MODE 2: FULL 12 RULES BREAKDOWN VIEW */}
+      {/* MODE 2: VERB GROUP VERIFIER & DECISION TREE (Xác Nhận Nhóm 1-2-3) */}
+      {activeTab === "verifier" && (
+        <div className="space-y-8">
+          {/* Automatic Tester Component */}
+          <div className="p-6 rounded-3xl bg-slate-900 text-white space-y-5 shadow-xl">
+            <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
+              <GitBranch className="h-5 w-5 text-rose-400" />
+              <h3 className="text-base font-bold">Trình Kiểm Tra & Phân Loại Nhóm Động Từ Tự Động</h3>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-mono text-slate-300 font-semibold block">
+                Nhập bất kỳ động từ nào (ます形, 辞書形, Romaji hoặc Kanji) để phân loại:
+              </label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  placeholder="Ví dụ: たべます, かえります, taberu, 行く, 勉強する..."
+                  value={testInput}
+                  onChange={(e) => setTestInput(e.target.value)}
+                  className="flex-1 px-4 py-2.5 text-sm bg-slate-800 border border-slate-700 text-white rounded-xl focus:border-rose-500 focus:outline-none transition-all font-mono"
+                />
+                {testInput && (
+                  <button
+                    onClick={() => setTestInput("")}
+                    className="px-3 py-2.5 text-xs bg-slate-800 hover:bg-slate-700 rounded-xl text-slate-400"
+                  >
+                    Xóa
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Analysis Output Box */}
+            {testAnalysis ? (
+              <div className="p-5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-3 animate-in fade-in duration-200">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono text-slate-400 uppercase">Kết quả Phân loại</span>
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-bold font-mono ${
+                      testAnalysis.group === 1
+                        ? "bg-amber-500/20 text-amber-300 border border-amber-500/40"
+                        : testAnalysis.group === 2
+                        ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+                        : "bg-purple-500/20 text-purple-300 border border-purple-500/40"
+                    }`}
+                  >
+                    {testAnalysis.groupLabel}
+                  </span>
+                </div>
+
+                <p className="text-sm font-medium text-slate-100 leading-relaxed">
+                  {testAnalysis.reason}
+                </p>
+
+                {testAnalysis.matchedVerb && (
+                  <div className="pt-3 border-t border-slate-700/80 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                    <div>
+                      <span className="text-[10px] text-slate-400 block font-mono">Masu</span>
+                      <span className="font-bold text-amber-400">{testAnalysis.matchedVerb.masu}</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-slate-400 block font-mono">Jisho</span>
+                      <span className="font-bold text-cyan-400">{testAnalysis.matchedVerb.jisho}</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-slate-400 block font-mono">Nai</span>
+                      <span className="font-bold text-rose-400">{testAnalysis.matchedVerb.nai}</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-slate-400 block font-mono">Te</span>
+                      <span className="font-bold text-emerald-400">{testAnalysis.matchedVerb.te}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="p-4 rounded-xl bg-slate-800/40 border border-dashed border-slate-800 text-center text-xs text-slate-500">
+                Hãy nhập động từ ở ô trên (Ví dụ: `かえります` hoặc `taberu`) để xem thuật toán phân loại và lý do!
+              </div>
+            )}
+          </div>
+
+          {/* Step-by-step Flowchart & Rationale */}
+          <div className="p-6 rounded-3xl bg-amber-50/50 border border-amber-200/80 space-y-6">
+            <div className="flex items-center gap-2 text-amber-900">
+              <Lightbulb className="h-6 w-6 text-amber-600" />
+              <h3 className="text-lg font-bold">Thuật Toán 3 Bước Phân Biệt Nhóm Động Từ (Minna no Nihongo N5)</h3>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-xs">
+              {/* Step 1 */}
+              <div className="p-5 rounded-2xl bg-white border border-amber-200 shadow-2xs space-y-3 relative">
+                <span className="p-2 rounded-xl bg-purple-600 text-white font-bold text-xs font-mono">BƯỚC 1</span>
+                <h4 className="font-bold text-purple-900 text-sm">Kiểm tra Nhóm 3 (Bất quy tắc)</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  Có phải là <strong>します</strong> (hoặc <code>N + します</code> như 勉強します, 散歩します...) hoặc <strong>来ます (きます)</strong> không?
+                </p>
+                <div className="p-2.5 rounded-xl bg-purple-50 text-purple-900 font-mono text-[11px] font-semibold">
+                  👉 Có ➔ 100% NHÓM 3!
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="p-5 rounded-2xl bg-white border border-amber-200 shadow-2xs space-y-3 relative">
+                <span className="p-2 rounded-xl bg-emerald-600 text-white font-bold text-xs font-mono">BƯỚC 2</span>
+                <h4 className="font-bold text-emerald-900 text-sm">Kiểm tra âm đứng trước ます</h4>
+                <div className="space-y-1.5 text-gray-700">
+                  <p>• <strong>Hàng え (~e)</strong> (べ, せ, て, れ...): ➔ <strong>100% NHÓM 2</strong> (VD: 食べます, 寝ます, 見せます).</p>
+                  <p>• <strong>Hàng い (~i)</strong> đặc biệt bắt buộc nhớ: 見ます, 起きます, 借ります, 降ります, 浴びます, います, できます.</p>
+                </div>
+                <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-900 font-mono text-[11px] font-semibold">
+                  👉 Thuộc các từ trên ➔ NHÓM 2!
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="p-5 rounded-2xl bg-white border border-amber-200 shadow-2xs space-y-3 relative">
+                <span className="p-2 rounded-xl bg-amber-600 text-white font-bold text-xs font-mono">BƯỚC 3</span>
+                <h4 className="font-bold text-amber-900 text-sm">Các Động từ còn lại ➔ NHÓM 1</h4>
+                <p className="text-gray-700 leading-relaxed">
+                  Đứng trước ます là âm <strong>hàng い (~i)</strong> thông thường (買います, 書きます, 飲みます, 待ちます).
+                </p>
+                <div className="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 font-mono text-[11px] font-bold">
+                  ⚠️ Bẫy N5: 帰ります (kaerimasu), 切ります (kirimasu) vẫn thuộc NHÓM 1!
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODE 3: FULL 12 RULES BREAKDOWN VIEW */}
       {activeTab === "rules" && (
         <div className="space-y-6">
           <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
@@ -957,7 +1188,7 @@ export const VerbConjugationBoard: React.FC = () => {
         </div>
       )}
 
-      {/* MODE 3: INTERACTIVE QUIZ PRACTICE */}
+      {/* MODE 4: INTERACTIVE QUIZ PRACTICE */}
       {activeTab === "quiz" && currentQuiz && (
         <div className="max-w-xl mx-auto p-6 rounded-3xl bg-slate-900 text-white space-y-6 shadow-2xl">
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">
