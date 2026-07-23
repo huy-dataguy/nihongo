@@ -18,9 +18,6 @@ import {
   Settings2,
   Sparkles,
   Target,
-  ChevronLeft,
-  ChevronRight,
-  Compass,
 } from "lucide-react";
 
 const KanaBoard = lazy(() => import("./components/KanaBoard"));
@@ -107,7 +104,7 @@ export default function App() {
     loadData();
   }, []);
 
-  // Sync state with URL Hash & Browser History (Back / Forward)
+  // Hash & Browser history popstate sync
   useEffect(() => {
     const syncFromHash = () => {
       setActiveTab(tabFromHash());
@@ -475,7 +472,6 @@ export default function App() {
     [quizQuestions, vocabularyList, grammarList, kanjiList],
   );
 
-  // Modern History Navigation Handler without forced scroll jumps
   const navigate = useCallback((destination: ActiveTab, type?: QuizQuestion["type"] | "all") => {
     if (type) setPracticeType(type);
     setActiveTab(destination);
@@ -483,14 +479,6 @@ export default function App() {
     if (window.location.hash !== nextHash) {
       window.history.pushState({ tab: destination, type }, "", nextHash);
     }
-  }, []);
-
-  const handleBrowserBack = useCallback(() => {
-    window.history.back();
-  }, []);
-
-  const handleBrowserForward = useCallback(() => {
-    window.history.forward();
   }, []);
 
   const navigation = [
@@ -514,57 +502,23 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell">
-      {/* Unified Stable Sticky Header Header Bar */}
-      <header className="app-header-unified sticky top-0 z-50 bg-[#202725]/95 backdrop-blur-md border-b border-white/10 shadow-lg">
+    <div className="app-shell bg-[#f4f3ef] min-h-screen text-slate-900 font-sans">
+      {/* Modern Glassmorphic Single Navigation Bar */}
+      <header className="sticky top-0 z-50 bg-[#1e2523]/95 backdrop-blur-xl border-b border-white/10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            {/* UI History Back / Forward Navigation Controls */}
-            <div className="hidden sm:flex items-center gap-1 bg-white/10 p-1 rounded-xl border border-white/10">
-              <button
-                onClick={handleBrowserBack}
-                title="Quay lại trang trước (Back)"
-                className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-              >
-                <ChevronLeft size={16} />
-              </button>
-              <button
-                onClick={handleBrowserForward}
-                title="Tiến trang sau (Forward)"
-                className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-              >
-                <ChevronRight size={16} />
-              </button>
+          {/* Brand Logo */}
+          <button className="brand flex items-center gap-3 cursor-pointer group" onClick={() => navigate("home")} aria-label="Về trang Hôm nay">
+            <span className="brand-mark w-10 h-10 rounded-xl bg-rose-600 text-white font-bold text-xl flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+              日
+            </span>
+            <div className="flex flex-col text-left">
+              <strong className="text-white text-base font-bold tracking-tight">nihonGo</strong>
+              <small className="text-slate-400 text-[10px] font-mono uppercase tracking-widest">JLPT N5 Companion</small>
             </div>
+          </button>
 
-            {/* Brand Logo */}
-            <button className="brand" onClick={() => navigate("home")} aria-label="Về trang Hôm nay">
-              <span className="brand-mark">日</span>
-              <span>
-                <strong>nihonGo</strong>
-                <small>JLPT N5 Assistant</small>
-              </span>
-            </button>
-          </div>
-
-          {/* Current Path Breadcrumb & Quick CTA */}
-          <div className="flex items-center gap-3">
-            <div className="hidden lg:flex items-center gap-2 text-xs text-slate-400 font-mono bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
-              <Compass size={14} className="text-rose-400" />
-              <span>nihonGo</span>
-              <span>/</span>
-              <span className="text-slate-100 font-bold">{tabLabels[activeTab]}</span>
-            </div>
-
-            <button className="quick-practice" onClick={() => navigate("practice", "all")}>
-              <Sparkles size={15} /> <span>Luyện nhanh</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Tab Navigation Sub-bar */}
-        <div className="border-t border-white/10 bg-[#171d1c]/90 backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-1 overflow-x-auto py-1 scrollbar-none">
+          {/* Desktop Navigation Link Pills */}
+          <nav className="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-2xl border border-white/10">
             {navigation.map(({ key, label, icon: Icon }) => {
               const isActive = activeTab === key;
               return (
@@ -573,7 +527,7 @@ export default function App() {
                   onClick={() => navigate(key)}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                     isActive
-                      ? "bg-rose-600 text-white shadow-sm font-bold"
+                      ? "bg-rose-600 text-white shadow-md font-bold scale-102"
                       : "text-slate-300 hover:text-white hover:bg-white/10"
                   }`}
                 >
@@ -587,12 +541,42 @@ export default function App() {
                 </button>
               );
             })}
-          </div>
+          </nav>
+
+          {/* Right Action Button */}
+          <button
+            onClick={() => navigate("practice", "all")}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white text-xs font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+          >
+            <Sparkles size={15} />
+            <span className="hidden sm:inline">Luyện nhanh 15p</span>
+          </button>
+        </div>
+
+        {/* Mobile Horizontal Navigation Scrollbar */}
+        <div className="md:hidden border-t border-white/10 bg-[#171d1c]/90 px-3 py-1.5 flex items-center gap-1 overflow-x-auto">
+          {navigation.map(({ key, label, icon: Icon }) => {
+            const isActive = activeTab === key;
+            return (
+              <button
+                key={key}
+                onClick={() => navigate(key)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                  isActive
+                    ? "bg-rose-600 text-white font-bold"
+                    : "text-slate-300 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                <Icon size={14} />
+                <span>{label}</span>
+              </button>
+            );
+          })}
         </div>
       </header>
 
       {/* Main Content Container with Fixed Stable Min-Height */}
-      <main className="app-content flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 min-h-[calc(100vh-140px)]">
+      <main className="max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 min-h-[calc(100vh-140px)]">
         {activeTab === "home" && (
           <LearningDashboard
             vocabularyCount={vocabularyList.length}
@@ -651,12 +635,12 @@ export default function App() {
         </Suspense>
       </main>
 
-      <footer className="app-footer text-center py-6 text-xs text-slate-400 font-mono">
+      <footer className="text-center py-6 text-xs text-slate-400 font-mono">
         少しずつ、毎日。 <span>nihonGo · 2026</span>
       </footer>
 
       {/* Mobile Glassmorphic Bottom Navigation Bar */}
-      <nav className="mobile-bottom-nav fixed inset-x-0 bottom-0 z-50 bg-[#171d1c]/95 backdrop-blur-lg border-t border-white/10 px-2 py-2 flex items-center justify-around sm:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-50 bg-[#171d1c]/95 backdrop-blur-lg border-t border-white/10 px-2 py-2 flex items-center justify-around md:hidden">
         {navigation.map(({ key, shortLabel, icon: Icon }) => {
           const isActive = activeTab === key;
           return (
