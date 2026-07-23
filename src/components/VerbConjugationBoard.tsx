@@ -460,6 +460,19 @@ export const ALL_VERB_FORMS = [
 
 type VerbFormKey = (typeof ALL_VERB_FORMS)[number]["key"];
 
+export function getEndingPattern(v: VerbConjugationItem): string {
+  if (v.group === 3) return "Bất quy tắc";
+  if (v.group === 2) {
+    if (v.hiragana.endsWith("える")) return "~える (~eru)";
+    if (v.hiragana.endsWith("いる")) return "~いる (~iru)";
+    return "Nhóm 2";
+  }
+  if (v.id === "v-kaeru") return "~える (Nhóm 1)";
+  const lastChar = v.hiragana.slice(-1);
+  const rom = kanaToRomaji(lastChar);
+  return `~${lastChar} (~${rom})`;
+}
+
 export const VerbConjugationBoard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"matrix" | "rules" | "quiz">("matrix");
   const [groupFilter, setGroupFilter] = useState<"all" | 1 | 2 | 3 | "special">("all");
@@ -711,9 +724,10 @@ export const VerbConjugationBoard: React.FC = () => {
             <table className="w-full text-left border-collapse min-w-[900px]">
               <thead>
                 <tr className="bg-slate-900 text-white text-[11px] font-mono uppercase font-bold tracking-wider">
-                  <th className="px-4 py-3 sticky left-0 bg-slate-900 z-10">Động từ (Kanji/Hira)</th>
+                  <th className="px-4 py-3 sticky left-0 bg-slate-900 z-10">Động từ (Kanji/Hira/Romaji)</th>
                   <th className="px-3 py-3">Nghĩa</th>
                   <th className="px-3 py-3">Nhóm</th>
+                  <th className="px-3 py-3 text-rose-300">Nhóm âm đuôi</th>
 
                   {ALL_VERB_FORMS.map(
                     (f) =>
@@ -733,7 +747,7 @@ export const VerbConjugationBoard: React.FC = () => {
                       v.isSpecial ? "bg-rose-50/30" : ""
                     }`}
                   >
-                    {/* Kanji / Hiragana */}
+                    {/* Kanji / Hiragana / Romaji */}
                     <td className="px-4 py-3 font-semibold text-slate-900 sticky left-0 bg-white shadow-2xs z-10">
                       <div className="flex items-center gap-2">
                         <button
@@ -744,11 +758,14 @@ export const VerbConjugationBoard: React.FC = () => {
                           <Volume2 size={13} className="text-slate-400 hover:text-rose-600" />
                         </button>
                         <div>
-                          <span className="text-base font-bold font-sans">{v.kanji}</span>
-                          <span className="text-[11px] text-slate-500 font-mono ml-2">({v.hiragana})</span>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-base font-bold font-sans">{v.kanji}</span>
+                            <span className="text-[11px] text-slate-500 font-mono">({v.hiragana})</span>
+                          </div>
+                          <span className="text-[10px] text-rose-600 font-mono block">Romaji: {v.romaji}</span>
                           {v.isSpecial && (
-                            <span className="ml-1.5 px-1.5 py-0.5 rounded bg-rose-100 text-rose-700 text-[10px] font-bold">
-                              Bẫy
+                            <span className="inline-block mt-0.5 px-1.5 py-0.2 rounded bg-rose-100 text-rose-700 text-[10px] font-bold">
+                              Bẫy hay sai
                             </span>
                           )}
                         </div>
@@ -776,12 +793,24 @@ export const VerbConjugationBoard: React.FC = () => {
                       </span>
                     </td>
 
-                    {/* Dynamic Selected Form Columns */}
+                    {/* Ending Pattern Sound */}
+                    <td className="px-3 py-3 font-mono font-bold text-rose-700 whitespace-nowrap bg-rose-50/20">
+                      {getEndingPattern(v)}
+                    </td>
+
+                    {/* Dynamic Selected Form Columns with Romaji */}
                     {ALL_VERB_FORMS.map(
                       (f) =>
                         visibleForms.has(f.key) && (
                           <td key={f.key} className={`px-3 py-3 font-semibold whitespace-nowrap ${f.color}`}>
-                            {v[f.key] || "—"}
+                            <div className="flex flex-col">
+                              <span>{v[f.key] || "—"}</span>
+                              {v[f.key] && v[f.key] !== "—" && (
+                                <span className="text-[10px] font-mono opacity-65 font-normal">
+                                  {kanaToRomaji(v[f.key])}
+                                </span>
+                              )}
+                            </div>
                           </td>
                         )
                     )}
