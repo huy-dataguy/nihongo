@@ -690,11 +690,13 @@ export const VerbConjugationBoard: React.FC = () => {
 
               <div className="p-4 rounded-xl bg-white border border-rose-200 shadow-2xs space-y-2">
                 <span className="font-bold text-emerald-800 font-mono uppercase text-[11px]">Nhóm 2 (一段)</span>
-                <p className="text-gray-700">Bỏ <strong>ます</strong> ➔ <strong>＋ ない</strong></p>
+                <p className="text-gray-700">
+                  Đuôi <strong>~える (~eru) / ~いる (~iru)</strong>: Bỏ <strong>る</strong> (hoặc bỏ <strong>ます</strong>) ➔ <strong>＋ ない</strong>
+                </p>
                 <div className="p-2 bg-emerald-50 rounded-lg text-emerald-900 font-mono space-y-1">
-                  <div>食べます ➔ 食べ<strong>ない</strong> (tabe-nai)</div>
-                  <div>見ます ➔ 見<strong>ない</strong> (mi-nai)</div>
-                  <div>起きます ➔ 起き<strong>ない</strong> (oki-nai)</div>
+                  <div>食<strong>べる</strong> (taberu) ➔ 食<strong>べない</strong> (tabe-nai)</div>
+                  <div>見<strong>る</strong> (miru) ➔ 見<strong>ない</strong> (mi-nai)</div>
+                  <div>起き<strong>る</strong> (okiru) ➔ 起き<strong>ない</strong> (oki-nai)</div>
                 </div>
               </div>
 
