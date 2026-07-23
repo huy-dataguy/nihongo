@@ -85,10 +85,6 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>(tabFromHash);
   const [practiceType, setPracticeType] = useState<QuizQuestion["type"] | "all">(practiceTypeFromHash);
 
-  // History state for UI back/forward buttons
-  const [canGoBack, setCanGoBack] = useState(false);
-  const [canGoForward, setCanGoForward] = useState(false);
-
   // Main datasets
   const [vocabularyList, setVocabularyList] = useState<VocabularyItem[]>([]);
   const [grammarList, setGrammarList] = useState<GrammarItem[]>([]);
@@ -111,17 +107,15 @@ export default function App() {
     loadData();
   }, []);
 
-  // Hash & Popstate sync for browser history + subtab state preservation
+  // Sync state with URL Hash & Browser History (Back / Forward)
   useEffect(() => {
     const syncFromHash = () => {
       setActiveTab(tabFromHash());
       setPracticeType(practiceTypeFromHash());
-      setCanGoBack(window.history.length > 1);
     };
 
     window.addEventListener("hashchange", syncFromHash);
     window.addEventListener("popstate", syncFromHash);
-    syncFromHash();
 
     return () => {
       window.removeEventListener("hashchange", syncFromHash);
@@ -481,7 +475,7 @@ export default function App() {
     [quizQuestions, vocabularyList, grammarList, kanjiList],
   );
 
-  // Modern History Navigation Handler
+  // Modern History Navigation Handler without forced scroll jumps
   const navigate = useCallback((destination: ActiveTab, type?: QuizQuestion["type"] | "all") => {
     if (type) setPracticeType(type);
     setActiveTab(destination);
@@ -489,7 +483,6 @@ export default function App() {
     if (window.location.hash !== nextHash) {
       window.history.pushState({ tab: destination, type }, "", nextHash);
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const handleBrowserBack = useCallback(() => {
@@ -522,65 +515,84 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      {/* Sleek App Topbar */}
-      <header className="app-topbar">
-        <div className="flex items-center gap-3">
-          {/* UI History Back / Forward Navigation Controls */}
-          <div className="hidden sm:flex items-center gap-1 bg-white/10 p-1 rounded-xl border border-white/10">
-            <button
-              onClick={handleBrowserBack}
-              title="Quay lại trang trước (Back)"
-              className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-            >
-              <ChevronLeft size={16} />
-            </button>
-            <button
-              onClick={handleBrowserForward}
-              title="Tiến trang sau (Forward)"
-              className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-            >
-              <ChevronRight size={16} />
+      {/* Unified Stable Sticky Header Header Bar */}
+      <header className="app-header-unified sticky top-0 z-50 bg-[#202725]/95 backdrop-blur-md border-b border-white/10 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            {/* UI History Back / Forward Navigation Controls */}
+            <div className="hidden sm:flex items-center gap-1 bg-white/10 p-1 rounded-xl border border-white/10">
+              <button
+                onClick={handleBrowserBack}
+                title="Quay lại trang trước (Back)"
+                className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <button
+                onClick={handleBrowserForward}
+                title="Tiến trang sau (Forward)"
+                className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+
+            {/* Brand Logo */}
+            <button className="brand" onClick={() => navigate("home")} aria-label="Về trang Hôm nay">
+              <span className="brand-mark">日</span>
+              <span>
+                <strong>nihonGo</strong>
+                <small>JLPT N5 Assistant</small>
+              </span>
             </button>
           </div>
 
-          {/* Brand Logo */}
-          <button className="brand" onClick={() => navigate("home")} aria-label="Về trang Hôm nay">
-            <span className="brand-mark">日</span>
-            <span>
-              <strong>nihonGo</strong>
-              <small>JLPT N5 Assistant</small>
-            </span>
-          </button>
+          {/* Current Path Breadcrumb & Quick CTA */}
+          <div className="flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-2 text-xs text-slate-400 font-mono bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
+              <Compass size={14} className="text-rose-400" />
+              <span>nihonGo</span>
+              <span>/</span>
+              <span className="text-slate-100 font-bold">{tabLabels[activeTab]}</span>
+            </div>
+
+            <button className="quick-practice" onClick={() => navigate("practice", "all")}>
+              <Sparkles size={15} /> <span>Luyện nhanh</span>
+            </button>
+          </div>
         </div>
 
-        {/* Current Path Breadcrumb & Quick CTA */}
-        <div className="flex items-center gap-3">
-          <div className="hidden lg:flex items-center gap-2 text-xs text-slate-400 font-mono bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
-            <Compass size={14} className="text-rose-400" />
-            <span>nihonGo</span>
-            <span>/</span>
-            <span className="text-slate-100 font-bold">{tabLabels[activeTab]}</span>
+        {/* Tab Navigation Sub-bar */}
+        <div className="border-t border-white/10 bg-[#171d1c]/90 backdrop-blur-md">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-1 overflow-x-auto py-1 scrollbar-none">
+            {navigation.map(({ key, label, icon: Icon }) => {
+              const isActive = activeTab === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => navigate(key)}
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                    isActive
+                      ? "bg-rose-600 text-white shadow-sm font-bold"
+                      : "text-slate-300 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <Icon size={15} strokeWidth={isActive ? 2.2 : 1.8} />
+                  <span>{label}</span>
+                  {key === "practice" && (
+                    <span className={`px-1.5 py-0.2 text-[10px] rounded-full font-mono ${isActive ? "bg-white/20 text-white" : "bg-slate-800 text-slate-400"}`}>
+                      {compactCount(practiceQuestions.length)}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
-
-          <button className="quick-practice" onClick={() => navigate("practice", "all")}>
-            <Sparkles size={15} /> <span>Luyện nhanh</span>
-          </button>
         </div>
       </header>
 
-      {/* Sticky Tab Navigation Bar with Active Indicators */}
-      <nav className="top-tabs" aria-label="Điều hướng chính">
-        {navigation.map(({ key, label, icon: Icon }) => (
-          <button key={key} className={activeTab === key ? "active" : ""} onClick={() => navigate(key)}>
-            <Icon size={16} strokeWidth={activeTab === key ? 2.3 : 1.8} />
-            <span>{label}</span>
-            {key === "practice" && <small>{compactCount(practiceQuestions.length)}</small>}
-          </button>
-        ))}
-      </nav>
-
-      {/* Main Content Area with Smooth Page Transition Container */}
-      <main className="app-content animate-page-enter" key={activeTab}>
+      {/* Main Content Container with Fixed Stable Min-Height */}
+      <main className="app-content flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 min-h-[calc(100vh-140px)]">
         {activeTab === "home" && (
           <LearningDashboard
             vocabularyCount={vocabularyList.length}
@@ -594,7 +606,14 @@ export default function App() {
           />
         )}
 
-        <Suspense fallback={<div className="board-loading"><span /><p>Đang mở bài học...</p></div>}>
+        <Suspense
+          fallback={
+            <div className="min-h-[500px] flex flex-col items-center justify-center gap-3 bg-white/60 rounded-3xl border border-stone-200/80 shadow-xs">
+              <div className="w-8 h-8 border-3 border-rose-500 border-t-transparent rounded-full animate-spin" />
+              <p className="text-xs text-slate-500 font-semibold font-mono">Đang tải bài học...</p>
+            </div>
+          }
+        >
           {activeTab === "kana" && <KanaBoard onPractice={() => navigate("practice", "kana")} />}
 
           {activeTab === "vocabulary" && (
@@ -632,15 +651,27 @@ export default function App() {
         </Suspense>
       </main>
 
-      <footer className="app-footer">少しずつ、毎日。 <span>nihonGo · 2026</span></footer>
+      <footer className="app-footer text-center py-6 text-xs text-slate-400 font-mono">
+        少しずつ、毎日。 <span>nihonGo · 2026</span>
+      </footer>
 
       {/* Mobile Glassmorphic Bottom Navigation Bar */}
-      <nav className="mobile-bottom-nav" aria-label="Điều hướng di động">
-        {navigation.map(({ key, shortLabel, icon: Icon }) => (
-          <button key={key} className={activeTab === key ? "active" : ""} onClick={() => navigate(key)}>
-            <Icon size={18} /><span>{shortLabel}</span>
-          </button>
-        ))}
+      <nav className="mobile-bottom-nav fixed inset-x-0 bottom-0 z-50 bg-[#171d1c]/95 backdrop-blur-lg border-t border-white/10 px-2 py-2 flex items-center justify-around sm:hidden">
+        {navigation.map(({ key, shortLabel, icon: Icon }) => {
+          const isActive = activeTab === key;
+          return (
+            <button
+              key={key}
+              onClick={() => navigate(key)}
+              className={`flex flex-col items-center gap-1 px-2 py-1 rounded-xl text-[10px] font-semibold transition-all ${
+                isActive ? "text-rose-400 font-bold" : "text-slate-400"
+              }`}
+            >
+              <Icon size={18} />
+              <span>{shortLabel}</span>
+            </button>
+          );
+        })}
       </nav>
     </div>
   );
