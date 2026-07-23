@@ -18,6 +18,9 @@ import {
   Settings2,
   Sparkles,
   Target,
+  ChevronLeft,
+  ChevronRight,
+  Compass,
 } from "lucide-react";
 
 const KanaBoard = lazy(() => import("./components/KanaBoard"));
@@ -31,22 +34,35 @@ type ActiveTab = "home" | "kana" | "vocabulary" | "kanji" | "grammar" | "practic
 
 const validTabs: ActiveTab[] = ["home", "kana", "vocabulary", "kanji", "grammar", "practice", "import"];
 
+const tabLabels: Record<ActiveTab, string> = {
+  home: "Hôm nay",
+  kana: "Bảng chữ Kana",
+  vocabulary: "Từ vựng N5",
+  kanji: "Hán tự Kanji N5",
+  grammar: "Ngữ pháp & Chia thể",
+  practice: "Luyện tập & Phản xạ",
+  import: "Dữ liệu & AI",
+};
+
 function tabFromHash(): ActiveTab {
-  const candidate = window.location.hash.replace("#", "").split(":")[0] as ActiveTab;
+  const hash = window.location.hash.replace("#", "");
+  const candidate = hash.split(":")[0] as ActiveTab;
   return validTabs.includes(candidate) ? candidate : "home";
 }
 
 function practiceTypeFromHash(): QuizQuestion["type"] | "all" {
-  const candidate = window.location.hash.replace("#", "").split(":")[1];
-  return ["vocabulary", "grammar", "kanji", "kana"].includes(candidate) ? candidate as QuizQuestion["type"] : "all";
+  const hash = window.location.hash.replace("#", "");
+  const candidate = hash.split(":")[1];
+  return ["vocabulary", "grammar", "kanji", "kana"].includes(candidate)
+    ? (candidate as QuizQuestion["type"])
+    : "all";
 }
 
 function compactCount(value: number) {
   return value >= 1000 ? `${(value / 1000).toFixed(1)}k` : String(value);
 }
 
-// Supabase/PostgREST caps a bare `.select()` at 1000 rows — page through with
-// `.range()` so tables that grow past that (vocabulary already has) load in full.
+// Supabase pagination helper
 async function fetchAllRows(table: string): Promise<any[]> {
   const pageSize = 1000;
   const rows: any[] = [];
@@ -69,7 +85,11 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>(tabFromHash);
   const [practiceType, setPracticeType] = useState<QuizQuestion["type"] | "all">(practiceTypeFromHash);
 
-  // Main lists loaded from Supabase
+  // History state for UI back/forward buttons
+  const [canGoBack, setCanGoBack] = useState(false);
+  const [canGoForward, setCanGoForward] = useState(false);
+
+  // Main datasets
   const [vocabularyList, setVocabularyList] = useState<VocabularyItem[]>([]);
   const [grammarList, setGrammarList] = useState<GrammarItem[]>([]);
   const [kanjiList, setKanjiList] = useState<KanjiItem[]>([]);
@@ -84,25 +104,44 @@ export default function App() {
     favorites: [],
   });
 
-  // Loading state
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load all data from Supabase on mount
+  // Load all data on mount
   useEffect(() => {
     loadData();
   }, []);
 
+  // Hash & Popstate sync for browser history + subtab state preservation
   useEffect(() => {
     const syncFromHash = () => {
       setActiveTab(tabFromHash());
       setPracticeType(practiceTypeFromHash());
+      setCanGoBack(window.history.length > 1);
     };
+
     window.addEventListener("hashchange", syncFromHash);
     window.addEventListener("popstate", syncFromHash);
+    syncFromHash();
+
     return () => {
       window.removeEventListener("hashchange", syncFromHash);
       window.removeEventListener("popstate", syncFromHash);
     };
+  }, []);
+
+  // Keyboard shortcut navigation (Alt + 1..7)
+  useEffect(() => {
+    function handleGlobalKeys(e: KeyboardEvent) {
+      if (e.altKey && e.key >= "1" && e.key <= "7") {
+        e.preventDefault();
+        const tabIndex = parseInt(e.key, 10) - 1;
+        if (validTabs[tabIndex]) {
+          navigate(validTabs[tabIndex]);
+        }
+      }
+    }
+    window.addEventListener("keydown", handleGlobalKeys);
+    return () => window.removeEventListener("keydown", handleGlobalKeys);
   }, []);
 
   async function loadData() {
@@ -117,15 +156,11 @@ export default function App() {
         supabase.from("study_progress").select("*").eq("id", 1).single(),
       ]);
 
-      // Map DB rows (snake_case) → TypeScript interfaces (camelCase). Starter data keeps
-      // the app useful in local/offline environments where Supabase is not configured.
       setVocabularyList(vocabRows.length ? vocabRows.map(mapVocabRow) : starterVocabulary);
       setGrammarList(grammarRows.length ? grammarRows.map(mapGrammarRow) : starterGrammar);
       setKanjiList(kanjiRows.length ? kanjiRows.map(mapKanjiRow) : starterKanji);
       setQuizQuestions(quizRows.length ? quizRows.map(mapQuizRow) : starterQuizzes);
-      setImportLogs(
-        (logsRes.data || []).map(mapLogRow)
-      );
+      setImportLogs((logsRes.data || []).map(mapLogRow));
 
       if (progressRes.data) {
         const p = progressRes.data;
@@ -147,7 +182,6 @@ export default function App() {
     }
   }
 
-  // Row mappers: snake_case DB → camelCase TS
   function mapVocabRow(row: any): VocabularyItem {
     return {
       id: row.id,
@@ -214,7 +248,6 @@ export default function App() {
     };
   }
 
-  // Toggle favorite — update Supabase
   const toggleFavorite = useCallback(async (id: string) => {
     const updated = favorites.includes(id)
       ? favorites.filter((fid) => fid !== id)
@@ -230,7 +263,6 @@ export default function App() {
     });
   }, [favorites, studyProgress]);
 
-  // Quiz complete — update Supabase
   const handleQuizComplete = useCallback(async (score: number, total: number) => {
     const quizId = `score-${Date.now()}`;
     const updatedProgress = {
@@ -255,7 +287,6 @@ export default function App() {
     });
   }, [studyProgress, favorites]);
 
-  // AI Import — insert new data into Supabase
   const handleDataImported = useCallback(async (parsedData: any) => {
     const timestamp = Date.now();
 
@@ -300,7 +331,6 @@ export default function App() {
       is_custom: true,
     }));
 
-    // Insert into Supabase
     const [vocabRes, grammarRes, kanjiRes, quizRes] = await Promise.all([
       newVocab.length > 0 ? supabase.from("vocabulary").insert(newVocab) : Promise.resolve({ error: null }),
       newGrammar.length > 0 ? supabase.from("grammar").insert(newGrammar) : Promise.resolve({ error: null }),
@@ -313,13 +343,11 @@ export default function App() {
       throw new Error("Lỗi khi lưu dữ liệu vào database.");
     }
 
-    // Update local state
     setVocabularyList((prev) => [...newVocab.map(mapVocabRow), ...prev]);
     setGrammarList((prev) => [...newGrammar.map(mapGrammarRow), ...prev]);
     setKanjiList((prev) => [...newKanji.map(mapKanjiRow), ...prev]);
     setQuizQuestions((prev) => [...newQuizzes.map(mapQuizRow), ...prev]);
 
-    // Save import log
     const newLog = {
       id: `log-${timestamp}`,
       date: new Date().toLocaleString("vi-VN"),
@@ -336,7 +364,6 @@ export default function App() {
     setImportLogs((prev) => [mapLogRow(newLog), ...prev]);
   }, []);
 
-  // Clear all custom data — delete from Supabase, reload
   const clearAllCustomData = useCallback(async () => {
     await Promise.all([
       supabase.from("vocabulary").delete().eq("is_custom", true),
@@ -354,11 +381,9 @@ export default function App() {
       updated_at: new Date().toISOString(),
     });
 
-    // Reload fresh data
     await loadData();
   }, []);
 
-  // Export backup as JSON
   const exportBackup = useCallback(() => {
     const backupData = {
       vocabularyList,
@@ -378,7 +403,6 @@ export default function App() {
     URL.revokeObjectURL(url);
   }, [vocabularyList, grammarList, kanjiList, quizQuestions, favorites, studyProgress, importLogs]);
 
-  // Import backup — upsert into Supabase
   const importBackup = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -388,7 +412,6 @@ export default function App() {
       try {
         const parsed = JSON.parse(e.target?.result as string);
 
-        // Upsert all data into Supabase
         if (parsed.vocabularyList?.length) {
           const rows = parsed.vocabularyList.map((v: VocabularyItem) => ({
             id: v.id, word: v.word, reading: v.reading, romaji: v.romaji || "",
@@ -419,7 +442,6 @@ export default function App() {
           await supabase.from("quizzes").upsert(rows);
         }
 
-        // Reload to get fresh data from DB
         await loadData();
         alert("Đã khôi phục dữ liệu từ tệp sao lưu thành công!");
       } catch (err) {
@@ -429,7 +451,6 @@ export default function App() {
     reader.readAsText(file);
   }, []);
 
-  // Calculate statistics
   const localQuizHistory = useMemo(() => {
     try {
       return JSON.parse(localStorage.getItem("n5_quiz_history") || "[]") as Array<{ percent?: number }>;
@@ -437,7 +458,9 @@ export default function App() {
       return [];
     }
   }, [studyProgress.quizScores]);
+
   const totalCompletedQuizzes = Math.max(Object.keys(studyProgress.quizScores).length, localQuizHistory.length);
+
   const averageAccuracy = useMemo(() => {
     const scores = Object.values(studyProgress.quizScores) as StudyProgress["quizScores"][string][];
     if (scores.length > 0) {
@@ -458,12 +481,23 @@ export default function App() {
     [quizQuestions, vocabularyList, grammarList, kanjiList],
   );
 
+  // Modern History Navigation Handler
   const navigate = useCallback((destination: ActiveTab, type?: QuizQuestion["type"] | "all") => {
     if (type) setPracticeType(type);
     setActiveTab(destination);
     const nextHash = destination === "practice" && type && type !== "all" ? `#${destination}:${type}` : `#${destination}`;
-    if (window.location.hash !== nextHash) window.history.pushState(null, "", nextHash);
+    if (window.location.hash !== nextHash) {
+      window.history.pushState({ tab: destination, type }, "", nextHash);
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const handleBrowserBack = useCallback(() => {
+    window.history.back();
+  }, []);
+
+  const handleBrowserForward = useCallback(() => {
+    window.history.forward();
   }, []);
 
   const navigation = [
@@ -488,16 +522,53 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      {/* Sleek App Topbar */}
       <header className="app-topbar">
-        <button className="brand" onClick={() => navigate("home")} aria-label="Về trang Hôm nay">
-          <span className="brand-mark">日</span>
-          <span><strong>nihonGo</strong><small>JLPT N5 companion</small></span>
-        </button>
-        <button className="quick-practice" onClick={() => navigate("practice", "all")}>
-          <Sparkles size={15} /> <span>Luyện nhanh</span>
-        </button>
+        <div className="flex items-center gap-3">
+          {/* UI History Back / Forward Navigation Controls */}
+          <div className="hidden sm:flex items-center gap-1 bg-white/10 p-1 rounded-xl border border-white/10">
+            <button
+              onClick={handleBrowserBack}
+              title="Quay lại trang trước (Back)"
+              className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              onClick={handleBrowserForward}
+              title="Tiến trang sau (Forward)"
+              className="p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
+
+          {/* Brand Logo */}
+          <button className="brand" onClick={() => navigate("home")} aria-label="Về trang Hôm nay">
+            <span className="brand-mark">日</span>
+            <span>
+              <strong>nihonGo</strong>
+              <small>JLPT N5 Assistant</small>
+            </span>
+          </button>
+        </div>
+
+        {/* Current Path Breadcrumb & Quick CTA */}
+        <div className="flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2 text-xs text-slate-400 font-mono bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
+            <Compass size={14} className="text-rose-400" />
+            <span>nihonGo</span>
+            <span>/</span>
+            <span className="text-slate-100 font-bold">{tabLabels[activeTab]}</span>
+          </div>
+
+          <button className="quick-practice" onClick={() => navigate("practice", "all")}>
+            <Sparkles size={15} /> <span>Luyện nhanh</span>
+          </button>
+        </div>
       </header>
 
+      {/* Sticky Tab Navigation Bar with Active Indicators */}
       <nav className="top-tabs" aria-label="Điều hướng chính">
         {navigation.map(({ key, label, icon: Icon }) => (
           <button key={key} className={activeTab === key ? "active" : ""} onClick={() => navigate(key)}>
@@ -508,7 +579,8 @@ export default function App() {
         ))}
       </nav>
 
-      <main className="app-content">
+      {/* Main Content Area with Smooth Page Transition Container */}
+      <main className="app-content animate-page-enter" key={activeTab}>
         {activeTab === "home" && (
           <LearningDashboard
             vocabularyCount={vocabularyList.length}
@@ -562,6 +634,7 @@ export default function App() {
 
       <footer className="app-footer">少しずつ、毎日。 <span>nihonGo · 2026</span></footer>
 
+      {/* Mobile Glassmorphic Bottom Navigation Bar */}
       <nav className="mobile-bottom-nav" aria-label="Điều hướng di động">
         {navigation.map(({ key, shortLabel, icon: Icon }) => (
           <button key={key} className={activeTab === key ? "active" : ""} onClick={() => navigate(key)}>
