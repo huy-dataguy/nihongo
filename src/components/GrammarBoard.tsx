@@ -1,6 +1,7 @@
 import React, { useState, useMemo, Fragment } from "react";
 import { GrammarItem, GrammarExample } from "../types";
 import { speakJapanese } from "../utils/audio";
+import { kanaToRomaji } from "../utils/kanaToRomaji";
 import { ChevronDown, ChevronUp, Volume2, BookOpen, Clock, Search, Target } from "lucide-react";
 
 // ============================================
@@ -424,11 +425,16 @@ export default function GrammarBoard({ grammarList, onPractice }: GrammarBoardPr
 
     // Legacy format (japanese / reading / meaning)
     if (ex.japanese) {
+      const rom = ex.reading ? kanaToRomaji(ex.reading) : kanaToRomaji(ex.japanese);
       return (
         <div key={i} className="bg-white p-3 rounded-xl border border-gray-100 flex items-start justify-between gap-4 hover:border-amber-200 transition-colors group">
           <div className="space-y-1">
             <p className="text-sm font-semibold text-gray-900">{highlightJapanese(ex.japanese)}</p>
-            {ex.reading && <p className="text-xs text-gray-400 italic">[{ex.reading}]</p>}
+            {ex.reading && (
+              <p className="text-xs text-gray-500 font-mono">
+                [{ex.reading}{rom ? ` • ${rom}` : ""}]
+              </p>
+            )}
             {ex.meaning && <p className="text-xs text-gray-600">{ex.meaning}</p>}
           </div>
           <button onClick={() => speakJapanese(ex.japanese)} className="p-1.5 text-gray-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors shrink-0" title="Nghe">

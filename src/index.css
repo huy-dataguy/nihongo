@@ -95,7 +95,7 @@
 .brand small { display: block; margin-top: 2px; color: #86918d; font-size: 9px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
 
 .app-topbar {
-  position: sticky; top: 0; z-index: 40; height: 64px; display: flex; align-items: center; justify-content: space-between;
+  position: relative; height: 64px; display: flex; align-items: center; justify-content: space-between;
   padding: 0 clamp(22px, 4vw, 54px); border-bottom: 1px solid rgba(19,27,38,.07);
   background: #202725;
 }
@@ -105,9 +105,9 @@
 .quick-practice:hover { border-color: #f47d5f; color: #f6a48e; transform: translateY(-1px); }
 
 .top-tabs {
-  position: sticky; top: 64px; z-index: 39; display: flex; align-items: center; gap: 2px;
+  position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 2px;
   padding: 0 clamp(22px, 4vw, 54px); border-bottom: 1px solid rgba(19,27,38,.07); overflow-x: auto;
-  background: rgba(247,246,242,.92); backdrop-filter: blur(16px);
+  background: rgba(247,246,242,.95); backdrop-filter: blur(16px);
 }
 .top-tabs button {
   position: relative; display: flex; align-items: center; gap: 7px; padding: 14px 13px;

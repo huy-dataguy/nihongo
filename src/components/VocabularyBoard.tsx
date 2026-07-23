@@ -327,9 +327,33 @@ export default function VocabularyBoard({
                         </td>
                       )}
 
-                      {/* Meaning */}
+                      {/* Meaning & Examples */}
                       <td className="py-3.5 px-4 text-gray-700">
                         <span className="font-medium text-gray-800">{item.meaning}</span>
+                        {item.examples && item.examples.length > 0 && (
+                          <div className="mt-1.5 space-y-1">
+                            {item.examples.map((ex, idx) => (
+                              <div key={idx} className="text-xs bg-gray-50/80 p-2 rounded-lg border border-gray-100/80 space-y-0.5">
+                                <div className="flex items-center gap-1.5 flex-wrap">
+                                  <span className="font-semibold text-gray-800">{ex.japanese}</span>
+                                  {ex.reading && (
+                                    <span className="text-gray-500 font-mono text-[11px]">
+                                      ({ex.reading}{kanaToRomaji(ex.reading) ? ` • ${kanaToRomaji(ex.reading)}` : ""})
+                                    </span>
+                                  )}
+                                  <button
+                                    onClick={() => speakJapanese(ex.japanese)}
+                                    className="p-0.5 text-gray-400 hover:text-amber-700 transition-colors ml-auto"
+                                    title="Nghe ví dụ"
+                                  >
+                                    <Volume2 size={12} />
+                                  </button>
+                                </div>
+                                {ex.meaning && <p className="text-gray-600 text-[11px]">{ex.meaning}</p>}
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </td>
 
                       {/* TTS Speak Word */}
@@ -357,6 +381,16 @@ export default function VocabularyBoard({
                     <strong>{item.word}</strong>
                     {showReadings && <span>{item.reading} · {getRomaji(item.reading, item.romaji)}</span>}
                     <p>{item.meaning}</p>
+                    {item.examples && item.examples.length > 0 && (
+                      <div className="mt-1.5 space-y-1 text-xs">
+                        {item.examples.map((ex, idx) => (
+                          <div key={idx} className="bg-gray-50/90 p-1.5 rounded text-[11px] text-gray-600">
+                            <div><strong>{ex.japanese}</strong> ({ex.reading} • {kanaToRomaji(ex.reading)})</div>
+                            <div>{ex.meaning}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <button onClick={() => speakJapanese(item.word)} aria-label={`Nghe ${item.word}`}><Volume2 size={16} /></button>
                 </article>
