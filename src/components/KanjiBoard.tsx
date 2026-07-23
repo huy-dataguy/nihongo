@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { KanjiItem, KanjiCompound } from "../types";
 import { KANJI_N5_REFERENCE, LESSON_TOPICS } from "../data/kanjiN5Reference";
 import { speakJapanese } from "../utils/audio";
+import { kanaToRomaji } from "../utils/kanaToRomaji";
 import {
   Volume2,
   Search,
@@ -78,10 +79,12 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
       const hay = [
         k.character,
         k.onyomi,
+        kanaToRomaji(k.onyomi),
         k.kunyomi,
+        kanaToRomaji(k.kunyomi),
         k.hanViet,
         k.meaning,
-        ...k.examples.map((e) => `${e.word} ${e.reading} ${e.meaning}`),
+        ...k.examples.map((e) => `${e.word} ${e.reading} ${kanaToRomaji(e.reading)} ${e.meaning}`),
       ]
         .join(" ")
         .toLowerCase();
@@ -158,7 +161,7 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
           <span className="eyebrow">Hán tự theo bài</span>
           <h2 className="text-xl font-semibold text-gray-900 tracking-tight mt-1">Kanji N5</h2>
           <p className="text-sm text-gray-500 mt-1">
-            Âm On, Âm Kun, âm Hán Việt, nghĩa gốc và từ ghép minh họa — {mergedList.length} chữ, Bài{" "}
+            Âm On, Âm Kun, âm Romaji, âm Hán Việt, nghĩa gốc và từ ghép minh họa — {mergedList.length} chữ, Bài{" "}
             {lessons[0] ?? "-"}–{lessons[lessons.length - 1] ?? "-"}
           </p>
         </div>
@@ -169,7 +172,7 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
             <input
               type="text"
-              placeholder="Tìm chữ Hán, nghĩa, âm đọc..."
+              placeholder="Tìm chữ Hán, nghĩa, romaji..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-8 pr-3 py-1.5 text-xs bg-gray-50 hover:bg-gray-100/50 focus:bg-white rounded-lg border border-gray-200 focus:border-amber-300 focus:outline-none transition-all"
@@ -271,25 +274,48 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
                             {k.character}
                           </button>
                         </td>
-                        <td className="px-3 py-2.5 text-xs font-semibold text-amber-800 whitespace-nowrap">{k.onyomi || "—"}</td>
-                        <td className="px-3 py-2.5 text-xs italic font-medium text-emerald-800 whitespace-nowrap">{k.kunyomi || "—"}</td>
+                        <td className="px-3 py-2.5 text-xs font-semibold text-amber-800 whitespace-nowrap">
+                          {k.onyomi ? (
+                            <div>
+                              <div>{k.onyomi}</div>
+                              <div className="text-[10px] font-normal text-amber-700/70 font-mono">{kanaToRomaji(k.onyomi)}</div>
+                            </div>
+                          ) : (
+                            "—"
+                          )}
+                        </td>
+                        <td className="px-3 py-2.5 text-xs italic font-medium text-emerald-800 whitespace-nowrap">
+                          {k.kunyomi ? (
+                            <div>
+                              <div>{k.kunyomi}</div>
+                              <div className="text-[10px] not-italic font-normal text-emerald-700/70 font-mono">{kanaToRomaji(k.kunyomi)}</div>
+                            </div>
+                          ) : (
+                            "—"
+                          )}
+                        </td>
                         <td className="px-3 py-2.5 text-xs font-bold text-rose-700 whitespace-nowrap">{k.hanViet || "—"}</td>
                         <td className="px-3 py-2.5 text-xs text-gray-700">{k.meaning}</td>
                         <td className="px-3 py-2.5 text-xs text-gray-500">
-                          {k.examples.map((ex, i) => (
-                            <div key={i} className="flex items-center gap-1.5">
-                              <span className="font-semibold text-gray-700">{ex.word}</span>
-                              <span className="text-gray-400">({ex.reading})</span>
-                              <span>— {ex.meaning}</span>
-                              <button
-                                onClick={() => speakJapanese(ex.word)}
-                                className="text-gray-300 hover:text-amber-700 transition-colors"
-                                title="Phát âm từ ghép"
-                              >
-                                <Volume2 size={11} />
-                              </button>
-                            </div>
-                          ))}
+                          {k.examples.map((ex, i) => {
+                            const rom = kanaToRomaji(ex.reading);
+                            return (
+                              <div key={i} className="flex items-center gap-1.5 flex-wrap">
+                                <span className="font-semibold text-gray-700">{ex.word}</span>
+                                <span className="text-gray-400">
+                                  ({ex.reading}{rom ? ` • ${rom}` : ""})
+                                </span>
+                                <span>— {ex.meaning}</span>
+                                <button
+                                  onClick={() => speakJapanese(ex.word)}
+                                  className="text-gray-300 hover:text-amber-700 transition-colors"
+                                  title="Phát âm từ ghép"
+                                >
+                                  <Volume2 size={11} />
+                                </button>
+                              </div>
+                            );
+                          })}
                         </td>
                       </tr>
                     ))}
@@ -340,17 +366,35 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
                     revealed ? "opacity-100 blur-none" : "opacity-40 blur-sm"
                   }`}
                 >
-                  <div className="flex items-center gap-4 text-sm">
-                    <span><span className="text-gray-400 font-mono text-[10px] mr-1">ON</span><span className="font-semibold text-amber-800">{currentCard.onyomi || "—"}</span></span>
-                    <span><span className="text-gray-400 font-mono text-[10px] mr-1">KUN</span><span className="italic font-medium text-emerald-800">{currentCard.kunyomi || "—"}</span></span>
-                    <span><span className="text-gray-400 font-mono text-[10px] mr-1">HV</span><span className="font-bold text-rose-700">{currentCard.hanViet || "—"}</span></span>
+                  <div className="flex flex-wrap justify-center items-center gap-4 text-sm">
+                    <span>
+                      <span className="text-gray-400 font-mono text-[10px] mr-1">ON</span>
+                      <span className="font-semibold text-amber-800">{currentCard.onyomi || "—"}</span>
+                      {currentCard.onyomi && (
+                        <span className="text-amber-700/70 font-mono text-xs ml-1">({kanaToRomaji(currentCard.onyomi)})</span>
+                      )}
+                    </span>
+                    <span>
+                      <span className="text-gray-400 font-mono text-[10px] mr-1">KUN</span>
+                      <span className="italic font-medium text-emerald-800">{currentCard.kunyomi || "—"}</span>
+                      {currentCard.kunyomi && (
+                        <span className="text-emerald-700/70 font-mono text-xs ml-1 not-italic">({kanaToRomaji(currentCard.kunyomi)})</span>
+                      )}
+                    </span>
+                    <span>
+                      <span className="text-gray-400 font-mono text-[10px] mr-1">HV</span>
+                      <span className="font-bold text-rose-700">{currentCard.hanViet || "—"}</span>
+                    </span>
                   </div>
                   <p className="text-base font-semibold text-gray-900">{currentCard.meaning}</p>
-                  {currentCard.examples[0] && (
-                    <p className="text-xs text-gray-500">
-                      {currentCard.examples[0].word} ({currentCard.examples[0].reading}) — {currentCard.examples[0].meaning}
-                    </p>
-                  )}
+                  {currentCard.examples.map((ex, idx) => {
+                    const rom = kanaToRomaji(ex.reading);
+                    return (
+                      <p key={idx} className="text-xs text-gray-500">
+                        {ex.word} ({ex.reading}{rom ? ` • ${rom}` : ""}) — {ex.meaning}
+                      </p>
+                    );
+                  })}
                 </div>
 
                 {!revealed && (
