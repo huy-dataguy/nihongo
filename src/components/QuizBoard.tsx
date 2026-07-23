@@ -327,7 +327,14 @@ export default function QuizBoard({ quizQuestions, onQuizComplete, initialType =
               return (
                 <button key={`${option}-${index}`} className={state} disabled={answered} onClick={() => answer(index)}>
                   <span className="answer-key">{index + 1}</span>
-                  <strong>{option}</strong>
+                  <div className="text-left flex-1">
+                    <strong>{option}</strong>
+                    {hasJapanese(option) && (
+                      <span className="block text-[11px] font-mono text-gray-400 font-normal">
+                        {kanaToRomaji(option)}
+                      </span>
+                    )}
+                  </div>
                   {answered && isCorrect && <CheckCircle2 size={19} />}
                   {answered && isSelected && !isCorrect && <XCircle size={19} />}
                 </button>

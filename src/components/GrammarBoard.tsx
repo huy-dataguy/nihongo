@@ -371,12 +371,17 @@ export default function GrammarBoard({ grammarList, onPractice }: GrammarBoardPr
   function renderExample(ex: GrammarExample, i: number) {
     // Q&A format (cau_hoi / cau_tra_loi)
     if (ex.cau_hoi) {
+      const qRom = kanaToRomaji(ex.cau_hoi);
+      const aRom = ex.cau_tra_loi ? kanaToRomaji(ex.cau_tra_loi) : "";
+      const kRom = ex.tra_loi_khang_dinh ? kanaToRomaji(ex.tra_loi_khang_dinh) : "";
+      const pRom = ex.tra_loi_phu_dinh ? kanaToRomaji(ex.tra_loi_phu_dinh) : "";
       return (
         <div key={i} className="bg-white p-3 rounded-xl border border-gray-100 space-y-2 hover:border-amber-200 transition-colors">
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-1">
               <p className="text-xs text-amber-600 font-bold">❓ Câu hỏi:</p>
               <p className="text-sm font-semibold text-gray-900">{highlightJapanese(ex.cau_hoi)}</p>
+              {qRom && <p className="text-xs text-amber-700/80 font-mono">{qRom}</p>}
               {ex.dich_cau_hoi && <p className="text-xs text-gray-500">{ex.dich_cau_hoi}</p>}
             </div>
             <button onClick={() => speakJapanese(ex.cau_hoi)} className="p-1.5 text-gray-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors shrink-0" title="Nghe">
@@ -387,6 +392,7 @@ export default function GrammarBoard({ grammarList, onPractice }: GrammarBoardPr
             <div className="border-t border-gray-50 pt-2 space-y-1">
               <p className="text-xs text-green-600 font-bold">💬 Trả lời:</p>
               <p className="text-sm font-semibold text-gray-900">{highlightJapanese(ex.cau_tra_loi)}</p>
+              {aRom && <p className="text-xs text-emerald-700/80 font-mono">{aRom}</p>}
               {ex.dich_cau_tra_loi && <p className="text-xs text-gray-500">{ex.dich_cau_tra_loi}</p>}
             </div>
           )}
@@ -394,6 +400,7 @@ export default function GrammarBoard({ grammarList, onPractice }: GrammarBoardPr
             <div className="border-t border-gray-50 pt-2 space-y-1">
               <p className="text-xs text-green-600 font-bold">✅ Khẳng định:</p>
               <p className="text-sm text-gray-800">{highlightJapanese(ex.tra_loi_khang_dinh)}</p>
+              {kRom && <p className="text-xs text-emerald-700/80 font-mono">{kRom}</p>}
               {ex.dich_khang_dinh && <p className="text-xs text-gray-500">{ex.dich_khang_dinh}</p>}
             </div>
           )}
@@ -401,6 +408,7 @@ export default function GrammarBoard({ grammarList, onPractice }: GrammarBoardPr
             <div className="border-t border-gray-50 pt-2 space-y-1">
               <p className="text-xs text-rose-600 font-bold">❌ Phủ định:</p>
               <p className="text-sm text-gray-800">{highlightJapanese(ex.tra_loi_phu_dinh)}</p>
+              {pRom && <p className="text-xs text-rose-700/80 font-mono">{pRom}</p>}
               {ex.dich_phu_dinh && <p className="text-xs text-gray-500">{ex.dich_phu_dinh}</p>}
             </div>
           )}
@@ -410,10 +418,12 @@ export default function GrammarBoard({ grammarList, onPractice }: GrammarBoardPr
 
     // Statement format (tieng_nhat / tieng_viet)
     if (ex.tieng_nhat) {
+      const rom = kanaToRomaji(ex.tieng_nhat);
       return (
         <div key={i} className="bg-white p-3 rounded-xl border border-gray-100 flex items-start justify-between gap-4 hover:border-amber-200 transition-colors group">
           <div className="space-y-1">
             <p className="text-sm font-semibold text-gray-900">{highlightJapanese(ex.tieng_nhat)}</p>
+            {rom && <p className="text-xs text-gray-500 font-mono">{rom}</p>}
             {ex.tieng_viet && <p className="text-xs text-gray-500">{ex.tieng_viet}</p>}
           </div>
           <button onClick={() => speakJapanese(ex.tieng_nhat)} className="p-1.5 text-gray-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors shrink-0" title="Nghe">
