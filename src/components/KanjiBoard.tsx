@@ -3,6 +3,8 @@ import { KanjiItem, KanjiCompound } from "../types";
 import { KANJI_N5_REFERENCE, LESSON_TOPICS } from "../data/kanjiN5Reference";
 import { speakJapanese } from "../utils/audio";
 import { kanaToRomaji } from "../utils/kanaToRomaji";
+import KanjiStrokeViewer from "./KanjiStrokeViewer";
+import KanjiPowerPointDeck, { DeckKanjiItem } from "./KanjiPowerPointDeck";
 import {
   Volume2,
   Search,
@@ -13,6 +15,9 @@ import {
   List as ListIcon,
   GalleryHorizontalEnd,
   Target,
+  Presentation,
+  PenTool,
+  X,
 } from "lucide-react";
 
 interface KanjiBoardProps {
@@ -36,6 +41,11 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
   const [search, setSearch] = useState("");
   const [lessonFilter, setLessonFilter] = useState<number | "">("");
   const [isLessonDropdownOpen, setIsLessonDropdownOpen] = useState(false);
+
+  // PowerPoint Deck & Stroke Modal States
+  const [isPptOpen, setIsPptOpen] = useState<boolean>(false);
+  const [pptStartIndex, setPptStartIndex] = useState<number>(0);
+  const [strokeModalKanji, setStrokeModalKanji] = useState<DisplayKanji | null>(null);
 
   // Gộp: bộ tham chiếu 164 chữ (Bài 7-24, đủ On/Kun/Hán Việt) + mọi kanji khác
   // từ Supabase (bài ngoài 7-24, hoặc do "Cập nhật hàng ngày (AI)" thêm) không trùng ký tự.
@@ -101,6 +111,25 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
     return Array.from(map.entries()).sort((a, b) => a[0] - b[0]);
   }, [filtered]);
 
+  // Transform filtered list for PowerPoint Deck
+  const pptDeckItems = useMemo<DeckKanjiItem[]>(() => {
+    return filtered.map((k) => ({
+      id: k.id,
+      character: k.character,
+      onyomi: k.onyomi,
+      kunyomi: k.kunyomi,
+      hanViet: k.hanViet,
+      meaning: k.meaning,
+      lesson: k.lesson,
+      examples: k.examples,
+    }));
+  }, [filtered]);
+
+  const openPptDeck = useCallback((index = 0) => {
+    setPptStartIndex(index);
+    setIsPptOpen(true);
+  }, []);
+
   // --- Flashcard state ---
   const [fcDeck, setFcDeck] = useState<DisplayKanji[]>([]);
   const [fcIndex, setFcIndex] = useState(0);
@@ -138,7 +167,7 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
   }, []);
 
   useEffect(() => {
-    if (viewMode !== "flashcard") return;
+    if (viewMode !== "flashcard" || isPptOpen) return;
     function handler(e: KeyboardEvent) {
       if (e.key === "ArrowLeft") goPrev();
       else if (e.key === "ArrowRight") goNext();
@@ -149,25 +178,39 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
     }
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [viewMode, goPrev, goNext]);
+  }, [viewMode, goPrev, goNext, isPptOpen]);
 
   const currentCard = fcDeck[fcIndex];
 
   return (
-    <div className="learning-board bg-white rounded-2xl shadow-xs border border-gray-100 p-6">
+    <div className="learning-board bg-white rounded-2xl shadow-xs border border-gray-100 p-6 relative">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-5 mb-6">
         <div>
           <span className="eyebrow">Hán tự theo bài</span>
           <h2 className="text-xl font-semibold text-gray-900 tracking-tight mt-1">Kanji N5</h2>
           <p className="text-sm text-gray-500 mt-1">
-            Âm On, Âm Kun, âm Romaji, âm Hán Việt, nghĩa gốc và từ ghép minh họa — {mergedList.length} chữ, Bài{" "}
+            Âm On, Âm Kun, âm Romaji, âm Hán Việt, nghĩa gốc và trình chiếu thứ tự nét vẽ (PPT) — {mergedList.length} chữ, Bài{" "}
             {lessons[0] ?? "-"}–{lessons[lessons.length - 1] ?? "-"}
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {onPractice && <button onClick={onPractice} className="board-practice-button"><Target size={14} /> Kiểm tra Kanji</button>}
+          {/* Primary PowerPoint Presentation Launcher Button */}
+          <button
+            onClick={() => openPptDeck(0)}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-lg shadow-sm transition-all"
+            title="Mở chế độ trình chiếu PowerPoint với animation nét vẽ"
+          >
+            <Presentation size={14} /> Trình chiếu PPT (Nét vẽ)
+          </button>
+
+          {onPractice && (
+            <button onClick={onPractice} className="board-practice-button">
+              <Target size={14} /> Kiểm tra Kanji
+            </button>
+          )}
+
           <div className="relative w-full sm:w-56">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
             <input
@@ -238,6 +281,7 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
         </div>
       </div>
 
+      {/* Main View Modes */}
       {viewMode === "list" ? (
         <div className="space-y-8">
           {grouped.map(([lesson, items]) => (
@@ -255,6 +299,7 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
                   <thead>
                     <tr className="bg-gray-50/60">
                       <th className="text-[10px] uppercase font-bold text-gray-400 tracking-wider font-mono px-3 py-2">Hán tự</th>
+                      <th className="text-[10px] uppercase font-bold text-gray-400 tracking-wider font-mono px-3 py-2">Nét vẽ & PPT</th>
                       <th className="text-[10px] uppercase font-bold text-gray-400 tracking-wider font-mono px-3 py-2">Âm On</th>
                       <th className="text-[10px] uppercase font-bold text-gray-400 tracking-wider font-mono px-3 py-2">Âm Kun</th>
                       <th className="text-[10px] uppercase font-bold text-gray-400 tracking-wider font-mono px-3 py-2">Hán Việt</th>
@@ -263,62 +308,83 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
                     </tr>
                   </thead>
                   <tbody>
-                    {items.map((k) => (
-                      <tr key={k.id} className="border-t border-gray-100 hover:bg-amber-50/30 transition-colors">
-                        <td className="px-3 py-2.5">
-                          <button
-                            onClick={() => speakJapanese(k.character)}
-                            title="Phát âm"
-                            className="text-3xl font-semibold text-gray-800 font-sans hover:text-amber-700 transition-colors"
-                          >
-                            {k.character}
-                          </button>
-                        </td>
-                        <td className="px-3 py-2.5 text-xs font-semibold text-amber-800 whitespace-nowrap">
-                          {k.onyomi ? (
-                            <div>
-                              <div>{k.onyomi}</div>
-                              <div className="text-[10px] font-normal text-amber-700/70 font-mono">{kanaToRomaji(k.onyomi)}</div>
+                    {items.map((k) => {
+                      const globalIdx = filtered.findIndex((f) => f.id === k.id);
+                      return (
+                        <tr key={k.id} className="border-t border-gray-100 hover:bg-amber-50/30 transition-colors">
+                          <td className="px-3 py-2.5">
+                            <button
+                              onClick={() => speakJapanese(k.character)}
+                              title="Phát âm"
+                              className="text-3xl font-semibold text-gray-800 font-sans hover:text-amber-700 transition-colors"
+                            >
+                              {k.character}
+                            </button>
+                          </td>
+                          <td className="px-3 py-2.5 whitespace-nowrap">
+                            <div className="flex items-center gap-1.5">
+                              <button
+                                onClick={() => setStrokeModalKanji(k)}
+                                className="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200/60 text-xs font-semibold flex items-center gap-1 transition-colors"
+                                title="Xem hướng dẫn từng nét vẽ"
+                              >
+                                <PenTool size={12} /> Nét vẽ
+                              </button>
+                              <button
+                                onClick={() => openPptDeck(globalIdx >= 0 ? globalIdx : 0)}
+                                className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200/60 text-xs font-semibold flex items-center gap-1 transition-colors"
+                                title="Mở slide PowerPoint từ chữ này"
+                              >
+                                <Presentation size={12} /> Slide
+                              </button>
                             </div>
-                          ) : (
-                            "—"
-                          )}
-                        </td>
-                        <td className="px-3 py-2.5 text-xs italic font-medium text-emerald-800 whitespace-nowrap">
-                          {k.kunyomi ? (
-                            <div>
-                              <div>{k.kunyomi}</div>
-                              <div className="text-[10px] not-italic font-normal text-emerald-700/70 font-mono">{kanaToRomaji(k.kunyomi)}</div>
-                            </div>
-                          ) : (
-                            "—"
-                          )}
-                        </td>
-                        <td className="px-3 py-2.5 text-xs font-bold text-rose-700 whitespace-nowrap">{k.hanViet || "—"}</td>
-                        <td className="px-3 py-2.5 text-xs text-gray-700">{k.meaning}</td>
-                        <td className="px-3 py-2.5 text-xs text-gray-500">
-                          {k.examples.map((ex, i) => {
-                            const rom = kanaToRomaji(ex.reading);
-                            return (
-                              <div key={i} className="flex items-center gap-1.5 flex-wrap">
-                                <span className="font-semibold text-gray-700">{ex.word}</span>
-                                <span className="text-gray-400">
-                                  ({ex.reading}{rom ? ` • ${rom}` : ""})
-                                </span>
-                                <span>— {ex.meaning}</span>
-                                <button
-                                  onClick={() => speakJapanese(ex.word)}
-                                  className="text-gray-300 hover:text-amber-700 transition-colors"
-                                  title="Phát âm từ ghép"
-                                >
-                                  <Volume2 size={11} />
-                                </button>
+                          </td>
+                          <td className="px-3 py-2.5 text-xs font-semibold text-amber-800 whitespace-nowrap">
+                            {k.onyomi ? (
+                              <div>
+                                <div>{k.onyomi}</div>
+                                <div className="text-[10px] font-normal text-amber-700/70 font-mono">{kanaToRomaji(k.onyomi)}</div>
                               </div>
-                            );
-                          })}
-                        </td>
-                      </tr>
-                    ))}
+                            ) : (
+                              "—"
+                            )}
+                          </td>
+                          <td className="px-3 py-2.5 text-xs italic font-medium text-emerald-800 whitespace-nowrap">
+                            {k.kunyomi ? (
+                              <div>
+                                <div>{k.kunyomi}</div>
+                                <div className="text-[10px] not-italic font-normal text-emerald-700/70 font-mono">{kanaToRomaji(k.kunyomi)}</div>
+                              </div>
+                            ) : (
+                              "—"
+                            )}
+                          </td>
+                          <td className="px-3 py-2.5 text-xs font-bold text-rose-700 whitespace-nowrap">{k.hanViet || "—"}</td>
+                          <td className="px-3 py-2.5 text-xs text-gray-700">{k.meaning}</td>
+                          <td className="px-3 py-2.5 text-xs text-gray-500">
+                            {k.examples.map((ex, i) => {
+                              const rom = kanaToRomaji(ex.reading);
+                              return (
+                                <div key={i} className="flex items-center gap-1.5 flex-wrap">
+                                  <span className="font-semibold text-gray-700">{ex.word}</span>
+                                  <span className="text-gray-400">
+                                    ({ex.reading}{rom ? ` • ${rom}` : ""})
+                                  </span>
+                                  <span>— {ex.meaning}</span>
+                                  <button
+                                    onClick={() => speakJapanese(ex.word)}
+                                    className="text-gray-300 hover:text-amber-700 transition-colors"
+                                    title="Phát âm từ ghép"
+                                  >
+                                    <Volume2 size={11} />
+                                  </button>
+                                </div>
+                              );
+                            })}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -348,7 +414,7 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
 
               <div
                 onClick={() => setRevealed((r) => !r)}
-                className="bg-gray-50/50 border border-gray-150 rounded-2xl min-h-[320px] flex flex-col items-center justify-center gap-5 p-10 cursor-pointer select-none relative"
+                className="bg-gray-50/50 border border-gray-150 rounded-2xl min-h-[340px] flex flex-col items-center justify-center gap-5 p-8 cursor-pointer select-none relative"
               >
                 <div className="flex items-center gap-3">
                   <span className="text-7xl font-semibold text-gray-900 font-sans">{currentCard.character}</span>
@@ -358,6 +424,27 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
                     title="Phát âm"
                   >
                     <Volume2 size={18} />
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setStrokeModalKanji(currentCard);
+                    }}
+                    className="px-3 py-1 bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-semibold rounded-lg border border-amber-200 flex items-center gap-1 transition-colors"
+                  >
+                    <PenTool size={13} /> Nét vẽ
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openPptDeck(fcIndex);
+                    }}
+                    className="px-3 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold rounded-lg border border-rose-200 flex items-center gap-1 transition-colors"
+                  >
+                    <Presentation size={13} /> PPT Presentation
                   </button>
                 </div>
 
@@ -426,6 +513,59 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
             </div>
           )}
         </div>
+      )}
+
+      {/* Inline Stroke Order Modal View */}
+      {strokeModalKanji && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl relative border border-slate-200">
+            <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl font-bold text-gray-900">{strokeModalKanji.character}</span>
+                <span className="text-xs font-semibold text-rose-700 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded-full">
+                  {strokeModalKanji.hanViet || "Hán tự"}
+                </span>
+                <span className="text-xs text-gray-500">Bài {strokeModalKanji.lesson}</span>
+              </div>
+              <button
+                onClick={() => setStrokeModalKanji(null)}
+                className="p-1 text-gray-400 hover:text-gray-700 rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <KanjiStrokeViewer
+              character={strokeModalKanji.character}
+              size={240}
+              autoPlay={true}
+              showNumbers={true}
+            />
+
+            <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
+              <span className="text-xs font-medium text-gray-600">{strokeModalKanji.meaning}</span>
+              <button
+                onClick={() => {
+                  const idx = filtered.findIndex((f) => f.id === strokeModalKanji.id);
+                  setStrokeModalKanji(null);
+                  openPptDeck(idx >= 0 ? idx : 0);
+                }}
+                className="px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors"
+              >
+                <Presentation size={14} /> Mở Slide PPT
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PowerPoint Fullscreen Deck Modal */}
+      {isPptOpen && (
+        <KanjiPowerPointDeck
+          kanjiList={pptDeckItems}
+          initialIndex={pptStartIndex}
+          onClose={() => setIsPptOpen(false)}
+        />
       )}
     </div>
   );
