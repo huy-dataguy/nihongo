@@ -15,6 +15,8 @@ import {
   AlertTriangle,
   Lightbulb,
   Table,
+  Layers,
+  Check,
 } from "lucide-react";
 
 export interface VerbConjugationItem {
@@ -29,15 +31,18 @@ export interface VerbConjugationItem {
   nai: string;
   te: string;
   ta: string;
-  kanou?: string; // Potential
-  ikou?: string; // Volitional
-  jouken?: string; // Conditional
-  meirei?: string; // Imperative
+  tai: string;
+  kanou: string;
+  ikou: string;
+  jouken: string;
+  meirei: string;
+  ukemi: string;
+  shieki: string;
   isSpecial?: boolean;
   specialNote?: string;
 }
 
-// Master reference dataset for Japanese N5/N4 Verb Conjugations
+// Master reference dataset covering ALL 12 core Japanese verb forms
 export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
   // --- Group 1 (五段 - Godan) ---
   {
@@ -52,10 +57,13 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "書かない",
     te: "書いて",
     ta: "書いた",
+    tai: "書きたい",
     kanou: "書ける",
     ikou: "書こう",
     jouken: "書けば",
     meirei: "書け",
+    ukemi: "書かれる",
+    shieki: "書かせる",
   },
   {
     id: "v-nomu",
@@ -69,10 +77,13 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "飲まない",
     te: "飲んで",
     ta: "飲んだ",
+    tai: "飲みたい",
     kanou: "飲める",
     ikou: "飲もう",
     jouken: "飲めば",
     meirei: "飲め",
+    ukemi: "飲まれる",
+    shieki: "飲ませる",
   },
   {
     id: "v-hanasu",
@@ -86,10 +97,13 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "話さない",
     te: "話して",
     ta: "話した",
+    tai: "話したい",
     kanou: "話せる",
     ikou: "話そう",
     jouken: "話せば",
     meirei: "話せ",
+    ukemi: "話される",
+    shieki: "話させる",
   },
   {
     id: "v-matsu",
@@ -103,10 +117,13 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "待たない",
     te: "待って",
     ta: "待った",
+    tai: " meりたい ➔ 待ちたい",
     kanou: "待てる",
     ikou: "待とう",
     jouken: "待てば",
     meirei: "待て",
+    ukemi: "待たれる",
+    shieki: "待たせる",
   },
   {
     id: "v-yobu",
@@ -120,10 +137,13 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "呼ばない",
     te: "呼んで",
     ta: "呼んだ",
+    tai: "呼びたい",
     kanou: "呼べる",
     ikou: "呼ぼう",
     jouken: "呼べば",
     meirei: "呼べ",
+    ukemi: "呼ばれる",
+    shieki: "呼ばせる",
   },
   {
     id: "v-isogu",
@@ -137,10 +157,33 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "急がない",
     te: "急いで",
     ta: "急いだ",
+    tai: "急ぎたい",
     kanou: "急げる",
     ikou: "急ごう",
     jouken: "急げば",
     meirei: "急げ",
+    ukemi: "急がれる",
+    shieki: "急がせる",
+  },
+  {
+    id: "v-shinu",
+    kanji: "死ぬ",
+    hiragana: "しぬ",
+    romaji: "shinu",
+    meaning: "Chết",
+    group: 1,
+    masu: "死にます",
+    jisho: "死ぬ",
+    nai: "死なない",
+    te: "死んで",
+    ta: "死んだ",
+    tai: "死にたい",
+    kanou: "死ねる",
+    ikou: "死のう",
+    jouken: "死ねば",
+    meirei: "死ね",
+    ukemi: "死なれる",
+    shieki: "死なせる",
   },
   {
     id: "v-kau",
@@ -154,12 +197,15 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "買わない",
     te: "買って",
     ta: "買った",
+    tai: "買いたい",
     kanou: "買える",
     ikou: "買おう",
     jouken: "買えば",
     meirei: "買え",
+    ukemi: "買われる",
+    shieki: "買わせる",
     isSpecial: true,
-    specialNote: "Bẫy Thể Nai: âm う/い chuyển thành わ (買わない), KHÔNG PHẢI 買あない!",
+    specialNote: "Bẫy Thể Nai/Bị động/Sai khiến: い/う ➔ わ (買わない / 買われる / 買わせる)",
   },
   {
     id: "v-au",
@@ -173,10 +219,13 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "会わない",
     te: "会って",
     ta: "会った",
+    tai: "会いたい",
     kanou: "会える",
     ikou: "会おう",
     jouken: "会えば",
     meirei: "会え",
+    ukemi: "合われる",
+    shieki: "会わせる",
     isSpecial: true,
     specialNote: "Bẫy Thể Nai: âm い/う ➔ わ (会わない)",
   },
@@ -192,12 +241,15 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "帰らない",
     te: "帰って",
     ta: "帰った",
+    tai: "帰りたい",
     kanou: "帰れる",
     ikou: "帰ろう",
     jouken: "帰れば",
     meirei: "帰れ",
+    ukemi: "帰られる",
+    shieki: "帰らせる",
     isSpecial: true,
-    specialNote: "Động từ Nhóm 1 kết thúc bằng え+る (thường dễ nhầm sang Nhóm 2)",
+    specialNote: "Nhóm 1 đuôi え+る: Vẫn chia theo Nhóm 1 (帰ります, 帰らない, 帰って)",
   },
   {
     id: "v-ikiku",
@@ -211,12 +263,15 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "行かない",
     te: "行って",
     ta: "行った",
+    tai: "行きたい",
     kanou: "行ける",
     ikou: "行こう",
     jouken: "行けば",
     meirei: "行け",
+    ukemi: "行かれる",
+    shieki: "行かせる",
     isSpecial: true,
-    specialNote: "Bẫy Thể Te/Ta: 行く biến thành 行って / 行った (KHÔNG PHẢI 行いて!)",
+    specialNote: "Bẫy Thể Te/Ta: 行く biến thành 行って / 行った (Bất quy tắc của Nhóm 1!)",
   },
   {
     id: "v-arimasu",
@@ -230,12 +285,15 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "ない",
     te: "あって",
     ta: "あった",
+    tai: "—",
     kanou: "—",
     ikou: "—",
     jouken: "あれば",
     meirei: "—",
+    ukemi: "—",
+    shieki: "—",
     isSpecial: true,
-    specialNote: "Động từ bất quy tắc đặc biệt: Thể Nai của あります là ない (chỉ có 1 chữ ない)!",
+    specialNote: "Động từ bất quy tắc đặc biệt: Thể Nai của あります là ない!",
   },
 
   // --- Group 2 (一段 - Ichidan) ---
@@ -251,10 +309,13 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "食べない",
     te: "食べて",
     ta: "食べた",
+    tai: "食べたい",
     kanou: "食べられる",
     ikou: "食べよう",
     jouken: "食べれば",
     meirei: "食べろ",
+    ukemi: "食べられる",
+    shieki: "食べさせる",
   },
   {
     id: "v-miru",
@@ -268,10 +329,13 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "見ない",
     te: "見て",
     ta: "見た",
+    tai: "見たい",
     kanou: "見られる",
     ikou: "見よう",
     jouken: "見れば",
     meirei: "見ろ",
+    ukemi: "見られる",
+    shieki: "見させる",
   },
   {
     id: "v-okiru",
@@ -285,10 +349,13 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "起きない",
     te: "起きて",
     ta: "起きた",
+    tai: " meりたい ➔ 起きたい",
     kanou: "起きられる",
     ikou: "起きよう",
     jouken: "起きれば",
     meirei: "起きろ",
+    ukemi: "起きられる",
+    shieki: "起きさせる",
   },
   {
     id: "v-neru",
@@ -302,10 +369,33 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "寝ない",
     te: "寝て",
     ta: "寝た",
+    tai: "寝たい",
     kanou: "寝られる",
     ikou: "寝よう",
     jouken: "寝れば",
     meirei: "寝ろ",
+    ukemi: "寝られる",
+    shieki: "寝させる",
+  },
+  {
+    id: "v-kariru",
+    kanji: "借りる",
+    hiragana: "かりる",
+    romaji: "kariru",
+    meaning: "Mượn",
+    group: 2,
+    masu: "借ります",
+    jisho: "借りる",
+    nai: "借りない",
+    te: "借りて",
+    ta: "借りた",
+    tai: " meりたい ➔ 借りたい",
+    kanou: "借りられる",
+    ikou: "借りよう",
+    jouken: "借りれば",
+    meirei: "借りろ",
+    ukemi: "借りられる",
+    shieki: "借りさせる",
   },
 
   // --- Group 3 (不規則 - Irregular) ---
@@ -321,10 +411,13 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "しない",
     te: "して",
     ta: "した",
+    tai: "したい",
     kanou: "できる",
     ikou: "しよう",
     jouken: "すれば",
     meirei: "しろ",
+    ukemi: "される",
+    shieki: "させる",
   },
   {
     id: "v-kuru",
@@ -338,20 +431,58 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "来ない (こない)",
     te: "来て (きて)",
     ta: "来た (きた)",
+    tai: "来たい (きたい)",
     kanou: "来られる (こられる)",
     ikou: "来よう (こよう)",
     jouken: "来れば (すれば)",
     meirei: "来い (こい)",
+    ukemi: "来られる (こられる)",
+    shieki: "来させる (こさせる)",
     isSpecial: true,
-    specialNote: "Đổi âm Kanji: き(ます) ➔ くる (zisho) ➔ こ(ない) ➔ き(て)",
+    specialNote: "Đổi âm Kanji theo thể: き(ます) ➔ くる ➔ こ(ない) ➔ き(て) ➔ こ(られる)",
   },
 ];
+
+export const ALL_VERB_FORMS = [
+  { key: "masu", label: "Thể Masu (ます)", color: "text-amber-700 bg-amber-50" },
+  { key: "jisho", label: "Thể Từ điển (う)", color: "text-cyan-700 bg-cyan-50" },
+  { key: "nai", label: "Thể Nai (ない)", color: "text-rose-700 bg-rose-50" },
+  { key: "te", label: "Thể Te (て)", color: "text-emerald-700 bg-emerald-50" },
+  { key: "ta", label: "Thể Ta (た)", color: "text-indigo-700 bg-indigo-50" },
+  { key: "tai", label: "Thể Muốn (たい)", color: "text-purple-700 bg-purple-50" },
+  { key: "kanou", label: "Thể Khả năng (える/られる)", color: "text-orange-700 bg-orange-50" },
+  { key: "ikou", label: "Thể Ý định (おう/よう)", color: "text-pink-700 bg-pink-50" },
+  { key: "jouken", label: "Thể Điều kiện (ば)", color: "text-blue-700 bg-blue-50" },
+  { key: "meirei", label: "Thể Mệnh lệnh (え/ろ)", color: "text-red-700 bg-red-50" },
+  { key: "ukemi", label: "Thể Bị động (られる)", color: "text-teal-700 bg-teal-50" },
+  { key: "shieki", label: "Thể Sai khiến (させる)", color: "text-violet-700 bg-violet-50" },
+] as const;
+
+type VerbFormKey = (typeof ALL_VERB_FORMS)[number]["key"];
 
 export const VerbConjugationBoard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"matrix" | "rules" | "quiz">("matrix");
   const [groupFilter, setGroupFilter] = useState<"all" | 1 | 2 | 3 | "special">("all");
   const [search, setSearch] = useState("");
-  const [showFullForms, setShowFullForms] = useState(false);
+  const [visibleForms, setVisibleForms] = useState<Set<VerbFormKey>>(
+    new Set(["masu", "jisho", "nai", "te", "ta", "kanou"])
+  );
+
+  const toggleFormColumn = (key: VerbFormKey) => {
+    setVisibleForms((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        if (next.size > 1) next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  };
+
+  const selectAllForms = () => {
+    setVisibleForms(new Set(ALL_VERB_FORMS.map((f) => f.key)));
+  };
 
   // Filtered dataset
   const filteredVerbs = useMemo(() => {
@@ -372,6 +503,7 @@ export const VerbConjugationBoard: React.FC = () => {
         v.nai,
         v.te,
         v.ta,
+        v.kanou,
         v.specialNote || "",
       ]
         .join(" ")
@@ -385,7 +517,7 @@ export const VerbConjugationBoard: React.FC = () => {
   const [quizTotal, setQuizTotal] = useState(0);
   const [currentQuiz, setCurrentQuiz] = useState<{
     verb: VerbConjugationItem;
-    targetFormKey: "nai" | "te" | "ta" | "jisho" | "masu";
+    targetFormKey: VerbFormKey;
     targetFormLabel: string;
     options: string[];
     userAnswer: string | null;
@@ -394,21 +526,18 @@ export const VerbConjugationBoard: React.FC = () => {
 
   const generateQuiz = useCallback(() => {
     const verb = VERB_CONJUGATION_DATABASE[Math.floor(Math.random() * VERB_CONJUGATION_DATABASE.length)];
-    const targetForms: { key: "nai" | "te" | "ta" | "jisho" | "masu"; label: string }[] = [
-      { key: "nai", label: "Thể ない (Nai-kei / Phủ định ngắn)" },
-      { key: "te", label: "Thể て (Te-kei)" },
-      { key: "ta", label: "Thể た (Ta-kei / Quá khứ ngắn)" },
-      { key: "jisho", label: "Thể Từ điển (辞書形 / Vる)" },
-    ];
-    const target = targetForms[Math.floor(Math.random() * targetForms.length)];
-    const correctAnswer = verb[target.key];
+    const targetForm = ALL_VERB_FORMS[Math.floor(Math.random() * ALL_VERB_FORMS.length)];
+    const correctAnswer = verb[targetForm.key];
 
-    // Generate distractor choices
+    if (!correctAnswer || correctAnswer === "—") {
+      generateQuiz();
+      return;
+    }
+
     const choicesSet = new Set<string>([correctAnswer]);
     while (choicesSet.size < 4) {
       const randomVerb = VERB_CONJUGATION_DATABASE[Math.floor(Math.random() * VERB_CONJUGATION_DATABASE.length)];
-      const randomKey = targetForms[Math.floor(Math.random() * targetForms.length)].key;
-      const candidate = randomVerb[randomKey];
+      const candidate = randomVerb[targetForm.key];
       if (candidate && candidate !== "—") choicesSet.add(candidate);
     }
 
@@ -416,8 +545,8 @@ export const VerbConjugationBoard: React.FC = () => {
 
     setCurrentQuiz({
       verb,
-      targetFormKey: target.key,
-      targetFormLabel: target.label,
+      targetFormKey: targetForm.key,
+      targetFormLabel: targetForm.label,
       options,
       userAnswer: null,
       isCorrect: null,
@@ -441,13 +570,13 @@ export const VerbConjugationBoard: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-5">
         <div>
           <span className="eyebrow flex items-center gap-1.5 text-amber-700 font-bold">
-            <ArrowRightLeft size={14} /> Bảng Quy tắc Chia thể Động từ (JLPT N5 / N4)
+            <ArrowRightLeft size={14} /> Bảng Quy tắc Chia Động từ đầy đủ (12 Thể tiếng Nhật)
           </span>
           <h2 className="text-xl font-semibold text-gray-900 tracking-tight mt-1">
-            Tổng hợp Quy tắc & Bảng tra thể Động từ
+            Tổng hợp Tất cả Các Thể & Quy tắc Chia Động từ
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            Quy tắc chia thể Masu, Thể Từ điển (う), Thể Nai (ない), Thể Te (て), Thể Ta (た) & Ôn luyện phản xạ.
+            Masu, Từ điển (う), Nai (ない), Te (て), Ta (た), Tai (たい), Khả năng, Ý định, Điều kiện, Mệnh lệnh, Bị động & Sai khiến.
           </p>
         </div>
 
@@ -467,7 +596,7 @@ export const VerbConjugationBoard: React.FC = () => {
               activeTab === "rules" ? "bg-white text-rose-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
             }`}
           >
-            <Lightbulb size={14} /> Bảng Quy tắc Chia
+            <Lightbulb size={14} /> 12 Quy tắc Chia thể
           </button>
           <button
             onClick={() => {
@@ -543,32 +672,56 @@ export const VerbConjugationBoard: React.FC = () => {
             </div>
           </div>
 
-          {/* Special Trap Warning Banner */}
-          <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
-            <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-            <div>
-              <span className="font-bold">Mẹo vàng N5:</span> Âm <strong>い (i)</strong> ở nhóm 1 khi chuyển sang <strong>Thể ない (Nai-kei)</strong> luôn biến thành <strong>わ (wa)</strong> (Ví dụ: 買います ➔ 買わない, 会います ➔ 会わない). Thể Nai của <strong>あります</strong> là <strong>ない</strong>!
+          {/* Form Column Selector Filters */}
+          <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200/80 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-gray-700 flex items-center gap-1.5">
+                <Layers size={14} className="text-rose-600" /> Chọn các cột thể muốn hiển thị trong bảng:
+              </span>
+              <button
+                onClick={selectAllForms}
+                className="text-[11px] font-bold text-rose-700 hover:text-rose-800 underline"
+              >
+                Hiện tất cả 12 thể
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {ALL_VERB_FORMS.map((form) => {
+                const active = visibleForms.has(form.key);
+                return (
+                  <button
+                    key={form.key}
+                    onClick={() => toggleFormColumn(form.key)}
+                    className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all flex items-center gap-1 ${
+                      active
+                        ? "bg-slate-900 text-white border-slate-800 shadow-2xs"
+                        : "bg-white text-gray-600 border-gray-200 hover:bg-gray-100"
+                    }`}
+                  >
+                    {active && <Check size={12} className="text-rose-400" />}
+                    <span>{form.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Main Conjugation Table */}
           <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-2xs">
-            <table className="w-full text-left border-collapse min-w-[800px]">
+            <table className="w-full text-left border-collapse min-w-[900px]">
               <thead>
                 <tr className="bg-slate-900 text-white text-[11px] font-mono uppercase font-bold tracking-wider">
-                  <th className="px-4 py-3">Động từ (Kanji/Hira)</th>
+                  <th className="px-4 py-3 sticky left-0 bg-slate-900 z-10">Động từ (Kanji/Hira)</th>
                   <th className="px-3 py-3">Nghĩa</th>
                   <th className="px-3 py-3">Nhóm</th>
-                  <th className="px-3 py-3 text-amber-300">Thể Masu (ます)</th>
-                  <th className="px-3 py-3 text-cyan-300">Thể Từ điển (う)</th>
-                  <th className="px-3 py-3 text-rose-300">Thể Nai (ない)</th>
-                  <th className="px-3 py-3 text-emerald-300">Thể Te (て)</th>
-                  <th className="px-3 py-3 text-indigo-300">Thể Ta (た)</th>
-                  {showFullForms && (
-                    <>
-                      <th className="px-3 py-3 text-orange-300">Thể Khả năng</th>
-                      <th className="px-3 py-3 text-pink-300">Thể Ý định</th>
-                    </>
+
+                  {ALL_VERB_FORMS.map(
+                    (f) =>
+                      visibleForms.has(f.key) && (
+                        <th key={f.key} className={`px-3 py-3 ${f.color.split(" ")[0]}`}>
+                          {f.label}
+                        </th>
+                      )
                   )}
                 </tr>
               </thead>
@@ -581,7 +734,7 @@ export const VerbConjugationBoard: React.FC = () => {
                     }`}
                   >
                     {/* Kanji / Hiragana */}
-                    <td className="px-4 py-3 font-semibold text-slate-900">
+                    <td className="px-4 py-3 font-semibold text-slate-900 sticky left-0 bg-white shadow-2xs z-10">
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => speakJapanese(v.kanji)}
@@ -606,7 +759,7 @@ export const VerbConjugationBoard: React.FC = () => {
                     </td>
 
                     {/* Meaning */}
-                    <td className="px-3 py-3 text-slate-700 font-medium">{v.meaning}</td>
+                    <td className="px-3 py-3 text-slate-700 font-medium whitespace-nowrap">{v.meaning}</td>
 
                     {/* Group Badge */}
                     <td className="px-3 py-3">
@@ -623,126 +776,153 @@ export const VerbConjugationBoard: React.FC = () => {
                       </span>
                     </td>
 
-                    {/* Masu */}
-                    <td className="px-3 py-3 font-semibold text-amber-900">{v.masu}</td>
-
-                    {/* Jisho */}
-                    <td className="px-3 py-3 font-bold text-cyan-900">{v.jisho}</td>
-
-                    {/* Nai */}
-                    <td className="px-3 py-3 font-bold text-rose-600 bg-rose-50/40">{v.nai}</td>
-
-                    {/* Te */}
-                    <td className="px-3 py-3 font-semibold text-emerald-800">{v.te}</td>
-
-                    {/* Ta */}
-                    <td className="px-3 py-3 font-semibold text-indigo-900">{v.ta}</td>
-
-                    {showFullForms && (
-                      <>
-                        <td className="px-3 py-3 text-orange-900">{v.kanou || "—"}</td>
-                        <td className="px-3 py-3 text-pink-900">{v.ikou || "—"}</td>
-                      </>
+                    {/* Dynamic Selected Form Columns */}
+                    {ALL_VERB_FORMS.map(
+                      (f) =>
+                        visibleForms.has(f.key) && (
+                          <td key={f.key} className={`px-3 py-3 font-semibold whitespace-nowrap ${f.color}`}>
+                            {v[f.key] || "—"}
+                          </td>
+                        )
                     )}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
-          <div className="flex items-center justify-between pt-2">
-            <span className="text-xs text-gray-500 font-mono">
-              Hiển thị {filteredVerbs.length} động từ ví dụ chuẩn
-            </span>
-            <button
-              onClick={() => setShowFullForms(!showFullForms)}
-              className="text-xs font-bold text-rose-700 hover:text-rose-800 flex items-center gap-1"
-            >
-              {showFullForms ? "Ẩn thể Khả năng/Ý định (N4)" : "Xem thêm thể Khả năng & Ý định (N4)"}
-            </button>
-          </div>
         </div>
       )}
 
-      {/* MODE 2: RULES BREAKDOWN VIEW */}
+      {/* MODE 2: FULL 12 RULES BREAKDOWN VIEW */}
       {activeTab === "rules" && (
-        <div className="space-y-8">
-          {/* Rule 1: Thể Nai (Nai-kei) */}
-          <div className="p-6 rounded-2xl bg-rose-50/50 border border-rose-200/80 space-y-4">
-            <div className="flex items-center gap-2 text-rose-900">
-              <span className="p-2 rounded-xl bg-rose-600 text-white font-bold text-xs font-mono">01</span>
-              <h3 className="text-lg font-bold">Quy tắc chia Thể ない (Nai-kei / Phủ định ngắn) — Bài 17</h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-              <div className="p-4 rounded-xl bg-white border border-rose-200 shadow-2xs space-y-2">
-                <span className="font-bold text-amber-800 font-mono uppercase text-[11px]">Nhóm 1 (五段)</span>
-                <p className="text-gray-700">Chuyển hàng <strong>い (~i)</strong> ➔ hàng <strong>あ (~a) + ない</strong></p>
-                <div className="p-2 bg-rose-50 rounded-lg text-rose-900 font-mono space-y-1">
-                  <div>書<strong>き</strong>ます ➔ 書<strong>か</strong>ない (kaka-nai)</div>
-                  <div>飲<strong>み</strong>ます ➔ 飲<strong>ま</strong>ない (noma-nai)</div>
-                  <div>待<strong>ち</strong>ます ➔ 待<strong>た</strong>ない (mata-nai)</div>
-                  <div className="text-rose-700 font-bold border-t border-rose-200 pt-1">
-                    ⚠️ 買<strong>い</strong>ます ➔ 買<strong>わ</strong>ない (kawa-nai)
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-white border border-rose-200 shadow-2xs space-y-2">
-                <span className="font-bold text-emerald-800 font-mono uppercase text-[11px]">Nhóm 2 (一段)</span>
-                <p className="text-gray-700">
-                  Đuôi <strong>~える (~eru) / ~いる (~iru)</strong>: Bỏ <strong>る</strong> (hoặc bỏ <strong>ます</strong>) ➔ <strong>＋ ない</strong>
-                </p>
-                <div className="p-2 bg-emerald-50 rounded-lg text-emerald-900 font-mono space-y-1">
-                  <div>食<strong>べる</strong> (taberu) ➔ 食<strong>べない</strong> (tabe-nai)</div>
-                  <div>見<strong>る</strong> (miru) ➔ 見<strong>ない</strong> (mi-nai)</div>
-                  <div>起き<strong>る</strong> (okiru) ➔ 起き<strong>ない</strong> (oki-nai)</div>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-white border border-rose-200 shadow-2xs space-y-2">
-                <span className="font-bold text-purple-800 font-mono uppercase text-[11px]">Nhóm 3 (Bất quy tắc)</span>
-                <p className="text-gray-700">Học thuộc lòng biến đổi gốc</p>
-                <div className="p-2 bg-purple-50 rounded-lg text-purple-900 font-mono space-y-1">
-                  <div>します ➔ <strong>しない</strong> (shi-nai)</div>
-                  <div>きます (来ます) ➔ <strong>こない</strong> (ko-nai)</div>
-                  <div className="text-rose-700 font-bold border-t border-purple-200 pt-1">
-                    ⚠️ あります ➔ <strong>ない</strong> (nai)
-                  </div>
-                </div>
-              </div>
+        <div className="space-y-6">
+          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
+            <Lightbulb className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold">Bản đồ 12 Quy tắc Chia thể Tiếng Nhật N5/N4:</span> 
+              Động từ tiếng Nhật chia theo quy tắc chuyển đổi cột âm trong bảng 50 âm (あ - い - う - え - お). Dưới đây là đầy đủ quy tắc chia 12 thể chuẩn!
             </div>
           </div>
 
-          {/* Rule 2: Thể Te & Ta */}
-          <div className="p-6 rounded-2xl bg-emerald-50/50 border border-emerald-200/80 space-y-4">
-            <div className="flex items-center gap-2 text-emerald-900">
-              <span className="p-2 rounded-xl bg-emerald-600 text-white font-bold text-xs font-mono">02</span>
-              <h3 className="text-lg font-bold">Quy tắc chia Thể て (Te-kei) & Thể た (Ta-kei) — Bài 14 & 19</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+            {/* Rule 1: Thể Masu */}
+            <div className="p-5 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-2">
+              <span className="font-bold text-amber-900 font-mono text-sm">01. Thể Masu (ます形 - Lịch sự)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1</strong>: Hàng う ➔ Hàng い + ます (書く ➔ 書きます)</li>
+                <li>• <strong>Nhóm 2</strong>: Bỏ る + ます (食べる ➔ 食べます, 見る ➔ 見ます)</li>
+                <li>• <strong>Nhóm 3</strong>: する ➔ します / くる (来る) ➔ きます (来ます)</li>
+              </ul>
             </div>
 
-            <div className="p-4 rounded-xl bg-white border border-emerald-200 text-xs space-y-3">
-              <span className="font-bold text-amber-900 uppercase tracking-wider font-mono">
-                Nhóm 1 (Quy tắc âm đuôi trước ます)
-              </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 font-mono">
-                <div className="p-2.5 bg-emerald-50/80 rounded-lg border border-emerald-100">
-                  <span className="font-bold text-emerald-900">い、ち、り</span> ➔ <strong>った / ってみ</strong>
-                  <div className="text-[11px] text-emerald-700 mt-1">買います ➔ 買って</div>
-                </div>
-                <div className="p-2.5 bg-emerald-50/80 rounded-lg border border-emerald-100">
-                  <span className="font-bold text-emerald-900">み、び、に</span> ➔ <strong>んだ / んであ</strong>
-                  <div className="text-[11px] text-emerald-700 mt-1">飲みます ➔ 飲んで</div>
-                </div>
-                <div className="p-2.5 bg-emerald-50/80 rounded-lg border border-emerald-100">
-                  <span className="font-bold text-emerald-900">き ➔ いて / ぎ ➔ いで</span>
-                  <div className="text-[11px] text-emerald-700 mt-1">書きます ➔ 書い て</div>
-                </div>
-                <div className="p-2.5 bg-rose-50 rounded-lg border border-rose-200">
-                  <span className="font-bold text-rose-900">⚠️ 行きます</span> ➔ <strong>行って / 行った</strong>
-                  <div className="text-[11px] text-rose-700 mt-1">(Bẫy đặc biệt!)</div>
-                </div>
-              </div>
+            {/* Rule 2: Thể Từ điển */}
+            <div className="p-5 rounded-2xl bg-cyan-50/60 border border-cyan-200 space-y-2">
+              <span className="font-bold text-cyan-900 font-mono text-sm">02. Thể Từ điển (辞書形 - 原形 Vる)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1</strong>: Hàng い ➔ Hàng う (書きます ➔ 書く)</li>
+                <li>• <strong>Nhóm 2</strong>: Đuôi ~える/~いる: Bỏ ます + る (食べます ➔ 食べる)</li>
+                <li>• <strong>Nhóm 3</strong>: します ➔ する / きます ➔ くる</li>
+              </ul>
+            </div>
+
+            {/* Rule 3: Thể Nai */}
+            <div className="p-5 rounded-2xl bg-rose-50/60 border border-rose-200 space-y-2">
+              <span className="font-bold text-rose-900 font-mono text-sm">03. Thể Nai (ない形 - Phủ định ngắn)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1</strong>: Hàng い ➔ Hàng あ + ない (書きます ➔ 書かない)</li>
+                <li className="text-rose-700 font-bold">• ⚠️ Âm い ➔ わ + ない (買います ➔ 買わない)</li>
+                <li>• <strong>Nhóm 2</strong>: Bỏ ます/る + ない (食べる ➔ 食べない)</li>
+                <li>• <strong>Nhóm 3</strong>: する ➔ しない / くる ➔ こない / あります ➔ ない</li>
+              </ul>
+            </div>
+
+            {/* Rule 4: Thể Te */}
+            <div className="p-5 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-2">
+              <span className="font-bold text-emerald-900 font-mono text-sm">04. Thể Te (て形 - Nối câu / Yêu cầu)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1</strong>: い,ち,り ➔ った / み,び,に ➔ んだ / き ➔ いて / ぎ ➔ いで</li>
+                <li className="text-rose-700 font-bold">• ⚠️ 行きます ➔ 行って (Bẫy đặc biệt!)</li>
+                <li>• <strong>Nhóm 2</strong>: Bỏ ます/る + て (食べて, 見て)</li>
+                <li>• <strong>Nhóm 3</strong>: する ➔ して / くる ➔ きて</li>
+              </ul>
+            </div>
+
+            {/* Rule 5: Thể Ta */}
+            <div className="p-5 rounded-2xl bg-indigo-50/60 border border-indigo-200 space-y-2">
+              <span className="font-bold text-indigo-900 font-mono text-sm">05. Thể Ta (た形 - Quá khứ ngắn)</span>
+              <p className="text-gray-600 font-medium">⚡ Cách chia HỒNG HỆT thể て (thay て/で ➔ た/だ)</p>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• 買って ➔ 買った / 飲んで ➔ 飲んだ / 食べて ➔ 食べた</li>
+              </ul>
+            </div>
+
+            {/* Rule 6: Thể Tai */}
+            <div className="p-5 rounded-2xl bg-purple-50/60 border border-purple-200 space-y-2">
+              <span className="font-bold text-purple-900 font-mono text-sm">06. Thể Muốn (たい形 - Muốn làm gì)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1, 2, 3</strong>: Bỏ ます ➔ + たい</li>
+                <li>• 例: 書きたい, 飲みたい, 食べたい, したい, きたい</li>
+              </ul>
+            </div>
+
+            {/* Rule 7: Thể Khả Năng */}
+            <div className="p-5 rounded-2xl bg-orange-50/60 border border-orange-200 space-y-2">
+              <span className="font-bold text-orange-900 font-mono text-sm">07. Thể Khả Năng (可能形 - Có thể)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1</strong>: Hàng う ➔ Hàng え + る (書く ➔ 書ける, 飲む ➔ 飲める)</li>
+                <li>• <strong>Nhóm 2</strong>: Bỏ る ➔ + られる (食べる ➔ 食べられる)</li>
+                <li>• <strong>Nhóm 3</strong>: する ➔ できる / くる ➔ こられる (来られる)</li>
+              </ul>
+            </div>
+
+            {/* Rule 8: Thể Ý Định */}
+            <div className="p-5 rounded-2xl bg-pink-50/60 border border-pink-200 space-y-2">
+              <span className="font-bold text-pink-900 font-mono text-sm">08. Thể Ý Định (意向形 - Rủ rê/Dự định)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1</strong>: Hàng う ➔ Hàng お + う (書く ➔ 書こう, 飲む ➔ 飲もう)</li>
+                <li>• <strong>Nhóm 2</strong>: Bỏ る ➔ + よう (食べる ➔ 食べよう)</li>
+                <li>• <strong>Nhóm 3</strong>: する ➔ しよう / くる ➔ こよう (来よう)</li>
+              </ul>
+            </div>
+
+            {/* Rule 9: Thể Điều Kiện */}
+            <div className="p-5 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-2">
+              <span className="font-bold text-blue-900 font-mono text-sm">09. Thể Điều Kiện (条件形 - Nếu...ば)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1</strong>: Hàng う ➔ Hàng え + ば (書く ➔ 書けば, 飲む ➔ 飲めば)</li>
+                <li>• <strong>Nhóm 2</strong>: Bỏ る ➔ + れば (食べる ➔ 食べれば)</li>
+                <li>• <strong>Nhóm 3</strong>: する ➔ すれば / くる ➔ くれば (来れば)</li>
+              </ul>
+            </div>
+
+            {/* Rule 10: Thể Mệnh Lệnh */}
+            <div className="p-5 rounded-2xl bg-red-50/60 border border-red-200 space-y-2">
+              <span className="font-bold text-red-900 font-mono text-sm">10. Thể Mệnh Lệnh (命令形 - Mệnh lệnh)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1</strong>: Hàng う ➔ Hàng え (書く ➔ 書け, 飲む ➔ 飲め)</li>
+                <li>• <strong>Nhóm 2</strong>: Bỏ る ➔ + ろ (食べる ➔ 食べろ)</li>
+                <li>• <strong>Nhóm 3</strong>: する ➔ しろ / くる ➔ こい (来い)</li>
+              </ul>
+            </div>
+
+            {/* Rule 11: Thể Bị Động */}
+            <div className="p-5 rounded-2xl bg-teal-50/60 border border-teal-200 space-y-2">
+              <span className="font-bold text-teal-900 font-mono text-sm">11. Thể Bị Động (受身形 - Bị/Được)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1</strong>: Hàng う ➔ Hàng あ + られる (書く ➔ 書かれる, 買う ➔ 買われる)</li>
+                <li>• <strong>Nhóm 2</strong>: Bỏ る ➔ + られる (食べる ➔ 食べられる)</li>
+                <li>• <strong>Nhóm 3</strong>: する ➔ される / くる ➔ こられる</li>
+              </ul>
+            </div>
+
+            {/* Rule 12: Thể Sai Khiến */}
+            <div className="p-5 rounded-2xl bg-violet-50/60 border border-violet-200 space-y-2">
+              <span className="font-bold text-violet-900 font-mono text-sm">12. Thể Sai Khiến (使役形 - Bắt/Cho phép)</span>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• <strong>Nhóm 1</strong>: Hàng う ➔ Hàng あ + させる (書く ➔ 書かせる, 買う ➔ 買わせる)</li>
+                <li>• <strong>Nhóm 2</strong>: Bỏ る ➔ + させる (食べる ➔ 食べさせる)</li>
+                <li>• <strong>Nhóm 3</strong>: する ➔ させる / くる ➔ こさせる</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -753,7 +933,7 @@ export const VerbConjugationBoard: React.FC = () => {
         <div className="max-w-xl mx-auto p-6 rounded-3xl bg-slate-900 text-white space-y-6 shadow-2xl">
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">
             <span className="text-xs font-mono font-bold text-rose-400 uppercase tracking-widest">
-              Luyện phản xạ chia thể
+              Luyện phản xạ 12 thể động từ
             </span>
             <span className="text-xs font-mono font-semibold bg-slate-800 px-3 py-1 rounded-full text-slate-300">
               Điểm: {quizScore} / {quizTotal}
