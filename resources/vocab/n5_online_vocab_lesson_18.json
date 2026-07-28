@@ -1,0 +1,46 @@
+{
+  "school_name": "SAKAE Japanese School",
+  "contact": "NHẬT NGỮ SAKAE THỦ ĐỨC - 028.3720.1830",
+  "lesson": {
+    "title": "Bài 18 (だい18か)",
+    "content": "Từ vựng (ことば)",
+    "vocabulary": {
+      "nouns": [
+        { "id": 1, "japanese": "ギター", "vietnamese": "Đàn ghi ta" },
+        { "id": 2, "japanese": "ピアノ", "vietnamese": "Đàn piano" },
+        { "id": 3, "japanese": "ごみ", "vietnamese": "Rác" },
+        { "id": 4, "japanese": "No.メートル", "vietnamese": "Số mét" },
+        { "id": 5, "japanese": "しゅみ", "vietnamese": "Sở thích" },
+        { "id": 6, "japanese": "読書", "vietnamese": "Đọc sách" },
+        { "id": 7, "japanese": "日き", "vietnamese": "Nhật kí" },
+        { "id": 8, "japanese": "おいのり（をする）", "vietnamese": "Cầu nguyện" },
+        { "id": 9, "japanese": "社ちょう", "vietnamese": "Giám đốc" },
+        { "id": 10, "japanese": "ぶちょう", "vietnamese": "Trưởng phòng" },
+        { "id": 11, "japanese": "かちょう", "vietnamese": "Tổ trưởng" },
+        { "id": 12, "japanese": "インターネット", "vietnamese": "Mạng Internet" },
+        { "id": 13, "japanese": "げん金", "vietnamese": "Tiền mặt" }
+      ],
+      "verbs": [
+        { "id": 14, "japanese": "ひきます", "vietnamese": "Đánh" },
+        { "id": 15, "japanese": "うたいます", "vietnamese": "Hát" },
+        { "id": 16, "japanese": "あつめます", "vietnamese": "Sưu tầm, thu thập" },
+        { "id": 17, "japanese": "すてます", "vietnamese": "Vứt bỏ" },
+        { "id": 18, "japanese": "（お金を）かえます", "vietnamese": "Đổi (tiền)" },
+        { "id": 19, "japanese": "Nができます", "vietnamese": "Có thể" },
+        { "id": 20, "japanese": "うんてんします", "vietnamese": "Lái xe" },
+        { "id": 21, "japanese": "よやくします", "vietnamese": "Đặt trước" },
+        { "id": 22, "japanese": "見学します", "vietnamese": "Tham quan học tập" }
+      ],
+      "adverbs": [
+        { "id": 23, "japanese": "ぜひ", "vietnamese": "Nhất định (muốn làm)" }
+      ],
+      "kanji": [
+        { "id": 1, "kanji": "手", "vietnamese": "Tay" },
+        { "id": 2, "kanji": "足", "vietnamese": "Chân" },
+        { "id": 3, "kanji": "体", "vietnamese": "Cơ thể" },
+        { "id": 4, "kanji": "目", "vietnamese": "Mắt" },
+        { "id": 5, "kanji": "口", "vietnamese": "Miệng" }
+      ]
+    }
+  }
+}

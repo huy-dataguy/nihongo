@@ -1,0 +1,184 @@
+{
+  "bai_hoc": "第17課の文法 – NGỮ PHÁP BÀI 17",
+  "gioi_thieu": "Bài này giới thiệu thể ない của động từ theo 3 nhóm và các mẫu câu dùng thể ない.",
+  "bang_chia_dong_tu": {
+    "naikei": {
+      "tieu_de": "Ｖないけい - Thể ない",
+      "nhom_1": {
+        "quy_tac": "「う」→「あ」ない",
+        "vi_du": [
+          { "jishokei": "はたらく", "naikei": "はたらかない" },
+          { "jishokei": "いそぐ", "naikei": "いそがない" },
+          { "jishokei": "かす", "naikei": "かさない" },
+          { "jishokei": "しぬ", "naikei": "しなない" },
+          { "jishokei": "あそぶ", "naikei": "あそばない" },
+          { "jishokei": "のむ", "naikei": "のまない" },
+          { "jishokei": "会う", "naikei": "会わない", "ghi_chu": "う → わない" },
+          { "jishokei": "ある", "naikei": "ない", "ghi_chu": "bất quy tắc" }
+        ]
+      },
+      "nhom_2": {
+        "quy_tac": "る → ない",
+        "vi_du": [
+          { "jishokei": "食べる", "naikei": "食べない" },
+          { "jishokei": "ねる", "naikei": "ねない" },
+          { "jishokei": "かける", "naikei": "かけない" },
+          { "jishokei": "おしえる", "naikei": "おしえない" },
+          { "jishokei": "おきる", "naikei": "おきない" },
+          { "jishokei": "みる", "naikei": "みない" },
+          { "jishokei": "いる", "naikei": "いない" },
+          { "jishokei": "かりる", "naikei": "かりない" }
+        ]
+      },
+      "nhom_3": {
+        "quy_tac": "bất quy tắc (来る・する・Nする)",
+        "vi_du": [
+          { "jishokei": "来る", "naikei": "来ない" },
+          { "jishokei": "する", "naikei": "しない" },
+          { "jishokei": "べんきょうする", "naikei": "べんきょうしない" },
+          { "jishokei": "けっこんする", "naikei": "けっこんしない" },
+          { "jishokei": "かいものする", "naikei": "かいものしない" },
+          { "jishokei": "しょくじする", "naikei": "しょくじしない" }
+        ]
+      }
+    }
+  },
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "（～から）Ｖないで ください。",
+      "y_nghia": "Xin đừng V (vì...)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "しゅくだいをわすれないでください。",
+          "tieng_viet": "Xin đừng quên bài tập về nhà."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "パスポートは大切ですから、なくさないでください。",
+          "tieng_viet": "Xin đừng đánh mất vì cuốn hộ chiếu rất quan trọng."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: ここでたばこをすってもいいですか。",
+          "tieng_viet": "Tôi hút thuốc ở đây được không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: すみません。すわないでください。",
+          "tieng_viet": "Xin lỗi. Xin đừng hút thuốc ở đây."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｖなければなりません。",
+      "y_nghia": "Phải V",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "一日に三かいくすりを飲まなければなりません。",
+          "tieng_viet": "Một ngày tôi phải uống thuốc ba lần."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 子どもは何をしなければなりませんか。",
+          "tieng_viet": "Trẻ em thì phải làm gì vậy?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: 毎日学校へべんきょうに行かなければなりません。",
+          "tieng_viet": "Mỗi ngày phải đi đến trường để học."
+        }
+      ]
+    },
+    {
+      "cau_truc": "～までに",
+      "y_nghia": "Trong vòng..., trước...",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "いつも八時までにきょうしつに入らなければなりません。",
+          "tieng_viet": "Luôn luôn phải vào lớp học trước 8 giờ."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "来しゅうまでに本をかえさなければなりません。",
+          "tieng_viet": "Phải trả lại sách trong vòng tuần sau."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｖなくてもいいです。",
+      "y_nghia": "Không cần phải V, không V cũng được",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "日曜日はたらかなくてもいいです。",
+          "tieng_viet": "Chủ nhật không làm việc cũng được."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: ほけんしょうをもって来なければなりませんか。",
+          "tieng_viet": "Phải mang theo thẻ bảo hiểm đến không ạ?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: いいえ、もって来なくてもいいです。",
+          "tieng_viet": "Không, không cần phải mang đến."
+        }
+      ]
+    },
+    {
+      "cau_truc": "ＮをＶ → ＮはＶ。",
+      "y_nghia": "Tân ngữ hóa chủ ngữ",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "かばんはつくえの下においてください。",
+          "tieng_viet": "Cái cặp thì xin hãy để dưới cái bàn."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: ノートを見てもいいですか。",
+          "tieng_viet": "Xem vở có được không ạ?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: はい、ノートを見てもいいです。",
+          "tieng_viet": "Vâng, vở thì được xem."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: じ書も見てもいいですか。",
+          "tieng_viet": "Từ điển cũng được xem phải không ạ?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: いいえ、じ書は見てはいけません。",
+          "tieng_viet": "Không, từ điển thì không được xem."
+        }
+      ]
+    },
+    {
+      "cau_truc": "（わたしは）Ｎがいたいです。",
+      "y_nghia": "Tôi bị đau N",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "わたしはおなかがいたいです。",
+          "tieng_viet": "Tôi bị đau bụng."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: どうしましたか。",
+          "tieng_viet": "Có chuyện gì với cháu vậy?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: はがいたいです。",
+          "tieng_viet": "Cháu bị đau răng."
+        }
+      ]
+    }
+  ]
+}

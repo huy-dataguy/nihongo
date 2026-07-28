@@ -86,7 +86,7 @@ npx tsx scripts/import-vocab-supplement.ts
 Script đọc mọi `resources/vocab/*_supplement.json`, upsert vào bảng `vocabulary`.
 **AI không tự ghi DB** — chỉ đưa lệnh cho user (xem `CLAUDE.md`).
 
-## Bảng từ vựng đã trích (cập nhật 2026-07-21 — 60 từ: 45 trích từ grammar + 15 gap-fill)
+## Bảng từ vựng đã trích (cập nhật 2026-07-28 — 61 từ: 46 trích từ grammar + 15 gap-fill)
 
 | Bài | Số | Từ |
 |---|---|---|
@@ -101,6 +101,7 @@ Script đọc mọi `resources/vocab/*_supplement.json`, upsert vào bảng `voc
 | 13 | 5 | `何か`, `どこか`, `だれか`, `どこも`, `なつ休み` |
 | 14 | 2 | `もう一ど`, `かた` |
 | 15-16 | 1 | `どうやって` |
+| 17 | 1 | `は` |
 
 > **Bài 1-3 (gap-fill, 2026-06-27):** các câu ví dụ ngữ pháp bài 1-3 dùng toàn từ cơ bản đã có nên chưa trích được từ grammar. Tuy nhiên user phát hiện **bộ từ để hỏi + tuổi tác + where/what đang thiếu** trong vocab (`だれ`, `どこ`, `なに`, `なんさい`, `おいくつ`…) → bổ sung riêng vào `n5_online_vocab_lessons_1_3_supplement.json`. Đây là **gap-fill theo yêu cầu**, không phải trích từ câu ví dụ grammar.
 
@@ -117,17 +118,29 @@ Script đọc mọi `resources/vocab/*_supplement.json`, upsert vào bảng `voc
 > Loại `アメリカ人` (danh từ riêng dùng làm ví dụ, theo quy tắc loại trừ) và `電気せいひん` (ghép từ
 > 2 từ đã biết: `電気` + `せいひん`).
 
+> **Bài 17 (2026-07-28):** trích từ
+> `resources/gramma/n5_online_grammar_lesson_17.json` (PDF gốc:
+> `NGU_PHAP_BAI_17.pdf`). Đối chiếu toàn bộ câu ví dụ với mọi file vocab và
+> supplement: các từ như `しゅくだい`, `パスポート`, `くすり`, `子ども`,
+> `いつも`, `きょうしつ`, `らいしゅう`, `ほけんしょう`, `かばん`, `つくえ`,
+> `ノート`, `じしょ`, `おなか` đã có (kể cả khác cách viết kanji/kana). Chỉ còn
+> `は` (răng) là từ mới độc lập, ghi vào
+> `n5_online_vocab_lesson_17_supplement.json`. Không thêm số/bộ đếm trong
+> `一日に三かい` theo quy tắc loại trừ.
+
 > Khi trích thêm các bài sau (N4, bài 18+…), dùng đúng quy trình trên và **cập nhật bảng này** để session sau biết đâu đã làm.
 
-## Ghi chú: import grammar bài 9-16
+## Ghi chú: import grammar bài 9-17
 
-Grammar bài 9, 11-13, 15-16 dùng chung schema `{ bai_hoc, noi_dung_ngu_phap: [{cau_truc, y_nghia, vi_du}] }`
-(bài 10 là mảng phẳng không có `bai_hoc`). Cả 8 bài (9, 11-13, 15-16 qua vòng lặp chung; 10 riêng)
+Grammar bài 9, 11-13, 15-17 dùng chung schema `{ bai_hoc, noi_dung_ngu_phap: [{cau_truc, y_nghia, vi_du}] }`
+(bài 10 là mảng phẳng không có `bai_hoc`). Các bài 9, 11-13, 15-17 qua vòng lặp chung; bài 10 xử lý riêng
 đã được parse trong `scripts/import-to-supabase.ts` → các row `grammar`, id `grammar-b{lesson}-{stt}`.
 Riêng bài 14 có thêm bảng chia động từ 3 nhóm (じしょけい + てけい, trích từ ảnh trong PDF gốc)
 lưu ở field `bang_chia_dong_tu` của file JSON, gắn vào `conjugation_tables` của điểm ngữ pháp đầu tiên khi import.
+Tương tự, bài 17 có bảng thể ない trong `bang_chia_dong_tu`, cũng được gắn vào
+`conjugation_tables` của điểm ngữ pháp đầu tiên.
 
-Đồng bộ toàn bộ grammar bài 1-16 bằng:
+Đồng bộ toàn bộ grammar bài 1-17 bằng:
 
 ```
 npx tsx scripts/import-to-supabase.ts
@@ -138,7 +151,7 @@ npx tsx scripts/import-to-supabase.ts
 | Mục đích | Lệnh |
 |---|---|
 | Nạp vocab bổ sung | `npx tsx scripts/import-vocab-supplement.ts` |
-| Đồng bộ toàn bộ (vocab 1-17 + kanji + grammar 1-16) | `npx tsx scripts/import-to-supabase.ts` |
+| Đồng bộ toàn bộ (vocab 1-18 + kanji + grammar 1-17) | `npx tsx scripts/import-to-supabase.ts` |
 | Xem vocab bổ sung | `SELECT id, word, meaning FROM vocabulary WHERE id LIKE 'vocab-b%-sup-%';` |
-| Xem grammar bài 11-16 | `SELECT id, structure, meaning FROM grammar WHERE lesson IN (11,12,13,14,15,16);` |
+| Xem grammar bài 11-17 | `SELECT id, structure, meaning FROM grammar WHERE lesson IN (11,12,13,14,15,16,17);` |
 | Gỡ vocab bổ sung | `DELETE FROM vocabulary WHERE id LIKE 'vocab-b%-sup-%';` |
