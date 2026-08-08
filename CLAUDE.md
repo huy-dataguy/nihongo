@@ -52,11 +52,18 @@ Cả `gramma/` lẫn `vocab/` đều **đổi schema theo bài** (bài 7 ≠ bà
 - test: `npm test`
 - lint: `npm run lint`
 - run: `npm run dev`
-- đồng bộ vocab 1-12 + kanji + grammar 1-10: `npx tsx scripts/import-to-supabase.ts`
+- đồng bộ vocab 1-20 + kanji + grammar 1-19: `npx tsx scripts/import-to-supabase.ts`
 - nạp vocab bổ sung (`*_supplement.json`): `npx tsx scripts/import-vocab-supplement.ts`
 
 Yêu cầu `.env` có `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` (xem `.env.example`).
 Mọi script `scripts/*.ts` đều ghi thẳng Supabase → **AI không tự chạy** (xem quy tắc 1); đưa lệnh cho user tự `npx tsx scripts/...`.
+
+### Command contract — verify
+
+- verify: `npm run lint && npm test`
+
+  The full Definition of Done behind a single exit code, so a human, an agent, and CI
+  all judge "shippable" the same way. Verified working on 2026-07-27. (tsc --noEmit + node --test)
 
 ## Definition of Done — project additions
 

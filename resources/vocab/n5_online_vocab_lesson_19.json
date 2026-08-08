@@ -1,0 +1,58 @@
+{
+  "school_name": "SAKAE Japanese School",
+  "contact": "NHẬT NGỮ SAKAE THỦ ĐỨC - 028.3720.1830",
+  "lesson": {
+    "title": "Bài 19 (だい19か)",
+    "content": "Từ vựng (ことば)",
+    "vocabulary": {
+      "nouns": [
+        { "id": 1, "japanese": "ゴルフ", "vietnamese": "Gôn" },
+        { "id": 2, "japanese": "すもう", "vietnamese": "Đấu vật" },
+        { "id": 3, "japanese": "書どう", "vietnamese": "Thư pháp" },
+        { "id": 4, "japanese": "さどう", "vietnamese": "Trà đạo" },
+        { "id": 5, "japanese": "ダイエット", "vietnamese": "Ăn kiêng" },
+        { "id": 6, "japanese": "けいけん", "vietnamese": "Kinh nghiệm" },
+        { "id": 7, "japanese": "ぼくじょう", "vietnamese": "Trang trại chăn nuôi" },
+        { "id": 8, "japanese": "うし", "vietnamese": "Bò" },
+        { "id": 9, "japanese": "うま", "vietnamese": "Ngựa" }
+      ],
+      "verbs": [
+        { "id": 10, "japanese": "（山に）のぼります", "vietnamese": "Leo núi" },
+        { "id": 11, "japanese": "（ばしょに）とまります", "vietnamese": "Trọ lại" },
+        { "id": 12, "japanese": "（ばしょを）そうじします", "vietnamese": "Dọn dẹp" },
+        { "id": 13, "japanese": "せんたくします", "vietnamese": "Giặt" },
+        { "id": 14, "japanese": "れんしゅうします", "vietnamese": "Luyện tập" },
+        { "id": 15, "japanese": "なります", "vietnamese": "Trở nên, trở thành" }
+      ],
+      "adjectives": [
+        { "id": 16, "japanese": "ちょうしがいい", "vietnamese": "Tình trạng tốt" },
+        { "id": 17, "japanese": "ちょうしがわるい", "vietnamese": "Tình trạng xấu" },
+        { "id": 18, "japanese": "体にいい", "vietnamese": "Tốt cho sức khỏe" },
+        { "id": 19, "japanese": "体にわるい", "vietnamese": "Xấu cho sức khỏe" },
+        { "id": 20, "japanese": "ねむい", "vietnamese": "Buồn ngủ" },
+        { "id": 21, "japanese": "つよい", "vietnamese": "Mạnh" },
+        { "id": 22, "japanese": "よわい", "vietnamese": "Yếu" },
+        { "id": 23, "japanese": "むり（な）", "vietnamese": "Quá sức, không thể" }
+      ],
+      "adverbs": [
+        { "id": 24, "japanese": "はじめて", "vietnamese": "Lần đầu tiên" },
+        { "id": 25, "japanese": "だんだん", "vietnamese": "Dần dần" },
+        { "id": 26, "japanese": "もうすぐ", "vietnamese": "Sắp" },
+        { "id": 27, "japanese": "じつは", "vietnamese": "Thực ra là" }
+      ],
+      "expressions": [
+        { "id": 28, "japanese": "かんぱい", "vietnamese": "Cạn ly" }
+      ],
+      "kanji": [
+        { "id": 1, "kanji": "借りる", "vietnamese": "Mượn" },
+        { "id": 2, "kanji": "貸す", "vietnamese": "Cho mượn" },
+        { "id": 3, "kanji": "起きる", "vietnamese": "Thức dậy" },
+        { "id": 4, "kanji": "帰る", "vietnamese": "Trở về" },
+        { "id": 5, "kanji": "買う", "vietnamese": "Mua" },
+        { "id": 6, "kanji": "買い物", "vietnamese": "Mua sắm" },
+        { "id": 7, "kanji": "売る", "vietnamese": "Bán" },
+        { "id": 8, "kanji": "売りば", "vietnamese": "Quầy bán hàng" }
+      ]
+    }
+  }
+}

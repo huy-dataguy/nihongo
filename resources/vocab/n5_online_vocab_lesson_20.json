@@ -1,0 +1,43 @@
+{
+  "school_name": "SAKAE Japanese School",
+  "contact": "NHẬT NGỮ SAKAE THỦ ĐỨC - 028.3720.1830",
+  "lesson": {
+    "title": "Bài 20 (だい20か)",
+    "content": "Từ vựng (ことば)",
+    "vocabulary": {
+      "nouns": [
+        { "id": 1, "japanese": "ことば", "vietnamese": "Từ vựng" },
+        { "id": 2, "japanese": "物か", "vietnamese": "Vật giá" },
+        { "id": 3, "japanese": "サラリーマン", "vietnamese": "Người lao động trí óc" },
+        { "id": 4, "japanese": "この間", "vietnamese": "Hồi trước" },
+        { "id": 5, "japanese": "ぼく", "vietnamese": "Tớ" },
+        { "id": 6, "japanese": "きみ", "vietnamese": "Cậu" },
+        { "id": 7, "japanese": "（なまえ）くん", "vietnamese": "Bé trai (tên)" },
+        { "id": 8, "japanese": "（なまえ）ちゃん", "vietnamese": "Bé (tên)" },
+        { "id": 9, "japanese": "こっち", "vietnamese": "Ở đây" },
+        { "id": 10, "japanese": "そっち", "vietnamese": "Ở đó" },
+        { "id": 11, "japanese": "あっち", "vietnamese": "Ở kia" },
+        { "id": 12, "japanese": "どっち", "vietnamese": "Ở đâu" }
+      ],
+      "verbs": [
+        { "id": 13, "japanese": "（Nが）いります", "vietnamese": "Cần" },
+        { "id": 14, "japanese": "しらべます", "vietnamese": "Tra cứu" },
+        { "id": 15, "japanese": "なおします", "vietnamese": "Sửa lỗi" },
+        { "id": 16, "japanese": "しゅうりします", "vietnamese": "Sửa máy" }
+      ],
+      "kanji": [
+        { "id": 1, "kanji": "教える", "vietnamese": "Dạy" },
+        { "id": 2, "kanji": "教しつ", "vietnamese": "Phòng học" },
+        { "id": 3, "kanji": "教会", "vietnamese": "Nhà thờ" },
+        { "id": 4, "kanji": "習う", "vietnamese": "Học" },
+        { "id": 5, "kanji": "れん習", "vietnamese": "Luyện tập" },
+        { "id": 6, "kanji": "勉強", "vietnamese": "Bài học, việc học" },
+        { "id": 7, "kanji": "強い", "vietnamese": "Mạnh" },
+        { "id": 8, "kanji": "旅行", "vietnamese": "Du lịch" },
+        { "id": 9, "kanji": "英語", "vietnamese": "Tiếng anh" },
+        { "id": 10, "kanji": "日本語", "vietnamese": "Tiếng Nhật" },
+        { "id": 11, "kanji": "名前", "vietnamese": "Tên" }
+      ]
+    }
+  }
+}

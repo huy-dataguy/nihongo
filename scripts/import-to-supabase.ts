@@ -1,5 +1,5 @@
 /**
- * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-18, grammar bài 1-17, kanji).
+ * Đồng bộ TOÀN BỘ resource JSON vào Supabase (vocab bài 1-20, grammar bài 1-19, kanji).
  * Dùng `upsert` theo `id` => CHẠY LẠI BAO NHIÊU LẦN CŨNG ĐƯỢC, không bị trùng.
  * Mỗi lần sửa/thêm file trong resources/, chỉ cần chạy lại lệnh này:
  *
@@ -276,9 +276,9 @@ async function main() {
     }
   }
 
-  // Bài 14-18 — schema đồng nhất: { school_name, contact, lesson: { title, content, vocabulary: { <cats>: [{id, japanese, vietnamese}], kanji: [{id, kanji, vietnamese}] } } }
+  // Bài 14-20 — schema đồng nhất: { school_name, contact, lesson: { title, content, vocabulary: { <cats>: [{id, japanese, vietnamese}], kanji: [{id, kanji, vietnamese}] } } }
   const filesLesson14to18: Record<number, any> = {};
-  for (const lessonNum of [14, 15, 16, 17, 18]) {
+  for (const lessonNum of [14, 15, 16, 17, 18, 19, 20]) {
     const filePath = path.join(resourcesDir, `vocab/n5_online_vocab_lesson_${lessonNum}.json`);
     if (!fs.existsSync(filePath)) continue;
     const fileData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
@@ -383,8 +383,8 @@ async function main() {
     });
   }
 
-  // --- KANJI from Bài 14-18 (vocabulary.kanji: [{id, kanji, vietnamese}]) ---
-  for (const lessonNum of [14, 15, 16, 17, 18]) {
+  // --- KANJI from Bài 14-20 (vocabulary.kanji: [{id, kanji, vietnamese}]) ---
+  for (const lessonNum of [14, 15, 16, 17, 18, 19, 20]) {
     const kanjiItems = filesLesson14to18[lessonNum]?.lesson?.vocabulary?.kanji || [];
     for (const item of kanjiItems) {
       kanjiRows.push({
@@ -547,10 +547,10 @@ async function main() {
     });
   }
 
-  // Bài 11-13, 15-17 — cấu trúc giống bài 9: { bai_hoc, noi_dung_ngu_phap: [{ cau_truc, y_nghia, vi_du }] }
-  // Bài 17 có thêm bang_chia_dong_tu; gắn bảng vào điểm ngữ pháp đầu tiên.
+  // Bài 11-13, 15-19 — cấu trúc giống bài 9: { bai_hoc, noi_dung_ngu_phap: [{ cau_truc, y_nghia, vi_du }] }
+  // Bài 17 và 19 có thêm bang_chia_dong_tu; gắn bảng vào điểm ngữ pháp đầu tiên.
   // Bài 14 dùng cấu trúc riêng bên dưới vì bảng của bài này đã có importer riêng.
-  for (const lessonNum of [11, 12, 13, 15, 16, 17]) {
+  for (const lessonNum of [11, 12, 13, 15, 16, 17, 18, 19]) {
     const filePath = path.join(resourcesDir, `gramma/n5_online_grammar_lesson_${lessonNum}.json`);
     if (!fs.existsSync(filePath)) continue;
     const gramData = JSON.parse(fs.readFileSync(filePath, "utf-8"));

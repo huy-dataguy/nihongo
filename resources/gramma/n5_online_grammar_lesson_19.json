@@ -1,0 +1,162 @@
+{
+  "bai_hoc": "第19課の文法 – NGỮ PHÁP BÀI 19",
+  "gioi_thieu": "Bài này giới thiệu thể た của động từ (chia giống thể て) và các mẫu câu dùng thể た.",
+  "bang_chia_dong_tu": {
+    "takei": {
+      "tieu_de": "Ｖたけい - Thể た (＊Chia giống thể て)",
+      "nhom_1": {
+        "quy_tac": "Chia giống thể て",
+        "vi_du": [
+          { "jishokei": "作る", "takei": "作った" },
+          { "jishokei": "会う", "takei": "会った" },
+          { "jishokei": "あそぶ", "takei": "あそんだ" },
+          { "jishokei": "書く", "takei": "書いた" },
+          { "jishokei": "かす", "takei": "かした" },
+          { "jishokei": "行く", "takei": "行った", "ghi_chu": "bất quy tắc" }
+        ]
+      },
+      "nhom_2": {
+        "quy_tac": "る → た",
+        "vi_du": [
+          { "jishokei": "たべる", "takei": "たべた" },
+          { "jishokei": "ねる", "takei": "ねた" },
+          { "jishokei": "あげる", "takei": "あげた" },
+          { "jishokei": "おきる", "takei": "おきた", "ghi_chu": "tài liệu gốc in nhầm thành おきて" },
+          { "jishokei": "みる", "takei": "みた", "ghi_chu": "tài liệu gốc in nhầm thành みて" },
+          { "jishokei": "かりる", "takei": "かりた", "ghi_chu": "tài liệu gốc in nhầm thành かりて" }
+        ]
+      },
+      "nhom_3": {
+        "quy_tac": "bất quy tắc (来る・する・Nする)",
+        "vi_du": [
+          { "jishokei": "来る", "takei": "来た" },
+          { "jishokei": "する", "takei": "した" },
+          { "jishokei": "べんきょうする", "takei": "べんきょうした" },
+          { "jishokei": "さんぽする", "takei": "さんぽした" },
+          { "jishokei": "しょくじする", "takei": "しょくじした" }
+        ]
+      }
+    }
+  },
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "Ｖたことがあります。",
+      "y_nghia": "Đã từng V",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "日本でしんかんせんにのったことがあります。",
+          "tieng_viet": "Tôi đã từng lên tàu siêu tốc ở Nhật."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: すしを食べたことがありますか？",
+          "tieng_viet": "Bạn đã từng ăn sushi chưa?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: はい、いちどあります。",
+          "tieng_viet": "Vâng, tôi từng ăn một lần."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "はい、何どもあります。",
+          "tieng_viet": "Vâng, tôi từng ăn nhiều lần."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 山にのぼったことがありますか？",
+          "tieng_viet": "Bạn đã từng leo núi chưa?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: いいえ、いちどもありません。",
+          "tieng_viet": "Không, tôi chưa từng leo lần nào."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｖ1たり、Ｖ2たりします。",
+      "y_nghia": "Nào là V1, V2",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "日よう日は本を読んだり、テレビを見たりします。",
+          "tieng_viet": "Chủ nhật thì nào là đọc sách nào là xem TV."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "きのうはうちでせんたくしたり、そうじしたりしました。",
+          "tieng_viet": "Hôm qua ở nhà tôi đã nào là giặt đồ, nào là dọn dẹp."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "ダイエットはジョギングしたり、やさいを食べたりしてください。",
+          "tieng_viet": "Ăn kiêng thì hãy nào là chạy bộ nào là ăn rau."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ａい → くなります。／Ａな → になります。",
+      "y_nghia": "Trở nên A",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "もうすぐあかるくなります。",
+          "tieng_viet": "Sắp trở nên sáng sủa."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "日本ごのべんきょうがだんだんむずかしくなりました。",
+          "tieng_viet": "Việc học tiếng Nhật đã dần dần trở nên khó."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "よるこうえんはしずかになります。",
+          "tieng_viet": "Buổi tối công viên thì trở nên yên tĩnh."
+        },
+        {
+          "so_thu_tu": 4,
+          "tieng_nhat": "なかなか日本ごが上手になりません。",
+          "tieng_viet": "Tôi mãi mà không trở nên giỏi tiếng Nhật."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: エアコンをつけます。へやはどうなりますか？",
+          "tieng_viet": "Bạn bật điều hòa. Phòng sẽ trở nên thế nào?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: すずしくなります。",
+          "tieng_viet": "Trở nên mát mẻ."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｎになります。／No.さいになります。",
+      "y_nghia": "Trở thành N / Tròn ~ tuổi",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "むす子はいしゃになりました。",
+          "tieng_viet": "Con trai tôi đã trở thành bác sỹ."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 大学を出てから、何になりたいですか？",
+          "tieng_viet": "Sau khi ra trường đại học thì bạn muốn trở thành gì?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: けんきゅうしゃになりたいです。",
+          "tieng_viet": "Tôi muốn trở thành nhà nghiên cứu."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "むす子は１２さいになりました。",
+          "tieng_viet": "Con trai tôi đã tròn 12 tuổi."
+        }
+      ]
+    }
+  ]
+}

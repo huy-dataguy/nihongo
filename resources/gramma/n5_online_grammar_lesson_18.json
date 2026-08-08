@@ -1,0 +1,139 @@
+{
+  "bai_hoc": "第18課の文法 – NGỮ PHÁP BÀI 18",
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "Ｖることができます。",
+      "y_nghia": "Có thể V",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "さとうさんはえいごを話すことができます。",
+          "tieng_viet": "Chị Sato có thể nói tiếng Anh."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 日本ごでうたをうたうことができますか？",
+          "tieng_viet": "Bạn có thể hát bằng tiếng Nhật không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: はい、（うたうことが）できます。",
+          "tieng_viet": "Vâng, có thể hát."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "いいえ、（うたうことが）できません。",
+          "tieng_viet": "Không, không thể hát được."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "キャッシュカードでお金をはらうことができます。",
+          "tieng_viet": "Có thể trả tiền bằng thẻ ngân hàng."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: ケータイで何ができますか？",
+          "tieng_viet": "Có thể làm gì bằng cái điện thoại di động?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: しゃしんをとることやおんがくを聞くことができます。",
+          "tieng_viet": "Có thể chụp hình, nghe nhạc v.v."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "あのぎん行でお金をかえることができます。",
+          "tieng_viet": "Có thể đổi tiền ở ngân hàng kia."
+        },
+        {
+          "so_thu_tu": 4,
+          "tieng_nhat": "あのはこにごみをすてることができます。",
+          "tieng_viet": "Có thể vứt rác vào cái hộp kia."
+        }
+      ]
+    },
+    {
+      "cau_truc": "（～から）なかなかＶることができません。",
+      "y_nghia": "Mãi mà không thể V (vì...)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "なかなかねることができません。",
+          "tieng_viet": "Mãi mà không thể ngủ được."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "かんじはむずかしいですから、なかなかおぼえることができません。",
+          "tieng_viet": "Vì kanji khó nên mãi mà không thể nhớ được."
+        }
+      ]
+    },
+    {
+      "cau_truc": "しゅみはＮです。／しゅみはＮをＶることです。",
+      "y_nghia": "Sở thích là...",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "わたしのしゅみはサッカーです。",
+          "tieng_viet": "Sở thích của tôi là bóng đá."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "わたしのしゅみはえいがを見ることです。",
+          "tieng_viet": "Sở thích của tôi là xem phim."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: しゅみは何ですか？",
+          "tieng_viet": "Sở thích của bạn là gì?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: えをかくことやおんがくを聞くことです。",
+          "tieng_viet": "Vẽ tranh, nghe nhạc v.v."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｖる／Ｎの／No.年・ヶ月　まえに",
+      "y_nghia": "Trước khi..., cách đây...",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "ごはんを食べるまえに、手をあらいます。",
+          "tieng_viet": "Trước khi ăn cơm sẽ rửa tay."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "出ちょうするまえに、ホテルをよやくしなければなりません。",
+          "tieng_viet": "Trước khi đi công tác thì phải đặt phòng khách sạn."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "パーティーのまえに、りょうりを作ります。",
+          "tieng_viet": "Trước bữa tiệc sẽ nấu ăn."
+        },
+        {
+          "so_thu_tu": 4,
+          "tieng_nhat": "このしりょうは会ぎのまえに、コピーしてください。",
+          "tieng_viet": "Tài liệu này xin hãy photo trước cuộc họp."
+        },
+        {
+          "so_thu_tu": 5,
+          "tieng_nhat": "サントスさんは3年まえに、日本へ来ました。",
+          "tieng_viet": "Anh Santo đã đến Nhật cách đây 3 năm."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: いつまつもとさんに会いましたか？",
+          "tieng_viet": "Bạn đã gặp anh Matsumoto khi nào?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: 四日まえにあいました。",
+          "tieng_viet": "Đã gặp cách đây 4 ngày."
+        }
+      ]
+    }
+  ]
+}
