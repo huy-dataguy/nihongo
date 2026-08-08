@@ -61,8 +61,13 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
       examples: [r.example],
     }));
     const refChars = new Set(refEntries.map((e) => e.character));
+    // Nhiều bài (resources/vocab/*.json) đẩy cả từ ghép (vd "食べ物") vào cột "kanji" của
+    // Supabase để làm ví dụ minh họa — không phải chữ Hán gốc riêng lẻ. Những từ ghép này
+    // đã có mặt trong `example` của chữ Hán gốc tương ứng trong KANJI_N5_REFERENCE, nên nếu
+    // không lọc sẽ tạo hàng trùng lặp với cột On/Kun/Hán Việt trống. Chỉ coi là "extra" khi
+    // là 1 chữ Hán đơn lẻ thật sự mới, hoặc do người dùng/AI tự thêm (isCustom).
     const extra: DisplayKanji[] = kanjiList
-      .filter((k) => k.character && !refChars.has(k.character))
+      .filter((k) => k.character && !refChars.has(k.character) && ([...k.character].length === 1 || k.isCustom))
       .map((k) => ({
         id: k.id,
         character: k.character,
