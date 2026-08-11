@@ -3,7 +3,8 @@ import { GrammarItem, GrammarExample } from "../types";
 import { speakJapanese } from "../utils/audio";
 import { kanaToRomaji } from "../utils/kanaToRomaji";
 import VerbConjugationBoard from "./VerbConjugationBoard";
-import { ChevronDown, ChevronUp, Volume2, BookOpen, Clock, Search, Target, ArrowRightLeft, Layers } from "lucide-react";
+import LessonFilterDropdown from "./LessonFilterDropdown";
+import { ChevronDown, ChevronUp, Volume2, BookOpen, Search, Target, ArrowRightLeft } from "lucide-react";
 
 // ============================================
 // Keyword Highlighting System
@@ -148,30 +149,193 @@ interface GrammarBoardProps {
   onPractice?: () => void;
 }
 
+// ============================================
+// Conjugation Table Renderer (Bảng chia)
+// ============================================
+
+const CONJ_LABELS: Record<string, string> = {
+  v_futsuukei_1: "Ｖふつうけい１ — V thể thông thường 1",
+  v_futsuukei_2: "Ｖふつうけい２ — V thể thông thường 2",
+  a_i_futsuukei: "Ａいふつうけい — Aい thể thông thường",
+  a_na_futsuukei: "Ａなふつうけい — Aな thể thông thường",
+  n_futsuukei: "Ｎふつうけい — N thể thông thường",
+  takei: "Ｖたけい — Thể た",
+  nai: "Ｖないけい — Thể ない",
+  jishokei: "じしょけい — Thể từ điển",
+  tekei: "てけい — Thể て",
+  nhom_1: "Nhóm 1 (五段)",
+  nhom_2: "Nhóm 2 (一段)",
+  nhom_3: "Nhóm 3 (Bất quy tắc)",
+  quy_tac: "Quy tắc",
+  lien_chi: "Lịch sự",
+  futsuukei: "Thông thường",
+  masu: "ます形",
+};
+
+function labelForConjKey(key: string): string {
+  return CONJ_LABELS[key] || key.replace(/_/g, " ");
+}
+
+function renderConjugationTable(tables: Record<string, any>): React.ReactNode {
+  return (
+    <div className="space-y-3 p-3">
+      {Object.entries(tables).map(([key, data]) => {
+        const title =
+          data && typeof data === "object" && !Array.isArray(data) && typeof data.tieu_de === "string"
+            ? data.tieu_de
+            : labelForConjKey(key);
+        return (
+          <div key={key}>
+            <p className="font-bold text-gray-600 text-xs mb-1.5">{title}</p>
+            {renderConjTableBody(data)}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function renderConjTableBody(data: any): React.ReactNode {
+  if (!data || typeof data !== "object") return <p className="text-gray-600">{String(data)}</p>;
+
+  // Kiểu bài 20: bảng chuyển đổi { chuyen_doi: [{ lien_chi, futsuukei }] }
+  if (Array.isArray(data.chuyen_doi)) {
+    return (
+      <div className="overflow-x-auto rounded-lg border border-gray-100 bg-white">
+        <table className="w-full text-left border-collapse min-w-[280px]">
+          <thead>
+            <tr className="bg-amber-50/60">
+              <th className="text-[10px] uppercase font-bold text-gray-500 tracking-wider font-mono px-3 py-1.5">
+                Lịch sự (です・ます)
+              </th>
+              <th className="text-[10px] uppercase font-bold text-gray-500 tracking-wider font-mono px-3 py-1.5">
+                Thể thông thường
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.chuyen_doi.map((row: any, i: number) => (
+              <tr key={i} className="border-t border-gray-50">
+                <td className="px-3 py-1.5 text-gray-500">{row.lien_chi || ""}</td>
+                <td className="px-3 py-1.5 text-gray-900 font-semibold">{row.futsuukei || ""}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  // Kiểu bài 14/17/19: nhóm chia { nhom_1: { quy_tac, vi_du: [{...}] } }
+  const groups = Object.entries(data).filter(([, v]) => v && typeof v === "object" && !Array.isArray(v));
+  if (groups.length > 0) {
+    return (
+      <div className="space-y-2">
+        {groups.map(([gKey, gData]: [string, any]) => (
+          <div key={gKey} className="rounded-lg border border-gray-100 bg-white overflow-hidden">
+            <div className="bg-gray-50/80 px-3 py-1.5 font-semibold text-gray-600">
+              {labelForConjKey(gKey)}
+              {gData.quy_tac && (
+                <span className="ml-2 text-[10px] font-normal text-gray-400">{gData.quy_tac}</span>
+              )}
+            </div>
+            <div className="px-3 py-2 grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+              {(gData.vi_du || []).map((item: any, i: number) => (
+                <div key={i} className="border border-gray-50 rounded-lg px-2 py-1.5">
+                  <div className="flex items-center gap-1 text-gray-900 font-semibold">
+                    {renderPairFields(item)}
+                  </div>
+                  {item.ghi_chu && (
+                    <p className="text-[10px] text-amber-700 mt-0.5">⚠ {item.ghi_chu}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Fallback: cặp key → giá trị đơn giản
+  const pairs = Object.entries(data).filter(([, v]) => typeof v === "string");
+  if (pairs.length > 0) {
+    return (
+      <div className="grid grid-cols-2 gap-1.5">
+        {pairs.map(([k, v]) => (
+          <Fragment key={k}>
+            <div className="text-gray-500 font-medium bg-gray-50 px-2 py-1.5 rounded-lg">{labelForConjKey(k)}</div>
+            <div className="text-gray-800 font-semibold bg-white px-2 py-1.5 rounded-lg border border-gray-50">{String(v)}</div>
+          </Fragment>
+        ))}
+      </div>
+    );
+  }
+
+  return null;
+}
+
+// Render cặp chia động từ trong 1 ô, vd 作る ➔ 作った (bỏ qua ghi_chu)
+function renderPairFields(item: Record<string, any>): React.ReactNode {
+  const entries = Object.entries(item).filter(([k, v]) => k !== "ghi_chu" && typeof v === "string");
+  if (entries.length === 0) return null;
+
+  const parts: React.ReactNode[] = [];
+  entries.forEach(([k, v], i) => {
+    if (i > 0) {
+      parts.push(
+        <span key={`arrow-${i}`} className="text-amber-600 font-bold">
+          ➔
+        </span>
+      );
+    }
+    parts.push(
+      <span key={`${k}-${i}`} className="min-w-0">
+        <span className="text-[9px] text-gray-400 mr-1">{labelForConjKey(k)}</span>
+        {v}
+      </span>
+    );
+  });
+  return parts;
+}
+
 export default function GrammarBoard({ grammarList, onPractice }: GrammarBoardProps) {
   const [subTab, setSubTab] = useState<"grammar" | "verbConjugation">("grammar");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedLesson, setSelectedLesson] = useState<number | "all">("all");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
-  // Extract weeks/categories
-  const categories = useMemo(() => {
-    const list = grammarList.map((item) => item.category || "Chưa phân loại");
-    return ["all", ...Array.from(new Set(list))];
-  }, [grammarList]);
+  // Danh sách số bài thực tế, luôn tăng dần. `category` trong dữ liệu gốc dùng nhiều
+  // định dạng khác nhau tuỳ bài (vd "第9課の文法 – NGỮ PHÁP BÀI 9" vs "Bài 8 - Kết hợp
+  // tính từ") nên không dùng được làm khoá lọc theo bài — chỉ số `lesson` mới đáng tin.
+  const lessons = useMemo(
+    () => Array.from(new Set(grammarList.map((g) => g.lesson || 0).filter((l) => l > 0))).sort((a, b) => a - b),
+    [grammarList]
+  );
 
-  // Filter based on week selection
+  // Filter theo bài + tìm kiếm
   const filteredGrammar = useMemo(() => {
     const query = search.trim().toLowerCase();
     return grammarList.filter((item) => {
-      if (selectedCategory !== "all" && (item.category || "Chưa phân loại") !== selectedCategory) return false;
+      if (selectedLesson !== "all" && (item.lesson || 0) !== selectedLesson) return false;
       if (!query) return true;
       return [item.structure, item.meaning, item.explanation, item.notes || "", item.category || ""]
         .join(" ")
         .toLowerCase()
         .includes(query);
     });
-  }, [grammarList, selectedCategory, search]);
+  }, [grammarList, selectedLesson, search]);
+
+  // Gom theo bài để hiển thị đúng thứ tự, không theo thứ tự chèn dữ liệu gốc.
+  const groupedGrammar = useMemo(() => {
+    const map = new Map<number, GrammarItem[]>();
+    filteredGrammar.forEach((item) => {
+      const l = item.lesson || 0;
+      if (!map.has(l)) map.set(l, []);
+      map.get(l)!.push(item);
+    });
+    return Array.from(map.entries()).sort((a, b) => a[0] - b[0]);
+  }, [filteredGrammar]);
 
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
@@ -221,165 +385,170 @@ export default function GrammarBoard({ grammarList, onPractice }: GrammarBoardPr
               <Search size={15} />
               <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Tìm cấu trúc, ý nghĩa hoặc ghi chú..." />
             </label>
-            {/* Categories selector */}
-            <div className="flex items-center gap-1.5 self-start md:self-auto bg-gray-100 p-1.5 rounded-xl text-xs overflow-x-auto w-full md:w-auto">
-              {categories.slice(0, 5).map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-3 py-1.5 font-semibold rounded-lg shrink-0 transition-all ${
-                    selectedCategory === category
-                      ? "bg-white text-gray-900 shadow-xs"
-                      : "text-gray-500 hover:text-gray-900"
-                  }`}
-                >
-                  {category === "all" ? "📁 Tất cả" : category}
-                </button>
-              ))}
-              {categories.length > 5 && (
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="bg-transparent border-0 text-gray-500 hover:text-gray-900 font-semibold text-xs px-2 focus:outline-none"
-                >
-                  <option disabled value="">Khác...</option>
-                  {categories.slice(5).map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
+            <LessonFilterDropdown
+              lessons={lessons}
+              selected={selectedLesson}
+              onSelect={setSelectedLesson}
+              countFor={(l) => (l === "all" ? filteredGrammar.length : filteredGrammar.filter((i) => (i.lesson || 0) === l).length)}
+            />
           </div>
 
           <p className="grammar-result-count">Hiển thị {filteredGrammar.length} / {grammarList.length} cấu trúc</p>
 
-          {/* Main List */}
-          <div className="space-y-4">
-            {filteredGrammar.length === 0 ? (
+          {/* Main List — gom theo bài để hiển thị đúng thứ tự bài học */}
+          <div className="space-y-8">
+            {groupedGrammar.length === 0 ? (
               <div className="text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
                 <BookOpen className="mx-auto h-12 w-12 text-gray-300 mb-3" />
                 <p className="text-gray-500 font-medium">Chưa có ngữ pháp nào trong tuần này.</p>
                 <p className="text-xs text-gray-400 mt-1">Hãy đổi bộ lọc hoặc sử dụng Import bài học để thêm ngữ pháp.</p>
               </div>
             ) : (
-              filteredGrammar.map((item, index) => {
-                const isExpanded = expandedId === item.id;
-                return (
-                  <div
-                    key={item.id}
-                    className={`border rounded-xl transition-all duration-200 ${
-                      isExpanded
-                        ? "border-amber-200 bg-amber-50/5/10 shadow-xs"
-                        : "border-gray-100 hover:border-gray-200 bg-white"
-                    }`}
-                  >
-                    {/* Header bar (Luôn hiển thị) */}
-                    <div
-                      onClick={() => toggleExpand(item.id)}
-                      className="p-4 cursor-pointer flex items-center justify-between gap-4 select-none"
-                    >
-                      <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <span className="grammar-number">#{index + 1}</span>
-                        <div className="min-w-0">
-                          <h3 className="grammar-structure">
-                            {item.structure}
-                          </h3>
-                          <p className="grammar-meaning">
-                            {item.meaning}
-                          </p>
-                        </div>
-                      </div>
+              groupedGrammar.map(([lesson, items]) => (
+                <section key={lesson}>
+                  <div className="flex items-baseline gap-2.5 mb-3">
+                    <span className="text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-100 rounded-full px-2.5 py-0.5">
+                      Bài {lesson}
+                    </span>
+                    <span className="ml-auto text-[10px] text-gray-400 font-mono">{items.length} cấu trúc</span>
+                  </div>
 
-                      <div className="flex items-center gap-3 shrink-0">
-                        {item.category && (
-                          <span className="grammar-category-badge">
-                            {item.category}
-                          </span>
-                        )}
-                        <div className="text-gray-400 hover:text-gray-600 transition-colors">
-                          {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-                        </div>
-                      </div>
-                    </div>
+                  <div className="space-y-4">
+                    {items.map((item, index) => {
+                      const isExpanded = expandedId === item.id;
+                      return (
+                        <div
+                          key={item.id}
+                          className={`border rounded-xl transition-all duration-200 ${
+                            isExpanded
+                              ? "border-amber-200 bg-amber-50/5/10 shadow-xs"
+                              : "border-gray-100 hover:border-gray-200 bg-white"
+                          }`}
+                        >
+                          {/* Header bar (Luôn hiển thị) */}
+                          <div
+                            onClick={() => toggleExpand(item.id)}
+                            className="p-4 cursor-pointer flex items-center justify-between gap-4 select-none"
+                          >
+                            <div className="flex items-center gap-3 flex-1 min-w-0">
+                              <span className="grammar-number">#{index + 1}</span>
+                              <div className="min-w-0">
+                                <h3 className="grammar-structure">
+                                  {item.structure}
+                                </h3>
+                                <p className="grammar-meaning">
+                                  {item.meaning}
+                                </p>
+                              </div>
+                            </div>
 
-                    {/* Content mở rộng (Chi tiết giải thích & Ví dụ) */}
-                    {isExpanded && (
-                      <div className="px-4 pb-5 pt-1 border-t border-gray-100 space-y-4 animate-fadeIn">
-                        {/* Giải thích chi tiết */}
-                        {item.explanation && (
-                          <div className="bg-gray-50 p-3.5 rounded-lg border border-gray-100">
-                            <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-1">
-                              💡 Giải thích cách dùng:
-                            </span>
-                            <p className="text-xs text-gray-700 whitespace-pre-line leading-relaxed">
-                              {item.explanation}
-                            </p>
-                          </div>
-                        )}
-
-                        {/* Ghi chú lưu ý */}
-                        {item.notes && (
-                          <div className="bg-amber-50/50 p-3 rounded-lg border border-amber-100">
-                            <span className="text-[11px] font-bold text-amber-800 uppercase tracking-wider block mb-1">
-                              ⚠️ Ghi chú / Bẫy ngữ pháp:
-                            </span>
-                            <p className="text-xs text-amber-900 leading-relaxed">
-                              {item.notes}
-                            </p>
-                          </div>
-                        )}
-
-                        {/* Danh sách ví dụ */}
-                        {item.examples && item.examples.length > 0 && (
-                          <div>
-                            <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2">
-                              📝 Ví dụ câu minh họa:
-                            </span>
-                            <div className="space-y-2">
-                              {item.examples.map((ex, exIdx) => {
-                                const rom = kanaToRomaji(ex.japanese);
-                                return (
-                                  <div
-                                    key={exIdx}
-                                    className="bg-white p-3 rounded-lg border border-gray-100 hover:border-gray-200 transition-colors flex items-start justify-between gap-3 group"
-                                  >
-                                    <div className="space-y-1 min-w-0">
-                                      <div className="text-sm font-semibold text-gray-900">
-                                        {highlightJapanese(ex.japanese)}
-                                      </div>
-                                      {rom && (
-                                        <div className="text-[11px] font-mono text-amber-700/80">
-                                          {rom}
-                                        </div>
-                                      )}
-                                      <div className="text-xs text-gray-600">
-                                        {ex.vietnamese}
-                                      </div>
-                                    </div>
-
-                                    <button
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        speakJapanese(ex.japanese);
-                                      }}
-                                      className="p-1.5 text-gray-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors shrink-0"
-                                      title="Phát âm câu ví dụ"
-                                    >
-                                      <Volume2 size={16} />
-                                    </button>
-                                  </div>
-                                );
-                              })}
+                            <div className="flex items-center gap-3 shrink-0">
+                              {item.category && (
+                                <span className="grammar-category-badge">
+                                  {item.category}
+                                </span>
+                              )}
+                              <div className="text-gray-400 hover:text-gray-600 transition-colors">
+                                {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                              </div>
                             </div>
                           </div>
-                        )}
-                      </div>
-                    )}
+
+                          {/* Content mở rộng (Chi tiết giải thích & Ví dụ) */}
+                          {isExpanded && (
+                            <div className="px-4 pb-5 pt-1 border-t border-gray-100 space-y-4 animate-fadeIn">
+                              {/* Giải thích chi tiết */}
+                              {item.explanation && (
+                                <div className="bg-gray-50 p-3.5 rounded-lg border border-gray-100">
+                                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-1">
+                                    💡 Giải thích cách dùng:
+                                  </span>
+                                  <p className="text-xs text-gray-700 whitespace-pre-line leading-relaxed">
+                                    {item.explanation}
+                                  </p>
+                                </div>
+                              )}
+
+                              {/* Ghi chú lưu ý */}
+                              {item.notes && (
+                                <div className="bg-amber-50/50 p-3 rounded-lg border border-amber-100">
+                                  <span className="text-[11px] font-bold text-amber-800 uppercase tracking-wider block mb-1">
+                                    ⚠️ Ghi chú / Bẫy ngữ pháp:
+                                  </span>
+                                  <p className="text-xs text-amber-900 leading-relaxed">
+                                    {item.notes}
+                                  </p>
+                                </div>
+                              )}
+
+                              {/* Bảng chia (conjugation tables) */}
+                              {item.conjugationTables && Object.keys(item.conjugationTables).length > 0 && (
+                                <div>
+                                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2">
+                                    📊 Bảng chia
+                                  </span>
+                                  <div className="bg-gray-50/60 rounded-xl border border-gray-100 overflow-hidden text-xs">
+                                    {renderConjugationTable(item.conjugationTables)}
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Danh sách ví dụ */}
+                              {item.examples && item.examples.length > 0 && (
+                                <div>
+                                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2">
+                                    📝 Ví dụ câu minh họa:
+                                  </span>
+                                  <div className="space-y-2">
+                                    {item.examples.map((ex, exIdx) => {
+                                      const jp = ex.tieng_nhat || ex.japanese || ex.cau_hoi || "";
+                                      const vi = ex.tieng_viet || ex.vietnamese || ex.dich_cau_hoi || "";
+                                      const rom = kanaToRomaji(jp);
+                                      return (
+                                        <div
+                                          key={exIdx}
+                                          className="bg-white p-3 rounded-lg border border-gray-100 hover:border-gray-200 transition-colors flex items-start justify-between gap-3 group"
+                                        >
+                                          <div className="space-y-1 min-w-0">
+                                            <div className="text-sm font-semibold text-gray-900">
+                                              {highlightJapanese(jp)}
+                                            </div>
+                                            {rom && (
+                                              <div className="text-[11px] font-mono text-amber-700/80">
+                                                {rom}
+                                              </div>
+                                            )}
+                                            {vi && (
+                                              <div className="text-xs text-gray-600">
+                                                {vi}
+                                              </div>
+                                            )}
+                                          </div>
+
+                                          <button
+                                            onClick={(e) => {
+                                              e.stopPropagation();
+                                              speakJapanese(jp);
+                                            }}
+                                            className="p-1.5 text-gray-400 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors shrink-0"
+                                            title="Phát âm câu ví dụ"
+                                          >
+                                            <Volume2 size={16} />
+                                          </button>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })
+                </section>
+              ))
             )}
           </div>
         </>

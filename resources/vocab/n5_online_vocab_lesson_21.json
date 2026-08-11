@@ -1,0 +1,67 @@
+{
+  "school_name": "SAKAE Japanese School",
+  "contact": "NHẬT NGỮ SAKAE THỦ ĐỨC - 028.3720.1830",
+  "lesson": {
+    "title": "Bài 21 (だい21か)",
+    "content": "Từ vựng (ことば)",
+    "vocabulary": {
+      "nouns": [
+        { "id": 1, "japanese": "しあい", "vietnamese": "Trận đấu" },
+        { "id": 2, "japanese": "こうつう", "vietnamese": "Giao thông" },
+        { "id": 3, "japanese": "デザイン", "vietnamese": "Sự thiết kế" },
+        { "id": 4, "japanese": "ニュース", "vietnamese": "Tin tức" },
+        { "id": 5, "japanese": "ユーモア", "vietnamese": "Sự hài hước" },
+        { "id": 6, "japanese": "ラッシュ", "vietnamese": "Giờ cao điểm" },
+        { "id": 7, "japanese": "アニメ", "vietnamese": "Hoạt hình" },
+        { "id": 8, "japanese": "せいじ", "vietnamese": "Chính trị" },
+        { "id": 9, "japanese": "大とうりょう", "vietnamese": "Tổng thống" },
+        { "id": 10, "japanese": "しゅしょう", "vietnamese": "Thủ tướng" },
+        { "id": 11, "japanese": "スピーチ", "vietnamese": "Diễn thuyết" },
+        { "id": 12, "japanese": "い見", "vietnamese": "Ý kiến" },
+        { "id": 13, "japanese": "（お）話", "vietnamese": "Câu chuyện" },
+        { "id": 14, "japanese": "アルバイト", "vietnamese": "Làm thêm" },
+        { "id": 15, "japanese": "さい近", "vietnamese": "Gần đây" },
+        { "id": 16, "japanese": "天さい", "vietnamese": "Thiên tài" },
+        { "id": 17, "japanese": "ほうげん", "vietnamese": "Tiếng địa phương" },
+        { "id": 18, "japanese": "主ふ", "vietnamese": "Nội trợ" },
+        { "id": 19, "japanese": "家事", "vietnamese": "Việc nhà" },
+        { "id": 20, "japanese": "おきゃくさん", "vietnamese": "Khách, khách hàng" }
+      ],
+      "verbs": [
+        { "id": 21, "japanese": "おもいます", "vietnamese": "Nghĩ" },
+        { "id": 22, "japanese": "いいます", "vietnamese": "Nói" },
+        { "id": 23, "japanese": "かちます", "vietnamese": "Thắng" },
+        { "id": 24, "japanese": "まけます", "vietnamese": "Thua" },
+        { "id": 25, "japanese": "（Ｎが）たります", "vietnamese": "Đủ" },
+        { "id": 26, "japanese": "（Ｎに）やくにたちます", "vietnamese": "Có ích" }
+      ],
+      "adjectives": [
+        { "id": 27, "japanese": "むだ（な）", "vietnamese": "Lãng phí" },
+        { "id": 28, "japanese": "おなじ（な）", "vietnamese": "Giống" },
+        { "id": 29, "japanese": "すごい", "vietnamese": "Tuyệt vời, quá trời" }
+      ],
+      "adverbs": [
+        { "id": 30, "japanese": "たぶん", "vietnamese": "Có lẽ" },
+        { "id": 31, "japanese": "きっと", "vietnamese": "Chắc là" },
+        { "id": 32, "japanese": "本とうに", "vietnamese": "Thật là" },
+        { "id": 33, "japanese": "もちろん", "vietnamese": "Đương nhiên" }
+      ],
+      "expressions": [
+        { "id": 34, "japanese": "わたしもそうおもいます。", "vietnamese": "Tôi cũng nghĩ là như vậy." },
+        { "id": 35, "japanese": "わたしもおなじ意見です。", "vietnamese": "Tôi có cùng ý kiến." },
+        { "id": 36, "japanese": "わたしはそうはおもいません。", "vietnamese": "Tôi không nghĩ như vậy." },
+        { "id": 37, "japanese": "しかたがない。", "vietnamese": "Không có cách nào khác." },
+        { "id": 38, "japanese": "おひさしぶりですね。／しばらくですね。", "vietnamese": "Đã lâu không gặp nhỉ." },
+        { "id": 39, "japanese": "おかげさまで、お元気です。", "vietnamese": "Nhờ ơn trời mà tôi khỏe." }
+      ],
+      "kanji": [
+        { "id": 1, "kanji": "写真", "reading": "しゃしん", "vietnamese": "Tấm ảnh" },
+        { "id": 2, "kanji": "紙", "reading": "かみ", "vietnamese": "Giấy" },
+        { "id": 3, "kanji": "手紙", "reading": "てがみ", "vietnamese": "Thư" },
+        { "id": 4, "kanji": "映画", "reading": "えいが", "vietnamese": "Phim" },
+        { "id": 5, "kanji": "店", "reading": "みせ", "vietnamese": "Cửa hàng" },
+        { "id": 6, "kanji": "喫茶店", "reading": "きっさてん", "vietnamese": "Quán nước" }
+      ]
+    }
+  }
+}

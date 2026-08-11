@@ -5,11 +5,10 @@ import { speakJapanese } from "../utils/audio";
 import { kanaToRomaji } from "../utils/kanaToRomaji";
 import KanjiStrokeViewer from "./KanjiStrokeViewer";
 import KanjiPowerPointDeck, { DeckKanjiItem } from "./KanjiPowerPointDeck";
+import LessonFilterDropdown from "./LessonFilterDropdown";
 import {
   Volume2,
   Search,
-  ChevronDown,
-  Filter,
   Layers,
   Shuffle,
   List as ListIcon,
@@ -39,8 +38,7 @@ interface DisplayKanji {
 export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
   const [viewMode, setViewMode] = useState<"list" | "flashcard">("list");
   const [search, setSearch] = useState("");
-  const [lessonFilter, setLessonFilter] = useState<number | "">("");
-  const [isLessonDropdownOpen, setIsLessonDropdownOpen] = useState(false);
+  const [lessonFilter, setLessonFilter] = useState<number | "all">("all");
 
   // PowerPoint Deck & Stroke Modal States
   const [isPptOpen, setIsPptOpen] = useState<boolean>(false);
@@ -89,7 +87,7 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return mergedList.filter((k) => {
-      if (lessonFilter !== "" && k.lesson !== lessonFilter) return false;
+      if (lessonFilter !== "all" && k.lesson !== lessonFilter) return false;
       if (!q) return true;
       const hay = [
         k.character,
@@ -227,43 +225,12 @@ export default function KanjiBoard({ kanjiList, onPractice }: KanjiBoardProps) {
             />
           </div>
 
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setIsLessonDropdownOpen(!isLessonDropdownOpen)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100/80 hover:border-amber-300 text-gray-700 text-xs font-semibold rounded-lg border border-gray-200 transition-all"
-            >
-              <Filter size={12} className="text-gray-400" />
-              {lessonFilter === "" ? "Tất cả bài" : `Bài ${lessonFilter}`}
-              <ChevronDown size={12} className={`text-gray-400 transition-transform ${isLessonDropdownOpen ? "rotate-180" : ""}`} />
-            </button>
-            {isLessonDropdownOpen && (
-              <>
-                <div className="fixed inset-0 z-40" onClick={() => setIsLessonDropdownOpen(false)} />
-                <div className="absolute right-0 mt-1.5 w-52 max-h-72 overflow-y-auto rounded-xl bg-white border border-gray-150 shadow-lg py-1.5 z-50 animate-fade">
-                  <button
-                    onClick={() => { setLessonFilter(""); setIsLessonDropdownOpen(false); }}
-                    className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-colors ${
-                      lessonFilter === "" ? "bg-amber-50/60 text-amber-900 font-semibold" : "text-gray-600 hover:bg-gray-50"
-                    }`}
-                  >
-                    Tất cả các bài
-                  </button>
-                  {lessons.map((n) => (
-                    <button
-                      key={n}
-                      onClick={() => { setLessonFilter(n); setIsLessonDropdownOpen(false); }}
-                      className={`w-full text-left px-3.5 py-2 text-xs font-medium transition-colors ${
-                        lessonFilter === n ? "bg-amber-50/60 text-amber-900 font-semibold" : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      Bài {n} {LESSON_TOPICS[n] ? `— ${LESSON_TOPICS[n]}` : ""}
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
+          <LessonFilterDropdown
+            lessons={lessons}
+            selected={lessonFilter}
+            onSelect={setLessonFilter}
+            topicFor={(n) => LESSON_TOPICS[n]}
+          />
 
           <div className="flex items-center bg-stone-100/80 p-1 rounded-xl border border-stone-200/10">
             <button

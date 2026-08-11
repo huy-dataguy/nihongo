@@ -1,0 +1,290 @@
+{
+  "bai_hoc": "第20課の文法 – NGỮ PHÁP BÀI 20",
+  "gioi_thieu": "Bài này giới thiệu thể thông thường (ふつうけい) của động từ, tính từ đuôi い, tính từ đuôi な và danh từ — dùng trong hội thoại thân mật (bạn bè, gia đình), cùng mẫu câu nêu lý do Ｖ/Ａ/Ｎふつうけいから、Ｖふつうけい。",
+  "bang_chia_dong_tu": {
+    "v_futsuukei_1": {
+      "tieu_de": "Ｖふつうけい１ – V thể thông thường 1",
+      "chuyen_doi": [
+        { "lien_chi": "Ｖます", "futsuukei": "Ｖる" },
+        { "lien_chi": "Ｖません", "futsuukei": "Ｖない" },
+        { "lien_chi": "Ｖました", "futsuukei": "Ｖた" },
+        { "lien_chi": "Ｖませんでした", "futsuukei": "Ｖなかった" }
+      ]
+    },
+    "v_futsuukei_2": {
+      "tieu_de": "Ｖふつうけい２ – V thể thông thường 2",
+      "chuyen_doi": [
+        { "lien_chi": "Ｖてください", "futsuukei": "Ｖて" },
+        { "lien_chi": "Ｖています", "futsuukei": "Ｖている" },
+        { "lien_chi": "Ｖてもいいですか", "futsuukei": "Ｖてもいい" },
+        { "lien_chi": "Ｖてはいけません", "futsuukei": "Ｖてはいけない" },
+        { "lien_chi": "Ｖないでください", "futsuukei": "Ｖないで" }
+      ]
+    },
+    "a_i_futsuukei": {
+      "tieu_de": "Ａいふつうけい – Aい thể thông thường",
+      "chuyen_doi": [
+        { "lien_chi": "Ａいです", "futsuukei": "Ａい" },
+        { "lien_chi": "Ａくないです", "futsuukei": "Ａくない" },
+        { "lien_chi": "Ａかったです", "futsuukei": "Ａかった" },
+        { "lien_chi": "Ａくなかったです", "futsuukei": "Ａくなかった" }
+      ]
+    },
+    "a_na_futsuukei": {
+      "tieu_de": "Ａなふつうけい – Aな thể thông thường",
+      "chuyen_doi": [
+        { "lien_chi": "Ａなです", "futsuukei": "Ａな（だ）" },
+        { "lien_chi": "Ａなじゃありません", "futsuukei": "Ａなじゃない" },
+        { "lien_chi": "Ａなでした", "futsuukei": "Ａなだった" },
+        { "lien_chi": "Ａなじゃありませんでした", "futsuukei": "Ａなじゃなかった" }
+      ]
+    },
+    "n_futsuukei": {
+      "tieu_de": "Ｎふつうけい – N thể thông thường",
+      "chuyen_doi": [
+        { "lien_chi": "Ｎです", "futsuukei": "Ｎ（だ）" },
+        { "lien_chi": "Ｎじゃありません", "futsuukei": "Ｎじゃない" },
+        { "lien_chi": "Ｎでした", "futsuukei": "Ｎだった" },
+        { "lien_chi": "Ｎじゃありませんでした", "futsuukei": "Ｎじゃなかった" }
+      ]
+    }
+  },
+  "noi_dung_ngu_phap": [
+    {
+      "cau_truc": "Ｖふつうけい（１）: Ｖる・Ｖない・Ｖた・Ｖなかった",
+      "y_nghia": "V thể thông thường dùng trong hội thoại thân mật; câu hỏi bỏ か, chỉ lên giọng",
+      "vi_du": [
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: あしたプールでおよぐ？",
+          "tieng_viet": "Ngày mai cậu bơi ở hồ bơi phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: うん、およぐ。",
+          "tieng_viet": "Ừ tớ bơi."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "ううん、およがない。",
+          "tieng_viet": "Không, tớ không bơi."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: きのうびょういんへ行った？",
+          "tieng_viet": "Hôm qua cậu đã đi bệnh viện phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: うん、行った。",
+          "tieng_viet": "Ừ tớ đã đi."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "ううん、行かなかった。",
+          "tieng_viet": "Không, tớ đã không đi."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｖふつうけい（２）: Ｖて・Ｖている・Ｖてもいい・Ｖてはいけない・Ｖないで",
+      "y_nghia": "Các thể thông thường biến đổi từ thể て dùng trong hội thoại thân mật",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "その本を見せて。",
+          "tieng_viet": "Cậu cho tớ xem cuốn sách đó đi."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 先生の電話ばんごうを知っている？",
+          "tieng_viet": "Cậu biết số điện thoại của thầy giáo không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: うん、知っている。",
+          "tieng_viet": "Ừ tớ biết."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "ううん、知らない。",
+          "tieng_viet": "Không, tớ không biết."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: エアコンをつけてもいい？",
+          "tieng_viet": "Tớ bật điều hòa được không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: うん、いいよ。つけて。",
+          "tieng_viet": "Ừ được. Hãy bật đi."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "ここでたばこをすってはいけない。",
+          "tieng_viet": "Cậu không được hút thuốc ở đây."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "後ろからおさないで。",
+          "tieng_viet": "Cậu đừng đẩy từ phía sau."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: パーティーでおさけを飲まなければならない？",
+          "tieng_viet": "Trong buổi tiệc tớ phải uống rượu phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: ううん、飲まなくてもいい。",
+          "tieng_viet": "Không, cậu không cần phải uống."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ａいふつうけい: Ａい・Ａくない・Ａかった・Ａくなかった",
+      "y_nghia": "Aい thể thông thường (bỏ です)",
+      "vi_du": [
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 会社のしごとはいそがしい？",
+          "tieng_viet": "Công việc ở công ty thì bận phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: うん、いそがしい。",
+          "tieng_viet": "Ừ bận."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "ううん、いそがしくない。",
+          "tieng_viet": "Không, không bận."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: きのうのしけんはむずかしかった？",
+          "tieng_viet": "Kỳ thi hôm qua đã khó phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: うん、むずかしかった。",
+          "tieng_viet": "Ừ đã khó."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "ううん、むずかしくなかった。",
+          "tieng_viet": "Không, đã không khó."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ａなふつうけい: Ａな（だ）・Ａなじゃない・Ａなだった・Ａなじゃなかった",
+      "y_nghia": "Aな thể thông thường",
+      "vi_du": [
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: 会社のしごとは大へん？",
+          "tieng_viet": "Công việc của công ty vất vả phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: うん、大へん。",
+          "tieng_viet": "Ừ vất vả."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "ううん、大へんじゃない。",
+          "tieng_viet": "Không, không vất vả."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: きのうはひまだった？",
+          "tieng_viet": "Hôm qua đã rảnh phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: うん、ひまだった。",
+          "tieng_viet": "Ừ đã rảnh."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "ううん、ひまじゃなかった。",
+          "tieng_viet": "Không, đã không rảnh."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｎふつうけい: Ｎ（だ）・Ｎじゃない・Ｎだった・Ｎじゃなかった",
+      "y_nghia": "N thể thông thường",
+      "vi_du": [
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: あしたの天気は雨？",
+          "tieng_viet": "Thời tiết ngày mai thì trời mưa phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: うん、雨。",
+          "tieng_viet": "Ừ trời mưa."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "ううん、雨じゃない。",
+          "tieng_viet": "Không, không mưa."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: きのうとしょかんは休みだった？",
+          "tieng_viet": "Hôm qua thư viện đã đóng cửa phải không?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: うん、休みだった。",
+          "tieng_viet": "Ừ đã đóng cửa."
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "ううん、休みじゃなかった。",
+          "tieng_viet": "Không, đã không đóng cửa."
+        }
+      ]
+    },
+    {
+      "cau_truc": "Ｖ／Ａ／Ｎふつうけいから、Ｖふつうけい。",
+      "y_nghia": "Vì V/A/N thể thông thường nên V thể thông thường (nêu lý do trong hội thoại thân mật)",
+      "vi_du": [
+        {
+          "so_thu_tu": 1,
+          "tieng_nhat": "かんじがわからないから、ひらがなで書く。",
+          "tieng_viet": "Vì không hiểu hán tự nên tớ viết bằng hiragana."
+        },
+        {
+          "so_thu_tu": 2,
+          "tieng_nhat": "来しゅうは休みだから、いなかへ帰る。",
+          "tieng_viet": "Vì tuần sau được nghỉ nên tớ sẽ về quê."
+        },
+        {
+          "so_thu_tu": 3,
+          "tieng_nhat": "おなかがすいたから、ごはんを食べたい。",
+          "tieng_viet": "Vì đói bụng nên tớ muốn ăn cái gì đó."
+        },
+        {
+          "so_thu_tu": 4,
+          "tieng_nhat": "パスポートは大切だから、なくさないで。",
+          "tieng_viet": "Vì hộ chiếu quan trọng nên đừng làm mất."
+        },
+        {
+          "loai": "cau_hoi",
+          "tieng_nhat": "Q: どうしてパーティーに来なかったの？",
+          "tieng_viet": "Tại sao cậu lại không đến buổi tiệc vậy?"
+        },
+        {
+          "loai": "cau_tra_loi",
+          "tieng_nhat": "A: とてもいそがしかったから。",
+          "tieng_viet": "Vì tớ đã rất bận."
+        }
+      ]
+    }
+  ]
+}

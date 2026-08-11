@@ -4,6 +4,14 @@ import { speakJapanese } from "../utils/audio";
 import { supabase } from "../lib/supabase";
 import { Search, Volume2, Star, Grid, List as ListIcon, BookOpen, Layers, Brain, RotateCcw, BarChart3, Target } from "lucide-react";
 import { getRomaji, kanaToRomaji } from "../utils/kanaToRomaji";
+import LessonFilterDropdown from "./LessonFilterDropdown";
+
+// Nhiều bài gán category dạng "Bài N - Loại từ" (hoặc chỉ "Bài N"). Tách phần loại từ
+// ra để làm bộ lọc phụ độc lập với số bài, tránh trộn 2 chiều lọc vào 1 danh sách dài.
+function wordTypeOf(category: string): string {
+  const stripped = category.replace(/^Bài\s*\d+\s*-?\s*/, "").trim();
+  return stripped || "Từ vựng chung";
+}
 
 interface VocabularyBoardProps {
   vocabularyList: VocabularyItem[];
@@ -38,7 +46,8 @@ export default function VocabularyBoard({
   onPractice,
 }: VocabularyBoardProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedLesson, setSelectedLesson] = useState<number | "all">("all");
+  const [selectedType, setSelectedType] = useState<string>("all");
   const [viewMode, setViewMode] = useState<"list" | "flashcards" | "study">("list");
   const [showReadings, setShowReadings] = useState(true);
 
@@ -123,16 +132,24 @@ export default function VocabularyBoard({
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // Extract all available categories
-  const categories = useMemo(() => {
-    const list = vocabularyList.map((item) => item.category);
-    return ["all", ...Array.from(new Set(list))];
-  }, [vocabularyList]);
+  // Danh sách số bài thực tế có trong dữ liệu, luôn tăng dần — không phụ thuộc thứ tự
+  // xuất hiện của category string trong file nguồn.
+  const lessons = useMemo(
+    () => Array.from(new Set(vocabularyList.map((v) => v.lesson || 0).filter((l) => l > 0))).sort((a, b) => a - b),
+    [vocabularyList]
+  );
 
-  // Filter list based on search and category
+  // Loại từ khả dụng, thu hẹp theo bài đang chọn để không dồn hàng chục loại vào 1 danh sách.
+  const wordTypes = useMemo(() => {
+    const scoped = selectedLesson === "all" ? vocabularyList : vocabularyList.filter((v) => v.lesson === selectedLesson);
+    return Array.from(new Set(scoped.map((item) => wordTypeOf(item.category)))).sort((a, b) => a.localeCompare(b, "vi"));
+  }, [vocabularyList, selectedLesson]);
+
+  // Filter list based on search, bài học và loại từ
   const filteredVocabulary = useMemo(() => {
     return vocabularyList.filter((item) => {
-      const matchesCategory = selectedCategory === "all" || item.category === selectedCategory;
+      const matchesLesson = selectedLesson === "all" || item.lesson === selectedLesson;
+      const matchesType = selectedType === "all" || wordTypeOf(item.category) === selectedType;
       const term = searchTerm.toLowerCase();
       const romajiConverted = kanaToRomaji(item.reading);
       const matchesSearch =
@@ -142,9 +159,27 @@ export default function VocabularyBoard({
         romajiConverted.toLowerCase().includes(term) ||     // romaji (auto-converted)
         (item.romaji && item.romaji.toLowerCase().includes(term)) || // romaji (stored)
         item.meaning.toLowerCase().includes(term);          // nghĩa tiếng Việt
-      return matchesCategory && matchesSearch;
+      return matchesLesson && matchesType && matchesSearch;
     });
-  }, [vocabularyList, selectedCategory, searchTerm]);
+  }, [vocabularyList, selectedLesson, selectedType, searchTerm]);
+
+  // Đổi bài thì bỏ chọn loại từ cũ (vì có thể loại đó không tồn tại ở bài mới).
+  const handleSelectLesson = useCallback((lesson: number | "all") => {
+    setSelectedLesson(lesson);
+    setSelectedType("all");
+  }, []);
+
+  // Gom danh sách đã lọc theo bài để hiển thị đúng thứ tự bài học, không theo thứ tự
+  // chèn dữ liệu gốc.
+  const groupedVocabulary = useMemo(() => {
+    const map = new Map<number, VocabularyItem[]>();
+    filteredVocabulary.forEach((item) => {
+      const l = item.lesson || 0;
+      if (!map.has(l)) map.set(l, []);
+      map.get(l)!.push(item);
+    });
+    return Array.from(map.entries()).sort((a, b) => a[0] - b[0]);
+  }, [filteredVocabulary]);
 
   const handleNextCard = () => {
     setIsFlipped(false);
@@ -164,7 +199,7 @@ export default function VocabularyBoard({
   React.useEffect(() => {
     setCurrentCardIndex(0);
     setIsFlipped(false);
-  }, [selectedCategory, searchTerm]);
+  }, [selectedLesson, selectedType, searchTerm]);
 
   return (
     <div className="learning-board bg-white rounded-2xl shadow-xs border border-gray-100 p-6">
@@ -226,8 +261,8 @@ export default function VocabularyBoard({
         </div>
       </div>
 
-      {/* Search and Category Filter Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      {/* Search + Bộ lọc Bài / Loại từ */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
         {/* Search Input */}
         <div className="md:col-span-2 relative">
           <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
@@ -240,26 +275,34 @@ export default function VocabularyBoard({
           />
         </div>
 
-        {/* Category Dropdown */}
-        <div className="md:col-span-2 relative">
+        {/* Bộ lọc Bài — luôn đúng thứ tự số bài */}
+        <LessonFilterDropdown
+          className="md:col-span-1"
+          lessons={lessons}
+          selected={selectedLesson}
+          onSelect={handleSelectLesson}
+          countFor={(l) => (l === "all" ? vocabularyList.length : vocabularyList.filter((v) => v.lesson === l).length)}
+          allLabel={`Tất cả các bài (${vocabularyList.length} từ)`}
+        />
+
+        {/* Bộ lọc Loại từ — thu hẹp theo bài đang chọn */}
+        <div className="md:col-span-1 relative">
           <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full px-3 py-2 text-sm bg-gray-50 hover:bg-gray-100/50 rounded-xl border border-gray-200 focus:border-amber-300 focus:outline-none transition-all appearance-none cursor-pointer"
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+            className="w-full px-3 py-2 text-xs font-semibold bg-gray-50 hover:bg-gray-100/50 rounded-lg border border-gray-200 focus:border-amber-300 focus:outline-none transition-all appearance-none cursor-pointer"
           >
-            <option value="all">📁 Tất cả chủ đề ({vocabularyList.length} từ)</option>
-            {categories.filter(c => c !== "all").map((cat) => (
-              <option key={cat} value={cat}>
-                🏷️ {cat} ({vocabularyList.filter(item => item.category === cat).length} từ)
-              </option>
+            <option value="all">🏷️ Tất cả loại từ</option>
+            {wordTypes.map((type) => (
+              <option key={type} value={type}>{type}</option>
             ))}
           </select>
         </div>
       </div>
 
-      {/* Vocabulary List View */}
+      {/* Vocabulary List View — nhóm theo bài, luôn đúng thứ tự số bài */}
       {viewMode === "list" && (
-        <div className="space-y-4">
+        <div className="space-y-8">
           {filteredVocabulary.length === 0 ? (
             <div className="text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
               <BookOpen className="mx-auto h-12 w-12 text-gray-300 mb-3" />
@@ -267,136 +310,145 @@ export default function VocabularyBoard({
               <p className="text-xs text-gray-400 mt-1">Hãy nhập từ khác hoặc thêm từ vựng mới bằng công cụ Import bài học.</p>
             </div>
           ) : (
-            <>
-            <div className="hidden md:block border border-gray-100 rounded-xl overflow-hidden shadow-xs">
-              <table className="w-full text-left text-sm border-collapse">
-                <thead>
-                  <tr className="bg-gray-100/40 border-b border-gray-100 text-gray-600 font-medium text-xs uppercase tracking-wider">
-                    <th className="py-3.5 px-4 w-12"></th>
-                    <th className="py-3.5 px-4">Từ vựng</th>
-                    {showReadings && <th className="py-3.5 px-4">Cách đọc (Romaji)</th>}
-                    <th className="py-3.5 px-4">Nghĩa tiếng Việt</th>
-                    <th className="py-3.5 px-4 w-14"></th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-50">
-                  {filteredVocabulary.map((item) => (
-                    <tr
-                      key={item.id}
-                      className="hover:bg-amber-50/20 transition-colors group"
-                    >
-                      {/* Favorite star */}
-                      <td className="py-3.5 px-4">
-                        <button
-                          onClick={() => toggleFavorite(item.id)}
-                          className={`p-1 rounded-md transition-colors ${
-                            favorites.includes(item.id)
-                              ? "text-amber-500"
-                              : "text-gray-300 hover:text-amber-500"
-                          }`}
+            groupedVocabulary.map(([lesson, items]) => (
+              <section key={lesson}>
+                <div className="flex items-baseline gap-2.5 mb-3">
+                  <span className="text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-100 rounded-full px-2.5 py-0.5">
+                    {lesson > 0 ? `Bài ${lesson}` : "Chưa phân loại"}
+                  </span>
+                  <span className="ml-auto text-[10px] text-gray-400 font-mono">{items.length} từ</span>
+                </div>
+
+                <div className="hidden md:block border border-gray-100 rounded-xl overflow-hidden shadow-xs">
+                  <table className="w-full text-left text-sm border-collapse">
+                    <thead>
+                      <tr className="bg-gray-100/40 border-b border-gray-100 text-gray-600 font-medium text-xs uppercase tracking-wider">
+                        <th className="py-3.5 px-4 w-12"></th>
+                        <th className="py-3.5 px-4">Từ vựng</th>
+                        {showReadings && <th className="py-3.5 px-4">Cách đọc (Romaji)</th>}
+                        <th className="py-3.5 px-4">Nghĩa tiếng Việt</th>
+                        <th className="py-3.5 px-4 w-14"></th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-50">
+                      {items.map((item) => (
+                        <tr
+                          key={item.id}
+                          className="hover:bg-amber-50/20 transition-colors group"
                         >
-                          <Star size={15} fill={favorites.includes(item.id) ? "currentColor" : "none"} />
-                        </button>
-                      </td>
+                          {/* Favorite star */}
+                          <td className="py-3.5 px-4">
+                            <button
+                              onClick={() => toggleFavorite(item.id)}
+                              className={`p-1 rounded-md transition-colors ${
+                                favorites.includes(item.id)
+                                  ? "text-amber-500"
+                                  : "text-gray-300 hover:text-amber-500"
+                              }`}
+                            >
+                              <Star size={15} fill={favorites.includes(item.id) ? "currentColor" : "none"} />
+                            </button>
+                          </td>
 
-                      {/* Word */}
-                      <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg font-semibold text-gray-900 font-sans">
-                            {item.word}
-                          </span>
-                          {item.isCustom && (
-                            <span className="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-medium border border-amber-100">
-                              Cá nhân
-                            </span>
+                          {/* Word */}
+                          <td className="py-3.5 px-4">
+                            <div className="flex items-center gap-2">
+                              <span className="text-lg font-semibold text-gray-900 font-sans">
+                                {item.word}
+                              </span>
+                              {item.isCustom && (
+                                <span className="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-medium border border-amber-100">
+                                  Cá nhân
+                                </span>
+                              )}
+                            </div>
+                          </td>
+
+                          {/* Hiragana & Romaji */}
+                          {showReadings && (
+                            <td className="py-3.5 px-4">
+                              <div className="flex flex-col">
+                                {item.reading !== item.word && (
+                                  <span className="text-gray-800 font-medium">{item.reading}</span>
+                                )}
+                                <span className="text-xs text-gray-400 font-mono tracking-wider">
+                                  {getRomaji(item.reading, item.romaji)}
+                                </span>
+                              </div>
+                            </td>
                           )}
-                        </div>
-                      </td>
 
-                      {/* Hiragana & Romaji */}
-                      {showReadings && (
-                        <td className="py-3.5 px-4">
-                          <div className="flex flex-col">
-                            {item.reading !== item.word && (
-                              <span className="text-gray-800 font-medium">{item.reading}</span>
+                          {/* Meaning & Examples */}
+                          <td className="py-3.5 px-4 text-gray-700">
+                            <span className="font-medium text-gray-800">{item.meaning}</span>
+                            {item.examples && item.examples.length > 0 && (
+                              <div className="mt-1.5 space-y-1">
+                                {item.examples.map((ex, idx) => (
+                                  <div key={idx} className="text-xs bg-gray-50/80 p-2 rounded-lg border border-gray-100/80 space-y-0.5">
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                      <span className="font-semibold text-gray-800">{ex.japanese}</span>
+                                      {ex.reading && (
+                                        <span className="text-gray-500 font-mono text-[11px]">
+                                          ({ex.reading}{kanaToRomaji(ex.reading) ? ` • ${kanaToRomaji(ex.reading)}` : ""})
+                                        </span>
+                                      )}
+                                      <button
+                                        onClick={() => speakJapanese(ex.japanese)}
+                                        className="p-0.5 text-gray-400 hover:text-amber-700 transition-colors ml-auto"
+                                        title="Nghe ví dụ"
+                                      >
+                                        <Volume2 size={12} />
+                                      </button>
+                                    </div>
+                                    {ex.meaning && <p className="text-gray-600 text-[11px]">{ex.meaning}</p>}
+                                  </div>
+                                ))}
+                              </div>
                             )}
-                            <span className="text-xs text-gray-400 font-mono tracking-wider">
-                              {getRomaji(item.reading, item.romaji)}
-                            </span>
-                          </div>
-                        </td>
-                      )}
+                          </td>
 
-                      {/* Meaning & Examples */}
-                      <td className="py-3.5 px-4 text-gray-700">
-                        <span className="font-medium text-gray-800">{item.meaning}</span>
+                          {/* TTS Speak Word */}
+                          <td className="py-3.5 px-4">
+                            <button
+                              onClick={() => speakJapanese(item.word)}
+                              className="p-1.5 text-gray-400 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                              title="Nghe cách đọc"
+                            >
+                              <Volume2 size={16} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="md:hidden space-y-2">
+                  {items.map((item) => (
+                    <article key={item.id} className="mobile-vocab-card">
+                      <button onClick={() => toggleFavorite(item.id)} aria-label="Đánh dấu từ yêu thích" className={favorites.includes(item.id) ? "favorite" : ""}>
+                        <Star size={15} fill={favorites.includes(item.id) ? "currentColor" : "none"} />
+                      </button>
+                      <div>
+                        <strong>{item.word}</strong>
+                        {showReadings && <span>{item.reading} · {getRomaji(item.reading, item.romaji)}</span>}
+                        <p>{item.meaning}</p>
                         {item.examples && item.examples.length > 0 && (
-                          <div className="mt-1.5 space-y-1">
+                          <div className="mt-1.5 space-y-1 text-xs">
                             {item.examples.map((ex, idx) => (
-                              <div key={idx} className="text-xs bg-gray-50/80 p-2 rounded-lg border border-gray-100/80 space-y-0.5">
-                                <div className="flex items-center gap-1.5 flex-wrap">
-                                  <span className="font-semibold text-gray-800">{ex.japanese}</span>
-                                  {ex.reading && (
-                                    <span className="text-gray-500 font-mono text-[11px]">
-                                      ({ex.reading}{kanaToRomaji(ex.reading) ? ` • ${kanaToRomaji(ex.reading)}` : ""})
-                                    </span>
-                                  )}
-                                  <button
-                                    onClick={() => speakJapanese(ex.japanese)}
-                                    className="p-0.5 text-gray-400 hover:text-amber-700 transition-colors ml-auto"
-                                    title="Nghe ví dụ"
-                                  >
-                                    <Volume2 size={12} />
-                                  </button>
-                                </div>
-                                {ex.meaning && <p className="text-gray-600 text-[11px]">{ex.meaning}</p>}
+                              <div key={idx} className="bg-gray-50/90 p-1.5 rounded text-[11px] text-gray-600">
+                                <div><strong>{ex.japanese}</strong> ({ex.reading} • {kanaToRomaji(ex.reading)})</div>
+                                <div>{ex.meaning}</div>
                               </div>
                             ))}
                           </div>
                         )}
-                      </td>
-
-                      {/* TTS Speak Word */}
-                      <td className="py-3.5 px-4">
-                        <button
-                          onClick={() => speakJapanese(item.word)}
-                          className="p-1.5 text-gray-400 hover:text-amber-700 hover:bg-amber-100/50 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
-                          title="Nghe cách đọc"
-                        >
-                          <Volume2 size={16} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="md:hidden space-y-2">
-              {filteredVocabulary.map((item) => (
-                <article key={item.id} className="mobile-vocab-card">
-                  <button onClick={() => toggleFavorite(item.id)} aria-label="Đánh dấu từ yêu thích" className={favorites.includes(item.id) ? "favorite" : ""}>
-                    <Star size={15} fill={favorites.includes(item.id) ? "currentColor" : "none"} />
-                  </button>
-                  <div>
-                    <strong>{item.word}</strong>
-                    {showReadings && <span>{item.reading} · {getRomaji(item.reading, item.romaji)}</span>}
-                    <p>{item.meaning}</p>
-                    {item.examples && item.examples.length > 0 && (
-                      <div className="mt-1.5 space-y-1 text-xs">
-                        {item.examples.map((ex, idx) => (
-                          <div key={idx} className="bg-gray-50/90 p-1.5 rounded text-[11px] text-gray-600">
-                            <div><strong>{ex.japanese}</strong> ({ex.reading} • {kanaToRomaji(ex.reading)})</div>
-                            <div>{ex.meaning}</div>
-                          </div>
-                        ))}
                       </div>
-                    )}
-                  </div>
-                  <button onClick={() => speakJapanese(item.word)} aria-label={`Nghe ${item.word}`}><Volume2 size={16} /></button>
-                </article>
-              ))}
-            </div>
-            </>
+                      <button onClick={() => speakJapanese(item.word)} aria-label={`Nghe ${item.word}`}><Volume2 size={16} /></button>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            ))
           )}
         </div>
       )}
@@ -540,20 +592,12 @@ export default function VocabularyBoard({
             ))}
 
             {/* Lesson filter */}
-            {(() => {
-              const lessons = [...new Set(vocabularyList.map(v => v.lesson || 0).filter(l => l > 0))].sort((a, b) => a - b);
-              return lessons.map(l => (
-                <button
-                  key={l}
-                  onClick={() => startStudySession("lesson", l)}
-                  className={`px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                    studyFilter === "lesson" && studyLesson === l ? "bg-stone-900 text-white" : "bg-gray-100 text-gray-500 hover:text-gray-900"
-                  }`}
-                >
-                  Bài {l}
-                </button>
-              ));
-            })()}
+            <LessonFilterDropdown
+              lessons={lessons}
+              selected={studyFilter === "lesson" ? studyLesson : "all"}
+              onSelect={(l) => (l === "all" ? startStudySession("all") : startStudySession("lesson", l))}
+              allLabel="Ôn theo bài..."
+            />
 
             <button
               onClick={() => startStudySession(studyFilter, studyLesson)}

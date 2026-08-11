@@ -86,7 +86,7 @@ npx tsx scripts/import-vocab-supplement.ts
 Script đọc mọi `resources/vocab/*_supplement.json`, upsert vào bảng `vocabulary`.
 **AI không tự ghi DB** — chỉ đưa lệnh cho user (xem `CLAUDE.md`).
 
-## Bảng từ vựng đã trích (cập nhật 2026-07-28 — 61 từ: 46 trích từ grammar + 15 gap-fill)
+## Bảng từ vựng đã trích (cập nhật 2026-08-11 — 62 từ: 47 trích từ grammar + 15 gap-fill)
 
 | Bài | Số | Từ |
 |---|---|---|
@@ -102,6 +102,7 @@ Script đọc mọi `resources/vocab/*_supplement.json`, upsert vào bảng `voc
 | 14 | 2 | `もう一ど`, `かた` |
 | 15-16 | 1 | `どうやって` |
 | 17 | 1 | `は` |
+| 20 | 1 | `しけん` |
 
 > **Bài 1-3 (gap-fill, 2026-06-27):** các câu ví dụ ngữ pháp bài 1-3 dùng toàn từ cơ bản đã có nên chưa trích được từ grammar. Tuy nhiên user phát hiện **bộ từ để hỏi + tuổi tác + where/what đang thiếu** trong vocab (`だれ`, `どこ`, `なに`, `なんさい`, `おいくつ`…) → bổ sung riêng vào `n5_online_vocab_lessons_1_3_supplement.json`. Đây là **gap-fill theo yêu cầu**, không phải trích từ câu ví dụ grammar.
 
@@ -127,6 +128,19 @@ Script đọc mọi `resources/vocab/*_supplement.json`, upsert vào bảng `voc
 > `は` (răng) là từ mới độc lập, ghi vào
 > `n5_online_vocab_lesson_17_supplement.json`. Không thêm số/bộ đếm trong
 > `一日に三かい` theo quy tắc loại trừ.
+
+> **Bài 20 (2026-08-11):** trích từ
+> `resources/gramma/n5_online_grammar_lesson_20.json` (PDF gốc:
+> `NGU_PHAP_BAI_20.pdf`). Rà soát toàn bộ câu ví dụ với mọi file vocab và
+> supplement: đa số từ đã có sẵn (`プール`, `びょういん`, `エアコン`,
+> `たばこ`, `パーティー`, `おさけ`, `むずかしい`, `いそがしい`, `ひま`,
+> `たいへん`, `てんき`, `あめ`, `としょかん`, `ひらがな`, `いなか`,
+> `かんじ`, `パスポート`, `ごはん`, `およぎます`, `みせます`, `つけます`,
+> `しります`, `おします`, `のみます`, `わかります`, `後ろ`, `大切`,
+> `なくします`, `かえる`…) kể cả khác cách viết kanji/kana. Chỉ còn
+> `しけん` (kỳ thi) là từ mới độc lập, ghi vào
+> `n5_online_vocab_lesson_20_supplement.json`. Không thêm `おなかがすく`
+> (thành ngữ ghép từ 2 từ đã biết) theo quy tắc loại trừ.
 
 > Khi trích thêm các bài sau (N4, bài 18+…), dùng đúng quy trình trên và **cập nhật bảng này** để session sau biết đâu đã làm.
 

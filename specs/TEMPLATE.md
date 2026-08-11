@@ -2,30 +2,45 @@
 
 - Date: {{YYYY-MM-DD}}
 - Status: draft | approved | building | blocked | done
-  (building = a session is on it now; approved = parked, resumable by anyone — the supervisor auto-resumes approved/building specs; blocked = needs a human)
+  (building = a session is on it now; approved = scope approved and Plan complete, resumable by anyone — the supervisor auto-resumes approved/building specs; blocked = needs a human)
 
 ## Problem
 
-What hurts today, for whom. One paragraph.
+<!-- What hurts today, for whom. One paragraph. -->
+{{PROBLEM}}
 
 ## Goal
 
-The end state, stated as observable behavior — what a user or system can do after this ships.
+<!-- The observable end state: what a user or system can do after this ships. -->
+{{GOAL}}
 
 ## Non-goals
 
-What this deliberately does not cover. Prevents scope creep during autonomous runs.
+<!-- What this deliberately does not cover. -->
+{{NON_GOALS}}
 
 ## Acceptance criteria
 
-Each criterion is machine-verifiable: paired with a command whose exit status decides pass/fail. Criteria that can only be checked by a human must name who checks and how.
+Each criterion is machine-verifiable: paired with a command whose exit status decides pass/fail. A human-only criterion uses `verify-manual: OWNER: procedure`; unchecked manual criteria cannot enter an autonomous run.
 
 - [ ] {{CRITERION_1}} — verify: `{{COMMAND}}`
-- [ ] {{CRITERION_2}} — verify: `{{COMMAND}}`
+- [ ] {{CRITERION_2}} — verify-manual: {{OWNER}}: {{PROCEDURE}}
+
+## Risk tier
+
+One line. Take the **highest** tier any criterion reaches — reversibility, blast radius, data sensitivity, and whether anything outside this repo can see the effect. An autonomous run may never lower its own tier.
+
+- **R0** — read/search/report only. Runs unattended.
+- **R1** — reversible change inside this repo. Runs unattended; a human reviews before integration. *(the normal tier for a factory spec)*
+- **R2** — shared test/staging, release candidate, dependency or CI changes. Needs explicit human approval before the run starts.
+- **R3** — production, irreversible, secrets/identity, anything published or deployed, data migration. A named human does it; the run stops and asks.
+
+Tier: {{R0|R1|R2|R3}} — {{one line: why this tier}}
 
 ## Constraints
 
-Deadlines, compatibility requirements, performance budgets, things that must not break.
+<!-- Deadlines, compatibility, performance budgets, things that must not break. -->
+{{CONSTRAINTS}}
 
 ## Stop if (only if a run could plausibly overreach)
 
@@ -41,12 +56,14 @@ If one criterion's work is consumed by another (a function signature, a schema, 
 
 ## Plan (filled at Plan stage)
 
-Files to touch, order of work, known risks.
+<!-- Files to touch, order of work, known risks. -->
+{{PLAN}}
 
 ## Decisions log (append during Build)
 
-- {{DATE}} — {{decision made and why}}
+- {{DECISION_DATE}} — {{DECISION_AND_RATIONALE}}
 
 ## Outcome (filled at Ship)
 
-What shipped vs the spec, deviations and why, evidence per acceptance criterion.
+<!-- What shipped vs the spec, deviations and evidence per criterion. -->
+{{OUTCOME_WITH_EVIDENCE}}
