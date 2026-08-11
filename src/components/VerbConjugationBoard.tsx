@@ -33,6 +33,7 @@ export interface VerbConjugationItem {
   masu: string;
   jisho: string;
   nai: string;
+  nakatta: string;
   te: string;
   ta: string;
   tai: string;
@@ -61,6 +62,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "書かない",
     te: "書いて",
     ta: "書いた",
+    nakatta: "書かなかった",
     tai: "書きたい",
     kanou: "書ける",
     ikou: "書こう",
@@ -81,6 +83,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "飲まない",
     te: "飲んで",
     ta: "飲んだ",
+    nakatta: "飲まなかった",
     tai: "飲みたい",
     kanou: "飲める",
     ikou: "飲もう",
@@ -101,6 +104,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "話さない",
     te: "話して",
     ta: "話した",
+    nakatta: "話さなかった",
     tai: "話したい",
     kanou: "話せる",
     ikou: "話そう",
@@ -121,6 +125,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "待たない",
     te: "待って",
     ta: "待った",
+    nakatta: "待たなかった",
     tai: "待ちたい",
     kanou: "待てる",
     ikou: "待とう",
@@ -141,6 +146,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "呼ばない",
     te: "呼んで",
     ta: "呼んだ",
+    nakatta: "呼ばなかった",
     tai: "呼びたい",
     kanou: "呼べる",
     ikou: "呼ぼう",
@@ -161,6 +167,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "急がない",
     te: "急いで",
     ta: "急いだ",
+    nakatta: "急がなかった",
     tai: "急ぎたい",
     kanou: "急げる",
     ikou: "急ごう",
@@ -181,6 +188,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "死なない",
     te: "死んで",
     ta: "死んだ",
+    nakatta: "死ななかった",
     tai: "死にたい",
     kanou: "死ねる",
     ikou: "死のう",
@@ -201,6 +209,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "買わない",
     te: "買って",
     ta: "買った",
+    nakatta: "買わなかった",
     tai: "買いたい",
     kanou: "買える",
     ikou: "買おう",
@@ -223,6 +232,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "会わない",
     te: "会って",
     ta: "会った",
+    nakatta: "会わなかった",
     tai: "会いたい",
     kanou: "会える",
     ikou: "会おう",
@@ -245,6 +255,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "帰らない",
     te: "帰って",
     ta: "帰った",
+    nakatta: "帰らなかった",
     tai: "帰りたい",
     kanou: "帰れる",
     ikou: "帰ろう",
@@ -267,6 +278,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "行かない",
     te: "行って",
     ta: "行った",
+    nakatta: "行かなかった",
     tai: "行きたい",
     kanou: "行ける",
     ikou: "行こう",
@@ -289,6 +301,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "ない",
     te: "あって",
     ta: "あった",
+    nakatta: "なかった",
     tai: "—",
     kanou: "—",
     ikou: "—",
@@ -313,6 +326,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "食べない",
     te: "食べて",
     ta: "食べた",
+    nakatta: "食べなかった",
     tai: "食べたい",
     kanou: "食べられる",
     ikou: "食べよう",
@@ -333,6 +347,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "見ない",
     te: "見て",
     ta: "見た",
+    nakatta: "見なかった",
     tai: "見たい",
     kanou: "見られる",
     ikou: "見よう",
@@ -353,6 +368,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "起きない",
     te: "起きて",
     ta: "起きた",
+    nakatta: "起きなかった",
     tai: "起きたい",
     kanou: "起きられる",
     ikou: "起きよう",
@@ -373,6 +389,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "寝ない",
     te: "寝て",
     ta: "寝た",
+    nakatta: "寝なかった",
     tai: "寝たい",
     kanou: "寝られる",
     ikou: "寝よう",
@@ -393,6 +410,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "借りない",
     te: "借りて",
     ta: "借りた",
+    nakatta: "借りなかった",
     tai: "借りたい",
     kanou: "借りられる",
     ikou: "借りよう",
@@ -415,6 +433,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "しない",
     te: "して",
     ta: "した",
+    nakatta: "しなかった",
     tai: "したい",
     kanou: "できる",
     ikou: "しよう",
@@ -435,6 +454,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
     nai: "来ない (こない)",
     te: "来て (きて)",
     ta: "来た (きた)",
+    nakatta: "来なかった (こなかった)",
     tai: "来たい (きたい)",
     kanou: "来られる (こられる)",
     ikou: "来よう (こよう)",
@@ -449,6 +469,7 @@ export const VERB_CONJUGATION_DATABASE: VerbConjugationItem[] = [
 
 export const ALL_VERB_FORMS = [
   { key: "masu", label: "Thể Masu (ます)", color: "text-amber-700 bg-amber-50" },
+  { key: "futsuukei", label: "Thể Thông thường (ふつうけい)", color: "text-fuchsia-700 bg-fuchsia-50" },
   { key: "jisho", label: "Thể Từ điển (う)", color: "text-cyan-700 bg-cyan-50" },
   { key: "nai", label: "Thể Nai (ない)", color: "text-rose-700 bg-rose-50" },
   { key: "te", label: "Thể Te (て)", color: "text-emerald-700 bg-emerald-50" },
@@ -463,6 +484,21 @@ export const ALL_VERB_FORMS = [
 ] as const;
 
 type VerbFormKey = (typeof ALL_VERB_FORMS)[number]["key"];
+
+// Giá trị ô của 1 cột thể; "futsuukei" là cột tổng hợp (không có field riêng) → trả về ""
+function formValue(v: VerbConjugationItem, key: VerbFormKey): string {
+  if (key === "futsuukei") return "";
+  const val = v[key as keyof VerbConjugationItem];
+  return typeof val === "string" ? val : "";
+}
+
+// 4 thành phần của thể thông thường (bài 20): る・ない・た・なかった
+const FUTSUUKEI_SLOTS: { label: string; key: keyof VerbConjugationItem }[] = [
+  { label: "Ｖる", key: "jisho" },
+  { label: "Ｖない", key: "nai" },
+  { label: "Ｖた", key: "ta" },
+  { label: "Ｖなかった", key: "nakatta" },
+];
 
 export function getEndingPattern(v: VerbConjugationItem): string {
   if (v.group === 3) return "Bất quy tắc";
@@ -629,9 +665,9 @@ export const VerbConjugationBoard: React.FC = () => {
   const generateQuiz = useCallback(() => {
     const verb = VERB_CONJUGATION_DATABASE[Math.floor(Math.random() * VERB_CONJUGATION_DATABASE.length)];
     const targetForm = ALL_VERB_FORMS[Math.floor(Math.random() * ALL_VERB_FORMS.length)];
-    const correctAnswer = verb[targetForm.key];
+    const correctAnswer = formValue(verb, targetForm.key);
 
-    if (!correctAnswer || correctAnswer === "—") {
+    if (targetForm.key === "futsuukei" || !correctAnswer || correctAnswer === "—") {
       generateQuiz();
       return;
     }
@@ -639,7 +675,7 @@ export const VerbConjugationBoard: React.FC = () => {
     const choicesSet = new Set<string>([correctAnswer]);
     while (choicesSet.size < 4) {
       const randomVerb = VERB_CONJUGATION_DATABASE[Math.floor(Math.random() * VERB_CONJUGATION_DATABASE.length)];
-      const candidate = randomVerb[targetForm.key];
+      const candidate = formValue(randomVerb, targetForm.key);
       if (candidate && candidate !== "—") choicesSet.add(candidate);
     }
 
@@ -658,7 +694,7 @@ export const VerbConjugationBoard: React.FC = () => {
   const handleSelectQuizOption = useCallback(
     (option: string) => {
       if (!currentQuiz || currentQuiz.userAnswer !== null) return;
-      const correct = option === currentQuiz.verb[currentQuiz.targetFormKey];
+      const correct = option === formValue(currentQuiz.verb, currentQuiz.targetFormKey);
       setCurrentQuiz((prev) => (prev ? { ...prev, userAnswer: option, isCorrect: correct } : null));
       setQuizTotal((prev) => prev + 1);
       if (correct) setQuizScore((prev) => prev + 1);
@@ -678,7 +714,7 @@ export const VerbConjugationBoard: React.FC = () => {
             Tổng hợp Quy tắc & Trình Xác Nhận Nhóm Động Từ
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            Tra cứu ma trận 12 thể, thuật toán phân loại Nhóm 1/2/3 và kiểm tra tự động.
+            Tra cứu ma trận 13 thể, thuật toán phân loại Nhóm 1/2/3 và kiểm tra tự động.
           </p>
         </div>
 
@@ -707,7 +743,7 @@ export const VerbConjugationBoard: React.FC = () => {
               activeTab === "rules" ? "bg-white text-rose-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
             }`}
           >
-            <Lightbulb size={14} /> 12 Quy tắc Chia
+            <Lightbulb size={14} /> 14 Quy tắc Chia
           </button>
 
           <button
@@ -794,7 +830,7 @@ export const VerbConjugationBoard: React.FC = () => {
                 onClick={selectAllForms}
                 className="text-[11px] font-bold text-rose-700 hover:text-rose-800 underline"
               >
-                Hiện tất cả 12 thể
+                Hiện tất cả 13 thể
               </button>
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -902,14 +938,33 @@ export const VerbConjugationBoard: React.FC = () => {
                       (f) =>
                         visibleForms.has(f.key) && (
                           <td key={f.key} className={`px-3 py-3 font-semibold whitespace-nowrap ${f.color}`}>
-                            <div className="flex flex-col">
-                              <span>{v[f.key] || "—"}</span>
-                              {v[f.key] && v[f.key] !== "—" && (
-                                <span className="text-[10px] font-mono opacity-65 font-normal">
-                                  {kanaToRomaji(v[f.key])}
-                                </span>
-                              )}
-                            </div>
+                            {f.key === "futsuukei" ? (
+                              <div className="flex flex-col gap-1">
+                                {FUTSUUKEI_SLOTS.map((slot) => {
+                                  const val = v[slot.key] || "—";
+                                  return (
+                                    <div key={slot.key} className="flex items-baseline gap-1.5">
+                                      <span className="font-mono text-[9px] opacity-60 shrink-0">{slot.label}</span>
+                                      <span>{val}</span>
+                                      {val !== "—" && (
+                                        <span className="text-[10px] font-mono opacity-65 font-normal">
+                                          {kanaToRomaji(val)}
+                                        </span>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : (
+                              <div className="flex flex-col">
+                                <span>{formValue(v, f.key) || "—"}</span>
+                                {formValue(v, f.key) && formValue(v, f.key) !== "—" && (
+                                  <span className="text-[10px] font-mono opacity-65 font-normal">
+                                    {kanaToRomaji(formValue(v, f.key))}
+                                  </span>
+                                )}
+                              </div>
+                            )}
                           </td>
                         )
                     )}
@@ -1059,8 +1114,8 @@ export const VerbConjugationBoard: React.FC = () => {
           <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
             <Lightbulb className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
             <div>
-              <span className="font-bold">Bản đồ 12 Quy tắc Chia thể Tiếng Nhật N5/N4:</span> 
-              Động từ tiếng Nhật chia theo quy tắc chuyển đổi cột âm trong bảng 50 âm (あ - い - う - え - お). Dưới đây là đầy đủ quy tắc chia 12 thể chuẩn!
+              <span className="font-bold">Bản đồ 14 Quy tắc Chia thể Tiếng Nhật N5/N4:</span> 
+              Động từ tiếng Nhật chia theo quy tắc chuyển đổi cột âm trong bảng 50 âm (あ - い - う - え - お). Dưới đây là đầy đủ quy tắc chia 12 thể chuẩn + thể thông thường (ふつうけい) của Động từ / Tính từ / Danh từ (bài 20)!
             </div>
           </div>
 
@@ -1184,6 +1239,28 @@ export const VerbConjugationBoard: React.FC = () => {
                 <li>• <strong>Nhóm 3</strong>: する ➔ させる / くる ➔ こさせる</li>
               </ul>
             </div>
+
+            {/* Rule 13: Thể Thông thường (Động từ) */}
+            <div className="p-5 rounded-2xl bg-fuchsia-50/60 border border-fuchsia-200 space-y-2">
+              <span className="font-bold text-fuchsia-900 font-mono text-sm">13. Thể Thông thường (ふつうけい - V, Bài 20)</span>
+              <p className="text-gray-600 font-medium">Dùng khi nói chuyện thân mật (bạn bè, gia đình): bỏ です・ます, câu hỏi chỉ lên giọng, không cần か.</p>
+              <ul className="space-y-1 text-gray-700 font-mono">
+                <li>• Ｖます ➔ Ｖる (書きます ➔ 書く) / Ｖません ➔ Ｖない (書かない)</li>
+                <li>• Ｖました ➔ Ｖた (書いた) / Ｖませんでした ➔ Ｖなかった (書かなかった)</li>
+                <li>• Chia た đúng quy tắc đã học: <strong>Nhóm 1</strong> 書く ➔ 書いた / <strong>Nhóm 2</strong> 食べる ➔ 食べた / <strong>Nhóm 3</strong> する ➔ した・来る ➔ 来た</li>
+                <li className="text-fuchsia-800 font-bold">• Ｖて系: てください ➔ て (見せて) / ています ➔ ている / てもいいですか ➔ てもいい / てはいけません ➔ てはいけない / ないでください ➔ ないで</li>
+              </ul>
+            </div>
+
+            {/* Rule 14: Thể Thông thường (Tính từ & Danh từ) */}
+            <div className="p-5 rounded-2xl bg-fuchsia-50/60 border border-fuchsia-200 space-y-2">
+              <span className="font-bold text-fuchsia-900 font-mono text-sm">14. Thể Thông thường (ふつうけい - A・N, Bài 20)</span>
+              <ul className="space-y-1.5 text-gray-700 font-mono">
+                <li><strong>Ａい:</strong> いです ➔ い (いそがしい) / くないです ➔ くない / かったです ➔ かった / くなかったです ➔ くなかった</li>
+                <li><strong>Ａな:</strong> なです ➔ な（だ）(大へんだ) / じゃありません ➔ じゃない / でした ➔ だった / じゃありませんでした ➔ じゃなかった</li>
+                <li><strong>Ｎ:</strong> です ➔ （だ）(雨だ) / じゃありません ➔ じゃない / でした ➔ だった / じゃありませんでした ➔ じゃなかった</li>
+              </ul>
+            </div>
           </div>
         </div>
       )}
@@ -1193,7 +1270,7 @@ export const VerbConjugationBoard: React.FC = () => {
         <div className="max-w-xl mx-auto p-6 rounded-3xl bg-slate-900 text-white space-y-6 shadow-2xl">
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">
             <span className="text-xs font-mono font-bold text-rose-400 uppercase tracking-widest">
-              Luyện phản xạ 12 thể động từ
+              Luyện phản xạ 13 thể động từ
             </span>
             <span className="text-xs font-mono font-semibold bg-slate-800 px-3 py-1 rounded-full text-slate-300">
               Điểm: {quizScore} / {quizTotal}
@@ -1222,7 +1299,7 @@ export const VerbConjugationBoard: React.FC = () => {
           <div className="grid grid-cols-2 gap-3">
             {currentQuiz.options.map((option, idx) => {
               const isSelected = currentQuiz.userAnswer === option;
-              const isCorrect = option === currentQuiz.verb[currentQuiz.targetFormKey];
+              const isCorrect = option === formValue(currentQuiz.verb, currentQuiz.targetFormKey);
               let btnClass = "bg-slate-800 hover:bg-slate-700 text-slate-100 border-slate-700";
 
               if (currentQuiz.userAnswer !== null) {
@@ -1259,7 +1336,7 @@ export const VerbConjugationBoard: React.FC = () => {
                 ) : (
                   <span className="text-rose-400 flex items-center gap-1.5">
                     <AlertTriangle size={16} /> Sai rồi! Đáp án đúng:{" "}
-                    <strong>{currentQuiz.verb[currentQuiz.targetFormKey]}</strong>
+                    <strong>{formValue(currentQuiz.verb, currentQuiz.targetFormKey)}</strong>
                   </span>
                 )}
               </div>
